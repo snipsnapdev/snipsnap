@@ -2,13 +2,13 @@ kind: pipeline
 name: default
 
 steps:
-  # - name: initial_notification
-  #   image: plugins/slack
-  #   settings:
-  #     webhook:
-  #       from_secret: slack_webhook
-  #     template: >
-  #       Repository: *{{repo.name}}*. Status: *Running*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+  - name: initial_notification
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      template: >
+        Repository: *{{repo.name}}*. Status: *Running*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
 
   - name: import
     image: node:12.14.0-alpine3.11
@@ -28,19 +28,16 @@ steps:
     when:
       branch: master
       event: push
-  # - name: build_status_notification
-  #   image: plugins/slack
-  #   settings:
-  #     webhook:
-  #       from_secret: slack_webhook
-  #     template: >
-  #       {{#success build.status}}
-  #       Repository: *{{repo.name}}*. Status: *Completed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
-  #       {{else}}
-  #       Repository: *{{repo.name}}*. Status: *Failed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
-  #       {{/success}}
-  #   when:
-  #     status: [success, failure]
-# services:
-#   - name: database
-#     image: postgres:12.1
+  - name: build_status_notification
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      template: >
+        {{#success build.status}}
+        Repository: *{{repo.name}}*. Status: *Completed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+        {{else}}
+        Repository: *{{repo.name}}*. Status: *Failed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+        {{/success}}
+    when:
+      status: [success, failure]
