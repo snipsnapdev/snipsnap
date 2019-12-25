@@ -1,0 +1,9 @@
+{
+  "nodeTestSnippet": {
+    "scope": "node, javascript",
+    "prefix": ["nodeTestSnippet", "nodeReq"],
+    "body": [
+      "http.get('http://www.usefulangle.com/api?api_key=554545', (response) => {\nlet chunks_of_data = [];\n\n response.on('data', (fragments) => { \nchunks_of_data.push(fragments); \n}); \n\nresponse.on('end', () => { \nlet response_body = Buffer.concat(chunks_of_data); \n\n\n// response body\nconsole.log(response_body.toString());\n});\n\n response.on('error', (error) => {\nconsole.log(error); \n});\n});\n"
+    ]
+  }
+}

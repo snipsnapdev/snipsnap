@@ -1,0 +1,7 @@
+{
+  "gatsbyTestSnippet": {
+    "scope": "javascript, javascriptreact",
+    "prefix": ["gatsbyTestSnippet, link"],
+    "body": ["import {Link} from 'gatsby'"]
+  }
+}
