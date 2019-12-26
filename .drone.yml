@@ -25,7 +25,7 @@ steps:
     commands:
       - apk add --no-cache git
       - git diff-tree --no-commit-id -r --name-status HEAD > diff.txt
-      - npx snipsnapdev/snipsnap-importer db:import:diff
+      - npx snipsnapdev/snipsnap-importer import:diff
     when:
       branch: master
       event: push
