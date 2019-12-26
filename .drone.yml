@@ -24,7 +24,8 @@ steps:
         from_secret: db_host_prod
     commands:
       - apk add --no-cache git
-      - npx snipsnapdev/snipsnap-importer
+      - git diff-tree --no-commit-id -r --name-status HEAD > diff.txt
+      - npx snipsnapdev/snipsnap-importer db:import:diff
     when:
       branch: master
       event: push
