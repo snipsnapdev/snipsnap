@@ -1,7 +1,7 @@
 {
   "testReactSnippet": {
     "scope": "javascript, javascriptreact",
-    "prefix": ["testReactSnippet", "danger", "dangerouslySetInnerHTML"],
+    "prefix": ["react testReactSnippet", "danger", "dangerouslySetInnerHTML"],
     "body": ["dangerouslySetInnerHTML={{ __html: $1 }}"]
   }
 }

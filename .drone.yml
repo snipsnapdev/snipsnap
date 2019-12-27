@@ -10,6 +10,12 @@ steps:
       template: >
         Repository: *{{repo.name}}*. Status: *Running*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
 
+  - name: validate
+    image: node:12.14.0-alpine3.11
+    commands:
+      - apk add --no-cache git
+      - npx snipsnapdev/snipsnap-importer validate
+
   - name: import
     image: node:12.14.0-alpine3.11
     environment:
