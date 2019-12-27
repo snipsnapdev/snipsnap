@@ -1,7 +1,0 @@
-{
-  "testReactSnippet": {
-    "scope": "javascript, javascriptreact",
-    "prefix": ["vue testReactSnippet", "danger", "dangerouslySetInnerHTML"],
-    "body": ["dangerouslySetInnerHTML={{ __html: $1 }}"]
-  }
-}
