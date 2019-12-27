@@ -1,5 +1,6 @@
 {
   "reactClassComponent": {
+    "scope": "javascript",
     "prefix": ["react class component"],
     "body": [
       "import React, { Component } from 'react';\n\nclass ${1:${TM_FILENAME_BASE}} extends Component {\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t$0\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nexport default ${1:${TM_FILENAME_BASE}};"
