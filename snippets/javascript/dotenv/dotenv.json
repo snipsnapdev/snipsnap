@@ -1,0 +1,28 @@
+{
+  "dotenv require": {
+    "scope": "javascript",
+    "prefix": ["dotenv require"],
+    "body": ["require('dotenv').config()"],
+    "description": "As early as possible in your application, require and configure dotenv."
+  },
+  "dotenv path": {
+    "scope": "javascript",
+    "prefix": ["dotenv path"],
+    "body": [
+      "require('dotenv').config({ path: '${1:/full/custom/path/to/your/env/vars}' })"
+    ],
+    "description": "You may specify a custom path if your file containing environment variables is located elsewhere."
+  },
+  "dotenv encoding": {
+    "scope": "javascript",
+    "prefix": ["dotenv encoding"],
+    "body": ["require('dotenv').config({ encoding: '${1:latin1}' })"],
+    "description": "You may specify the encoding of your file containing environment variables."
+  },
+  "dotenv debug": {
+    "scope": "javascript",
+    "prefix": ["dotenv debug"],
+    "body": ["require('dotenv').config({ debug: ${1|true,false|} })"],
+    "description": "You may turn on logging to help debug why certain keys or values are not being set as you expect."
+  }
+}
