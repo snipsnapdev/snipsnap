@@ -1,0 +1,26 @@
+{
+  "gatsby link": {
+    "scope": "javascript",
+    "prefix": ["gatsby link"],
+    "body": ["<Link to=\"${1:/blog}\">${2:Text}</Link>"]
+  },
+  "gatsby link activeStyle": {
+    "scope": "javascript",
+    "prefix": ["gatsby link activeStyle"],
+    "body": [
+      "<Link to=\"${1:/blog}\" activeStyle={{ ${2:color}: \"${3:red}\" }} >Text</Link>"
+    ]
+  },
+  "gatsby link activeClassName": {
+    "scope": "javascript",
+    "prefix": ["gatsby link activeClassName"],
+    "body": [
+      "<Link to=\"${1:/blog}\" activeClassName={\"${2:myActiveClassName}\"} >Text</Link>"
+    ]
+  },
+  "gatsby link import": {
+    "scope": "javascript",
+    "prefix": ["gatsby link import"],
+    "body": ["import { Link } from \"gatsby\""]
+  }
+}
