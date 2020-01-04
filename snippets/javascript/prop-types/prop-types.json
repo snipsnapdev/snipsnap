@@ -1,0 +1,186 @@
+{
+  "prop-types-import": {
+    "prefix": ["prop-types import", "impt"],
+    "body": ["import PropTypes from 'prop-types'", ""],
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-array": {
+    "prefix": ["prop-types array", "pta"],
+    "body": ["PropTypes.array,"],
+    "description": "Array prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-array-required": {
+    "prefix": ["prop-types array required", "ptar"],
+    "body": ["PropTypes.array.isRequired,"],
+    "description": "Array prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-bool": {
+    "prefix": ["prop-types bool", "ptb"],
+    "body": ["PropTypes.bool,"],
+    "description": "Bool prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-bool-required": {
+    "prefix": ["prop-types bool required", "ptbr"],
+    "body": ["PropTypes.bool.isRequired,"],
+    "description": "Bool prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-func": {
+    "prefix": ["prop-types func", "ptf"],
+    "body": ["PropTypes.func,"],
+    "description": "Func prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-func-required": {
+    "prefix": ["prop-types func required", "ptfr"],
+    "body": ["PropTypes.func.isRequired,"],
+    "description": "Func prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-number": {
+    "prefix": ["prop-types number", "ptn"],
+    "body": ["PropTypes.number,"],
+    "description": "Number prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-number-required": {
+    "prefix": ["prop-types number required", "ptnr"],
+    "body": ["PropTypes.number.isRequired,"],
+    "description": "Number prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-object": {
+    "prefix": ["prop-types object", "pto"],
+    "body": ["PropTypes.object,"],
+    "description": "Object prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-object-required": {
+    "prefix": ["prop-types object required", "ptor"],
+    "body": ["PropTypes.object.isRequired,"],
+    "description": "Object prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-string": {
+    "prefix": ["prop-types string", "pts"],
+    "body": ["PropTypes.string,"],
+    "description": "String prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-string-required": {
+    "prefix": ["prop-types string required", "ptsr"],
+    "body": ["PropTypes.string.isRequired,"],
+    "description": "String prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-node": {
+    "prefix": ["prop-types node", "ptnd"],
+    "body": ["PropTypes.node,"],
+    "description": "Anything that can be rendered: numbers, strings, elements or an array",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-node-required": {
+    "prefix": ["prop-types node required", "ptndr"],
+    "body": ["PropTypes.node.isRequired,"],
+    "description": "Anything that can be rendered: numbers, strings, elements or an array required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-element": {
+    "prefix": ["prop-types element", "ptel"],
+    "body": ["PropTypes.element,"],
+    "description": "React element prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-element-required": {
+    "prefix": ["prop-types element required", "ptelr"],
+    "body": ["PropTypes.element.isRequired,"],
+    "description": "React element prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-instance-of": {
+    "prefix": ["prop-types instanceof", "pti"],
+    "body": ["PropTypes.instanceOf($0),"],
+    "description": "Is an instance of a class prop type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-instance-of-required": {
+    "prefix": ["prop-types instanceof required", "ptir"],
+    "body": ["PropTypes.instanceOf($0).isRequired,"],
+    "description": "Is an instance of a class prop type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-enum": {
+    "prefix": ["prop-types enum", "pte"],
+    "body": ["PropTypes.oneOf(['$0']),"],
+    "description": "Prop type limited to specific values by treating it as an enum",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-enum-required": {
+    "prefix": ["prop-types enum required", "pter"],
+    "body": ["PropTypes.oneOf(['$0']).isRequired,"],
+    "description": "Prop type limited to specific values by treating it as an enum required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-one-of-type": {
+    "prefix": ["prop-types oneoftype", "ptet"],
+    "body": ["PropTypes.oneOfType([", "\t$0", "]),"],
+    "description": "An object that could be one of many types",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-one-of-type-required": {
+    "prefix": ["prop-types oneoftype required", "ptetr"],
+    "body": ["PropTypes.oneOfType([", "\t$0", "]).isRequired,"],
+    "description": "An object that could be one of many types required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-array-of": {
+    "prefix": ["prop-types arrayof", "ptao"],
+    "body": ["PropTypes.arrayOf($0),"],
+    "description": "An array of a certain type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-array-of-required": {
+    "prefix": ["prop-types arrayof required", "ptaor"],
+    "body": ["PropTypes.arrayOf($0).isRequired,"],
+    "description": "An array of a certain type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-object-of": {
+    "prefix": ["prop-types objectof", "ptoo"],
+    "body": ["PropTypes.objectOf($0),"],
+    "description": "An object with property values of a certain type",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-object-of-required": {
+    "prefix": ["prop-types objectof required", "ptoor"],
+    "body": ["PropTypes.objectOf($0).isRequired,"],
+    "description": "An object with property values of a certain type required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-shape": {
+    "prefix": ["prop-types shape", "ptsh"],
+    "body": ["PropTypes.shape({", "\t$0", "}),"],
+    "description": "An object taking on a particular shape",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-shape-required": {
+    "prefix": ["prop-types shape required", "ptshr"],
+    "body": ["PropTypes.shape({", "\t$0", "}).isRequired,"],
+    "description": "An object taking on a particular shape required",
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-static": {
+    "prefix": ["prop-types static", "ptypes"],
+    "body": ["static propTypes = {", "$0", "}", ""],
+    "scope": "javascript,javascriptreact"
+  },
+  "prop-type-any": {
+    "prefix": ["prop-types any", "ptany"],
+    "body": ["PropTypes.any,"],
+    "description": "Any prop type",
+    "scope": "javascript,javascriptreact"
+  }
+}
