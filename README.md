@@ -8,7 +8,7 @@
 ---
 ## Table of Contents
 
-- Snippets Format
+- [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
 
 ## Snippets Format
 
