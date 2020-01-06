@@ -1,7 +1,7 @@
 {
-  "gatsby-image useStaticQuery fluid": {
+  "gatsby-image-usestaticquery-fluid": {
     "scope": "javascript",
-    "prefix": ["gatsby-image useStaticQuery fluid"],
+    "prefix": ["gatsby-image usestaticquery fluid"],
     "body": [
       "const {",
       "  ${1:queryName}: { childImageSharp: {fluid: ${2:imageFluid}}}",
@@ -18,9 +18,9 @@
       "`)"
     ]
   },
-  "gatsby-image useStaticQuery fixed": {
+  "gatsby-image-usestaticquery-fixed": {
     "scope": "javascript",
-    "prefix": ["gatsby-image useStaticQuery fixed"],
+    "prefix": ["gatsby-image usestaticquery fixed"],
     "body": [
       "const {",
       "  ${1:queryName}: { childImageSharp: {fixed: ${2:imageFixed}}}",
@@ -37,14 +37,14 @@
       "`)"
     ]
   },
-  "gatsby-image import": {
+  "gatsby-image-import": {
     "scope": "javascript",
     "prefix": ["gatsby-image import"],
     "body": ["import ${1:Img} from 'gatsby-image';"]
   },
-  "gatsby-image import withIEPolyfill": {
+  "gatsby-image-import-withiepolyfill": {
     "scope": "javascript",
-    "prefix": ["gatsby-image import withIEPolyfill"],
+    "prefix": ["gatsby-image import withiepolyfill"],
     "body": ["import ${1:Img} from \"gatsby-image/withIEPolyfill\""]
   }
 }

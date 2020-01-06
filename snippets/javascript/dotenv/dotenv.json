@@ -1,11 +1,11 @@
 {
-  "dotenv require": {
+  "dotenv-require": {
     "scope": "javascript",
     "prefix": ["dotenv require"],
     "body": ["require('dotenv').config()"],
     "description": "As early as possible in your application, require and configure dotenv."
   },
-  "dotenv path": {
+  "dotenv-path": {
     "scope": "javascript",
     "prefix": ["dotenv path"],
     "body": [
@@ -13,13 +13,13 @@
     ],
     "description": "You may specify a custom path if your file containing environment variables is located elsewhere."
   },
-  "dotenv encoding": {
+  "dotenv-encoding": {
     "scope": "javascript",
     "prefix": ["dotenv encoding"],
     "body": ["require('dotenv').config({ encoding: '${1:latin1}' })"],
     "description": "You may specify the encoding of your file containing environment variables."
   },
-  "dotenv debug": {
+  "dotenv-debug": {
     "scope": "javascript",
     "prefix": ["dotenv debug"],
     "body": ["require('dotenv').config({ debug: ${1|true,false|} })"],

@@ -2,17 +2,14 @@
   "import-react": {
     "prefix": ["react import", "imr"],
     "body": ["import React from 'react'", ""],
-    "scope": "javascript,javascriptreact"
-  },
-  "import-react-dom": {
-    "prefix": ["react import reactdom", "imrd"],
-    "body": ["import ReactDOM from 'react-dom'", ""],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact",
+    "description": "import React"
   },
   "import-react-component": {
     "prefix": ["react import component", "imrc"],
     "body": ["import React, { Component } from 'react'", ""],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact",
+    "description": ""
   },
   "import-react-component-prop-types": {
     "prefix": ["react import component proptypes", "imrcp"],
