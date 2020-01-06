@@ -1,6 +1,6 @@
 {
   "import-react": {
-    "prefix": ["react import react", "imr"],
+    "prefix": ["react import", "imr"],
     "body": ["import React from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
@@ -10,12 +10,12 @@
     "scope": "javascript,javascriptreact"
   },
   "import-react-component": {
-    "prefix": ["react import react component", "imrc"],
+    "prefix": ["react import component", "imrc"],
     "body": ["import React, { Component } from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
   "import-react-component-prop-types": {
-    "prefix": ["react import react component proptypes", "imrcp"],
+    "prefix": ["react import component proptypes", "imrcp"],
     "body": [
       "import React, { Component } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -24,12 +24,12 @@
     "scope": "javascript,javascriptreact"
   },
   "import-react-purecomponent": {
-    "prefix": ["react import react purecomponent", "imrpc"],
+    "prefix": ["react import purecomponent", "imrpc"],
     "body": ["import React, { PureComponent } from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
   "import-react-pure-component-prop-types": {
-    "prefix": ["react import react purecomponent proptypes", "imrpcp"],
+    "prefix": ["react import purecomponent proptypes", "imrpcp"],
     "body": [
       "import React, { PureComponent } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -38,12 +38,12 @@
     "scope": "javascript,javascriptreact"
   },
   "import-react-memo": {
-    "prefix": ["react import react memo", "imrm"],
+    "prefix": ["react import memo", "imrm"],
     "body": ["import React, { memo } from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
   "import-react-memo-prop-types": {
-    "prefix": ["react import react memo proptypes", "imrmp"],
+    "prefix": ["react import memo proptypes", "imrmp"],
     "body": [
       "import React, { memo } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -52,17 +52,17 @@
     "scope": "javascript,javascriptreact"
   },
   "import-react-usestate": {
-    "prefix": ["react import react usestate", "imrs"],
+    "prefix": ["react import usestate", "imrs"],
     "body": ["import React, { useState } from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
   "import-react-usestate-useeffect": {
-    "prefix": ["react import react usestate useeffect", "imrse"],
+    "prefix": ["react import usestate useeffect", "imrse"],
     "body": ["import React, { useState, useEffect } from 'react'", ""],
     "scope": "javascript,javascriptreact"
   },
   "react-class-compoment": {
-    "prefix": ["react class compoment", "rcc"],
+    "prefix": ["react compoment class", "rcc"],
     "body": [
       "import React, { Component } from 'react'",
       "",
@@ -81,7 +81,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-export-component": {
-    "prefix": ["react class export component", "rce"],
+    "prefix": ["react component class export", "rce"],
     "body": [
       "import React, { Component } from 'react'",
       "",
@@ -101,8 +101,8 @@
     "description": "Creates a React component class with ES7 module system",
     "scope": "javascript,javascriptreact"
   },
-  "react-react-functional-export-component": {
-    "prefix": ["react functional export component", "rfce"],
+  "react-functional-export-component": {
+    "prefix": ["react component functional export", "rfce"],
     "body": [
       "import React from 'react'",
       "",
@@ -121,7 +121,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-functional-component": {
-    "prefix": ["react functional component", "rfc"],
+    "prefix": ["react component functional", "rfc"],
     "body": [
       "import React from 'react'",
       "",
@@ -138,7 +138,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-functional-component-with-proptypes": {
-    "prefix": ["react functional component with proptypes", "rfcp"],
+    "prefix": ["react component functional proptypes", "rfcp"],
     "body": [
       "import React from 'react'",
       "import PropTypes from 'prop-types'",
@@ -163,7 +163,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-arrow-function-export-component": {
-    "prefix": ["react arrow function export component", "rafce"],
+    "prefix": ["react component arrow function export", "rafce"],
     "body": [
       "import React from 'react'",
       "",
@@ -182,7 +182,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-arrow-function-component": {
-    "prefix": ["react arrow function component", "rafc"],
+    "prefix": ["react component arrow function", "rafc"],
     "body": [
       "import React from 'react'",
       "",
@@ -198,8 +198,8 @@
     "description": "Creates a React Arrow Function Component with ES7 module system",
     "scope": "javascript,javascriptreact"
   },
-  "react-arrow-function-component-with-proptypes": {
-    "prefix": ["react arrow function component with proptypes", "rafcp"],
+  "react-arrow-function-component-proptypes": {
+    "prefix": ["react component arrow function proptypes", "rafcp"],
     "body": [
       "import React from 'react'",
       "import PropTypes from 'prop-types'",
@@ -222,8 +222,8 @@
     "description": "Creates a React Arrow Function Component with ES7 module system with PropTypes",
     "scope": "javascript,javascriptreact"
   },
-  "react-class-export-component-with-proptypes": {
-    "prefix": ["react class export component with proptypes", "rcep"],
+  "react-class-export-component-proptypes": {
+    "prefix": ["react component class export proptypes", "rcep"],
     "body": [
       "import React, { Component } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -249,7 +249,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-pure-component": {
-    "prefix": ["react class pure component", "rpc"],
+    "prefix": ["react component class pure", "rpc"],
     "body": [
       "import React, { PureComponent } from 'react'",
       "",
@@ -268,7 +268,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-export-pure-component": {
-    "prefix": ["react class export pure component", "rpce"],
+    "prefix": ["react component class export pure", "rpce"],
     "body": [
       "import React, { PureComponent } from 'react'",
       "",
@@ -288,8 +288,8 @@
     "description": "Creates a React pure component class with ES7 module system export",
     "scope": "javascript,javascriptreact"
   },
-  "react-class-pure-component-with-proptypes": {
-    "prefix": ["react class pure component with proptypes", "rpcp"],
+  "react-class-pure-component-proptypes": {
+    "prefix": ["react component class pure with proptypes", "rpcp"],
     "body": [
       "import React, { PureComponent } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -313,7 +313,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-function-memo-component": {
-    "prefix": ["react function memo component", "rmc"],
+    "prefix": ["react component function memo", "rmc"],
     "body": [
       "import React, { memo } from 'react'",
       "",
@@ -329,8 +329,8 @@
     "description": "Creates a React Memo Function Component with ES7 module system",
     "scope": "javascript,javascriptreact"
   },
-  "react-function-memo-component-with-proptypes": {
-    "prefix": ["react function memo component with proptypes", "rmcp"],
+  "react-function-memo-component-proptypes": {
+    "prefix": ["react component function memo proptypes", "rmcp"],
     "body": [
       "import React, { memo } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -354,7 +354,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-compoment-proptypes": {
-    "prefix": ["react class compoment proptypes", "rccp"],
+    "prefix": ["react component class proptypes", "rccp"],
     "body": [
       "import React, { Component } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -378,7 +378,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-compoment-redux": {
-    "prefix": ["react classcompomentredux", "rcredux"],
+    "prefix": ["react compoment class redux", "rcredux"],
     "body": [
       "import React, { Component } from 'react'",
       "import { connect } from 'react-redux'",
@@ -408,7 +408,7 @@
     "scope": "javascript,javascriptreact"
   },
   "react-class-compoment-redux-proptypes": {
-    "prefix": ["react class compoment redux proptypes", "rcreduxp"],
+    "prefix": ["react compoment class redux proptypes", "rcreduxp"],
     "body": [
       "import React, { Component } from 'react'",
       "import PropTypes from 'prop-types'",
@@ -561,24 +561,24 @@
     "scope": "javascript,javascriptreact"
   },
   "react-component-set-state-func": {
-    "prefix": ["react componentsetstatefunc", "ssf"],
+    "prefix": ["react component setstate func", "ssf"],
     "body": ["this.setState((state, props) => { return { $0 }})", ""],
     "description": "Performs a shallow merge of nextState into current state",
     "scope": "javascript,javascriptreact"
   },
   "react-component-props": {
-    "prefix": ["react componentprops", "props"],
+    "prefix": ["react component props", "props"],
     "body": ["this.props.$0"],
     "description": "Access component's props",
     "scope": "javascript,javascriptreact"
   },
   "react-component-state": {
-    "prefix": ["react componentstate", "state"],
+    "prefix": ["react component state", "state"],
     "body": ["this.state.$0"],
     "scope": "javascript,javascriptreact"
   },
   "react-bind-this": {
-    "prefix": ["react bindthis", "bnd"],
+    "prefix": ["react bind this", "bnd"],
     "body": ["this.${1:methodName} = this.${1:methodName}.bind(this)$0"],
     "description": "Binds this to a method",
     "scope": "javascript,javascriptreact"
