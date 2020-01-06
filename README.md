@@ -20,7 +20,7 @@ Code snippet example:
 {
   "prop-types-import": {
     "prefix": ["prop-types import", "impt"],
-    "body": ["import PropTypes from 'prop-types'", ""],
+    "body": ["import PropTypes from 'prop-types'"],
     "scope": "javascript,javascriptreact"
 }
 ```
