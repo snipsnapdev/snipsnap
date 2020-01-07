@@ -1,0 +1,750 @@
+{
+  "vue-template": {
+    "prefix": ["vue template", "template"],
+    "body": [
+      "<template>",
+      "\t<${1:div}$2>",
+      "\t\t$0",
+      "\t</${1:div}>",
+      "</template>"
+    ],
+    "description": "template element",
+    "scope": "vue"
+  },
+  "vue-v-text": {
+    "prefix": ["vue v-text", "vtext"],
+    "body": ["v-text=\"${1:msg}\""],
+    "description": "Expects: string. Updates the element’s textContent.",
+    "scope": "vue-html"
+  },
+  "vue-v-html": {
+    "prefix": ["vue v-html", "vhtml"],
+    "body": ["v-html=\"${1:html}\""],
+    "description": "Expects: string. Updates the element’s innerHTML.",
+    "scope": "vue-html"
+  },
+  "vue-v-show": {
+    "prefix": ["vue v-show", "vshow"],
+    "body": ["v-show=\"${1:condition}\""],
+    "description": "Expects: any",
+    "scope": "vue-html"
+  },
+  "vue-v-if": {
+    "prefix": ["vue v-if", "vif"],
+    "body": ["v-if=\"${1:condition}\""],
+    "description": "Expects: any",
+    "scope": "vue-html"
+  },
+  "vue-v-else": {
+    "prefix": ["vue v-else", "velse"],
+    "body": ["v-else"],
+    "description": "Does not expect expression. previous sibling element must have v-if or v-else-if.",
+    "scope": "vue-html"
+  },
+  "vue-v-else-if": {
+    "prefix": ["vue v-else-if", "velseif"],
+    "body": ["v-else-if=\"${1:condition}\""],
+    "description": "Expects: any. previous sibling element must have v-if or v-else-if.",
+    "scope": "vue-html"
+  },
+  "vue-v-for-without-key": {
+    "prefix": ["vue v-for-without-key", "vforwithoutkey"],
+    "body": ["v-for=\"${1:item} in ${2:items}\""],
+    "description": "Expects: Array | Object | number | string",
+    "scope": "vue-html"
+  },
+  "vue-v-for": {
+    "prefix": ["vue v-for", "vfor"],
+    "body": [
+      "v-for=\"(${1:item}, ${2:index}) in ${3:items}\" :key=\"${4:index}\""
+    ],
+    "description": "Expects: Array | Object | number | string",
+    "scope": "vue-html"
+  },
+  "vue-v-on": {
+    "prefix": ["vue v-on", "von"],
+    "body": ["v-on:${1:event}=\"${2:handle}\""],
+    "description": "Expects: Function | Inline Statement",
+    "scope": "vue-html"
+  },
+  "vue-v-bind": {
+    "prefix": ["vue v-bind", "vbind"],
+    "body": ["v-bind$1=\"${2}\""],
+    "description": "Expects: any (with argument) | Object (without argument)",
+    "scope": "vue-html"
+  },
+  "vue-v-model": {
+    "prefix": ["vue v-model", "vmodel"],
+    "body": ["v-model=\"${1:something}\""],
+    "description": "Expects: varies based on value of form inputs element or output of components",
+    "scope": "vue-html"
+  },
+  "vue-v-pre": {
+    "prefix": ["vue v-pre", "vpre"],
+    "body": ["v-pre"],
+    "description": "Does not expect expression",
+    "scope": "vue-html"
+  },
+  "vue-v-cloak": {
+    "prefix": ["vue v-cloak", "vcloak"],
+    "body": ["v-cloak"],
+    "description": "Does not expect expression",
+    "scope": "vue-html"
+  },
+  "vue-v-once": {
+    "prefix": ["vue v-once", "vonce"],
+    "body": ["v-once"],
+    "description": "Does not expect expression",
+    "scope": "vue-html"
+  },
+  "vue-key": {
+    "prefix": ["vue key", "key"],
+    "body": [":key=\"${1:key}\""],
+    "description": "Expects: string. Children of the same common parent must have unique keys. Duplicate keys will cause render errors.",
+    "scope": "vue-html"
+  },
+  "vue-ref": {
+    "prefix": ["vue ref", "ref"],
+    "body": ["ref=\"${1:reference}\"$0"],
+    "description": "Expects: string. ref is used to register a reference to an element or a child component. The reference will be registered under the parent component’s $refs object. If used on a plain DOM element, the reference will be that element; if used on a child component, the reference will be component instance.",
+    "scope": "vue-html"
+  },
+  "vue-slota": {
+    "prefix": ["vue slota", "slota"],
+    "body": ["slot=\"$1\"$0"],
+    "description": "slot=''. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.",
+    "scope": "vue-html"
+  },
+  "vue-slote": {
+    "prefix": ["vue slote", "slote"],
+    "body": ["<slot$1>$2</slot>$0"],
+    "description": "<slot></slot>. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.",
+    "scope": "vue-html"
+  },
+  "vue-slotscope": {
+    "prefix": ["vue slotscope", "slotscope"],
+    "body": ["slot-scope=\"$1\"$0"],
+    "description": "Used to denote an element or component as a scoped slot. The attribute’s value should be a valid JavaScript expression that can appear in the argument position of a function signature. This means in supported environments you can also use ES2015 destructuring in the expression. Serves as a replacement for scope in 2.5.0+.",
+    "scope": "vue-html"
+  },
+  "vue-scope": {
+    "prefix": ["vue scope", "scope"],
+    "body": ["scope=\"${1:this api replaced by slot-scope in 2.5.0+}\"$0"],
+    "description": "Used to denote a <template> element as a scoped slot, which is replaced by `slot-scope` in 2.5.0+.",
+    "scope": "vue-html"
+  },
+  "vue-component": {
+    "prefix": ["vue component", "component"],
+    "body": ["<component :is=\"${1:componentId}\"></component>$0"],
+    "description": "component element",
+    "scope": "vue-html"
+  },
+  "vue-keep-alive": {
+    "prefix": ["vue keep-alive", "keepalive"],
+    "body": ["<keep-alive$1>", "$2", "</keep-alive>$0"],
+    "description": "keep-alive element",
+    "scope": "vue-html"
+  },
+  "vue-transition": {
+    "prefix": ["vue transition", "transition"],
+    "body": ["<transition$1>", "$2", "</transition>$0"],
+    "description": "transition element",
+    "scope": "vue-html"
+  },
+  "vue-transition-group": {
+    "prefix": ["vue transition-group", "transitiongroup"],
+    "body": ["<transition-group$1>", "$2", "</transition-group>"],
+    "description": "transition-group element",
+    "scope": "vue-html"
+  },
+  "vue-enter-class": {
+    "prefix": ["vue enter-class", "enterclass"],
+    "body": ["enter-class=\"$1\"$0"],
+    "description": "enter-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-leave-class": {
+    "prefix": ["vue leave-class", "leaveclass"],
+    "body": ["leave-class=\"$1\"$0"],
+    "description": "leave-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-appear-class": {
+    "prefix": ["vue appear-class", "appearclass"],
+    "body": ["appear-class=\"$1\"$0"],
+    "description": "appear-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-enter-to-class": {
+    "prefix": ["vue enter-to-class", "entertoclass"],
+    "body": ["enter-to-class=\"$1\"$0"],
+    "description": "enter-to-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-leave-to-class": {
+    "prefix": ["vue leave-to-class", "leavetoclass"],
+    "body": ["leave-to-class=\"$1\"$0"],
+    "description": "leave-to-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-appear-to-class": {
+    "prefix": ["vue appear-to-class", "appeartoclass"],
+    "body": ["appear-to-class=\"$1\"$0"],
+    "description": "appear-to-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-enter-active-class": {
+    "prefix": ["vue enter-active-class", "enteractiveclass"],
+    "body": ["enter-active-class=\"$1\"$0"],
+    "description": "enter-active-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-leave-active-class": {
+    "prefix": ["vue leave-active-class", "leaveactiveclass"],
+    "body": ["leave-active-class=\"$1\"$0"],
+    "description": "leave-active-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-appear-active-class": {
+    "prefix": ["vue appear-active-class", "appearactiveclass"],
+    "body": ["appear-active-class=\"$1\"$0"],
+    "description": "appear-active-class=''. Expects: string.",
+    "scope": "vue-html"
+  },
+  "vue-before-enter": {
+    "prefix": ["vue before-enter", "beforeenterevent"],
+    "body": ["@before-enter=\"$1\"$0"],
+    "description": "@before-enter=''",
+    "scope": "vue-html"
+  },
+  "vue-before-leave": {
+    "prefix": ["vue before-leave", "beforeleaveevent"],
+    "body": ["@before-leave=\"$1\"$0"],
+    "description": "@before-leave=''",
+    "scope": "vue-html"
+  },
+  "vue-before-appear": {
+    "prefix": ["vue before-appear", "beforeappearevent"],
+    "body": ["@before-appear=\"$1\"$0"],
+    "description": "@before-appear=''",
+    "scope": "vue-html"
+  },
+  "vue-enter": {
+    "prefix": ["vue enter", "enterevent"],
+    "body": ["@enter=\"$1\"$0"],
+    "description": "@enter=''",
+    "scope": "vue-html"
+  },
+  "vue-leave": {
+    "prefix": ["vue leave", "leaveevent"],
+    "body": ["@leave=\"$1\"$0"],
+    "description": "@leave=''",
+    "scope": "vue-html"
+  },
+  "vue-appear": {
+    "prefix": ["vue appear", "appearevent"],
+    "body": ["@appear=\"$1\"$0"],
+    "description": "@appear=''",
+    "scope": "vue-html"
+  },
+  "vue-after-enter": {
+    "prefix": ["vue after-enter", "afterenterevent"],
+    "body": ["@after-enter=\"$1\"$0"],
+    "description": "@after-enter=''",
+    "scope": "vue-html"
+  },
+  "vue-after-leave": {
+    "prefix": ["vue after-leave", "afterleaveevent"],
+    "body": ["@after-leave=\"$1\"$0"],
+    "description": "@after-leave=''",
+    "scope": "vue-html"
+  },
+  "vue-after-appear": {
+    "prefix": ["vue after-appear", "afterappearevent"],
+    "body": ["@after-appear=\"$1\"$0"],
+    "description": "@after-appear=''",
+    "scope": "vue-html"
+  },
+  "vue-enter-cancelled": {
+    "prefix": ["vue enter-cancelled", "entercancelledevent"],
+    "body": ["@enter-cancelled=\"$1\"$0"],
+    "description": "@enter-cancelled=''",
+    "scope": "vue-html"
+  },
+  "vue-leave-cancelled": {
+    "prefix": ["vue leave-cancelled", "leavecancelledevent"],
+    "body": ["@leave-cancelled=\"$1\"$0"],
+    "description": "@leave-cancelled='' (v-show only)",
+    "scope": "vue-html"
+  },
+  "vue-appear-cancelled": {
+    "prefix": ["vue appear-cancelled", "appearcancelledevent"],
+    "body": ["@appear-cancelled=\"$1\"$0"],
+    "description": "@appear-cancelled=''",
+    "scope": "vue-html"
+  },
+  "vue-routerlink": {
+    "prefix": ["vue routerlink", "routerlink"],
+    "body": ["<router-link $1>$2</router-link>$0"],
+    "description": "router-link element",
+    "scope": "vue-html"
+  },
+  "vue-routerlinkto": {
+    "prefix": ["vue routerlinkto", "routerlinkto"],
+    "body": ["<router-link to=\"$1\">$2</router-link>$0"],
+    "description": "<router-link to=''></router-link>. router-link element",
+    "scope": "vue-html"
+  },
+  "vue-to": {
+    "prefix": ["vue to", "to"],
+    "body": ["to=\"$1\"$0"],
+    "description": "to=''",
+    "scope": "vue-html"
+  },
+  "vue-tag": {
+    "prefix": ["vue tag", "tag"],
+    "body": ["tag=\"$1\"$0"],
+    "description": "tag=''",
+    "scope": "vue-html"
+  },
+  "vue-routerview": {
+    "prefix": ["vue routerview", "routerview"],
+    "body": ["<router-view>$1</router-view>$0"],
+    "description": "router-view element",
+    "scope": "vue-html"
+  },
+  "vue-data": {
+    "prefix": ["vue data", "vdata"],
+    "body": ["data() {", "\treturn {", "\t\t${1:key}: ${2:value}", "\t}", "},"],
+    "description": "Vue Component Data",
+    "scope": "vue"
+  },
+  "vue-methods": {
+    "prefix": ["vue methods", "vmethod"],
+    "body": ["methods: {", "\t${1:name}() {", "\t\t${0}", "\t}", "},"],
+    "description": "vue method",
+    "scope": "vue"
+  },
+  "vue-computed": {
+    "prefix": ["vue computed", "vcomputed"],
+    "body": [
+      "computed: {",
+      "\t${1:name}() {",
+      "\t\treturn this.${2:data} ${0}",
+      "\t}",
+      "},"
+    ],
+    "description": "computed value",
+    "scope": "vue"
+  },
+  "vue-lifecycle-beforecreate": {
+    "prefix": ["vue lifecycle beforecreate", "vbeforecreate"],
+    "body": ["beforeCreate () {", "\t${0};", "},"],
+    "description": "beforeCreate lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-created": {
+    "prefix": ["vue lifecycle created", "vcreated"],
+    "body": ["created () {", "\t${0};", "},"],
+    "description": "created lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-beforemount": {
+    "prefix": ["vue lifecycle beforemount", "vbeforemount"],
+    "body": ["beforeMount () {", "\t${0};", "},"],
+    "description": "beforeMount lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-mounted": {
+    "prefix": ["vue lifecycle mounted", "vmounted"],
+    "body": ["mounted () {", "\t${0};", "},"],
+    "description": "mounted lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-beforeupdate": {
+    "prefix": ["vue lifecycle beforeupdate", "vbeforeupdate"],
+    "body": ["beforeUpdate () {", "\t${0};", "},"],
+    "description": "beforeUpdate lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-updated": {
+    "prefix": ["vue lifecycle updated", "vupdated"],
+    "body": ["updated () {", "\t${0};", "},"],
+    "description": "updated lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-beforedestroy": {
+    "prefix": ["vue lifecycle beforedestroy", "vbeforedestroy"],
+    "body": ["beforeDestroy () {", "\t${0};", "},"],
+    "description": "beforeDestroy lifecycle method",
+    "scope": "vue"
+  },
+  "vue-lifecycle-destroyed": {
+    "prefix": ["vue lifecycle destroyed", "vdestroyed"],
+    "body": ["destroyed () {", "\t${0};", "},"],
+    "description": "destroyed lifecycle method",
+    "scope": "vue"
+  },
+  "vue-watchers": {
+    "prefix": ["vue watchers", "vwatcher"],
+    "body": [
+      "watch: {",
+      "\t${1:data}(${2:newValue}, ${3:oldValue}) {",
+      "\t\t${0}",
+      "\t}",
+      "},"
+    ],
+    "description": "vue watcher",
+    "scope": "vue"
+  },
+  "vue-watchers-with-options": {
+    "prefix": ["vue watchers with options", "vwatcher-options"],
+    "body": [
+      "watch: {",
+      "\t${1:data}: {",
+      "\t\timmediate: ${2:true},",
+      "\t\tdeep: ${3:true},",
+      "\t\thandler(${4:newValue}, ${5:oldValue}) {",
+      "\t\t\t${0}",
+      "\t\t}",
+      "\t}",
+      "},"
+    ],
+    "description": "vue watcher with options",
+    "scope": "vue"
+  },
+  "vue-props-with-default": {
+    "prefix": ["vue props with default", "vprops"],
+    "body": [
+      "props: {",
+      "\t${1:propName}: {",
+      "\t\ttype: ${2:Number},",
+      "\t\tdefault: ${0}",
+      "\t},",
+      "},"
+    ],
+    "description": "Vue Props with Default",
+    "scope": "vue"
+  },
+  "vue-import-file": {
+    "prefix": ["vue import file", "vimport"],
+    "body": ["import ${1:New} from '@/components/${1:New}.vue';"],
+    "description": "Import one component into another",
+    "scope": "vue"
+  },
+  "vue-import-into-the-component": {
+    "prefix": ["vue import into the component", "vcomponents"],
+    "body": ["components: {", "\t${1:New},", "},"],
+    "description": "Import one component into another, within export statement",
+    "scope": "vue"
+  },
+  "vue-import-export": {
+    "prefix": ["vue import export", "vimport-export"],
+    "body": [
+      "import ${1:Name} from '@/components/${1:Name}.vue'",
+      "",
+      "export default {",
+      "\tcomponents: {",
+      "\t\t${1:Name}",
+      "\t},",
+      "}"
+    ],
+    "description": "import a component and include it in export default",
+    "scope": "vue"
+  },
+  "vue-mapstate": {
+    "prefix": ["vue mapstate", "vmapstate"],
+    "body": [
+      "import { mapState } from 'vuex'",
+      "",
+      "export default {",
+      "\tcomputed: {",
+      "\t\t...mapState([",
+      "\t\t\t${1:'nameOfState'},",
+      "\t\t])",
+      "\t},",
+      "}"
+    ],
+    "description": "map getters inside a vue component",
+    "scope": "vue"
+  },
+  "vue-mapgetters": {
+    "prefix": ["vue mapgetters", "vmapgetters"],
+    "body": [
+      "import { mapGetters } from 'vuex'",
+      "",
+      "export default {",
+      "\tcomputed: {",
+      "\t\t...mapGetters([",
+      "\t\t\t${1:'nameOfGetter'},",
+      "\t\t])",
+      "\t},",
+      "}"
+    ],
+    "description": "mapgetters inside a vue component",
+    "scope": "vue"
+  },
+  "vue-mapmutations": {
+    "prefix": ["vue mapmutations", "vmapmutations"],
+    "body": [
+      "import { mapMutations } from 'vuex'",
+      "",
+      "export default {",
+      "\tmethods: {",
+      "\t\t...mapMutations([",
+      "\t\t\t${1:'nameOfMutation'}, //also supports payload `this.nameOfMutation(amount)` ",
+      "\t\t])",
+      "\t},",
+      "}"
+    ],
+    "description": "mapmutations inside a vue component",
+    "scope": "vue"
+  },
+  "vue-mapactions": {
+    "prefix": ["vue mapactions", "vmapactions"],
+    "body": [
+      "import { mapActions } from 'vuex'",
+      "",
+      "export default {",
+      "\tmethods: {",
+      "\t\t...mapActions([",
+      "\t\t\t${1:'nameOfAction'}, //also supports payload `this.nameOfAction(amount)` ",
+      "\t\t])",
+      "\t},",
+      "}"
+    ],
+    "description": "mapactions inside a vue component",
+    "scope": "vue"
+  },
+  "vue-filter": {
+    "prefix": ["vue filter", "vfilter"],
+    "body": [
+      "filters: {",
+      "\t${1:fnName}: function(${2:value}) {",
+      "\t\treturn ${2:value}${0};",
+      "\t}",
+      "}"
+    ],
+    "description": "vue filter",
+    "scope": "vue"
+  },
+  "vue-mixin": {
+    "prefix": ["vue mixin", "vmixin"],
+    "body": [
+      "const ${1:mixinName} = {",
+      "\tmounted() {",
+      "\t\tconsole.log('hello from mixin!')",
+      "\t},",
+      "}"
+    ],
+    "description": "vue mixin",
+    "scope": "vue"
+  },
+  "vue-use-mixin": {
+    "prefix": ["vue use mixin", "vmixin-use"],
+    "body": ["mixins: [${1:mixinName}],"],
+    "description": "vue use mixin",
+    "scope": "vue"
+  },
+  "vue-custom-directive": {
+    "prefix": ["vue custom directive", "vc-direct"],
+    "body": [
+      "Vue.directive('${1:directiveName}', {",
+      "\tbind(el, binding, vnode) {",
+      "\t\tel.style.${2:arg} = binding.value.${2:arg};",
+      "\t}",
+      "});"
+    ],
+    "description": "vue custom directive",
+    "scope": "vue"
+  },
+  "vue-import-library": {
+    "prefix": ["vue import library", "vimport-lib"],
+    "body": ["import { ${1:libName} } from '${1:libName}'"],
+    "description": "import a library",
+    "scope": "vue"
+  },
+  "vue-import-gsap": {
+    "prefix": ["vue import gsap", "vimport-gsap"],
+    "body": ["import { TimelineMax, ${1:Ease} } from 'gsap'"],
+    "description": "component methods options that dispatch an action from vuex store.",
+    "scope": "vue"
+  },
+  "vue-transition-methods-with-javascript-hooks": {
+    "prefix": ["vue transition methods with javascript hooks", "vanimhook-js"],
+    "body": [
+      "beforeEnter(el) {",
+      "\tconsole.log('beforeEnter');",
+      "},",
+      "enter(el, done) {",
+      "\tconsole.log('enter');",
+      "\tdone();",
+      "},",
+      "beforeLeave(el) {",
+      "\tconsole.log('beforeLeave');",
+      "},",
+      "leave(el, done) {",
+      "\tconsole.log('leave');",
+      "\tdone();",
+      "},"
+    ],
+    "description": "transition component js hooks",
+    "scope": "vue"
+  },
+  "vue-commit-vuex-store-in-methods": {
+    "prefix": ["vue commit vuex store in methods", "vcommit"],
+    "body": [
+      "${1:mutationName}() {",
+      "\tthis.\\$store.commit('${1:mutationName}', ${2:payload})",
+      "}"
+    ],
+    "description": "commit to vuex store in methods for mutation",
+    "scope": "vue"
+  },
+  "vue-dispatch-vuex-store-in-methods": {
+    "prefix": ["vue dispatch vuex store in methods", "vdispatch"],
+    "body": [
+      "${1:actionName}() {",
+      "\tthis.\\$store.dispatch('${1:actionName}', ${2:payload})",
+      "}"
+    ],
+    "description": "dispatch to vuex store in methods for action",
+    "scope": "vue"
+  },
+  "vue-incrementer": {
+    "prefix": ["vue incrementer", "vinc"],
+    "body": ["return ${1:this.num} += ${2:1}"],
+    "description": "increment",
+    "scope": "vue"
+  },
+  "vue-decrementer": {
+    "prefix": ["vue decrementer", "vdec"],
+    "body": ["return ${1:this.num} -= ${2:1}"],
+    "description": "decrement",
+    "scope": "vue"
+  },
+  "vue-unit-test": {
+    "prefix": ["vue unit test", "vtest"],
+    "body": [
+      "import Vue from 'vue'",
+      "import ${1:HelloWorld} from './components/${1:HelloWorld}'",
+      "",
+      "describe('${1:HelloWorld}.vue', () => {",
+      "\tit('${2:should render correct contents}', () => {",
+      "\t\tconst Constructor = Vue.extend(${1:HelloWorld})",
+      "\t\tconst vm = new Constructor().$mount()",
+      "\t\texpect(vm.$el.querySelector('.hello h1').textContent)",
+      "\t\t\t.to.equal(${3:'Welcome to Your Vue.js App'})",
+      "\t})",
+      "})"
+    ],
+    "description": "unit test component",
+    "scope": "vue"
+  },
+  "vue-vue-config-js-import": {
+    "prefix": ["vue vue.config.js import", "vconfig"],
+    "body": [
+      "module.exports = {",
+      "\tcss: {",
+      "\t\tloaderOptions: {",
+      "\t\t\t${1:sass}: {",
+      "\t\t\t\tdata: `${2:@import '@/styles/_variables.scss';}`",
+      "\t\t\t}",
+      "\t\t}",
+      "\t}",
+      "}"
+    ],
+    "description": "vue.config.js",
+    "scope": "vue"
+  },
+  "vue-single-file-component": {
+    "prefix": ["vue base"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script>",
+      "\texport default {",
+      "\t\t${0}",
+      "\t}",
+      "</script>",
+      "",
+      "<style lang=\"scss\" scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File with SCSS",
+    "scope": "vue"
+  },
+  "vue-single-file-component-with-postcss": {
+    "prefix": ["vue base postcss"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script>",
+      "\texport default {",
+      "\t\t${0}",
+      "\t}",
+      "</script>",
+      "",
+      "<style lang=\"postcss\" scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File with PostCSS",
+    "scope": "vue"
+  },
+  "vue-single-file-component-with-css": {
+    "prefix": ["vue base css"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script>",
+      "\texport default {",
+      "\t\t${0}",
+      "\t}",
+      "</script>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File with CSS",
+    "scope": "vue"
+  },
+  "vue-single-file-component-with-typescript": {
+    "prefix": ["vue base ts"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script lang=\"ts\">",
+      "\timport Vue from 'vue'",
+      "",
+      "\texport default Vue.extend({",
+      "\t\t${0}",
+      "\t})",
+      "</script>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File with Typescript",
+    "scope": "vue"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "vuex-store": {
+    "prefix": ["vuex store", "vstore"],
+    "body": [
+      "import Vue from 'vue';",
+      "import Vuex from 'vuex';",
+      "",
+      "Vue.use(Vuex);",
+      "",
+      "export const store = new Vuex.Store({",
+      "\tstate: {",
+      "\t\t${1:key}: ${2:value}",
+      "\t}",
+      "});"
+    ],
+    "description": "Base for Vuex store",
+    "scope": "vue"
+  },
+  "vuex-getters": {
+    "prefix": ["vuex getters", "vgetter"],
+    "body": [
+      "getters: {",
+      "\t${1:value}: state => {",
+      "\t\treturn state.${1:value};",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex getter",
+    "scope": "vue"
+  },
+  "vuex-mutation": {
+    "prefix": ["vuex mutation", "vmutation"],
+    "body": [
+      "mutations: {",
+      "\t${1:updateValue}(state, ${3:payload}) {",
+      "\t\tstate.${2:value} = ${3:payload};",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex mutation",
+    "scope": "vue"
+  },
+  "vuex-action": {
+    "prefix": ["vuex action", "vaction"],
+    "body": [
+      "actions: {",
+      "\t${1:updateValue}({commit}, ${2:payload}) {",
+      "\t\tcommit('${1:updateValue}', ${2:payload});",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex action",
+    "scope": "vue"
+  },
+  "vuex-import-store": {
+    "prefix": ["vuex import store", "vstore-import"],
+    "body": ["import { store } from './store/index';"],
+    "description": "import vuex store into main.js",
+    "scope": "vue"
+  },
+  "vuex-module": {
+    "prefix": ["vuex module", "vmodule"],
+    "body": [
+      "export default {",
+      "\tstate: {",
+      "\t\tvalue: 'my value'",
+      "\t},",
+      "\tgetters: {",
+      "\t\tvalue: state => {",
+      "\t\t\treturn state.value;",
+      "\t\t}",
+      "\t},",
+      "\tmutations: {",
+      "\t\tupdateValue(state, payload) {",
+      "\t\t\tstate.value = payload;",
+      "\t\t}",
+      "\t},",
+      "\tactions: {",
+      "\t\tupdateValue({commit}, payload) {",
+      "\t\t\tcommit('updateValue', payload);",
+      "\t\t}",
+      "\t}",
+      "};"
+    ],
+    "description": "vuex module",
+    "scope": "vue"
+  },
+  "vuex-store-2": {
+    "prefix": ["vuex store 2", "vstore2"],
+    "body": [
+      "export const state = () => ({",
+      "\tvalue: 'myvalue'",
+      "})",
+      "",
+      "export const getters = {",
+      "\tgetterValue: state => {",
+      "\t\treturn state.value",
+      "\t}",
+      "}",
+      "",
+      "export const mutations = {",
+      "\tupdateValue: (state, payload) => {",
+      "\t\tstate.value = payload",
+      "\t}",
+      "}",
+      "",
+      "export const actions = {",
+      "\tupdateActionValue({ commit }) {",
+      "\t\tcommit('updateValue', payload)",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex store 2",
+    "scope": "vue"
+  }
+}
