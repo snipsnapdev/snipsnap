@@ -1,0 +1,380 @@
+{
+  "yup-reach": {
+    "body": ["yup.reach()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup reach"],
+    "description": "yup.reach(schema: Schema, path: string, value?: object, context?: object): Schema\n\nFor nested schemas yup.reach will retrieve a nested schema based on the provided path.For nested schemas that need to resolve dynamically, you can provide a value and optionally\na context object.let schema = object().shape({\n  nested: object().shape({\n    arr: array().of(object().shape({ num: number().max(4) }))\n  })\n});\n\nreach(schema, \"nested.arr.num\");\nreach(schema, \"nested.arr[].num\");\nreach(schema, \"nested.arr[1].num\");\nreach(schema, 'nested[\"arr\"][1].num');\n"
+  },
+  "yup-add-method": {
+    "body": ["yup.addMethod()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup addmethod"],
+    "description": "yup.addMethod(schemaType: Schema, name: string, method: ()=> Schema): void\n\nAdds a new method to the core schema types. A friendlier convenience method for schemaType.prototype[name] = method.yup.addMethod(yup.date, \"format\", function(formats, parseStrict) {\n  return this.transform(function(value, originalValue) {\n    if (this.isType(value)) return value;\n\n    value = Moment(originalValue, formats, parseStrict);\n\n    return value.isValid() ? value.toDate() : new Date(\"\");\n  });\n});\n"
+  },
+  "yup-ref": {
+    "body": ["yup.ref()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup ref"],
+    "description": "yup.ref(path: string, options: { contextPrefix: string }): Ref\n\nCreates a reference to another sibling or sibling descendant field. Refs are resolved\nat validation/cast time and supported where specified. Refs are evaluated in the proper order so that\nthe ref value is resolved before the field using the ref (be careful of circular dependencies!).let schema = object({\n  baz: ref(\"foo.bar\"),\n  foo: object({\n    bar: string()\n  }),\n  x: ref(\"$x\")\n});\n\nschema.cast({ foo: { bar: \"boom\" } }, { context: { x: 5 } });\n// => { baz: 'boom',  x: 5, foo: { bar: 'boom' } }\n"
+  },
+  "yup-lazy": {
+    "body": ["yup.lazy()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup lazy"],
+    "description": "yup.lazy((value: any) => Schema): Lazy\n\nCreates a schema that is evaluated at validation/cast time. Useful for creating\nrecursive schema like Trees, for polymorphic fields and arrays.CAUTION! When defining parent-child recursive object schema, you want to reset the default()\nto undefined on the child otherwise the object will infinitely nest itself when you cast it!.let node = object({\n  id: number(),\n  child: yup.lazy(() => node.default(undefined))\n});\n\nlet renderable = yup.lazy(value => {\n  switch (typeof value) {\n    case \"number\":\n      return number();\n    case \"string\":\n      return string();\n    default:\n      return mixed();\n  }\n});\n\nlet renderables = array().of(renderable);\n"
+  },
+  "mixed-clone": {
+    "body": ["mixed.clone()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed clone"],
+    "description": "mixed.clone(): Schema\n\nCreates a deep copy of the schema. Clone is used internally to return a new schema with every schema state change."
+  },
+  "mixed-label": {
+    "body": ["mixed.label()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed label"],
+    "description": "mixed.label(label: string): Schema\n\nOverrides the key name which is used in error messages."
+  },
+  "mixed-meta": {
+    "body": ["mixed.meta()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed meta"],
+    "description": "mixed.meta(metadata: object): Schema\n\nAdds to a metadata object, useful for storing data with a schema, that doesn't belong\nthe cast object itself."
+  },
+  "mixed-describe": {
+    "body": ["mixed.describe()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed describe"],
+    "description": "mixed.describe(): SchemaDescription\n\nCollects schema details (like meta, labels, and active tests) into a serializable\ndescription object.SchemaDescription {\n  type: string,\n  label: string,\n  meta: object,\n  tests: Array<{ name: string, params: object }>\n}\n"
+  },
+  "mixed-concat": {
+    "body": ["mixed.concat()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed concat"],
+    "description": "mixed.concat(schema: Schema)\n\nCreates a new instance of the schema by combining two schemas. Only schemas of the same type can be concatenated."
+  },
+  "mixed-validate": {
+    "body": ["mixed.validate()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed validate"],
+    "description": "mixed.validate(value: any, options?: object): Promise<any, ValidationError>\n\nReturns the value (a cast value if isStrict is false) if the value is valid, and returns the errors otherwise.\nThis method is asynchronous and returns a Promise object, that is fulfilled with the value, or rejected\nwith a ValidationError.The options argument is an object hash containing any schema options you may want to override\n(or specify for the first time).Options = {\n  strict: boolean = false;\n  abortEarly: boolean = true;\n  stripUnknown: boolean = false;\n  recursive: boolean = true;\n  context?: object;\n}\n\nstrict: only validate the input, and skip and coercion or transformation\nabortEarly: return from validation methods on the first error rather\nthan after all validations run.\nstripUnknown: remove unspecified keys from objects.\nrecursive: when false validations will not descend into nested schema\n(relevant for objects or arrays).\ncontext: any context needed for validating schema conditions (see: when())\nschema.validate({ name: \"jimmy\", age: 24 }).then(function(value) {\n  value; // => { name: 'jimmy',age: 24 }\n});\n\nschema.validate({ name: \"jimmy\", age: \"hi\" }).catch(function(err) {\n  err.name; // => 'ValidationError'\n  err.errors; // => ['age must be a number']\n});\n"
+  },
+  "mixed-validate-sync": {
+    "body": ["mixed.validateSync()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed validatesync"],
+    "description": "mixed.validateSync(value: any, options?: object): any\n\nRuns validatations synchronously if possible and returns the resulting value,\nor throws a ValidationError. Accepts all the same options as validate.Synchronous validation only works if there are no configured async tests, e.g tests that return a Promise.\nFor instance this will work:let schema = number().test(\n  \"is-42\",\n  \"this isn't the number i want\",\n  value => value != 42\n);\n\nschema.validateSync(23); // throws ValidationError\nhowever this will not:let schema = number().test(\"is-42\", \"this isn't the number i want\", value =>\n  Promise.resolve(value != 42)\n);\n\nschema.validateSync(42); // throws Error\n"
+  },
+  "mixed-validate-at": {
+    "body": ["mixed.validateAt()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed validateat"],
+    "description": "mixed.validateAt(path: string, value: any, options?: object): Promise<any, ValidationError>\n\nValidate a deeply nested path within the schema. Similar to how reach works,\nbut uses the resulting schema as the subject for validation.\nNote! The value here is the root value relative to the starting schema, not the value at the nested path.\nlet schema = object({\n  foo: array().of(\n    object({\n      loose: boolean(),\n      bar: string().when(\"loose\", {\n        is: true,\n        otherwise: s => s.strict()\n      })\n    })\n  )\n});\n\nlet rootValue = {\n  foo: [{ bar: 1 }, { bar: 1, loose: true }]\n};\n\nawait schema.validateAt(\"foo[0].bar\", rootValue); // => ValidationError: must be a string\n\nawait schema.validateAt(\"foo[1].bar\", rootValue); // => '1'\n"
+  },
+  "mixed-validate-sync-at": {
+    "body": ["mixed.validateSyncAt()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed validatesyncat"],
+    "description": "mixed.validateSyncAt(path: string, value: any, options?: object): any\n\nSame as validateAt but synchronous."
+  },
+  "mixed-is-valid": {
+    "body": ["mixed.isValid()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed isvalid"],
+    "description": "mixed.isValid(value: any, options?: object): Promise<boolean>\n\nReturns true when the passed in value matches the schema. isValid\nis asynchronous and returns a Promise object.Takes the same options as validate()."
+  },
+  "mixed-is-valid-sync": {
+    "body": ["mixed.isValidSync()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed isvalidsync"],
+    "description": "mixed.isValidSync(value: any, options?: object): boolean\n\nSynchronously returns true when the passed in value matches the schema.Takes the same options as validateSync() and has the same caveats around async tests."
+  },
+  "mixed-cast": {
+    "body": ["mixed.cast()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed cast"],
+    "description": "mixed.cast(value: any, options = {}): any\n\nAttempts to coerce the passed in value to a value that matches the schema. For example: '5' will\ncast to 5 when using the number() type. Failed casts generally return null, but may also\nreturn results like NaN and unexpected strings.options parameter can be an object containing context. (For more info on context see mixed.validate)"
+  },
+  "mixed-is-type": {
+    "body": ["mixed.isType()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed istype"],
+    "description": "mixed.isType(value: any): boolean\n\nRuns a type check against the passed in value. It returns true if it matches,\nit does not cast the value. When nullable() is set null is considered a valid value of the type.\nYou should use isType for all Schema type checks."
+  },
+  "mixed-strict": {
+    "body": ["mixed.strict()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed strict"],
+    "description": "mixed.strict(isStrict: boolean = false): Schema\n\nSets the strict option to true. Strict schemas skip coercion and transformation attempts,\nvalidating the value \"as is\"."
+  },
+  "mixed-strip": {
+    "body": ["mixed.strip()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed strip"],
+    "description": "mixed.strip(stripField: boolean = true): Schema\n\nMarks a schema to be removed from an output object. Only works as a nested schema.let schema = object({\n  useThis: number(),\n  notThis: string().strip()\n});\n\nschema.cast({ notThis: \"foo\", useThis: 4 }); // => { useThis: 4 }\n"
+  },
+  "mixed-with-mutation": {
+    "body": ["mixed.withMutation()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed withmutation"],
+    "description": "mixed.withMutation(builder: (current: Schema) => void): void\n\nFirst the legally required Rich Hickey quote:\nIf a tree falls in the woods, does it make a sound?\nIf a pure function mutates some local data in order to produce an immutable return value, is that ok?\nwithMutation allows you to mutate the schema in place, instead of the default behavior which clones before each change.\nGenerally this isn't necessary since the vast majority of schema changes happen during the initial\ndeclaration, and only happen once over the lifetime of the schema, so performance isn't an issue.\nHowever certain mutations do occur at cast/validation time, (such as conditional schema using when()), or\nwhen instantiating a schema object.object()\n  .shape({ key: string() })\n  .withMutation(schema => {\n    return arrayOfObjectTests.forEach(test => {\n      schema.test(test);\n    });\n  });\n"
+  },
+  "mixed-default": {
+    "body": ["mixed.default()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed default"],
+    "description": "mixed.default(): Any\n\nCalling default with no arguments will return the current default value"
+  },
+  "mixed-nullable": {
+    "body": ["mixed.nullable()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed nullable"],
+    "description": "mixed.nullable(isNullable: boolean = true): Schema\n\nIndicates that null is a valid value for the schema. Without nullable()\nnull is treated as a different type and will fail isType() checks."
+  },
+  "mixed-required": {
+    "body": ["mixed.required()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed required"],
+    "description": "mixed.required(message?: string | function): Schema\n\nMark the schema as required. All field values apart from undefined and null meet this requirement."
+  },
+  "mixed-not-required": {
+    "body": ["mixed.notRequired()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed notrequired"],
+    "description": "mixed.notRequired(): Schema\n\nMark the schema as not required. Passing undefined as value will not fail validation."
+  },
+  "mixed-type-error": {
+    "body": ["mixed.typeError()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed typeerror"],
+    "description": "mixed.typeError(message: string): Schema\n\nDefine an error message for failed type checks. The ${value} and ${type} interpolation can\nbe used in the message argument."
+  },
+  "mixed-one-of": {
+    "body": ["mixed.oneOf()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed oneof"],
+    "description": "mixed.oneOf(arrayOfValues: Array<any>, message?: string | function): Schema Alias: equals\n\nWhitelist a set of values. Values added are automatically removed from any blacklist if they are in it.\nThe ${values} interpolation can be used in the message argument.Note that undefined does not fail this validator, even when undefined is not included in arrayOfValues.\nIf you don't want undefined to be a valid value, you can use mixed.required.let schema = yup.mixed().oneOf([\"jimmy\", 42]);\n\nawait schema.isValid(42); // => true\nawait schema.isValid(\"jimmy\"); // => true\nawait schema.isValid(new Date()); // => false\n"
+  },
+  "mixed-not-one-of": {
+    "body": ["mixed.notOneOf()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed notoneof"],
+    "description": "mixed.notOneOf(arrayOfValues: Array<any>, message?: string | function)\n\nBlacklist a set of values. Values added are automatically removed from any whitelist if they are in it.\nThe ${values} interpolation can be used in the message argument.let schema = yup.mixed().notOneOf([\"jimmy\", 42]);\n\nawait schema.isValid(42); // => false\nawait schema.isValid(new Date()); // => true\n"
+  },
+  "mixed-when": {
+    "body": ["mixed.when()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed when"],
+    "description": "mixed.when(keys: string | Array<string>, builder: object | (value, schema)=> Schema): Schema\n\nAdjust the schema based on a sibling or sibling children fields. You can provide an object\nliteral where the key is is value or a matcher function, then provides the true schema and/or\notherwise for the failure condition.is conditions are strictly compared (===) if you want to use a different form of equality you\ncan provide a function like: is: (value) => value == true.Like joi you can also prefix properties with $ to specify a property that is dependent\non context passed in by validate() or isValid. when conditions are additive.let schema = object({\n  isBig: boolean(),\n  count: number()\n    .when(\"isBig\", {\n      is: true, // alternatively: (val) => val == true\n      then: yup.number().min(5),\n      otherwise: yup.number().min(0)\n    })\n    .when(\"$other\", (other, schema) => (other === 4 ? schema.max(6) : schema))\n});\n\nawait schema.validate(value, { context: { other: 4 } });\nYou can also specify more than one dependent key, in which case each value will be spread as an argument.let schema = object({\n  isSpecial: boolean(),\n  isBig: boolean(),\n  count: number().when([\"isBig\", \"isSpecial\"], {\n    is: true, // alternatively: (isBig, isSpecial) => isBig && isSpecial\n    then: yup.number().min(5),\n    otherwise: yup.number().min(0)\n  })\n});\n\nawait schema.validate({\n  isBig: true,\n  isSpecial: true,\n  count: 10\n});\nAlternatively you can provide a function that returns a schema\n(called with the value of the key and the current schema).let schema = yup.object({\n  isBig: yup.boolean(),\n  count: yup.number().when(\"isBig\", (isBig, schema) => {\n    return isBig ? schema.min(5) : schema.min(0);\n  })\n});\n\nawait schema.validate({ isBig: false, count: 4 });\n"
+  },
+  "mixed-test": {
+    "body": ["mixed.test()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed test"],
+    "description": "mixed.test(options: object): Schema\n\nAlternative test(..) signature. options is an object containing some of the following options:Options = {\n  // unique name identifying the test\n  name: string;\n  // test function, determines schema validity\n  test: (value: any) => boolean;\n  // the validation error message\n  message: string;\n  // values passed to message for interpolation\n  params: ?object;\n  // mark the test as exclusive, meaning only one of the same can be active at once\n  exclusive: boolean = false;\n}\nIn the case of mixing exclusive and non-exclusive tests the following logic is used.\nIf a non-exclusive test is added to a schema with an exclusive test of the same name\nthe exclusive test is removed and further tests of the same name will be stacked.If an exclusive test is added to a schema with non-exclusive tests of the same name\nthe previous tests are removed and further tests of the same name will replace each other.let max = 64;\nlet schema = yup.mixed().test({\n  name: \"max\",\n  exclusive: true,\n  params: { max },\n  message: \"${path} must be less than ${max} characters\",\n  test: value => value == null || value.length <= max\n});\n"
+  },
+  "mixed-transform": {
+    "body": ["mixed.transform()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup mixed transform"],
+    "description": "mixed.transform((currentValue: any, originalValue: any) => any): Schema\n\nAdds a transformation to the transform chain. Transformations are central to the casting process,\ndefault transforms for each type coerce values to the specific type (as verified by isType()).\ntransforms are run before validations and only applied when strict is true. Some types have built in transformations.Transformations are useful for arbitrarily altering how the object is cast, however, you should take care\nnot to mutate the passed in value. Transforms are run sequentially so each value represents the\ncurrent state of the cast, you can use the originalValue param if you need to work on the raw initial value.let schema = string().transform(function(value, originalvalue) {\n  return this.isType(value) && value !== null ? value.toUpperCase() : value;\n});\n\nschema.cast(\"jimmy\"); // => 'JIMMY'\nEach types will handle basic coercion of values to the proper type for you, but occasionally\nyou may want to adjust or refine the default behavior. For example, if you wanted to use a different\ndate parsing strategy than the default one you could do that with a transform.module.exports = function(formats = \"MMM dd, yyyy\") {\n  return date().transform(function(value, originalvalue) {\n    // check to see if the previous transform already parsed the date\n    if (this.isType(value)) return value;\n\n    // the default coercion failed so lets try it with Moment.js instead\n    value = Moment(originalValue, formats);\n\n    // if its valid return the date object, otherwise return an `InvalidDate`\n    return value.isValid() ? value.toDate() : new Date(\"\");\n  });\n};\nstringDefine a string schema. Supports all the same methods as mixed.let schema = yup.string();\n\nawait schema.isValid(\"hello\"); // => true\nBy default, the cast logic of string is to call toString on the value if it exists.\nempty values are not coerced (use ensure() to coerce empty values to empty strings).Failed casts return the input value."
+  },
+  "string-required": {
+    "body": ["string.required()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string required"],
+    "description": "string.required(message?: string | function): Schema\n\nThe same as the mixed() schema required, except that empty strings are also considered 'missing' values."
+  },
+  "string-length": {
+    "body": ["string.length()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string length"],
+    "description": "string.length(limit: number | Ref, message?: string | function): Schema\n\nSet a required length for the string value. The ${length} interpolation can be used in the message argument"
+  },
+  "string-min": {
+    "body": ["string.min()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string min"],
+    "description": "string.min(limit: number | Ref, message?: string | function): Schema\n\nSet a minimum length limit for the string value. The ${min} interpolation can be used in the message argument"
+  },
+  "string-max": {
+    "body": ["string.max()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string max"],
+    "description": "string.max(limit: number | Ref, message?: string | function): Schema\n\nSet a maximum length limit for the string value. The ${max} interpolation can be used in the message argument"
+  },
+  "string-matches": {
+    "body": ["string.matches()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string matches"],
+    "description": "string.matches(regex: Regex, options: { message: string, excludeEmptyString: bool }): Schema\n\nAn alternate signature for string.matches with an options object. excludeEmptyString, when true,\nshort circuits the regex test when the value is an empty stringlet schema = string().matches(/(hi|bye)/, { excludeEmptyString: true });\n\nawait schema.isValid(\"\"); // => true\n"
+  },
+  "string-email": {
+    "body": ["string.email()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string email"],
+    "description": "string.email(message?: string | function): Schema\n\nValidates the value as an email address via a regex."
+  },
+  "string-url": {
+    "body": ["string.url()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string url"],
+    "description": "string.url(message?: string | function): Schema\n\nValidates the value as a valid URL via a regex."
+  },
+  "string-ensure": {
+    "body": ["string.ensure()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string ensure"],
+    "description": "string.ensure(): Schema\n\nTransforms undefined and null values to an empty string along with\nsetting the default to an empty string."
+  },
+  "string-trim": {
+    "body": ["string.trim()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string trim"],
+    "description": "string.trim(message?: string | function): Schema\n\nTransforms string values by removing leading and trailing whitespace. If\nstrict() is set it will only validate that the value is trimmed."
+  },
+  "string-lowercase": {
+    "body": ["string.lowercase()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string lowercase"],
+    "description": "string.lowercase(message?: string | function): Schema\n\nTransforms the string value to lowercase. If strict() is set it\nwill only validate that the value is lowercase."
+  },
+  "string-uppercase": {
+    "body": ["string.uppercase()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup string uppercase"],
+    "description": "string.uppercase(message?: string | function): Schema\n\nTransforms the string value to uppercase. If strict() is set it\nwill only validate that the value is uppercase.numberDefine a number schema. Supports all the same methods as mixed.let schema = yup.number();\n\nawait schema.isValid(10); // => true\nThe default cast logic of number is: parseFloat.Failed casts return NaN."
+  },
+  "number-min": {
+    "body": ["number.min()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number min"],
+    "description": "number.min(limit: number | Ref, message?: string | function): Schema\n\nSet the minimum value allowed. The ${min} interpolation can be used in the\nmessage argument."
+  },
+  "number-max": {
+    "body": ["number.max()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number max"],
+    "description": "number.max(limit: number | Ref, message?: string | function): Schema\n\nSet the maximum value allowed. The ${max} interpolation can be used in the\nmessage argument."
+  },
+  "number-less-than": {
+    "body": ["number.lessThan()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number lessthan"],
+    "description": "number.lessThan(max: number | Ref, message?: string | function): Schema\n\nValue must be less than max. The ${less} interpolation can be used in the\nmessage argument."
+  },
+  "number-more-than": {
+    "body": ["number.moreThan()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number morethan"],
+    "description": "number.moreThan(min: number | Ref, message?: string | function): Schema\n\nValue must be strictly greater than min. The ${more} interpolation can be used in the\nmessage argument."
+  },
+  "number-positive": {
+    "body": ["number.positive()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number positive"],
+    "description": "number.positive(message?: string | function): Schema\n\nValue must be a positive number."
+  },
+  "number-negative": {
+    "body": ["number.negative()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number negative"],
+    "description": "number.negative(message?: string | function): Schema\n\nValue must be a negative number."
+  },
+  "number-integer": {
+    "body": ["number.integer()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number integer"],
+    "description": "number.integer(message?: string | function): Schema\n\nValidates that a number is an integer."
+  },
+  "number-truncate": {
+    "body": ["number.truncate()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number truncate"],
+    "description": "number.truncate(): Schema\n\nTransformation that coerces the value to an integer by stripping off the digits\nto the right of the decimal point."
+  },
+  "number-round": {
+    "body": ["number.round()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup number round"],
+    "description": "number.round(type: 'floor' | 'ceil' | 'trunc' | 'round' = 'round'): Schema\n\nAdjusts the value via the specified method of Math (defaults to 'round').booleanDefine a boolean schema. Supports all the same methods as mixed.let schema = yup.boolean();\n\nawait schema.isValid(true); // => true\ndateDefine a Date schema. By default ISO date strings will parse correctly,\nfor more robust parsing options see the extending schema types at the end of the readme.\nSupports all the same methods as mixed.let schema = yup.date();\n\nawait schema.isValid(new Date()); // => true\nThe default cast logic of date is pass the value to the Date constructor, failing that, it will attempt\nto parse the date as an ISO date string.Failed casts return an invalid Date."
+  },
+  "date-min": {
+    "body": ["date.min()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup date min"],
+    "description": "date.min(limit: Date | string | Ref, message?: string | function): Schema\n\nSet the minimum date allowed. When a string is provided it will attempt to cast to a date first\nand use the result as the limit."
+  },
+  "date-max": {
+    "body": ["date.max()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup date max"],
+    "description": "date.max(limit: Date | string | Ref, message?: string | function): Schema\n\nSet the maximum date allowed, When a string is provided it will attempt to cast to a date first\nand use the result as the limit.arrayDefine an array schema. Arrays can be typed or not, When specifying the element type, cast and isValid\nwill apply to the elements as well. Options passed into isValid are passed also passed to child schemas.\nSupports all the same methods as mixed.let schema = yup.array().of(yup.number().min(2));\n\nawait schema.isValid([2, 3]); // => true\nawait schema.isValid([1, -24]); // => false\n\nschema.cast([\"2\", \"3\"]); // => [2, 3]\nYou can also pass a subtype schema to the array constructor as a convenience.array().of(yup.number());\n// or\narray(yup.number());\nThe default cast behavior for array is: JSON.parseFailed casts return: null;"
+  },
+  "array-of": {
+    "body": ["array.of()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array of"],
+    "description": "array.of(type: Schema): Schema\n\nSpecify the schema of array elements. of() is optional and when omitted the array schema will\nnot validate its contents."
+  },
+  "array-required": {
+    "body": ["array.required()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array required"],
+    "description": "array.required(message?: string | function): Schema\n\nThe same as the mixed() schema required, except that empty arrays are also considered 'missing' values."
+  },
+  "array-min": {
+    "body": ["array.min()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array min"],
+    "description": "array.min(limit: number | Ref, message?: string | function): Schema\n\nSet a minimum length limit for the array. The ${min} interpolation can be used in the message argument."
+  },
+  "array-max": {
+    "body": ["array.max()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array max"],
+    "description": "array.max(limit: number | Ref, message?: string | function): Schema\n\nSet a maximum length limit for the array. The ${max} interpolation can be used in the message argument."
+  },
+  "array-ensure": {
+    "body": ["array.ensure()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array ensure"],
+    "description": "array.ensure(): Schema\n\nEnsures that the value is an array, by setting the default to [] and transforming null and undefined\nvalues to an empty array as well. Any non-empty, non-array value will be wrapped in an array.array()\n  .ensure()\n  .cast(null); // => []\narray()\n  .ensure()\n  .cast(1); // => [1]\narray()\n  .ensure()\n  .cast([1]); // => [1]\n"
+  },
+  "array-compact": {
+    "body": ["array.compact()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup array compact"],
+    "description": "array.compact(rejector: (value) => boolean): Schema\n\nRemoves falsey values from the array. Providing a rejecter function lets you specify the rejection criteria yourself.array()\n  .compact()\n  .cast([\"\", 1, 0, 4, false, null]); // => [1, 4]\n\narray()\n  .compact(function(v) {\n    return v == null;\n  })\n  .cast([\"\", 1, 0, 4, false, null]); // => ['', 1, 0, 4, false]\nobjectDefine an object schema. Options passed into isValid are also passed to child schemas.\nSupports all the same methods as mixed.yup.object().shape({\n  name: string().required(),\n  age: number()\n    .required()\n    .positive()\n    .integer(),\n  email: string().email(),\n  website: string().url()\n});\nYou can also pass a shape to the object constructor as a convenience.object().shape({\n  num: number()\n});\n// or\nobject({\n  num: number()\n});\nThe default cast behavior for object is: JSON.parseFailed casts return: null;"
+  },
+  "object-shape": {
+    "body": ["object.shape()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup object shape"],
+    "description": "object.shape(fields: object, noSortEdges?: Array<[string, string]>): Schema\n\nDefine the keys of the object and the schemas for said keys.Note that you can chain shape method, which acts like object extends, for example:object({\n  a: string(),\n  b: number()\n}).shape({\n  b: string(),\n  c: number()\n});\nwould be exactly the same as:object({\n  a: string(),\n  b: string(),\n  c: number()\n});\n"
+  },
+  "object-from": {
+    "body": ["object.from()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup object from"],
+    "description": "object.from(fromKey: string, toKey: string, alias: boolean = false): Schema\n\nTransforms the specified key to a new key. If alias is true then the old key will be left.let schema = object({\n  myProp: mixed(),\n  Other: mixed()\n})\n  .from(\"prop\", \"myProp\")\n  .from(\"other\", \"Other\", true);\n\nschema.cast({ prop: 5, other: 6 }); // => { myProp: 5, other: 6, Other: 6 }\n"
+  },
+  "object-no-unknown": {
+    "body": ["object.noUnknown()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup object nounknown"],
+    "description": "object.noUnknown(onlyKnownKeys: boolean = true, message?: string | function): Schema\n\nValidate that the object value only contains keys specified in shape, pass false as the first\nargument to disable the check. Restricting keys to known, also enables stripUnknown option, when not in strict mode."
+  },
+  "object-camel-case": {
+    "body": ["object.camelCase()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup object camelcase"],
+    "description": "object.camelCase(): Schema\n\nTransforms all object keys to camelCase"
+  },
+  "object-constant-case": {
+    "body": ["object.constantCase()"],
+    "scope": "javascript,javascriptreact",
+    "prefix": ["yup object constantcase"],
+    "description": "object.constantCase(): Schema\n\nTransforms all object keys to CONSTANT_CASE.Extending Schema TypesThe simplest way to extend an existing type is just to cache a configured schema and use that through your application.let yup = require(\"yup\");\nlet parseFormats = [\"MMM dd, yyy\"];\nlet invalidDate = new Date(\"\");\n\nmodule.exports = yup.date().transform(function(value, originalValue) {\n  if (this.isType(value)) return value;\n  // the default coercion transform failed so lets try it with Moment instead\n  value = Moment(originalValue, parseFormats);\n  return value.isValid() ? value.toDate() : invalidDate;\n});\nAlternatively, each schema is a normal JavaScript constructor function that you can mutate or delegate to\nusing the normal patterns. Generally you should not inherit from mixed unless you know what you are doing,\nbetter to think of it as an abstract class. The other types are fair game though.You should keep in mind some basic guidelines when extending schemas\nnever mutate an existing schema, always clone() and then mutate the new one before returning it.\nBuilt-in methods like test and transform take care of this for you, so you can safely use them (see below) without worrying\ntransforms should never mutate the value passed in, and should return an invalid object when one exists\n(NaN, InvalidDate, etc) instead of null for bad values.\nby the time validations run the value is guaranteed to be the correct type, however if nullable is\nset then null is a valid value for that type, so don't assume that a property or method exists on the value.\nAdjust core Typeslet invalidDate = new Date(\"\");\n\nfunction parseDateFromFormats(formats, parseStrict) {\n  return this.transform(function(value, originalValue) {\n    if (this.isType(value)) return value;\n\n    value = Moment(originalValue, formats, parseStrict);\n\n    return value.isValid() ? value.toDate() : invalidDate;\n  });\n}\n\n// `addMethod` doesn't do anything special it's\n// equivalent to: yup.date.prototype.format = parseDateFromFormats\nyup.addMethod(yup.date, \"format\", parseDateFromFormats);\nCreating new TypesYup schema use the common constructor pattern for modeling inheritance. You can use any\nutility or pattern that works with that pattern. The below demonstrates using the es6 class\nsyntax since its less verbose, but you absolutely aren't required to use it.let DateSchema = yup.date;\nlet invalidDate = new Date(\"\"); // our failed to coerce value\n\nclass MomentDateSchemaType extends DateSchema {\n  constructor() {\n    super();\n    this._validFormats = [];\n\n    this.withMutation(() => {\n      this.transform(function(value, originalvalue) {\n        if (this.isType(value))\n          // we have a valid value\n          return value;\n        return Moment(originalValue, this._validFormats, true);\n      });\n    });\n  }\n\n  _typeCheck(value) {\n    return (\n      super._typeCheck(value) || (moment.isMoment(value) && value.isValid())\n    );\n  }\n\n  format(formats) {\n    if (!formats) throw new Error(\"must enter a valid format\");\n    let next = this.clone();\n    next._validFormats = {}.concat(formats);\n  }\n}\n\nlet schema = new MomentDateSchemaType();\n\nschema.format(\"YYYY-MM-DD\").cast(\"It is 2012-05-25\"); // => Fri May 25 2012 00:00:00 GMT-0400 (Eastern Daylight Time)\nTypeScript SupportIf you are using TypeScript installing the Yup typings is recommendednpm install -D @types/yup\nYou can now infer a TypeScript type alias using the exported InferType. Given the following Yup schema:import * as yup from 'yup';\n\nconst personSchema = yup.object({\n  firstName: yup\n    .string(),\n  nickName: yup\n    .string()\n    .nullable(),\n  gender: yup\n    .mixed<'male' | 'female' | 'other'>()\n    .oneOf(['male', 'female', 'other']),\n  email: yup\n    .string()\n    .nullable()\n    .notRequired()\n    .email(),\n  birthDate: yup\n    .date()\n    .nullable()\n    .notRequired()\n    .min(new Date(1900, 0, 1)),\n});\nYou can derive the TypeScript type as follows:type Person = yup.InferType<typeof personSchema>;\nWhich is equivalent to the following TypeScript type alias:type Person = {\n  firstName: string;\n  nickName: string | null;\n  gender: \"male\" | \"female\" | \"other\";\n  email?: string | null | undefined;\n  birthDate?: Date | null | undefined;\n}\nMaking the following objects valid both for TypeScript and Yup validation:const minimalPerson: Person = {\n    firstName: \"Matt\",\n    nickName: null,\n    gender: \"male\"\n};\n\nconst fullPerson: Person = {\n    firstName: \"Matt\",\n    nickName: \"The Hammer\",\n    gender: \"male\",\n    email: \"matt@the-hammer.com\",\n    birthDate: new Date(1976, 9, 5)\n};\n"
+  }
+}
