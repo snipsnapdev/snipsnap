@@ -182,5 +182,14 @@
     "body": ["PropTypes.any,"],
     "description": "Any prop type",
     "scope": "javascript,javascriptreact"
+  },
+  "prop-type-init": {
+    "prefix": ["prop-types init"],
+    "body": [
+      "${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}.propTypes = {",
+      " ${2:property}: ${3:PropTypes.node.isRequired},",
+      "}"
+    ],
+    "scope": "javascript,javascriptreact"
   }
 }
