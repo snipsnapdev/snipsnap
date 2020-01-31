@@ -4,5 +4,10 @@
     "body": ["const [ref, inView, entry] = useInView(options)"],
     "description": "The new React Hooks make it easier than ever to monitor the inView state of your components. Call the useInView hook with the (optional) options you need. It will return an array containing a ref, the inView status and the current IntersectionObserverEntry. Assign the ref to the DOM element you want to monitor, and the hook will report the status. \n\nOptions\nroot(type: Element, default: window, required: false)\nThe Element that is used as the viewport for checking visibility of the target. Defaults to the browser viewport (window) if not specified or if null.\n\nrootMargin(type: String, default: '0px', required: false)\nMargin around the root. Can have values similar to the CSS margin property.\n\nthreshold(type: Number, default: 0, required: false)\nNumber between 0 and 1 indicating the percentage that should be visible before triggering. Can also be an array of numbers, to create multiple trigger points.\n\ntriggerOnce(type: Boolean, default: false, required: false)\nOnly trigger this method once",
     "prefix": ["react-intersection-observer useinview", "rio useinview"]
+  },
+  "react-intersection-observer-import": {
+    "scope": "javascript,javascriptreact",
+    "body": ["import useInView from 'react-intersection-observer';"],
+    "prefix": ["react-intersection-observer import", "rio import"]
   }
 }
