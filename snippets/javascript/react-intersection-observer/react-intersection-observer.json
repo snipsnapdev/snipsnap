@@ -7,7 +7,7 @@
   },
   "react-intersection-observer-import": {
     "scope": "javascript,javascriptreact",
-    "body": ["import useInView from 'react-intersection-observer';"],
+    "body": ["import { useInView } from 'react-intersection-observer';"],
     "prefix": ["react-intersection-observer import", "rio import"]
   }
 }
