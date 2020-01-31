@@ -5,10 +5,19 @@
 </a>
 </h4>
 
+![out](https://user-images.githubusercontent.com/2697570/73568644-23bc0180-4469-11ea-8b64-843c7a9a92d2.gif)
+
 ---
 ## Table of Contents
-
+- [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
 - [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
+
+## How it works
+Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
+
+Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
+
+All snippets currently present in this repository and follow guidelines described below.
 
 ## Snippets Format
 
