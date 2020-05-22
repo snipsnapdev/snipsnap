@@ -10,10 +10,10 @@
     "body": [
       "import { createStore, applyMiddleware } from 'redux';",
       "import thunk from 'redux-thunk';",
-      "import rootReducer from './reducers/index';",
+      "import ${1:rootReducer} from '${1:./reducers/index}';",
       "",
       "const store = createStore(",
-      "  rootReducer,",
+      "  ${1:rootReducer},",
       "  applyMiddleware(thunk)",
       ");"
     ],
