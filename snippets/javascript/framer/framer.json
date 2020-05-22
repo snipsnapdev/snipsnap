@@ -1,0 +1,86 @@
+{
+  "framer-import": {
+    "prefix": ["framer import", "framer"],
+    "body": ["import { motion } from 'framer-motion'", ""],
+    "scope": "javascript,javascriptreact",
+    "description": "Framer provides helpers for advanced physics-based animation, complex touch-based gestures and common components for scrolling, paging and interface flows. It’s designed to allow beginners to explore digital product ideas without boundaries."
+  },
+  "framer-motion": {
+    "prefix": ["framer motion", "motion"],
+    "body": [
+      " <motion.${div}",
+      "    initial=\"hidden\"",
+      "    animate=\"visible\"",
+      "    variants={variants}",
+      "  ></motion.${div}>"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "Motion shares the simple animation and gesture API as the Framer X library, while maintaining HTML and SVG semantics. This makes it simple to port your high-fidelity prototypes to a production-ready environment, or make something completely new!"
+  },
+  "framer-variants": {
+    "prefix": ["framer variants", "variants"],
+    "body": [
+      "  const variants = {",
+      "    hidden: {",
+      "      opacity: 0,",
+      "    },",
+      "    visible: {",
+      "      opacity: 1,",
+      "      transition: {",
+      "        delay: ${1:1},",
+      "        duration: ${2:1},",
+      "      },",
+      "    },",
+      "  };"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "They're passed into motion components via the variants prop. <motion.div variants={variants} /> These variants can be referred to by label, wherever you can set an animation target."
+  },
+  "framer-sequence": {
+    "prefix": ["framer sequence"],
+    "body": [
+      "const sequence = async () => {",
+      "  await menuControls.start({ x: 0 })",
+      "  return await itemControls.start({ opacity: 1 })",
+      "}"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "start returns a Promise, so it can be used to sequence animations using await or then. Different controls can be sequenced together, and these sequences can be composed into functions that themselves can then be sequenced."
+  },
+  "framer-use-animation": {
+    "prefix": ["framer use-animation"],
+    "body": ["const controls = useAnimation()"],
+    "scope": "javascript,javascriptreact",
+    "description": "useMotionValue(initial) Declarative animations are ideal for most UI interactions. But sometimes we need to orchestrate more complex sequences. The useAnimation hook can be used to create a set of imperative AnimationControls with a start and stop method. These controls can be passed to one or more motion components via the animate prop."
+  },
+  "framer-use-motion-value": {
+    "prefix": ["framer use-motion-value"],
+    "body": ["const scale = useMotionValue(${1})"],
+    "scope": "javascript,javascriptreact",
+    "description": "Creates a MotionValue to track the state and velocity of a value. Usually, these are created automatically. For advanced use-cases, like use with useTransform, you can create MotionValues externally and pass them into the animated component via the style prop."
+  },
+  "framer-use-cycle": {
+    "prefix": ["framer use-cycle"],
+    "body": ["const [x, cycleX] = useCycle(${1:0}, ${2:50}, ${3:100})"],
+    "scope": "javascript,javascriptreact",
+    "description": "Cycles through a series of visual properties. Can be used to toggle between or cycle through animations. It works similar to useState in React. It is provided an initial array of possible states, and returns an array of two arguments. An index value can be passed to the returned cycle function to cycle to a specific index."
+  },
+  "framer-use-reduce-motion": {
+    "prefix": ["framer use-reduce"],
+    "body": ["const shouldReduceMotion = useReducedMotion()"],
+    "scope": "javascript,javascriptreact",
+    "description": "A hook that returns true if we should be using reduced motion based on the current device's Reduced Motion setting. This can be used to implement changes to your UI based on Reduced Motion. For instance, replacing motion-sickness inducing x/y animations with opacity, disabling the autoplay of background videos, or turning off parallax motion. It will actively respond to changes and re-render your components with the latest setting."
+  },
+  "framer-use-presence": {
+    "prefix": ["framer use-presence"],
+    "body": ["const [isPresent, safeToRemove] = usePresence()"],
+    "scope": "javascript,javascriptreact",
+    "description": "When a component is the child of AnimatePresence, it can use usePresence to access information about whether it's still present in the React tree. If isPresent is false, it means that a component has been removed the tree, but AnimatePresence won't really remove it until safeToRemove has been called."
+  },
+  "framer-use-drag-controls": {
+    "prefix": ["framer use-drag-controls"],
+    "body": ["const dragControls = useDragControls()"],
+    "scope": "javascript,javascriptreact",
+    "description": "Usually, dragging is initiated by pressing down on a motion component with a drag prop and moving it. For some use-cases, for instance clicking at an arbitrary point on a video scrubber, we might want to initiate that dragging from a different component than the draggable one. By creating a dragControls using the useDragControls hook, we can pass this into the draggable component's dragControls prop. It exposes a start method that can start dragging from pointer events on other components."
+  }
+}
