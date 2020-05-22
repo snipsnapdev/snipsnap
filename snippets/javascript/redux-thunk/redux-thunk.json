@@ -1,0 +1,24 @@
+{
+  "redux-thunk-import": {
+    "prefix": ["redux-thunk import"],
+    "body": ["import thunk from 'redux-thunk';", ""],
+    "scope": "javascript,javascriptreact",
+    "deskription": "Import thunk from redux-thunk"
+  },
+  "redux-thunk-store": {
+    "prefix": ["redux-thunk createStore"],
+    "body": [
+      "import { createStore, applyMiddleware } from 'redux';",
+      "import thunk from 'redux-thunk';",
+      "",
+      "import rootReducer from './reducers/index';",
+      "",
+      "const store = createStore(",
+      "  rootReducer,",
+      "  applyMiddleware(thunk)",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact",
+    "deskription": "Create store with thunk template"
+  }
+}
