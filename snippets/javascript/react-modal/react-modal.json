@@ -9,9 +9,9 @@
     "prefix": ["react-modal component", "rmc"],
     "body": [
       "import React, { useState } from 'react';",
-      "import ReactModal from 'shared/modal';",
+      "import Modal from 'react-modal';",
       "",
-      "const ${1:Modal} = () => {",
+      "const ${1:CustomModal} = () => {",
       "  const [showModal, setShowModal] = useState(false);",
       "",
       "  const handleOpenModal = () => {",
@@ -25,7 +25,7 @@
       "  return (",
       "    <>",
       "      <button onClick={handleOpenModal}>Open modal</button>",
-      "      <ReactModal ",
+      "      <Modal ",
       "        open={showModal} ",
       "        ${2:shouldCloseOnOverlayClick} ",
       "        contentLabel={${3:contentLabel}} ",
@@ -34,12 +34,12 @@
       "        style={${5:customStyles}}>",
       "        <button onClick={handleCloseModal}>Close modal</button>",
       "        ${:content}",
-      "      </ReactModal>",
+      "      </Modal>",
       "    </>",
       "  );",
       "};",
       "",
-      "export default ${1:Modal};"
+      "export default ${1:CustomModal};"
     ],
     "scope": "javascript,javascriptreact",
     "description": "Template for react modal"
