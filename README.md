@@ -31,6 +31,8 @@
 
 ---
 ## Table of Contents
+- [What problem Snipsnap is trying to solve?](https://github.com/snipsnapdev/snipsnap#what-problem-snipsnap-is-trying-to-solve)
+- [Our plans and vision](https://github.com/snipsnapdev/snipsnap#how-it-works)
 - [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
 - [Contributing](https://github.com/snipsnapdev/snipsnap#contributing)
 - [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
@@ -55,6 +57,16 @@ Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on
 Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
 
 All snippets currently present in this repository and follow guidelines described below.
+
+## Our plans and vision
+
+Current version could be called as MVP and there just for the one purpose – test the idea and get first feedbacks. If you like extension - star the repository, tell us about your experience or [help us to improve the project](https://github.com/snipsnapdev/snipsnap#contributing).
+
+We don't want to stop just on having snippets for Javascript. We want to make it standard for all popular languages and their package managers. So cover Ruby, Go, Python, PHP libraries also in our plans.
+
+We believe that snippets could become a perfect solution for providing simple documentation and examples. Code snippets should become the part of packages repositories like README files. You build your library, you put snippets together with it in .snipsnap.json file and then we fetch it.
+
+Having standartised collection could allow us to write extensions and coverters for all popular IDE's, that will finally make code snippets independent from IDE. Let's say in couple of years the new awesome IDE will be release, instead of writing whole batch of snippets for new IDE you will be able to just continue use Snipsnap and the collection you already created.
 
 ## Contributing
 
