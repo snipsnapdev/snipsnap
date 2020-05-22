@@ -12,6 +12,16 @@
 - [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
 - [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
 
+## Contributing
+
+We encourage you to contribute to Snipsnap. Only with your help we can build really amazing collection of snippets that adapts to your needs. 
+
+1. [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the project.
+2. If you add snippets for a new library - create folder inside `snippets/javascript` with the library name. Put inside that folder json file with your snippets. JSON file and folder name should be exactly the same as NPM package name, otherwise it won't work. If you update snippets, just find the right collection in the folder based on your library name and modify it.
+3. Create your snippets by using the [described format](https://github.com/snipsnapdev/snipsnap#snippets-format).
+4. Validate you snippets by running `npx snipsnapdev/snipsnap-importer validate` from your cloned snipsnap repository folder.
+5. Create PR.
+
 ## How it works
 Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
 
