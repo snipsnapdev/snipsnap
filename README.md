@@ -7,6 +7,28 @@
 
 ![out](https://user-images.githubusercontent.com/2697570/73568644-23bc0180-4469-11ea-8b64-843c7a9a92d2.gif)
 
+<h2 align="center">Popular snippets</h2>
+<table>
+  <tbody>
+    <td valign="middle" align="center">
+<img width="100px" src="https://user-images.githubusercontent.com/2697570/82653674-db933b80-9c1f-11ea-9731-7b8e0d1ab05c.png" />
+      <br>React
+    </td>
+    <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82653826-15644200-9c20-11ea-8fe8-b0db379c83a3.png"/>
+      <br>Vue
+    </td>
+        <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82654143-90c5f380-9c20-11ea-9587-928a51c06839.png"/>
+          <br>Gatsby
+    </td>
+            <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82654470-147fe000-9c21-11ea-9975-a79b3721b8f6.png"/>
+              <br>Redux
+    </td>
+                <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82654869-a2f46180-9c21-11ea-8034-71f63bcd8389.png"/>
+              <br>Styled components
+    </td>
+    </tbody>
+</table>
+
 ---
 ## Table of Contents
 - [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
