@@ -10,7 +10,15 @@
 ---
 ## Table of Contents
 - [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
+- [Contributing](https://github.com/snipsnapdev/snipsnap#contributing)
 - [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
+
+## How it works
+Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
+
+Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
+
+All snippets currently present in this repository and follow guidelines described below.
 
 ## Contributing
 
@@ -21,13 +29,6 @@ We encourage you to contribute to Snipsnap. Only with your help we can build rea
 3. Create your snippets by using the [described format](https://github.com/snipsnapdev/snipsnap#snippets-format).
 4. Validate you snippets by running `npx snipsnapdev/snipsnap-importer validate` from your cloned snipsnap repository folder.
 5. Create PR.
-
-## How it works
-Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
-
-Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
-
-All snippets currently present in this repository and follow guidelines described below.
 
 ## Snippets Format
 
