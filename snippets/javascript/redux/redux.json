@@ -72,14 +72,14 @@
     "scope": "javascript,javascriptreact",
     "description": "Redux useSelector() hook"
   },
-  "redux-usedispatchfunction": {
-    "prefix": ["redux usedispatchfunction", "usdf"],
+  "redux-usedispatch-hook": {
+    "prefix": ["redux usedispatch", "rxusdh"],
     "body": ["const dispatch = useDispatch();"],
     "scope": "javascript,javascriptreact",
     "description": "Redux useDispatch() hook"
   },
-  "redux-usedispatch": {
-    "prefix": ["redux usedispatch", "usd"],
+  "redux-dispatch-hook": {
+    "prefix": ["redux dispatch", "rxd"],
     "body": ["const $1 = $2 => dispatch($3);"],
     "scope": "javascript,javascriptreact",
     "description": "Redux dispatch hook"
