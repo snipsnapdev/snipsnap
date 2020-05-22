@@ -6,7 +6,7 @@
     "description": "import react-modal"
   },
   "react-modal-component": {
-    "prefix": ["react modal component", "rmc"],
+    "prefix": ["react-modal component", "rmc"],
     "body": [
       "import React, { useState } from 'react';",
       "import ReactModal from 'shared/modal';",
