@@ -35,6 +35,20 @@
 - [Contributing](https://github.com/snipsnapdev/snipsnap#contributing)
 - [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
 
+## What problem Snipsnap is trying to solve?
+
+**Problem #1**
+
+Almost every popular language has a lot of different libraries that people used to use. Some of them big, some are small. For each library you should keep in mind a lot of different syntax constructions in order to use them. Code snippets help to fix it, but you don't want to create and you will not install extensions for each small library. Instead of it we want to have single Snipsnap extension that will fetch relevant code snippets based on languages, packages you use in your current project.
+
+**Problem #2**
+
+Different snippets extensions follow different rules and use unpredictable shortcuts such as "rccp", "ecrp", 'impp' etc. Having those unreadable shortcuts don't allow you to actually search across all snippets you have for a specific case. We want to change it by [standartizing snippets format](https://github.com/snipsnapdev/snipsnap#snippets-format) and providing clean and predictabl search syntax such as `library-name method/keyword`, so you can always type name of your library and get full list of snippets available for it.
+
+**Problem #3**
+
+Each IDE has individual snippets format that does not compatible with other IDEs. So having independent snippets format could allow us to create Snipsnap extensions for each popular IDEs and using converters transform snippets from one format to another.
+
 ## How it works
 Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
 
