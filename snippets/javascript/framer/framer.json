@@ -8,11 +8,11 @@
   "framer-motion": {
     "prefix": ["framer motion", "motion"],
     "body": [
-      " <motion.${div}",
+      " <motion.${1:div}",
       "    initial=\"hidden\"",
       "    animate=\"visible\"",
-      "    variants={variants}",
-      "  ></motion.${div}>"
+      "    variants={${2:variants}}",
+      "  ></motion.${1:div}>"
     ],
     "scope": "javascript,javascriptreact",
     "description": "Motion shares the simple animation and gesture API as the Framer X library, while maintaining HTML and SVG semantics. This makes it simple to port your high-fidelity prototypes to a production-ready environment, or make something completely new!"
@@ -20,15 +20,15 @@
   "framer-variants": {
     "prefix": ["framer variants", "variants"],
     "body": [
-      "  const variants = {",
+      "  const ${1:variants} = {",
       "    hidden: {",
       "      opacity: 0,",
       "    },",
       "    visible: {",
       "      opacity: 1,",
       "      transition: {",
-      "        delay: ${1:1},",
-      "        duration: ${2:1},",
+      "        delay: ${2:1},",
+      "        duration: ${3:1},",
       "      },",
       "    },",
       "  };"
@@ -39,9 +39,9 @@
   "framer-sequence": {
     "prefix": ["framer sequence"],
     "body": [
-      "const sequence = async () => {",
-      "  await menuControls.start({ x: 0 })",
-      "  return await itemControls.start({ opacity: 1 })",
+      "const ${1:sequence} = async () => {",
+      "  await ${2:animateControls}.start({ ${3:x: 0} })",
+      "  return await ${4:itemControls}.start({ ${5:opacity: 1} })",
       "}"
     ],
     "scope": "javascript,javascriptreact",
@@ -49,38 +49,128 @@
   },
   "framer-use-animation": {
     "prefix": ["framer use-animation"],
-    "body": ["const controls = useAnimation()"],
+    "body": ["const ${controls} = useAnimation()"],
     "scope": "javascript,javascriptreact",
     "description": "useMotionValue(initial) Declarative animations are ideal for most UI interactions. But sometimes we need to orchestrate more complex sequences. The useAnimation hook can be used to create a set of imperative AnimationControls with a start and stop method. These controls can be passed to one or more motion components via the animate prop."
   },
   "framer-use-motion-value": {
     "prefix": ["framer use-motion-value"],
-    "body": ["const scale = useMotionValue(${1})"],
+    "body": ["const ${1:scale} = useMotionValue(${2:1})"],
     "scope": "javascript,javascriptreact",
     "description": "Creates a MotionValue to track the state and velocity of a value. Usually, these are created automatically. For advanced use-cases, like use with useTransform, you can create MotionValues externally and pass them into the animated component via the style prop."
   },
+  "framer-use-transform": {
+    "prefix": ["framer use-transform"],
+    "body": [
+      "//const x = useMotionValue(0)",
+      "//const xRange = [-200, -100, 100, 200]",
+      "//const opacityRange = [0, 1, 1, 0]",
+      "const ${1:opacity} = useTransform(${2:x}, ${3:xRange}, ${4:opacityRange})"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "useTransform(parent, from, to, options): Create a MotionValue that transforms the output of another MotionValue through a function. In this example, y will always be double x."
+  },
+  "framer-use-spring": {
+    "prefix": ["framer use-spring"],
+    "body": [
+      "const ${1:x} = useSpring(${2:0}, { ${3:stiffness}: ${4:300} })",
+      "const ${5:y} = useSpring(${1:x}, { ${6:damping}: ${7:10} })"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "useSpring(source, config): MotionValue<any> Creates a MotionValue that, when set, will use a spring animation to animate to its new state. It can either work as a stand-alone MotionValue by initialising it with a value, or as a subscriber to another MotionValue."
+  },
+  "framer-use-element-scroll": {
+    "prefix": ["framer use-element-scroll"],
+    "body": ["const { ${1:scrollYProgress} } = useElementScroll(${2:ref})"],
+    "scope": "javascript,javascriptreact",
+    "description": "useElementScroll(ref): ScrollMotionValues Returns MotionValues that update when the provided element scrolls: scrollX — Horizontal scroll distance in pixels. scrollY — Vertical scroll distance in pixels. scrollXProgress — Horizontal scroll progress between 0 and 1. scrollYProgress — Vertical scroll progress between 0 and 1."
+  },
+  "framer-use-viewport-scroll": {
+    "prefix": ["framer use-viewport-scroll"],
+    "body": ["const { ${scrollYProgress} } = useViewportScroll()"],
+    "scope": "javascript,javascriptreact",
+    "description": "useViewportScroll #useViewportScroll(): ScrollMotionValues Returns MotionValues that update when the viewport scrolls: scrollX — Horizontal scroll distance in pixels. scrollY — Vertical scroll distance in pixels. scrollXProgress — Horizontal scroll progress between 0 and 1. scrollYProgress — Vertical scroll progress between 0 and 1."
+  },
+  "framer-use-inverted-scale": {
+    "prefix": ["framer use-inverted-scale"],
+    "body": ["const { ${1:scaleX}, ${2:scaleY} } = useInvertedScale()"],
+    "scope": "javascript,javascriptreact",
+    "description": "useInvertedScale(scale): ScaleMotionValues Returns a MotionValue each for scaleX and scaleY that update with the inverse of their respective parent scales. This is useful for undoing the distortion of content when scaling a parent component. By default, useInvertedScale will automatically fetch scaleX and scaleY from the nearest parent. By passing other MotionValues in as useInvertedScale({ scaleX, scaleY }), it will invert the output of those instead."
+  },
   "framer-use-cycle": {
     "prefix": ["framer use-cycle"],
-    "body": ["const [x, cycleX] = useCycle(${1:0}, ${2:50}, ${3:100})"],
+    "body": [
+      "const [${1:x}, ${2:cycleX}] = useCycle(${3:0}, ${4:50}, ${5:100})"
+    ],
     "scope": "javascript,javascriptreact",
     "description": "Cycles through a series of visual properties. Can be used to toggle between or cycle through animations. It works similar to useState in React. It is provided an initial array of possible states, and returns an array of two arguments. An index value can be passed to the returned cycle function to cycle to a specific index."
   },
   "framer-use-reduce-motion": {
     "prefix": ["framer use-reduce"],
-    "body": ["const shouldReduceMotion = useReducedMotion()"],
+    "body": ["const ${shouldReduceMotion} = useReducedMotion()"],
     "scope": "javascript,javascriptreact",
     "description": "A hook that returns true if we should be using reduced motion based on the current device's Reduced Motion setting. This can be used to implement changes to your UI based on Reduced Motion. For instance, replacing motion-sickness inducing x/y animations with opacity, disabling the autoplay of background videos, or turning off parallax motion. It will actively respond to changes and re-render your components with the latest setting."
   },
   "framer-use-presence": {
     "prefix": ["framer use-presence"],
-    "body": ["const [isPresent, safeToRemove] = usePresence()"],
+    "body": ["const [${1:isPresent}, ${2:safeToRemove}] = usePresence()"],
     "scope": "javascript,javascriptreact",
     "description": "When a component is the child of AnimatePresence, it can use usePresence to access information about whether it's still present in the React tree. If isPresent is false, it means that a component has been removed the tree, but AnimatePresence won't really remove it until safeToRemove has been called."
   },
   "framer-use-drag-controls": {
     "prefix": ["framer use-drag-controls"],
-    "body": ["const dragControls = useDragControls()"],
+    "body": ["const ${dragControls} = useDragControls()"],
     "scope": "javascript,javascriptreact",
     "description": "Usually, dragging is initiated by pressing down on a motion component with a drag prop and moving it. For some use-cases, for instance clicking at an arbitrary point on a video scrubber, we might want to initiate that dragging from a different component than the draggable one. By creating a dragControls using the useDragControls hook, we can pass this into the draggable component's dragControls prop. It exposes a start method that can start dragging from pointer events on other components."
+  },
+  "framer-animate-presence": {
+    "prefix": ["framer animate-presence"],
+    "body": [
+      "import { motion, AnimatePresence } from \"framer-motion\"",
+      "",
+      "export const ${1:MyComponent} = ({ ${2:isVisible} }) => (",
+      "  <AnimatePresence>",
+      "    {${2:isVisible} && (",
+      "      <motion.div",
+      "        initial={{ opacity: 0 }}",
+      "        animate={{ opacity: 1 }}",
+      "        exit={{ opacity: 0 }}",
+      "      />",
+      "    )}",
+      "  </AnimatePresence>",
+      ")"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "AnimatePresence Animate components when they're removed from the React tree. AnimatePresence allows components to animate out when they're removed from the React tree. It's required to enable exit animations because React lacks a lifecycle method that: Notifies components when they're going to be unmounted and Allows them to defer that unmounting until after an operation is complete (for instance an animation)."
+  },
+  "framer-animate-shared-layout": {
+    "prefix": ["framer animate-shared-layout"],
+    "body": [
+      "export const ${1:MyComponent} = ({ ${2:items}, ${3:selectedId} }) => (",
+      "  <AnimateSharedLayout>",
+      "    {items.map(item => (",
+      "      <li>",
+      "        {item.title}",
+      "        {item.id === ${3:selectedId} && (",
+      "          <motion.div layoutId=\"underline\" />",
+      "        )}",
+      "      </li>",
+      "    ))}",
+      "  </AnimateSharedLayout>",
+      ")",
+      "",
+      "//Exit animations",
+      "//When a component that's expected to enter and exit the tree",
+      "//is wrapped in AnimatePresence, it'll automatically animate",
+      "//back to the original component with its layoutId when it's removed.",
+      "<AnimateSharedLayout>",
+      "  {images.map((img) => <motion.img layoutId={img.id} />)}",
+      "  <AnimatePresence>",
+      "    {${3:selectedId} && <motion.img layoutId={${3:selectedId}} />)}",
+      "  </AnimatePresence>",
+      "</AnimateSharedLayout>"
+    ],
+    "scope": "javascript,javascriptreact",
+    "description": "Animate between different components that share a layout ID. Note: This feature is currently in beta. You can install the latest Framer Motion 2 beta using npm install framer-motion@beta. AnimateSharedLayout allows animation between seperate components. These components do not need to be rendered in the same hierarchy, as long as they share the same layoutId, and are wrapped within the same AnimateSharedLayout component. Usage #Shared layout animations When a new component is added with an existing layoutId, on mount it will visually animate out from the previous component that had or has the same layoutId. If the previous component still exists in the tree, it'll automatically be hidden using opacity: 0, but still occupy space in the layout."
   }
 }
