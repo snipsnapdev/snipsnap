@@ -20,6 +20,10 @@
         <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82654143-90c5f380-9c20-11ea-9587-928a51c06839.png"/>
           <br>Gatsby
     </td>
+    </td>
+        <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/85003657-c8a85400-b156-11ea-938e-8577eea635a6.jpg"/>
+          <br>Next.js
+    </td>
             <td valign="middle" align="center"><img width="100px" src="https://user-images.githubusercontent.com/2697570/82654470-147fe000-9c21-11ea-9975-a79b3721b8f6.png"/>
               <br>Redux
     </td>
