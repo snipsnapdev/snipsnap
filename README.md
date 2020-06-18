@@ -37,11 +37,11 @@
 
 ---
 ## Table of Contents
-- [What problem Snipsnap is trying to solve?](https://github.com/snipsnapdev/snipsnap#what-problem-snipsnap-is-trying-to-solve)
-- [Our plans and vision](https://github.com/snipsnapdev/snipsnap#how-it-works)
-- [How it works](https://github.com/snipsnapdev/snipsnap#how-it-works)
-- [Contributing](https://github.com/snipsnapdev/snipsnap#contributing)
-- [Snippets Format](https://github.com/snipsnapdev/snipsnap#snippets-format)
+- [What problem Snipsnap is trying to solve?](https://github.com/snipsnapdev/snipsnap#-what-problem-snipsnap-is-trying-to-solve)
+- [How it works](https://github.com/snipsnapdev/snipsnap#%EF%B8%8F-how-it-works)
+- [Our plans and vision](https://github.com/snipsnapdev/snipsnap#%EF%B8%8F-our-plans-and-vision)
+- [Contributing](https://github.com/snipsnapdev/snipsnap#-contributing)
+- [Snippets Format](https://github.com/snipsnapdev/snipsnap#-snippets-format)
 
 ## 🔥 What problem Snipsnap is trying to solve?
 
