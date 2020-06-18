@@ -1,3 +1,5 @@
+<p align="center">
+<img width="100" src="https://user-images.githubusercontent.com/2697570/85011968-9ac90c80-b162-11ea-9960-1429cb5f409f.png" alt="Snipsnap Logo"/></p>
 <h1 align="center">Snipsnap</h1>
 <h3 align="center">The ultimate snippets collection and VS Code extension that automatically exposes all available snippets for every library you are using in your project.</h3>
 <h4 align="center">
