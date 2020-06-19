@@ -72,13 +72,13 @@ All snippets currently present in this repository and follow guidelines describe
 
 ## 🗓️ Our plans and vision
 
-Current version could be called as MVP and there just for the one purpose – test the idea and get first feedbacks. If you like extension - star the repository, tell us about your experience or [help us to improve the project](https://github.com/snipsnapdev/snipsnap#contributing).
+The current version could be called MVP and it's there just for the one purpose – test the idea and get first feedbacks. If you like extension - star the repository, tell us about your experience or [help us to improve the project](https://github.com/snipsnapdev/snipsnap#contributing).
 
 We don't want to stop just on having snippets for Javascript. We want to make it standard for all popular languages and their package managers. So cover Ruby, Go, Python, PHP libraries also in our plans.
 
 We believe that snippets could become a perfect solution for providing simple documentation and examples. Code snippets should become the part of packages repositories like README files. You build your library, you put snippets together with it in .snipsnap.json file and then we fetch it.
 
-Having standartised collection could allow us to write extensions and coverters for all popular IDE's, that will finally make code snippets independent from IDE. Let's say in couple of years the new awesome IDE will be release, instead of writing whole batch of snippets for new IDE you will be able to just continue use Snipsnap and the collection you already created.
+Having standardized collection could allow us to write extensions and converters for all popular IDE's, that will finally make code snippets independent from IDE. Let's say in a couple of years the new awesome IDE will be released, instead of writing a whole batch of snippets for new IDE you will be able to just continue using Snipsnap and the collection you already created.
 
 ## 😇 Contributing
 
