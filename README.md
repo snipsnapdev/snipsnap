@@ -52,7 +52,7 @@ Almost every popular language has a lot of different libraries that people used 
 
 **Problem #2**
 
-Different snippets extensions follow different rules and use unpredictable shortcuts such as "rccp", "ecrp", 'impp' etc. Having those unreadable shortcuts don't allow you to actually search across all snippets you have for a specific case. We want to change it by [standartizing snippets format](https://github.com/snipsnapdev/snipsnap#snippets-format) and providing clean, predictable search syntax such as `library-name keyword`, so you can always type name of your library and get full list of snippets available for it.
+Different snippets extensions follow different rules and use unpredictable shortcuts such as "rccp", "ecrp", 'impp' etc. Having those unreadable shortcuts don't allow you to actually search across all snippets you have for a specific case. We want to change it by [standardizing snippets format](https://github.com/snipsnapdev/snipsnap#snippets-format) and providing clean, predictable search syntax such as `library-name keyword`, so you can always type name of your library and get full list of snippets available for it.
 
 **Problem #3**
 
