@@ -84,7 +84,7 @@ Having standartised collection could allow us to write extensions and coverters 
 
 We encourage you to contribute to Snipsnap. Only with your help we can build really amazing collection of snippets that adapts to your needs. 
 
-**🙏 Don't write same code twise, create snippet instead.**
+**🙏 Don't write same code twice, create snippet instead.**
 
 1. [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the project.
 2. If you add snippets for a new library - create folder inside `snippets/javascript` with the library name. Put inside that folder json file with your snippets. JSON file and folder name should be exactly the same as NPM package name, otherwise it won't work. If you update snippets, just find the right collection in the folder based on your library name and modify it.
