@@ -64,10 +64,11 @@ Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on
 Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
 
 Snipsnap scans for new available snippets:
-- **on folder openning**
-- **on pressing command "Snipsnap: Feth the snippets" vie command pallete**
 
-All snippets currently present in this repository and follow guidelines described below.
+- **on folder opening**
+- **on pressing command "Snipsnap: Feth the snippets" via the command palette**
+
+All snippets currently present in this repository and follow the guidelines described below.
 
 
 ## 🗓️ Our plans and vision
