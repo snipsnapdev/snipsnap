@@ -105,6 +105,7 @@ Code snippet example:
     "prefix": ["prop-types import", "impt"],
     "body": ["import PropTypes from 'prop-types'"],
     "scope": "javascript,javascriptreact"
+  }
 }
 ```
 
