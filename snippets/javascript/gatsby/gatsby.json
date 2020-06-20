@@ -1,25 +1,25 @@
 {
   "gatsby-link": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link"],
     "body": ["<Link to=\"${1:/blog}\">${2:Text}</Link>"]
   },
   "gatsby-link-activestyle": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link activestyle"],
     "body": [
       "<Link to=\"${1:/blog}\" activeStyle={{ ${2:color}: \"${3:red}\" }} >Text</Link>"
     ]
   },
   "gatsby-link-activeclassname": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link activeclassname"],
     "body": [
       "<Link to=\"${1:/blog}\" activeClassName={\"${2:myActiveClassName}\"} >Text</Link>"
     ]
   },
   "gatsby-link-import": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link import"],
     "body": ["import { Link } from \"gatsby\""]
   }
