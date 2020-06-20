@@ -3,31 +3,31 @@
     "body": ["afterAll(() => {\n\t$0\n});"],
     "description": "afterAll function is called once after all specs",
     "prefix": ["jest afterall", "aa"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-aftereach": {
     "body": ["afterEach(() => {\n\t$0\n});"],
     "description": "afterEach function is called once after each spec",
     "prefix": ["jest aftereach", "ae"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-beforeall": {
     "body": ["beforeAll(() => {\n\t$0\n});"],
     "description": "beforeAll function is called once before all specs",
     "prefix": ["jest beforeall", "ba"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-beforeeach": {
     "body": ["beforeEach(() => {\n\t$0\n});"],
     "description": "beforeEach function is called once before each spec",
     "prefix": ["jest beforeeach", "be"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-describe": {
     "body": ["describe('${1:Name of the group}', () => {\n\t$0\n});"],
     "description": "creates a describe block",
     "prefix": ["jest describe", "desc"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-describe-each": {
     "body": [
@@ -42,55 +42,55 @@
     ],
     "description": "creates a describe block with different test data sets",
     "prefix": ["jest describe each", "desce"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-describe-only": {
     "body": ["describe.only('${1:Name of the group}', () => {\n\t$0\n});"],
     "description": "creates a describe block that runs only",
     "prefix": ["jest describe only", "desco"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-describe-skip": {
     "body": ["describe.skip('${1:Name of the group}', () => {\n\t$0\n});"],
     "description": "creates a describe block that will be skipped",
     "prefix": ["jest describe skip", "descs"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-expect": {
     "body": ["expect($0)"],
     "description": "expect actual value",
     "prefix": ["jest expect", "exp"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-expect-assertions": {
     "body": ["expect.assertions($0);"],
     "description": "expects the test to make the indicated number of assertions (useful for async)",
     "prefix": ["jest expect assertions", "expas"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-expect-hasassertions": {
     "body": ["expect.hasAssertions();$0"],
     "description": "expects the test to make at least one assertion (useful for async)",
     "prefix": ["jest expect hasassertions", "expha"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-expect-rejects": {
     "body": ["expect($1).rejects$0"],
     "description": "expect promise rejects to",
     "prefix": ["jest expect rejects", "exprj"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-expect-resolves": {
     "body": ["expect($1).resolves$0"],
     "description": "expect promise resolves to",
     "prefix": ["jest expect resolves", "expr"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it": {
     "body": ["it('${1:should }', () => {\n\t$0\n});"],
     "description": "creates an it block",
     "prefix": ["jest it", "it"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it-each": {
     "body": [
@@ -103,37 +103,37 @@
     ],
     "description": "creates an it block with different test data sets",
     "prefix": ["jest it each", "ite"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it-only": {
     "body": ["it.only('${1:should }', () => {\n\t$0\n});"],
     "description": "creates an it block that runs only",
     "prefix": ["jest it only", "ito"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it-skip": {
     "body": ["it.skip('${1:should }', () => {\n\t$0\n});"],
     "description": "creates an it block that will be skipped",
     "prefix": ["jest it skip", "its"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it-todo": {
     "body": ["it.todo('${1:should }');"],
     "description": "creates a test placeholder",
     "prefix": ["jest it todo", "itt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-it-async": {
     "body": ["it('${1:should }', async () => {\n\t$0\n});"],
     "description": "creates an it block with async callback function",
     "prefix": ["jest it async", "ita"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-jest-fn": {
     "body": ["jest.fn($0)"],
     "description": "creates jest.fn()",
     "prefix": ["jest fn", "jfn"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-template-cut": {
     "body": [
@@ -147,13 +147,13 @@
     ],
     "description": "creates a template to test a class under test",
     "prefix": ["jest template cut", "cut"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test": {
     "body": ["test('${1:should }', () => {\n\t$0\n});"],
     "description": "creates a test block",
     "prefix": ["jest test", "test"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test-each": {
     "body": [
@@ -166,210 +166,210 @@
     ],
     "description": "creates an test block with different test data sets",
     "prefix": ["jest test each", "teste"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test-only": {
     "body": ["test.only('${1:should }', () => {\n\t$0\n});"],
     "description": "creates a test block  that runs only",
     "prefix": ["jest test only", "testo"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test-skip": {
     "body": ["test.skip('${1:should }', () => {\n\t$0\n});"],
     "description": "creates a test block that will be skipped",
     "prefix": ["jest test skip", "tests"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test-todo": {
     "body": ["test.todo('${1:should }');"],
     "description": "creates a test placeholder",
     "prefix": ["jest test todo", "testt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-test-async": {
     "body": ["test('${1:should }', async () => {\n\t$0\n});"],
     "description": "creates an test block with async callback function",
     "prefix": ["jest test async", "testa"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobe": {
     "body": ["expect($1).toBe($0);"],
     "description": "expects the first argument to be equal with the second one",
     "prefix": ["jest expect tobe", "tb"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobecloseto": {
     "body": ["expect($1).toBeCloseTo(${2:number}, ${3:delta});$0"],
     "description": "expects the first argument to be close to the second one base on the delta",
     "prefix": ["jest expect tobecloseto", "tbct"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobedefined": {
     "body": ["expect($1).toBeDefined();$0"],
     "description": "expects the argument is defined",
     "prefix": ["jest expect tobedefined", "tbd"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobefalsy": {
     "body": ["expect($1).toBeFalsy();$0"],
     "description": "expects the argument is falsy",
     "prefix": ["jest expect tobefalsy", "tbf"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobegreaterthan": {
     "body": ["expect($1).toBeGreaterThan($0);"],
     "description": "expects the argument is greater than or equal",
     "prefix": ["jest expect tobegreaterthan", "tbgt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobegreaterthanorequal": {
     "body": ["expect($1).toBeGreaterThanOrEqual($0);"],
     "description": "expects the argument is greater than",
     "prefix": ["jest expect tobegreaterthanorequal", "tbgte"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobeinstanceof": {
     "body": ["expect($1).toBeInstanceOf($0);"],
     "description": "expects the argument is less than",
     "prefix": ["jest expect tobeinstanceof", "tbi"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobelessthan": {
     "body": ["expect($1).toBeLessThan($0);"],
     "description": "expects the argument is less than",
     "prefix": ["jest expect tobelessthan", "tblt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobelessthanorequal": {
     "body": ["expect($1).toBeLessThanOrEqual($0);"],
     "description": "expects the argument is less than or equal",
     "prefix": ["jest expect tobelessthanorequal", "tblte"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobenull": {
     "body": ["expect($1).toBeNull();$0"],
     "description": "expects the argument is null",
     "prefix": ["jest expect tobenull", "tbn"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobetruthy": {
     "body": ["expect($1).toBeTruthy();$0"],
     "description": "expects the argument is truthy",
     "prefix": ["jest expect tobetruthy", "tbt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tobeundefined": {
     "body": ["expect($1).toBeUndefined();$0"],
     "description": "expects the argument is undefined",
     "prefix": ["jest expect tobeundefined", "tbu"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tocontain": {
     "body": ["expect(${1:list}).toContain($0);"],
     "description": "expects the list contains the item (===)",
     "prefix": ["jest expect tocontain", "tc"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tocontainequal": {
     "body": ["expect(${1:list}).toContainEqual($0);"],
     "description": "expects the list contains the item (equals)",
     "prefix": ["jest expect tocontainequal", "tce"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-toequal": {
     "body": ["expect($1).toEqual($0);"],
     "description": "expects the first argument to be equal with the second one",
     "prefix": ["jest expect toequal", "te"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohavebeencalled": {
     "body": ["expect($1).toHaveBeenCalled();$0"],
     "description": "returns true if the spy was called",
     "prefix": ["jest expect tohavebeencalled", "thbc"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohavebeencalledtimes": {
     "body": ["expect($1).toHaveBeenCalledTimes($0);"],
     "description": "returns true if the spy has been called given times",
     "prefix": ["jest expect tohavebeencalledtimes", "thbct"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohavebeencalledwith": {
     "body": ["expect($1).toHaveBeenCalledWith($0);"],
     "description": "returns true if the spy has been called with",
     "prefix": ["jest expect tohavebeencalledwith", "thbcw"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohavebeenlastcalledwith": {
     "body": ["expect($1).toHaveBeenLastCalledWith($0);"],
     "description": "returns true if the spy has been last called with",
     "prefix": ["jest expect tohavebeenlastcalledwith", "thblcw"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohavelength": {
     "body": ["expect($1).toHaveLength($0);"],
     "description": "expects the object to have length",
     "prefix": ["jest expect tohavelength", "thl"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tohaveproperty": {
     "body": ["expect($1).toHaveProperty(${2:keyPath}, ${3:value});$0"],
     "description": "returns true if the argument matches the second object",
     "prefix": ["jest expect tohaveproperty", "thp"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tomatch": {
     "body": ["expect($1).toMatch($0);"],
     "description": "returns true if the argument matches the second value",
     "prefix": ["jest expect tomatch", "tm"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tomatchinlinesnapshot": {
     "body": ["expect($1).toMatchInlineSnapshot($0);"],
     "description": "returns true if the argument matches the most recent inline snapshot",
     "prefix": ["jest expect tomatchinlinesnapshot", "tmis"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tomatchobject": {
     "body": ["expect($1).toMatchObject($0);"],
     "description": "returns true if the argument matches the second object",
     "prefix": ["jest expect tomatchobject", "tmo"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tomatchsnapshot": {
     "body": ["expect($1).toMatchSnapshot($0);"],
     "description": "returns true if the argument matches the most recent snapshot",
     "prefix": ["jest expect tomatchsnapshot", "tms"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tostrictequal": {
     "body": ["expect($1).toStrictEqual($0);"],
     "description": "expects the first argument to be strictly equal with the second one",
     "prefix": ["jest expect tostrictequal", "tse"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tothrow": {
     "body": ["expect(() => {\n\t$0\n}).toThrow($1);"],
     "description": "expects that the method will throw an error",
     "prefix": ["jest expect tothrow", "tt"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tothrowerror": {
     "body": ["expect(() => {\n\t$0\n}).toThrowError($1);"],
     "description": "expects that the method will throw an error",
     "prefix": ["jest expect tothrowerror", "tte"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tothrowerrormatchinginlinesnapshot": {
     "body": ["expect(() => {\n\t$0\n}).toThrowErrorMatchingInlineSnapshot();"],
     "description": "expects that the method will throw an error matching the inline snapshot",
     "prefix": ["jest expect tothrowerrormatchinginlinesnapshot", "ttemis"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   },
   "jest-tothrowerrormatchingsnapshot": {
     "body": ["expect(() => {\n\t$0\n}).toThrowErrorMatchingSnapshot();"],
     "description": "expects that the method will throw an error mathing the snapshpot",
     "prefix": ["jest expect tothrowerrormatchingsnapshot", "ttems"],
-    "scope": "javascript"
+    "scope": "javascript,typescript"
   }
 }

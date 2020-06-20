@@ -2,7 +2,7 @@
   "redux-import-connect": {
     "prefix": ["redux import connect"],
     "body": ["import { connect } from 'react-redux'", ""],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "redux-map-to-props": {
     "prefix": ["redux map props"],
@@ -16,12 +16,12 @@
       "}",
       ""
     ],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "redux-const": {
     "prefix": ["redux const", "rxconst"],
     "body": ["export const ${1:constantName} = '${1:constantName}'"],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "redux-reducer": {
     "prefix": ["redux reducer", "rxreducer"],
@@ -42,6 +42,6 @@
       "}",
       ""
     ],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
   }
 }
