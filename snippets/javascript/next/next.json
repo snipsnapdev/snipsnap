@@ -1,0 +1,85 @@
+{
+  "next-get-server-side-props": {
+    "prefix": ["next getserversideprops"],
+    "body": [
+      "export async function getServerSideProps(${1:context}) {",
+      "  return {",
+      "    props: {}, ",
+      "  }",
+      "}"
+    ],
+    "description": "If you export an async function called getServerSideProps from a page, Next.js will pre-render this page on each request using the data returned by getServerSideProps. The context parameter is an object containing the following keys: params, req, res, query, preview, previewData.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-get-static-props": {
+    "prefix": ["next getstaticprops"],
+    "body": [
+      "export async function getStaticProps(${1:context}) {",
+      "  return {",
+      "    props: {}, ",
+      "  }",
+      "}"
+    ],
+    "description": "If you export an async function called getStaticProps from a page, Next.js will pre-render this page at build time using the props returned by getStaticProps. The context parameter is an object containing the following keys: params, preview, previewData.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-get-static-paths": {
+    "prefix": ["next getstaticpaths"],
+    "body": [
+      "export async function getStaticPaths() {",
+      "  return {",
+      "    paths: [",
+      "      { params: { ... } } ",
+      "    ],",
+      "    fallback: ${1|true,false|}",
+      "  };",
+      "}"
+    ],
+    "description": "If a page has dynamic routes (documentation) and uses getStaticProps it needs to define a list of paths that have to be rendered to HTML at build time. If you export an async function called getStaticPaths from a page that uses dynamic routes, Next.js will statically pre-render all the paths specified by getStaticPaths.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-import-use-router": {
+    "prefix": ["next import userouter"],
+    "body": ["import { useRouter } from 'next/router'"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-import-link": {
+    "prefix": ["next import link"],
+    "body": ["import Link from 'next/link'"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-link": {
+    "prefix": ["next link"],
+    "body": ["<Link href=\"${1:#}\">", "  <a>${2:content}</a>", "</Link>"],
+    "description": "Link accepts the following props: href, as, passHref, prefetch, replace, scroll, shallow",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-link-url-object": {
+    "prefix": ["next link url object"],
+    "body": [
+      "<Link href={{ pathname: '${1:/path}', query: { ${2:paramName}: '${3:paramValue}' } }}>",
+      "  <a>${4:content}</a>",
+      "</Link>"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-link-dynamic-route": {
+    "prefix": ["next link dynamic route"],
+    "body": [
+      "<Link href=\"${1:/path/[id]}\" as=\"${2:/path/${id}}\">",
+      "  <a>${3:content}</a>",
+      "</Link>"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-import-head": {
+    "prefix": ["next import head"],
+    "body": ["import Head from 'next/head'"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-head": {
+    "prefix": ["next head"],
+    "body": ["<Head>", "${1:content}", "</Head>"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  }
+}

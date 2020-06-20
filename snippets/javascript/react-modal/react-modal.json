@@ -1,0 +1,47 @@
+{
+  "react-modal-import": {
+    "prefix": ["react-modal import", "imrm"],
+    "body": ["import Modal from 'react-modal'"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "import react-modal"
+  },
+  "react-modal-component": {
+    "prefix": ["react-modal component", "rmc"],
+    "body": [
+      "import React, { useState } from 'react';",
+      "import Modal from 'react-modal';",
+      "",
+      "const ${1:CustomModal} = () => {",
+      "  const [showModal, setShowModal] = useState(false);",
+      "",
+      "  const handleOpenModal = () => {",
+      "    setShowModal(!showModal);",
+      "  };",
+      "",
+      "  const handleCloseModal = () => {",
+      "    setShowModal(!showModal);",
+      "  };",
+      "",
+      "  return (",
+      "    <>",
+      "      <button onClick={handleOpenModal}>Open modal</button>",
+      "      <Modal ",
+      "        open={showModal} ",
+      "        ${2:shouldCloseOnOverlayClick} ",
+      "        contentLabel={${3:contentLabel}} ",
+      "        onAfterOpen={${4:afterOpenModal}}",
+      "        onRequestClose={${5:closeModal}}",
+      "        style={${5:customStyles}}>",
+      "        <button onClick={handleCloseModal}>Close modal</button>",
+      "        ${:content}",
+      "      </Modal>",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:CustomModal};"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Template for react modal"
+  }
+}
