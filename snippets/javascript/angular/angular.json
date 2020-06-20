@@ -48,25 +48,25 @@
     "scope": "html"
   },
   "ngclass": {
-    "prefix": ["angular ng class", "a-ngClass"],
+    "prefix": ["angular ng class", "a-ngclass"],
     "body": ["[ngClass]=\"{${1:cssClass}: ${2:expression}}\""],
     "description": "Angular ngClass",
     "scope": "html"
   },
   "ngfor": {
-    "prefix": ["angular ng for", "a-ngFor"],
+    "prefix": ["angular ng for", "a-ngfor"],
     "body": ["*ngFor=\"let ${1:item} of ${2:list}\"${0}"],
     "description": "Angular *ngFor",
     "scope": "html"
   },
   "ngfor-with-trackby": {
-    "prefix": ["angular ng for with track by", "a-ngFor-trackBy"],
+    "prefix": ["angular ng for with track by", "a-ngfor-trackby"],
     "body": ["*ngFor=\"let ${1:item} of ${2:list}; trackBy:${1:item}.id\"${0}"],
     "description": "Angular *ngFor with trackBy",
     "scope": "html"
   },
   "ngforasync": {
-    "prefix": ["angular ng for async", "a-ngForAsync"],
+    "prefix": ["angular ng for async", "a-ngforasync"],
     "body": [
       "*ngFor=\"let ${1:item} of ${2:stream} | async as ${3:list}\"${0}"
     ],
@@ -83,25 +83,25 @@
     "scope": "html"
   },
   "ngformarrayname": {
-    "prefix": ["angular ng form array name", "a-formArrayName"],
+    "prefix": ["angular ng form array name", "a-formarrayname"],
     "body": ["formArrayName=\"${1:control}\""],
     "description": "Angular formArrayName",
     "scope": "html"
   },
   "ngformcontrolname": {
-    "prefix": ["angular ng form control name", "a-formControlName"],
+    "prefix": ["angular ng form control name", "a-formcontrolname"],
     "body": ["formControlName=\"${1:control}\""],
     "description": "Angular formControlName",
     "scope": "html"
   },
   "ngformgroup": {
-    "prefix": ["angular ng form group", "a-formGroup"],
+    "prefix": ["angular ng form group", "a-formgroup"],
     "body": ["[formGroup]=\"${1:form}\""],
     "description": "Angular formGroup",
     "scope": "html"
   },
   "ngformgroupname": {
-    "prefix": ["angular ng form group name", "a-formGroupName"],
+    "prefix": ["angular ng form group name", "a-formgroupname"],
     "body": ["[formGroupName]=\"${1:name}\""],
     "description": "Angular formGroupName",
     "scope": "html"
@@ -117,25 +117,25 @@
     "scope": "html"
   },
   "ngif": {
-    "prefix": ["angular ng if", "a-ngIf"],
+    "prefix": ["angular ng if", "a-ngif"],
     "body": ["*ngIf=\"${1:expression}\""],
     "description": "Angular *ngIf",
     "scope": "html"
   },
   "ngifelse": {
-    "prefix": ["angular ng if else", "a-ngIfElse"],
+    "prefix": ["angular ng if else", "a-ngifelse"],
     "body": ["*ngIf=\"${1:expression};else ${2:templateName}\""],
     "description": "Angular *ngIfElse",
     "scope": "html"
   },
   "ngmodel": {
-    "prefix": ["angular ng model", "a-ngModel"],
+    "prefix": ["angular ng model", "a-ngmodel"],
     "body": ["[(ngModel)]=\"${1:binding}\""],
     "description": "Angular ngModel",
     "scope": "html"
   },
   "ngrouterlink": {
-    "prefix": ["angular ng router link", "a-routerLink"],
+    "prefix": ["angular ng router link", "a-routerlink"],
     "body": [
       "[routerLink]=\"['/${1:routePath}']\" routerLinkActive=\"${2:router-link-active}\" $0"
     ],
@@ -143,7 +143,7 @@
     "scope": "html"
   },
   "ngrouterlinkwithparameter": {
-    "prefix": ["angular ng router link with parameter", "a-routerLink-param"],
+    "prefix": ["angular ng router link with parameter", "a-routerlink-param"],
     "body": [
       "[routerLink]=\"['${1:routePath}', ${2:routeParameterValue}]\"",
       "routerLinkActive=\"${3:router-link-active}\"$0"
@@ -162,13 +162,13 @@
     "scope": "html"
   },
   "ngstyle": {
-    "prefix": ["angular ng style", "a-ngStyle"],
+    "prefix": ["angular ng style", "a-ngstyle"],
     "body": ["[ngStyle]=\"{${1:style}: ${2:expression}}\""],
     "description": "Angular ngStyle",
     "scope": "html"
   },
   "ngswitch": {
-    "prefix": ["angular ng switch", "a-ngSwitch"],
+    "prefix": ["angular ng switch", "a-ngswitch"],
     "body": [
       "<div [ngSwitch]=\"${1:conditionExpression}\">",
       "\t<div *ngSwitchCase=\"${2:expression}\">${3:output}</div>",
