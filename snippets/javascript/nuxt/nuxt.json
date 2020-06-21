@@ -1,33 +1,33 @@
 {
   "nuxt-linkto": {
-    "prefix": "nuxt linkto",
+    "prefix": ["nuxt linkto"],
     "body": ["<nuxt-link to=\"$1\">$2</nuxt-link>$0"],
     "scope": "vue-html"
   },
   "nuxt-namedlinkto": {
-    "prefix": "nuxt namedlinkto",
+    "prefix": ["nuxt namedlinkto"],
     "body": [
       "<nuxt-link :to=\"{\t${1:key}: '${2:value}', ${3:key}: {\t${4:key}: '${5:value}'\t}\t}\">$6</nuxt-link>$0"
     ],
     "scope": "vue-html"
   },
   "nuxt-view": {
-    "prefix": "nuxt view",
+    "prefix": ["nuxt view"],
     "body": ["<nuxt>$1</nuxt>$0"],
     "scope": "vue-html"
   },
   "nuxt-namedview": {
-    "prefix": "nuxt namedview",
+    "prefix": ["nuxt namedview"],
     "body": ["<nuxt name=\"$1\">$2</nuxt>$0"],
     "scope": "vue-html"
   },
   "nuxt-child": {
-    "prefix": "nuxt child",
+    "prefix": ["nuxt child"],
     "body": ["<nuxt-child $1/>$0"],
     "scope": "vue-html"
   },
   "nuxt-async-data": {
-    "prefix": "nuxt asyncdata",
+    "prefix": ["nuxt asyncdata"],
     "body": [
       "asyncData ({isDev, route, store, env, params, query, req, res, redirect, error}) {",
       "\treturn { ${1:data} }",
@@ -37,7 +37,7 @@
     "scope": "vue"
   },
   "nuxt-head": {
-    "prefix": "nuxt head",
+    "prefix": ["nuxt head"],
     "body": [
       "head () {",
       "\treturn {",
@@ -52,25 +52,25 @@
     "scope": "vue"
   },
   "nuxt-middleware": {
-    "prefix": "nuxt middleware",
+    "prefix": ["nuxt middleware"],
     "body": ["middleware ({ store, redirect }) {", "\t${1:data}", "},"],
     "description": "Set the middleware for a specific page of the application.",
     "scope": "vue"
   },
   "nuxt-validate": {
-    "prefix": "nuxt validate",
+    "prefix": ["nuxt validate"],
     "body": ["validate({ params, query, store }) {", "\t${1:data}", "},"],
     "description": "Validate is called every time before navigating to a new route.",
     "scope": "vue"
   },
   "nuxt-watch-query": {
-    "prefix": "nuxt watchquery",
+    "prefix": ["nuxt watchquery"],
     "body": ["watchQuery (newQuery, oldQuery) {", "\t${1:data}", "},"],
     "description": "Use the watchQuery key to set up a watcher for query strings.",
     "scope": "vue"
   },
   "nuxt-serverinit": {
-    "prefix": "nuxt serverinit",
+    "prefix": ["nuxt serverinit"],
     "body": ["nuxtServerInit ({ commit }, { req }) {", "\t${1:data}", "}"],
     "description": "In universal mode, useful to fetch data on the server and give directly to the client-side.",
     "scope": "vue"
