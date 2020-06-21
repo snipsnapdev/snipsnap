@@ -323,7 +323,7 @@
     "prefix": ["vue methods", "vmethod"],
     "body": ["methods: {", "\t${1:name}() {", "\t\t${0}", "\t}", "},"],
     "description": "vue method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-computed": {
     "prefix": ["vue computed", "vcomputed"],
@@ -335,55 +335,55 @@
       "},"
     ],
     "description": "computed value",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-beforecreate": {
     "prefix": ["vue lifecycle beforecreate", "vbeforecreate"],
     "body": ["beforeCreate () {", "\t${0};", "},"],
     "description": "beforeCreate lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-created": {
     "prefix": ["vue lifecycle created", "vcreated"],
     "body": ["created () {", "\t${0};", "},"],
     "description": "created lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-beforemount": {
     "prefix": ["vue lifecycle beforemount", "vbeforemount"],
     "body": ["beforeMount () {", "\t${0};", "},"],
     "description": "beforeMount lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-mounted": {
     "prefix": ["vue lifecycle mounted", "vmounted"],
     "body": ["mounted () {", "\t${0};", "},"],
     "description": "mounted lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-beforeupdate": {
     "prefix": ["vue lifecycle beforeupdate", "vbeforeupdate"],
     "body": ["beforeUpdate () {", "\t${0};", "},"],
     "description": "beforeUpdate lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-updated": {
     "prefix": ["vue lifecycle updated", "vupdated"],
     "body": ["updated () {", "\t${0};", "},"],
     "description": "updated lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-beforedestroy": {
     "prefix": ["vue lifecycle beforedestroy", "vbeforedestroy"],
     "body": ["beforeDestroy () {", "\t${0};", "},"],
     "description": "beforeDestroy lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-lifecycle-destroyed": {
     "prefix": ["vue lifecycle destroyed", "vdestroyed"],
     "body": ["destroyed () {", "\t${0};", "},"],
     "description": "destroyed lifecycle method",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-watchers": {
     "prefix": ["vue watchers", "vwatcher"],
@@ -395,7 +395,7 @@
       "},"
     ],
     "description": "vue watcher",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-watchers-with-options": {
     "prefix": ["vue watchers with options", "vwatcher-options"],
@@ -411,7 +411,7 @@
       "},"
     ],
     "description": "vue watcher with options",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-props-with-default": {
     "prefix": ["vue props with default", "vprops"],
@@ -424,19 +424,19 @@
       "},"
     ],
     "description": "Vue Props with Default",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-import-file": {
     "prefix": ["vue import file", "vimport"],
     "body": ["import ${1:New} from '@/components/${1:New}.vue';"],
     "description": "Import one component into another",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-import-into-the-component": {
     "prefix": ["vue import into the component", "vcomponents"],
     "body": ["components: {", "\t${1:New},", "},"],
     "description": "Import one component into another, within export statement",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-import-export": {
     "prefix": ["vue import export", "vimport-export"],
@@ -450,7 +450,7 @@
       "}"
     ],
     "description": "import a component and include it in export default",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-mapstate": {
     "prefix": ["vue mapstate", "vmapstate"],
@@ -466,7 +466,7 @@
       "}"
     ],
     "description": "map getters inside a vue component",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-mapgetters": {
     "prefix": ["vue mapgetters", "vmapgetters"],
@@ -482,7 +482,7 @@
       "}"
     ],
     "description": "mapgetters inside a vue component",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-mapmutations": {
     "prefix": ["vue mapmutations", "vmapmutations"],
@@ -498,7 +498,7 @@
       "}"
     ],
     "description": "mapmutations inside a vue component",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-mapactions": {
     "prefix": ["vue mapactions", "vmapactions"],
@@ -514,7 +514,7 @@
       "}"
     ],
     "description": "mapactions inside a vue component",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-filter": {
     "prefix": ["vue filter", "vfilter"],
@@ -526,7 +526,7 @@
       "}"
     ],
     "description": "vue filter",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-mixin": {
     "prefix": ["vue mixin", "vmixin"],
@@ -538,13 +538,13 @@
       "}"
     ],
     "description": "vue mixin",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-use-mixin": {
     "prefix": ["vue use mixin", "vmixin-use"],
     "body": ["mixins: [${1:mixinName}],"],
     "description": "vue use mixin",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-custom-directive": {
     "prefix": ["vue custom directive", "vc-direct"],
@@ -556,19 +556,19 @@
       "});"
     ],
     "description": "vue custom directive",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-import-library": {
     "prefix": ["vue import library", "vimport-lib"],
     "body": ["import { ${1:libName} } from '${1:libName}'"],
     "description": "import a library",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-import-gsap": {
     "prefix": ["vue import gsap", "vimport-gsap"],
     "body": ["import { TimelineMax, ${1:Ease} } from 'gsap'"],
     "description": "component methods options that dispatch an action from vuex store.",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-transition-methods-with-javascript-hooks": {
     "prefix": ["vue transition methods with javascript hooks", "vanimhook-js"],
@@ -589,7 +589,7 @@
       "},"
     ],
     "description": "transition component js hooks",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-commit-vuex-store-in-methods": {
     "prefix": ["vue commit vuex store in methods", "vcommit"],
@@ -599,7 +599,7 @@
       "}"
     ],
     "description": "commit to vuex store in methods for mutation",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-dispatch-vuex-store-in-methods": {
     "prefix": ["vue dispatch vuex store in methods", "vdispatch"],
@@ -609,19 +609,19 @@
       "}"
     ],
     "description": "dispatch to vuex store in methods for action",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-incrementer": {
     "prefix": ["vue incrementer", "vinc"],
     "body": ["return ${1:this.num} += ${2:1}"],
     "description": "increment",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-decrementer": {
     "prefix": ["vue decrementer", "vdec"],
     "body": ["return ${1:this.num} -= ${2:1}"],
     "description": "decrement",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-unit-test": {
     "prefix": ["vue unit test", "vtest"],
@@ -639,7 +639,7 @@
       "})"
     ],
     "description": "unit test component",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-vue-config-js-import": {
     "prefix": ["vue vue.config.js import", "vconfig"],
@@ -655,7 +655,7 @@
       "}"
     ],
     "description": "vue.config.js",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "vue-single-file-component": {
     "prefix": ["vue base"],

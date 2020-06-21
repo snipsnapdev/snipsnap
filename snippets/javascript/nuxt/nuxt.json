@@ -34,7 +34,7 @@
       "\n},"
     ],
     "description": "Fetch and pre-render data on the server without using a store. The result from asyncData will be merged with data",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "nuxt-head": {
     "prefix": ["nuxt head"],
@@ -49,30 +49,30 @@
       "},"
     ],
     "description": "Use the head method to set the HTML Head tags for the current page",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "nuxt-middleware": {
     "prefix": ["nuxt middleware"],
     "body": ["middleware ({ store, redirect }) {", "\t${1:data}", "},"],
     "description": "Set the middleware for a specific page of the application.",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "nuxt-validate": {
     "prefix": ["nuxt validate"],
     "body": ["validate({ params, query, store }) {", "\t${1:data}", "},"],
     "description": "Validate is called every time before navigating to a new route.",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "nuxt-watch-query": {
     "prefix": ["nuxt watchquery"],
     "body": ["watchQuery (newQuery, oldQuery) {", "\t${1:data}", "},"],
     "description": "Use the watchQuery key to set up a watcher for query strings.",
-    "scope": "vue"
+    "scope": "javascript"
   },
   "nuxt-serverinit": {
     "prefix": ["nuxt serverinit"],
     "body": ["nuxtServerInit ({ commit }, { req }) {", "\t${1:data}", "}"],
     "description": "In universal mode, useful to fetch data on the server and give directly to the client-side.",
-    "scope": "vue"
+    "scope": "javascript"
   }
 }
