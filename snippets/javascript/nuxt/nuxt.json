@@ -1,6 +1,6 @@
 {
-  "vue-template": {
-    "prefix": ["vue template", "template"],
+  "nuxt-template": {
+    "prefix": ["nuxt template", "template"],
     "body": [
       "<template>",
       "\t<${1:div}$2>",
@@ -11,336 +11,336 @@
     "description": "template element",
     "scope": "vue"
   },
-  "vue-v-text": {
-    "prefix": ["vue v-text", "vtext"],
+  "nuxt-v-text": {
+    "prefix": ["nuxt v-text", "vtext"],
     "body": ["v-text=\"${1:msg}\""],
     "description": "Expects: string. Updates the element’s textContent.",
     "scope": "vue-html"
   },
-  "vue-v-html": {
-    "prefix": ["vue v-html", "vhtml"],
+  "nuxt-v-html": {
+    "prefix": ["nuxt v-html", "vhtml"],
     "body": ["v-html=\"${1:html}\""],
     "description": "Expects: string. Updates the element’s innerHTML.",
     "scope": "vue-html"
   },
-  "vue-v-show": {
-    "prefix": ["vue v-show", "vshow"],
+  "nuxt-v-show": {
+    "prefix": ["nuxt v-show", "vshow"],
     "body": ["v-show=\"${1:condition}\""],
     "description": "Expects: any",
     "scope": "vue-html"
   },
-  "vue-v-if": {
-    "prefix": ["vue v-if", "vif"],
+  "nuxt-v-if": {
+    "prefix": ["nuxt v-if", "vif"],
     "body": ["v-if=\"${1:condition}\""],
     "description": "Expects: any",
     "scope": "vue-html"
   },
-  "vue-v-else": {
-    "prefix": ["vue v-else", "velse"],
+  "nuxt-v-else": {
+    "prefix": ["nuxt v-else", "velse"],
     "body": ["v-else"],
     "description": "Does not expect expression. previous sibling element must have v-if or v-else-if.",
     "scope": "vue-html"
   },
-  "vue-v-else-if": {
-    "prefix": ["vue v-else-if", "velseif"],
+  "nuxt-v-else-if": {
+    "prefix": ["nuxt v-else-if", "velseif"],
     "body": ["v-else-if=\"${1:condition}\""],
     "description": "Expects: any. previous sibling element must have v-if or v-else-if.",
     "scope": "vue-html"
   },
-  "vue-v-for-without-key": {
-    "prefix": ["vue v-for-without-key", "vforwithoutkey"],
+  "nuxt-v-for-without-key": {
+    "prefix": ["nuxt v-for-without-key", "vforwithoutkey"],
     "body": ["v-for=\"${1:item} in ${2:items}\""],
     "description": "Expects: Array | Object | number | string",
     "scope": "vue-html"
   },
-  "vue-v-for": {
-    "prefix": ["vue v-for", "vfor"],
+  "nuxt-v-for": {
+    "prefix": ["nuxt v-for", "vfor"],
     "body": [
       "v-for=\"(${1:item}, ${2:index}) in ${3:items}\" :key=\"${4:index}\""
     ],
     "description": "Expects: Array | Object | number | string",
     "scope": "vue-html"
   },
-  "vue-v-on": {
-    "prefix": ["vue v-on", "von"],
+  "nuxt-v-on": {
+    "prefix": ["nuxt v-on", "von"],
     "body": ["v-on:${1:event}=\"${2:handle}\""],
     "description": "Expects: Function | Inline Statement",
     "scope": "vue-html"
   },
-  "vue-v-bind": {
-    "prefix": ["vue v-bind", "vbind"],
+  "nuxt-v-bind": {
+    "prefix": ["nuxt v-bind", "vbind"],
     "body": ["v-bind$1=\"${2}\""],
     "description": "Expects: any (with argument) | Object (without argument)",
     "scope": "vue-html"
   },
-  "vue-v-model": {
-    "prefix": ["vue v-model", "vmodel"],
+  "nuxt-v-model": {
+    "prefix": ["nuxt v-model", "vmodel"],
     "body": ["v-model=\"${1:something}\""],
     "description": "Expects: varies based on value of form inputs element or output of components",
     "scope": "vue-html"
   },
-  "vue-v-pre": {
-    "prefix": ["vue v-pre", "vpre"],
+  "nuxt-v-pre": {
+    "prefix": ["nuxt v-pre", "vpre"],
     "body": ["v-pre"],
     "description": "Does not expect expression",
     "scope": "vue-html"
   },
-  "vue-v-cloak": {
-    "prefix": ["vue v-cloak", "vcloak"],
+  "nuxt-v-cloak": {
+    "prefix": ["nuxt v-cloak", "vcloak"],
     "body": ["v-cloak"],
     "description": "Does not expect expression",
     "scope": "vue-html"
   },
-  "vue-v-once": {
-    "prefix": ["vue v-once", "vonce"],
+  "nuxt-v-once": {
+    "prefix": ["nuxt v-once", "vonce"],
     "body": ["v-once"],
     "description": "Does not expect expression",
     "scope": "vue-html"
   },
-  "vue-key": {
-    "prefix": ["vue key", "key"],
+  "nuxt-key": {
+    "prefix": ["nuxt key", "key"],
     "body": [":key=\"${1:key}\""],
     "description": "Expects: string. Children of the same common parent must have unique keys. Duplicate keys will cause render errors.",
     "scope": "vue-html"
   },
-  "vue-ref": {
-    "prefix": ["vue ref", "ref"],
+  "nuxt-ref": {
+    "prefix": ["nuxt ref", "ref"],
     "body": ["ref=\"${1:reference}\"$0"],
     "description": "Expects: string. ref is used to register a reference to an element or a child component. The reference will be registered under the parent component’s $refs object. If used on a plain DOM element, the reference will be that element; if used on a child component, the reference will be component instance.",
     "scope": "vue-html"
   },
-  "vue-slota": {
-    "prefix": ["vue slota", "slota"],
+  "nuxt-slota": {
+    "prefix": ["nuxt slota", "slota"],
     "body": ["slot=\"$1\"$0"],
     "description": "slot=''. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.",
     "scope": "vue-html"
   },
-  "vue-slote": {
-    "prefix": ["vue slote", "slote"],
+  "nuxt-slote": {
+    "prefix": ["nuxt slote", "slote"],
     "body": ["<slot$1>$2</slot>$0"],
     "description": "<slot></slot>. Expects: string. Used on content inserted into child components to indicate which named slot the content belongs to.",
     "scope": "vue-html"
   },
-  "vue-slotscope": {
-    "prefix": ["vue slotscope", "slotscope"],
+  "nuxt-slotscope": {
+    "prefix": ["nuxt slotscope", "slotscope"],
     "body": ["slot-scope=\"$1\"$0"],
     "description": "Used to denote an element or component as a scoped slot. The attribute’s value should be a valid JavaScript expression that can appear in the argument position of a function signature. This means in supported environments you can also use ES2015 destructuring in the expression. Serves as a replacement for scope in 2.5.0+.",
     "scope": "vue-html"
   },
-  "vue-scope": {
-    "prefix": ["vue scope", "scope"],
+  "nuxt-scope": {
+    "prefix": ["nuxt scope", "scope"],
     "body": ["scope=\"${1:this api replaced by slot-scope in 2.5.0+}\"$0"],
     "description": "Used to denote a <template> element as a scoped slot, which is replaced by `slot-scope` in 2.5.0+.",
     "scope": "vue-html"
   },
-  "vue-component": {
-    "prefix": ["vue component", "component"],
+  "nuxt-component": {
+    "prefix": ["nuxt component", "component"],
     "body": ["<component :is=\"${1:componentId}\"></component>$0"],
     "description": "component element",
     "scope": "vue-html"
   },
-  "vue-keep-alive": {
-    "prefix": ["vue keep-alive", "keepalive"],
+  "nuxt-keep-alive": {
+    "prefix": ["nuxt keep-alive", "keepalive"],
     "body": ["<keep-alive$1>", "$2", "</keep-alive>$0"],
     "description": "keep-alive element",
     "scope": "vue-html"
   },
-  "vue-transition": {
-    "prefix": ["vue transition", "transition"],
+  "nuxt-transition": {
+    "prefix": ["nuxt transition", "transition"],
     "body": ["<transition$1>", "$2", "</transition>$0"],
     "description": "transition element",
     "scope": "vue-html"
   },
-  "vue-transition-group": {
-    "prefix": ["vue transition-group", "transitiongroup"],
+  "nuxt-transition-group": {
+    "prefix": ["nuxt transition-group", "transitiongroup"],
     "body": ["<transition-group$1>", "$2", "</transition-group>"],
     "description": "transition-group element",
     "scope": "vue-html"
   },
-  "vue-enter-class": {
-    "prefix": ["vue enter-class", "enterclass"],
+  "nuxt-enter-class": {
+    "prefix": ["nuxt enter-class", "enterclass"],
     "body": ["enter-class=\"$1\"$0"],
     "description": "enter-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-leave-class": {
-    "prefix": ["vue leave-class", "leaveclass"],
+  "nuxt-leave-class": {
+    "prefix": ["nuxt leave-class", "leaveclass"],
     "body": ["leave-class=\"$1\"$0"],
     "description": "leave-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-appear-class": {
-    "prefix": ["vue appear-class", "appearclass"],
+  "nuxt-appear-class": {
+    "prefix": ["nuxt appear-class", "appearclass"],
     "body": ["appear-class=\"$1\"$0"],
     "description": "appear-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-enter-to-class": {
-    "prefix": ["vue enter-to-class", "entertoclass"],
+  "nuxt-enter-to-class": {
+    "prefix": ["nuxt enter-to-class", "entertoclass"],
     "body": ["enter-to-class=\"$1\"$0"],
     "description": "enter-to-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-leave-to-class": {
-    "prefix": ["vue leave-to-class", "leavetoclass"],
+  "nuxt-leave-to-class": {
+    "prefix": ["nuxt leave-to-class", "leavetoclass"],
     "body": ["leave-to-class=\"$1\"$0"],
     "description": "leave-to-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-appear-to-class": {
-    "prefix": ["vue appear-to-class", "appeartoclass"],
+  "nuxt-appear-to-class": {
+    "prefix": ["nuxt appear-to-class", "appeartoclass"],
     "body": ["appear-to-class=\"$1\"$0"],
     "description": "appear-to-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-enter-active-class": {
-    "prefix": ["vue enter-active-class", "enteractiveclass"],
+  "nuxt-enter-active-class": {
+    "prefix": ["nuxt enter-active-class", "enteractiveclass"],
     "body": ["enter-active-class=\"$1\"$0"],
     "description": "enter-active-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-leave-active-class": {
-    "prefix": ["vue leave-active-class", "leaveactiveclass"],
+  "nuxt-leave-active-class": {
+    "prefix": ["nuxt leave-active-class", "leaveactiveclass"],
     "body": ["leave-active-class=\"$1\"$0"],
     "description": "leave-active-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-appear-active-class": {
-    "prefix": ["vue appear-active-class", "appearactiveclass"],
+  "nuxt-appear-active-class": {
+    "prefix": ["nuxt appear-active-class", "appearactiveclass"],
     "body": ["appear-active-class=\"$1\"$0"],
     "description": "appear-active-class=''. Expects: string.",
     "scope": "vue-html"
   },
-  "vue-before-enter": {
-    "prefix": ["vue before-enter", "beforeenterevent"],
+  "nuxt-before-enter": {
+    "prefix": ["nuxt before-enter", "beforeenterevent"],
     "body": ["@before-enter=\"$1\"$0"],
     "description": "@before-enter=''",
     "scope": "vue-html"
   },
-  "vue-before-leave": {
-    "prefix": ["vue before-leave", "beforeleaveevent"],
+  "nuxt-before-leave": {
+    "prefix": ["nuxt before-leave", "beforeleaveevent"],
     "body": ["@before-leave=\"$1\"$0"],
     "description": "@before-leave=''",
     "scope": "vue-html"
   },
-  "vue-before-appear": {
-    "prefix": ["vue before-appear", "beforeappearevent"],
+  "nuxt-before-appear": {
+    "prefix": ["nuxt before-appear", "beforeappearevent"],
     "body": ["@before-appear=\"$1\"$0"],
     "description": "@before-appear=''",
     "scope": "vue-html"
   },
-  "vue-enter": {
-    "prefix": ["vue enter", "enterevent"],
+  "nuxt-enter": {
+    "prefix": ["nuxt enter", "enterevent"],
     "body": ["@enter=\"$1\"$0"],
     "description": "@enter=''",
     "scope": "vue-html"
   },
-  "vue-leave": {
-    "prefix": ["vue leave", "leaveevent"],
+  "nuxt-leave": {
+    "prefix": ["nuxt leave", "leaveevent"],
     "body": ["@leave=\"$1\"$0"],
     "description": "@leave=''",
     "scope": "vue-html"
   },
-  "vue-appear": {
-    "prefix": ["vue appear", "appearevent"],
+  "nuxt-appear": {
+    "prefix": ["nuxt appear", "appearevent"],
     "body": ["@appear=\"$1\"$0"],
     "description": "@appear=''",
     "scope": "vue-html"
   },
-  "vue-after-enter": {
-    "prefix": ["vue after-enter", "afterenterevent"],
+  "nuxt-after-enter": {
+    "prefix": ["nuxt after-enter", "afterenterevent"],
     "body": ["@after-enter=\"$1\"$0"],
     "description": "@after-enter=''",
     "scope": "vue-html"
   },
-  "vue-after-leave": {
-    "prefix": ["vue after-leave", "afterleaveevent"],
+  "nuxt-after-leave": {
+    "prefix": ["nuxt after-leave", "afterleaveevent"],
     "body": ["@after-leave=\"$1\"$0"],
     "description": "@after-leave=''",
     "scope": "vue-html"
   },
-  "vue-after-appear": {
-    "prefix": ["vue after-appear", "afterappearevent"],
+  "nuxt-after-appear": {
+    "prefix": ["nuxt after-appear", "afterappearevent"],
     "body": ["@after-appear=\"$1\"$0"],
     "description": "@after-appear=''",
     "scope": "vue-html"
   },
-  "vue-enter-cancelled": {
-    "prefix": ["vue enter-cancelled", "entercancelledevent"],
+  "nuxt-enter-cancelled": {
+    "prefix": ["nuxt enter-cancelled", "entercancelledevent"],
     "body": ["@enter-cancelled=\"$1\"$0"],
     "description": "@enter-cancelled=''",
     "scope": "vue-html"
   },
-  "vue-leave-cancelled": {
-    "prefix": ["vue leave-cancelled", "leavecancelledevent"],
+  "nuxt-leave-cancelled": {
+    "prefix": ["nuxt leave-cancelled", "leavecancelledevent"],
     "body": ["@leave-cancelled=\"$1\"$0"],
     "description": "@leave-cancelled='' (v-show only)",
     "scope": "vue-html"
   },
-  "vue-appear-cancelled": {
-    "prefix": ["vue appear-cancelled", "appearcancelledevent"],
+  "nuxt-appear-cancelled": {
+    "prefix": ["nuxt appear-cancelled", "appearcancelledevent"],
     "body": ["@appear-cancelled=\"$1\"$0"],
     "description": "@appear-cancelled=''",
     "scope": "vue-html"
   },
-  "vue-routerlink": {
-    "prefix": ["vue routerlink", "routerlink"],
-    "body": ["<router-link $1>$2</router-link>$0"],
-    "description": "router-link element",
+  "nuxt-nuxtlink": {
+    "prefix": ["nuxt nuxtlink", "nuxtlink"],
+    "body": ["<nuxt-link $1>$2</nuxt-link>$0"],
+    "description": "nuxt-link element",
     "scope": "vue-html"
   },
-  "vue-routerlinkto": {
-    "prefix": ["vue routerlinkto", "routerlinkto"],
-    "body": ["<router-link to=\"$1\">$2</router-link>$0"],
-    "description": "<router-link to=''></router-link>. router-link element",
+  "nuxt-nuxtlinkto": {
+    "prefix": ["nuxt nuxtlinkto", "nuxtlinkto"],
+    "body": ["<nuxt-link to=\"$1\">$2</nuxt-link>$0"],
+    "description": "<nuxt-link to=''></nuxt-link>. nuxt-link element",
     "scope": "vue-html"
   },
-  "vue-routernamedlinkto": {
-    "prefix": ["vue routernamedlinkto", "routernamedlinkto"],
+  "nuxt-nuxtnamedlinkto": {
+    "prefix": ["nuxt nuxtnamedlinkto", "nuxtnamedlinkto"],
     "body": [
-      "<router-link :to=\"{\t${1:key}: '${2:value}', ${3:key}: {\t${4:key}: '${5:value}'\t}\t}\">$6</router-link>$0"
+      "<nuxt-link :to=\"{\t${1:key}: '${2:value}', ${3:key}: {\t${4:key}: '${5:value}'\t}\t}\">$6</nuxt-link>$0"
     ],
-    "description": "<router-link :to='{ name: '', params: { paramId: '' }}'></router-link>. router-link element",
+    "description": "<nuxt-link :to='{name: ''}'></nuxt-link>. nuxt-link element",
     "scope": "vue-html"
   },
-  "vue-to": {
-    "prefix": ["vue to", "to"],
+  "nuxt-to": {
+    "prefix": ["nuxt to", "to"],
     "body": ["to=\"$1\"$0"],
     "description": "to=''",
     "scope": "vue-html"
   },
-  "vue-tag": {
-    "prefix": ["vue tag", "tag"],
+  "nuxt-tag": {
+    "prefix": ["nuxt tag", "tag"],
     "body": ["tag=\"$1\"$0"],
     "description": "tag=''",
     "scope": "vue-html"
   },
-  "vue-routerview": {
-    "prefix": ["vue routerview", "routerview"],
-    "body": ["<router-view>$1</router-view>$0"],
-    "description": "router-view element",
+  "nuxt-nuxtview": {
+    "prefix": ["nuxt routerview", "routerview"],
+    "body": ["<nuxt>$1</nuxt>$0"],
+    "description": "nuxt-view element",
     "scope": "vue-html"
   },
-  "vue-namedrouterview": {
-    "prefix": ["vue namedrouterview", "namedrouterview"],
-    "body": ["<router-view name=\"$1\">$2</router-view>$0"],
-    "description": "named-router-view element",
+  "nuxt-nuxtnamedview": {
+    "prefix": ["nuxt nuxtnamedview", "nuxtnamedview"],
+    "body": ["<nuxt name=\"$1\">$2</nuxt>$0"],
+    "description": "nuxt-named-view element",
     "scope": "vue-html"
   },
-  "vue-data": {
-    "prefix": ["vue data", "vdata"],
+  "nuxt-data": {
+    "prefix": ["nuxt data", "vdata"],
     "body": ["data() {", "\treturn {", "\t\t${1:key}: ${2:value}", "\t}", "},"],
     "description": "Vue Component Data",
     "scope": "vue"
   },
-  "vue-methods": {
-    "prefix": ["vue methods", "vmethod"],
+  "nuxt-methods": {
+    "prefix": ["nuxt methods", "vmethod"],
     "body": ["methods: {", "\t${1:name}() {", "\t\t${0}", "\t}", "},"],
     "description": "vue method",
     "scope": "vue"
   },
-  "vue-computed": {
-    "prefix": ["vue computed", "vcomputed"],
+  "nuxt-computed": {
+    "prefix": ["nuxt computed", "vcomputed"],
     "body": [
       "computed: {",
       "\t${1:name}() {",
@@ -351,56 +351,68 @@
     "description": "computed value",
     "scope": "vue"
   },
-  "vue-lifecycle-beforecreate": {
-    "prefix": ["vue lifecycle beforecreate", "vbeforecreate"],
+  "nuxt-async-data": {
+    "prefix": ["nuxt asyncdata", "vasyncdata"],
+    "body": [
+      "async asyncData (context) {",
+      "\tconst ${1:data} = await ${2:async-action}",
+      "\t\treturn ${1:data}",
+      "\t}",
+      "},"
+    ],
+    "description": "Fetch data and pre-render it on the server without using a store. The result from asyncData will be merged with data",
+    "scope": "vue"
+  },
+  "nuxt-lifecycle-beforecreate": {
+    "prefix": ["nuxt lifecycle beforecreate", "vbeforecreate"],
     "body": ["beforeCreate () {", "\t${0};", "},"],
     "description": "beforeCreate lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-created": {
-    "prefix": ["vue lifecycle created", "vcreated"],
+  "nuxt-lifecycle-created": {
+    "prefix": ["nuxt lifecycle created", "vcreated"],
     "body": ["created () {", "\t${0};", "},"],
     "description": "created lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-beforemount": {
-    "prefix": ["vue lifecycle beforemount", "vbeforemount"],
+  "nuxt-lifecycle-beforemount": {
+    "prefix": ["nuxt lifecycle beforemount", "vbeforemount"],
     "body": ["beforeMount () {", "\t${0};", "},"],
     "description": "beforeMount lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-mounted": {
-    "prefix": ["vue lifecycle mounted", "vmounted"],
+  "nuxt-lifecycle-mounted": {
+    "prefix": ["nuxt lifecycle mounted", "vmounted"],
     "body": ["mounted () {", "\t${0};", "},"],
     "description": "mounted lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-beforeupdate": {
-    "prefix": ["vue lifecycle beforeupdate", "vbeforeupdate"],
+  "nuxt-lifecycle-beforeupdate": {
+    "prefix": ["nuxt lifecycle beforeupdate", "vbeforeupdate"],
     "body": ["beforeUpdate () {", "\t${0};", "},"],
     "description": "beforeUpdate lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-updated": {
-    "prefix": ["vue lifecycle updated", "vupdated"],
+  "nuxt-lifecycle-updated": {
+    "prefix": ["nuxt lifecycle updated", "vupdated"],
     "body": ["updated () {", "\t${0};", "},"],
     "description": "updated lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-beforedestroy": {
-    "prefix": ["vue lifecycle beforedestroy", "vbeforedestroy"],
+  "nuxt-lifecycle-beforedestroy": {
+    "prefix": ["nuxt lifecycle beforedestroy", "vbeforedestroy"],
     "body": ["beforeDestroy () {", "\t${0};", "},"],
     "description": "beforeDestroy lifecycle method",
     "scope": "vue"
   },
-  "vue-lifecycle-destroyed": {
-    "prefix": ["vue lifecycle destroyed", "vdestroyed"],
+  "nuxt-lifecycle-destroyed": {
+    "prefix": ["nuxt lifecycle destroyed", "vdestroyed"],
     "body": ["destroyed () {", "\t${0};", "},"],
     "description": "destroyed lifecycle method",
     "scope": "vue"
   },
-  "vue-watchers": {
-    "prefix": ["vue watchers", "vwatcher"],
+  "nuxt-watchers": {
+    "prefix": ["nuxt watchers", "vwatcher"],
     "body": [
       "watch: {",
       "\t${1:data}(${2:newValue}, ${3:oldValue}) {",
@@ -411,8 +423,8 @@
     "description": "vue watcher",
     "scope": "vue"
   },
-  "vue-watchers-with-options": {
-    "prefix": ["vue watchers with options", "vwatcher-options"],
+  "nuxt-watchers-with-options": {
+    "prefix": ["nuxt watchers with options", "vwatcher-options"],
     "body": [
       "watch: {",
       "\t${1:data}: {",
@@ -427,8 +439,8 @@
     "description": "vue watcher with options",
     "scope": "vue"
   },
-  "vue-props-with-default": {
-    "prefix": ["vue props with default", "vprops"],
+  "nuxt-props-with-default": {
+    "prefix": ["nuxt props with default", "vprops"],
     "body": [
       "props: {",
       "\t${1:propName}: {",
@@ -440,20 +452,20 @@
     "description": "Vue Props with Default",
     "scope": "vue"
   },
-  "vue-import-file": {
-    "prefix": ["vue import file", "vimport"],
+  "nuxt-import-file": {
+    "prefix": ["nuxt import file", "vimport"],
     "body": ["import ${1:New} from '@/components/${1:New}.vue';"],
     "description": "Import one component into another",
     "scope": "vue"
   },
-  "vue-import-into-the-component": {
-    "prefix": ["vue import into the component", "vcomponents"],
+  "nuxt-import-into-the-component": {
+    "prefix": ["nuxt import into the component", "vcomponents"],
     "body": ["components: {", "\t${1:New},", "},"],
     "description": "Import one component into another, within export statement",
     "scope": "vue"
   },
-  "vue-import-export": {
-    "prefix": ["vue import export", "vimport-export"],
+  "nuxt-import-export": {
+    "prefix": ["nuxt import export", "vimport-export"],
     "body": [
       "import ${1:Name} from '@/components/${1:Name}.vue'",
       "",
@@ -466,8 +478,8 @@
     "description": "import a component and include it in export default",
     "scope": "vue"
   },
-  "vue-mapstate": {
-    "prefix": ["vue mapstate", "vmapstate"],
+  "nuxt-mapstate": {
+    "prefix": ["nuxt mapstate", "vmapstate"],
     "body": [
       "import { mapState } from 'vuex'",
       "",
@@ -482,8 +494,8 @@
     "description": "map getters inside a vue component",
     "scope": "vue"
   },
-  "vue-mapgetters": {
-    "prefix": ["vue mapgetters", "vmapgetters"],
+  "nuxt-mapgetters": {
+    "prefix": ["nuxt mapgetters", "vmapgetters"],
     "body": [
       "import { mapGetters } from 'vuex'",
       "",
@@ -498,8 +510,8 @@
     "description": "mapgetters inside a vue component",
     "scope": "vue"
   },
-  "vue-mapmutations": {
-    "prefix": ["vue mapmutations", "vmapmutations"],
+  "nuxt-mapmutations": {
+    "prefix": ["nuxt mapmutations", "vmapmutations"],
     "body": [
       "import { mapMutations } from 'vuex'",
       "",
@@ -514,8 +526,8 @@
     "description": "mapmutations inside a vue component",
     "scope": "vue"
   },
-  "vue-mapactions": {
-    "prefix": ["vue mapactions", "vmapactions"],
+  "nuxt-mapactions": {
+    "prefix": ["nuxt mapactions", "vmapactions"],
     "body": [
       "import { mapActions } from 'vuex'",
       "",
@@ -530,8 +542,8 @@
     "description": "mapactions inside a vue component",
     "scope": "vue"
   },
-  "vue-filter": {
-    "prefix": ["vue filter", "vfilter"],
+  "nuxt-filter": {
+    "prefix": ["nuxt filter", "vfilter"],
     "body": [
       "filters: {",
       "\t${1:fnName}: function(${2:value}) {",
@@ -542,8 +554,8 @@
     "description": "vue filter",
     "scope": "vue"
   },
-  "vue-mixin": {
-    "prefix": ["vue mixin", "vmixin"],
+  "nuxt-mixin": {
+    "prefix": ["nuxt mixin", "vmixin"],
     "body": [
       "const ${1:mixinName} = {",
       "\tmounted() {",
@@ -554,14 +566,14 @@
     "description": "vue mixin",
     "scope": "vue"
   },
-  "vue-use-mixin": {
-    "prefix": ["vue use mixin", "vmixin-use"],
+  "nuxt-use-mixin": {
+    "prefix": ["nuxt use mixin", "vmixin-use"],
     "body": ["mixins: [${1:mixinName}],"],
     "description": "vue use mixin",
     "scope": "vue"
   },
-  "vue-custom-directive": {
-    "prefix": ["vue custom directive", "vc-direct"],
+  "nuxt-custom-directive": {
+    "prefix": ["nuxt custom directive", "vc-direct"],
     "body": [
       "Vue.directive('${1:directiveName}', {",
       "\tbind(el, binding, vnode) {",
@@ -572,20 +584,20 @@
     "description": "vue custom directive",
     "scope": "vue"
   },
-  "vue-import-library": {
-    "prefix": ["vue import library", "vimport-lib"],
+  "nuxt-import-library": {
+    "prefix": ["nuxt import library", "vimport-lib"],
     "body": ["import { ${1:libName} } from '${1:libName}'"],
     "description": "import a library",
     "scope": "vue"
   },
-  "vue-import-gsap": {
-    "prefix": ["vue import gsap", "vimport-gsap"],
+  "nuxt-import-gsap": {
+    "prefix": ["nuxt import gsap", "vimport-gsap"],
     "body": ["import { TimelineMax, ${1:Ease} } from 'gsap'"],
     "description": "component methods options that dispatch an action from vuex store.",
     "scope": "vue"
   },
-  "vue-transition-methods-with-javascript-hooks": {
-    "prefix": ["vue transition methods with javascript hooks", "vanimhook-js"],
+  "nuxt-transition-methods-with-javascript-hooks": {
+    "prefix": ["nuxt transition methods with javascript hooks", "vanimhook-js"],
     "body": [
       "beforeEnter(el) {",
       "\tconsole.log('beforeEnter');",
@@ -605,8 +617,8 @@
     "description": "transition component js hooks",
     "scope": "vue"
   },
-  "vue-commit-vuex-store-in-methods": {
-    "prefix": ["vue commit vuex store in methods", "vcommit"],
+  "nuxt-commit-vuex-store-in-methods": {
+    "prefix": ["nuxt commit vuex store in methods", "vcommit"],
     "body": [
       "${1:mutationName}() {",
       "\tthis.\\$store.commit('${1:mutationName}', ${2:payload})",
@@ -615,8 +627,8 @@
     "description": "commit to vuex store in methods for mutation",
     "scope": "vue"
   },
-  "vue-dispatch-vuex-store-in-methods": {
-    "prefix": ["vue dispatch vuex store in methods", "vdispatch"],
+  "nuxt-dispatch-vuex-store-in-methods": {
+    "prefix": ["nuxt dispatch vuex store in methods", "vdispatch"],
     "body": [
       "${1:actionName}() {",
       "\tthis.\\$store.dispatch('${1:actionName}', ${2:payload})",
@@ -625,20 +637,20 @@
     "description": "dispatch to vuex store in methods for action",
     "scope": "vue"
   },
-  "vue-incrementer": {
-    "prefix": ["vue incrementer", "vinc"],
+  "nuxt-incrementer": {
+    "prefix": ["nuxt incrementer", "vinc"],
     "body": ["return ${1:this.num} += ${2:1}"],
     "description": "increment",
     "scope": "vue"
   },
-  "vue-decrementer": {
-    "prefix": ["vue decrementer", "vdec"],
+  "nuxt-decrementer": {
+    "prefix": ["nuxt decrementer", "vdec"],
     "body": ["return ${1:this.num} -= ${2:1}"],
     "description": "decrement",
     "scope": "vue"
   },
-  "vue-unit-test": {
-    "prefix": ["vue unit test", "vtest"],
+  "nuxt-unit-test": {
+    "prefix": ["nuxt unit test", "vtest"],
     "body": [
       "import Vue from 'vue'",
       "import ${1:HelloWorld} from './components/${1:HelloWorld}'",
@@ -655,24 +667,8 @@
     "description": "unit test component",
     "scope": "vue"
   },
-  "vue-vue-config-js-import": {
-    "prefix": ["vue vue.config.js import", "vconfig"],
-    "body": [
-      "module.exports = {",
-      "\tcss: {",
-      "\t\tloaderOptions: {",
-      "\t\t\t${1:sass}: {",
-      "\t\t\t\tdata: `${2:@import '@/styles/_variables.scss';}`",
-      "\t\t\t}",
-      "\t\t}",
-      "\t}",
-      "}"
-    ],
-    "description": "vue.config.js",
-    "scope": "vue"
-  },
-  "vue-single-file-component": {
-    "prefix": ["vue base"],
+  "nuxt-single-file-component": {
+    "prefix": ["nuxt base"],
     "body": [
       "<template>",
       "\t<div>",
@@ -693,8 +689,8 @@
     "description": "Base for Vue File with SCSS",
     "scope": "vue"
   },
-  "vue-single-file-component-with-postcss": {
-    "prefix": ["vue base postcss"],
+  "nuxt-single-file-component-with-postcss": {
+    "prefix": ["nuxt base postcss"],
     "body": [
       "<template>",
       "\t<div>",
@@ -715,8 +711,8 @@
     "description": "Base for Vue File with PostCSS",
     "scope": "vue"
   },
-  "vue-single-file-component-with-css": {
-    "prefix": ["vue base css"],
+  "nuxt-single-file-component-with-css": {
+    "prefix": ["nuxt base css"],
     "body": [
       "<template>",
       "\t<div>",
@@ -737,8 +733,8 @@
     "description": "Base for Vue File with CSS",
     "scope": "vue"
   },
-  "vue-single-file-component-with-typescript": {
-    "prefix": ["vue base ts"],
+  "nuxt-single-file-component-with-typescript": {
+    "prefix": ["nuxt base ts"],
     "body": [
       "<template>",
       "\t<div>",
@@ -759,6 +755,53 @@
       "</style>"
     ],
     "description": "Base for Vue File with Typescript",
+    "scope": "vue"
+  },
+  "vuex-state": {
+    "prefix": ["vuex state", "vstate"],
+    "body": ["export const state = () => ({", "\t${1:key}: ${2:value}", "})"],
+    "description": "vuex state",
+    "scope": "vue"
+  },
+  "vuex-getters": {
+    "prefix": ["vuex getters", "vgetters"],
+    "body": [
+      "export const getters = {",
+      "\t${1:value}: state => {",
+      "\t\treturn state.${1:value};",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex getters",
+    "scope": "vue"
+  },
+  "vuex-mutation": {
+    "prefix": ["vuex mutations", "vmutations"],
+    "body": [
+      "export const mutations = {",
+      "\t${1:updateValue}(state, ${3:payload}) {",
+      "\t\tstate.${2:value} = ${3:payload};",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex mutations",
+    "scope": "vue"
+  },
+  "vuex-action": {
+    "prefix": ["vuex actions", "vactions"],
+    "body": [
+      "export const actions = {",
+      "\tnuxtServerInit ({ commit }, { $1 }) {",
+      "\t\tif ($1) {",
+      "\t\t\tcommit('${2:updateValue}', ${3:payload})",
+      "\t\t}",
+      "\t}",
+      "\t${4:updateValue}({commit}, ${5:payload}) {",
+      "\t\tcommit('${4:updateValue}', ${5:payload});",
+      "\t}",
+      "}"
+    ],
+    "description": "vuex actions",
     "scope": "vue"
   }
 }
