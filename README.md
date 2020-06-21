@@ -66,7 +66,7 @@ Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with
 Snipsnap scans for new available snippets:
 
 - **on folder opening**
-- **on pressing command "Snipsnap: Feth the snippets" via the command palette**
+- **on pressing command "Snipsnap: Fetch the snippets" via the command palette**
 
 All snippets currently present in this repository and follow the guidelines described below.
 
