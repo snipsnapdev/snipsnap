@@ -7,7 +7,7 @@
   "nuxt-namedlinkto": {
     "prefix": ["nuxt namedlinkto"],
     "body": [
-      "<nuxt-link :to=\"{\t${1:key}: '${2:value}', ${3:key}: {\t${4:key}: '${5:value}'\t}\t}\">$6</nuxt-link>$0"
+      "<nuxt-link :to=\"{\t${1|name,path|}: '${2:value}', ${3|params,query|}: {\t${4:key}: '${5:value}'\t}\t}\">$6</nuxt-link>$0"
     ],
     "scope": "vue-html"
   },
