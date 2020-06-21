@@ -1,86 +1,77 @@
 {
-  "nuxt-nuxtlink": {
-    "prefix": ["nuxt nuxtlink", "nuxtlink"],
-    "body": ["<nuxt-link $1>$2</nuxt-link>$0"],
-    "description": "nuxt-link element",
-    "scope": "vue-html"
-  },
-  "nuxt-nuxtlinkto": {
-    "prefix": ["nuxt nuxtlinkto", "nuxtlinkto"],
+  "nuxt-linkto": {
+    "prefix": "nuxt linkto",
     "body": ["<nuxt-link to=\"$1\">$2</nuxt-link>$0"],
-    "description": "<nuxt-link to=''></nuxt-link>. nuxt-link element",
     "scope": "vue-html"
   },
-  "nuxt-nuxtnamedlinkto": {
-    "prefix": ["nuxt nuxtnamedlinkto", "nuxtnamedlinkto"],
+  "nuxt-namedlinkto": {
+    "prefix": "nuxt namedlinkto",
     "body": [
       "<nuxt-link :to=\"{\t${1:key}: '${2:value}', ${3:key}: {\t${4:key}: '${5:value}'\t}\t}\">$6</nuxt-link>$0"
     ],
-    "description": "<nuxt-link :to='{name: ''}'></nuxt-link>. nuxt-link element",
     "scope": "vue-html"
   },
-  "nuxt-nuxtview": {
-    "prefix": ["nuxt nuxtview", "nuxtview"],
+  "nuxt-view": {
+    "prefix": "nuxt view",
     "body": ["<nuxt>$1</nuxt>$0"],
-    "description": "nuxt-view element",
     "scope": "vue-html"
   },
-  "nuxt-nuxtnamedview": {
-    "prefix": ["nuxt nuxtnamedview", "nuxtnamedview"],
+  "nuxt-namedview": {
+    "prefix": "nuxt namedview",
     "body": ["<nuxt name=\"$1\">$2</nuxt>$0"],
-    "description": "nuxt-named-view element",
     "scope": "vue-html"
   },
-  "nuxt-nuxtchild": {
-    "prefix": ["nuxt nuxtchild", "nuxtchild"],
+  "nuxt-child": {
+    "prefix": "nuxt child",
     "body": ["<nuxt-child $1/>$0"],
-    "description": "nuxt-child element",
     "scope": "vue-html"
   },
   "nuxt-async-data": {
-    "prefix": ["nuxt asyncdata", "vasyncdata"],
+    "prefix": "nuxt asyncdata",
     "body": [
       "asyncData ({isDev, route, store, env, params, query, req, res, redirect, error}) {",
+      "\treturn { ${1:data} }",
       "\n},"
     ],
-    "description": "Fetch data and pre-render it on the server without using a store. The result from asyncData will be merged with data",
+    "description": "Fetch and pre-render data on the server without using a store. The result from asyncData will be merged with data",
     "scope": "vue"
   },
   "nuxt-head": {
-    "prefix": ["nuxt head", "vhead"],
+    "prefix": "nuxt head",
     "body": [
       "head () {",
       "\treturn {",
-      "\t\ttitle: '',",
+      "\t\ttitle: '${1:title}',",
       "\t\tmeta: [",
-      "\t\t\t{ hid: 'description', name: 'description', content: 'My custom description' }",
+      "\t\t\t{ hid: '${2:description}', name: '${3:description}', content: '${4:custom description}' }",
+      "\t\t]",
       "\t}",
       "},"
     ],
-    "description": "Vue Component Head",
+    "description": "Use the head method to set the HTML Head tags for the current page",
     "scope": "vue"
   },
   "nuxt-middleware": {
-    "prefix": ["nuxt middleware", "vmiddleware"],
-    "body": ["middleware ({ store, redirect }) {", "\t", "},"],
-    "description": "Vue Component Middleware",
+    "prefix": "nuxt middleware",
+    "body": ["middleware ({ store, redirect }) {", "\t${1:data}", "},"],
+    "description": "Set the middleware for a specific page of the application.",
     "scope": "vue"
   },
   "nuxt-validate": {
-    "prefix": ["nuxt validate", "vvalidate"],
-    "body": ["validate({ params, query, store }) {", "\t", "},"],
-    "description": "Vue Component Middleware",
+    "prefix": "nuxt validate",
+    "body": ["validate({ params, query, store }) {", "\t${1:data}", "},"],
+    "description": "Validate is called every time before navigating to a new route.",
     "scope": "vue"
   },
   "nuxt-watch-query": {
-    "prefix": ["nuxt watchquery", "vwatchquery"],
-    "body": ["watchQuery (newQuery, oldQuery) {", "\t", "},"],
-    "description": "Vue Component WatchQuery",
+    "prefix": "nuxt watchquery",
+    "body": ["watchQuery (newQuery, oldQuery) {", "\t${1:data}", "},"],
+    "description": "Use the watchQuery key to set up a watcher for query strings.",
     "scope": "vue"
   },
-  "nuxt-vuex-nuxtserverinit": {
-    "prefix": ["nuxt nuxtserverinit", "vnuxtserverinit"],
-    "body": ["nuxtServerInit ({ commit }, { req }) {", "\t", "}"],
+  "nuxt-serverinit": {
+    "prefix": "nuxt serverinit",
+    "body": ["nuxtServerInit ({ commit }, { req }) {", "\t${1:data}", "}"],
     "description": "In universal mode, useful to fetch data on the server and give directly to the client-side.",
     "scope": "vue"
   }
