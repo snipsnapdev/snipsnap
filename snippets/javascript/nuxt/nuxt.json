@@ -316,7 +316,7 @@
     "scope": "vue-html"
   },
   "nuxt-nuxtview": {
-    "prefix": ["nuxt routerview", "routerview"],
+    "prefix": ["nuxt nuxtview", "nuxtview"],
     "body": ["<nuxt>$1</nuxt>$0"],
     "description": "nuxt-view element",
     "scope": "vue-html"

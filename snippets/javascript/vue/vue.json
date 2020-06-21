@@ -321,10 +321,10 @@
     "description": "router-view element",
     "scope": "vue-html"
   },
-  "vue-namedrouterview": {
-    "prefix": ["vue namedrouterview", "namedrouterview"],
+  "vue-routernamedview": {
+    "prefix": ["vue routernamedview", "routernamedview"],
     "body": ["<router-view name=\"$1\">$2</router-view>$0"],
-    "description": "named-router-view element",
+    "description": "router-named-view element",
     "scope": "vue-html"
   },
   "vue-data": {
