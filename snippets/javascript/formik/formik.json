@@ -1,15 +1,15 @@
 {
   "formik-import": {
     "prefix": ["formik import"],
-    "body": ["import { Formik } from 'formik'", ""],
-    "scope": "javascript,javascriptreact",
-    "description": "Let's face it, forms are really verbose in React. To make matters worse, most form helpers do wayyyy too much magic and often have a significant performance cost associated with them. Formik is a small library that helps you with the 3 most annoying parts: Getting values in and out of form state, Validation and error messages, Handling form submission By colocating all of the above in one place, Formik will keep things organized--making testing, refactoring, and reasoning about your forms a breeze."
+    "body": ["import { Formik } from 'formik'"],
+    "scope": "javascript,javascriptreact"
   },
   "formik": {
     "prefix": ["formik component"],
     "body": [
-      "<Formik",
-      "      initialValues={{ name: 'jared' }}",
+      "const ${1:BasicExample} = () => (",
+      "    <Formik",
+      "      initialValues={{ ${2:values} }}",
       "      onSubmit={(values, actions) => {",
       "        setTimeout(() => {",
       "          alert(JSON.stringify(values, null, 2));",
@@ -19,80 +19,71 @@
       "    >",
       "      {props => (",
       "        <form onSubmit={props.handleSubmit}>",
-      "          <input",
-      "            type=\"text\"",
-      "            onChange={props.handleChange}",
-      "            onBlur={props.handleBlur}",
-      "            value={props.values.name}",
-      "            name=\"name\"",
-      "          />",
-      "          {props.errors.name && <div id=\"feedback\">{props.errors.name}</div>}",
-      "          <button type=\"submit\">Submit</button>",
+      "          ${3:children}",
       "        </form>",
       "      )}",
-      "    </Formik>"
+      "    </Formik>",
+      ");"
     ],
     "scope": "javascript,javascriptreact",
-    "description": "<Formik> is a component that helps you with building forms. It uses a render props pattern made popular by libraries like React Motion and React Router."
+    "description": "<Formik>\nis a component that helps you with building forms. It uses a render props pattern made popular by libraries like React Motion and React Router."
+  },
+  "formik-error-message": {
+    "prefix": ["formik error-message", "error-message"],
+    "body": ["<ErrorMessage component=\"${1:div}\" name=\"${2:name}\" />"],
+    "scope": "javascript,javascriptreact",
+    "description": "<ErrorMessage />\nis a component that renders the error message of a given field if that field has been visited (i.e.touched[name] === true) (and there is an error message present)."
+  },
+  "formik-field": {
+    "prefix": ["formik field", "field"],
+    "body": ["<Field name=\"${1:name}\" placeholder=\"${2:placeholder}\"/>"],
+    "scope": "javascript,javascriptreact",
+    "description": "<Field />\nwill automagically hook up inputs to Formik. It uses the name attribute to match up with Formik state. <Field /> will default to an HTML <input /> element."
+  },
+  "formik-use-field": {
+    "prefix": ["formik use-field", "use-field"],
+    "body": ["const [field, meta, helpers] = useField(${1:props});"],
+    "scope": "javascript,javascriptreact",
+    "description": "useField\nis a custom React hook that will automagically help you hook up inputs to Formik. You can and should use it to build your own custom input primitives."
+  },
+  "formik-use-formik-context": {
+    "prefix": ["formik use-formik-context", "use-formik-context"],
+    "body": ["const { values, submitForm } = useFormikContext();"],
+    "scope": "javascript,javascriptreact",
+    "description": "useFormikContext()\nis a custom React hook that will return all Formik state and helpers via React Context."
   },
   "formik-use": {
-    "prefix": ["formik use-formik"],
+    "prefix": ["formik use-formik", "use-formik"],
     "body": [
-      "  const ${formik} = useFormik({",
-      "    initialValues: {",
-      "      firstName: '',",
-      "      lastName: '',",
-      "      email: '',",
-      "    },",
+      "const ${1:SignupForm} = () => {",
+      "  const ${2:formik} = useFormik({",
+      "    initialValues: {${3:values}},",
       "    onSubmit: values => {",
       "      alert(JSON.stringify(values, null, 2));",
       "    },",
       "  });",
       "  return (",
-      "    <form onSubmit={formik.handleSubmit}>",
-      "      <label htmlFor=\"firstName\">First Name</label>",
-      "      <input",
-      "        id=\"firstName\"",
-      "        name=\"firstName\"",
-      "        type=\"text\"",
-      "        onChange={formik.handleChange}",
-      "        value={formik.values.firstName}",
-      "      />",
-      "      <label htmlFor=\"lastName\">Last Name</label>",
-      "      <input",
-      "        id=\"lastName\"",
-      "        name=\"lastName\"",
-      "        type=\"text\"",
-      "        onChange={formik.handleChange}",
-      "        value={formik.values.lastName}",
-      "      />",
-      "      <label htmlFor=\"email\">Email Address</label>",
-      "      <input",
-      "        id=\"email\"",
-      "        name=\"email\"",
-      "        type=\"email\"",
-      "        onChange={formik.handleChange}",
-      "        value={formik.values.email}",
-      "      />",
-      "      <button type=\"submit\">Submit</button>",
+      "    <form onSubmit={${2:formik}.handleSubmit}>",
+      "     ${4:children}",
       "    </form>",
-      "  );"
+      "  );",
+      "};"
     ],
     "scope": "javascript,javascriptreact",
-    "description": "useFormik() is a custom React hook that will return all Formik state and helpers directly. Despite its name, it is not meant for the majority of use cases. Internally, Formik uses useFormik to create the <Formik> component (which renders a React Context Provider). If you are trying to access Formik state via context, use useFormikContext. Only use this hook if you are NOT using <Formik> or withFormik. ** Be aware that <Field>, <FastField>, <ErrorMessage>, connect(), and <FieldArray> will NOT work with useFormik() as they all require React Context."
+    "description": "useFormik()\nis a custom React hook that will return all Formik state and helpers directly."
   },
   "formik-with": {
-    "prefix": ["formik with-formik"],
+    "prefix": ["formik with-formik", "with-formik"],
     "body": [
       "const ${1:MyEnhancedForm} = withFormik({",
-      "  mapPropsToValues: () => ({ name: '' }),",
+      "  mapPropsToValues: () => ({ ${1:name}: '' }),",
       "",
       "  // Custom sync validation",
       "  validate: values => {",
       "    const errors = {};",
       "",
-      "    if (!values.name) {",
-      "      errors.name = 'Required';",
+      "    if (!values.${1:name}) {",
+      "      errors.${1:name} = '${2:Required}';",
       "    }",
       "",
       "    return errors;",
@@ -106,9 +97,9 @@
       "  },",
       "",
       "  displayName: 'BasicForm',",
-      "})(${2:MyForm});"
+      "})(${3:MyForm});"
     ],
     "scope": "javascript,javascriptreact",
-    "description": "Create a higher-order React component class that passes props and form handlers (the 'FormikBag') into your component derived from supplied options."
+    "description": "withFormik()\nCreate a higher-order React component class that passes props and form handlers (the 'FormikBag') into your component derived from supplied options."
   }
 }
