@@ -1,6 +1,6 @@
 {
   "gatsby-image-usestaticquery-fluid": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby-image usestaticquery fluid"],
     "body": [
       "const {",
@@ -19,7 +19,7 @@
     ]
   },
   "gatsby-image-usestaticquery-fixed": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby-image usestaticquery fixed"],
     "body": [
       "const {",
@@ -38,12 +38,12 @@
     ]
   },
   "gatsby-image-import": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby-image import"],
     "body": ["import ${1:Img} from 'gatsby-image';"]
   },
   "gatsby-image-import-withiepolyfill": {
-    "scope": "javascript",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby-image import withiepolyfill"],
     "body": ["import ${1:Img} from \"gatsby-image/withIEPolyfill\""]
   }

@@ -2,7 +2,7 @@
   "react-modal-import": {
     "prefix": ["react-modal import", "imrm"],
     "body": ["import Modal from 'react-modal'"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "import react-modal"
   },
   "react-modal-component": {
@@ -41,7 +41,7 @@
       "",
       "export default ${1:CustomModal};"
     ],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Template for react modal"
   }
 }

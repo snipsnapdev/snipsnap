@@ -2,7 +2,7 @@
   "redux-thunk-import": {
     "prefix": ["redux-thunk import"],
     "body": ["import thunk from 'redux-thunk'"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Import thunk from redux-thunk"
   },
   "redux-thunk-store": {
@@ -17,7 +17,7 @@
       "  applyMiddleware(thunk)",
       ");"
     ],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Create store with thunk template"
   }
 }

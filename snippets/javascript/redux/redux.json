@@ -2,7 +2,7 @@
   "redux-import-connect": {
     "prefix": ["redux import connect"],
     "body": ["import { connect } from 'react-redux'", ""],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Import connect from Redux"
   },
   "redux-map-to-props": {
@@ -17,13 +17,13 @@
       "}",
       ""
     ],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Creates mapStateToProps function."
   },
   "redux-const": {
     "prefix": ["redux const", "rxconst"],
     "body": ["export const ${1:constantName} = '${1:constantName}'"],
-    "scope": "javascript,javascriptreact"
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "redux-reducer": {
     "prefix": ["redux reducer", "rxreducer"],
@@ -44,7 +44,7 @@
       "}",
       ""
     ],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Redux reducer template"
   },
   "redux-action": {
@@ -57,31 +57,31 @@
       "  };",
       "};"
     ],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Redux action template"
   },
   "redux-import-hooks": {
     "prefix": ["redux import hooks", "irrh"],
     "body": ["import { useSelector, useDispatch } from 'react-redux';"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Import Redux hooks (useSelector, useDispatch)"
   },
   "redux-useselector": {
     "prefix": ["redux useselector", "uss"],
     "body": ["const $1 = useSelector(state => state.$1);"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Redux useSelector() hook"
   },
   "redux-usedispatch-hook": {
     "prefix": ["redux usedispatch", "rxusdh"],
     "body": ["const dispatch = useDispatch();"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Redux useDispatch() hook"
   },
   "redux-dispatch-hook": {
     "prefix": ["redux dispatch", "rxd"],
     "body": ["const $1 = $2 => dispatch($3);"],
-    "scope": "javascript,javascriptreact",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "Redux dispatch hook"
   }
 }

@@ -34,6 +34,7 @@
     </td>
     </tbody>
 </table>
+<p align="center"><a href="https://github.com/snipsnapdev/snipsnap/tree/master/snippets/javascript">See the full list of supported libraries</a></p>
 
 ---
 ## Table of Contents
@@ -51,7 +52,7 @@ Almost every popular language has a lot of different libraries that people used 
 
 **Problem #2**
 
-Different snippets extensions follow different rules and use unpredictable shortcuts such as "rccp", "ecrp", 'impp' etc. Having those unreadable shortcuts don't allow you to actually search across all snippets you have for a specific case. We want to change it by [standartizing snippets format](https://github.com/snipsnapdev/snipsnap#snippets-format) and providing clean, predictable search syntax such as `library-name keyword`, so you can always type name of your library and get full list of snippets available for it.
+Different snippets extensions follow different rules and use unpredictable shortcuts such as "rccp", "ecrp", 'impp' etc. Having those unreadable shortcuts don't allow you to actually search across all snippets you have for a specific case. We want to change it by [standardizing snippets format](https://github.com/snipsnapdev/snipsnap#snippets-format) and providing clean, predictable search syntax such as `library-name keyword`, so you can always type name of your library and get full list of snippets available for it.
 
 **Problem #3**
 
@@ -62,23 +63,29 @@ Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on
 
 Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
 
-All snippets currently present in this repository and follow guidelines described below.
+Snipsnap scans for new available snippets:
+
+- **on folder opening**
+- **on pressing command "Snipsnap: Fetch the snippets" via the command palette**
+
+All snippets currently present in this repository and follow the guidelines described below.
+
 
 ## 🗓️ Our plans and vision
 
-Current version could be called as MVP and there just for the one purpose – test the idea and get first feedbacks. If you like extension - star the repository, tell us about your experience or [help us to improve the project](https://github.com/snipsnapdev/snipsnap#contributing).
+The current version could be called MVP and it's there just for the one purpose – test the idea and get first feedbacks. If you like extension - star the repository, tell us about your experience or [help us to improve the project](https://github.com/snipsnapdev/snipsnap#contributing).
 
 We don't want to stop just on having snippets for Javascript. We want to make it standard for all popular languages and their package managers. So cover Ruby, Go, Python, PHP libraries also in our plans.
 
 We believe that snippets could become a perfect solution for providing simple documentation and examples. Code snippets should become the part of packages repositories like README files. You build your library, you put snippets together with it in .snipsnap.json file and then we fetch it.
 
-Having standartised collection could allow us to write extensions and coverters for all popular IDE's, that will finally make code snippets independent from IDE. Let's say in couple of years the new awesome IDE will be release, instead of writing whole batch of snippets for new IDE you will be able to just continue use Snipsnap and the collection you already created.
+Having standardized collection could allow us to write extensions and converters for all popular IDE's, that will finally make code snippets independent from IDE. Let's say in a couple of years the new awesome IDE will be released, instead of writing a whole batch of snippets for new IDE you will be able to just continue using Snipsnap and the collection you already created.
 
 ## 😇 Contributing
 
 We encourage you to contribute to Snipsnap. Only with your help we can build really amazing collection of snippets that adapts to your needs. 
 
-**🙏 Don't write same code twise, create snippet instead.**
+**🙏 Don't write same code twice, create snippet instead.**
 
 1. [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the project.
 2. If you add snippets for a new library - create folder inside `snippets/javascript` with the library name. Put inside that folder json file with your snippets. JSON file and folder name should be exactly the same as NPM package name, otherwise it won't work. If you update snippets, just find the right collection in the folder based on your library name and modify it.
@@ -99,6 +106,7 @@ Code snippet example:
     "prefix": ["prop-types import", "impt"],
     "body": ["import PropTypes from 'prop-types'"],
     "scope": "javascript,javascriptreact"
+  }
 }
 ```
 
