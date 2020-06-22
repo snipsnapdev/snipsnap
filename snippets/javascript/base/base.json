@@ -1,577 +1,603 @@
 {
   "var-assignment": {
     "prefix": ["base var"],
-    "body": "var ${1:name} = ${2:value};",
+    "body": ["var ${1:name} = ${2:value};"],
     "description": "var assignment",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "let-assignment": {
     "prefix": ["base let"],
-    "body": "let ${1:name} = ${2:value};",
+    "body": ["let ${1:name} = ${2:value};"],
     "description": "let assignment",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructuring-let-assignment": {
     "prefix": ["base let destruct object"],
-    "body": "let {${1:name}} = ${2:value};",
+    "body": ["let {${1:name}} = ${2:value};"],
     "description": "Object destructing",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructuring-let-array": {
     "prefix": ["base let destruct array"],
-    "body": "let [${1:name}] = ${2:value};",
+    "body": ["let [${1:name}] = ${2:value};"],
     "description": "Array destructing",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "const-assignment": {
     "prefix": ["base const"],
-    "body": "const ${1:name} = ${2:value};",
+    "body": ["const ${1:name} = ${2:value};"],
     "description": "const assignment",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructuring-const-assignment": {
     "prefix": ["base const destruct object"],
-    "body": "const {${1:name}} = ${2:value};",
+    "body": ["const {${1:name}} = ${2:value};"],
     "description": "Object destructing",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructingarray": {
     "prefix": ["base const destruct array"],
-    "body": "const [${2:propertyName}] = ${1:arrayToDestruct};",
+    "body": ["const [${2:propertyName}] = ${1:arrayToDestruct};"],
     "description": "Array destructing",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "if-statement": {
     "prefix": ["base if"],
-    "body": "if (${1:condition}) {\n\t${0}\n}",
+    "body": ["if (${1:condition}) {\n\t${0}\n}"],
     "description": "if statement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "else-statement": {
     "prefix": ["base else"],
-    "body": "else {\n\t${0}\n}",
+    "body": ["else {\n\t${0}\n}"],
     "description": "else statement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "if-else-statement": {
     "prefix": ["base if else"],
-    "body": "if (${1:condition}) {\n\t${0}\n} else {\n\t\n}",
+    "body": ["if (${1:condition}) {\n\t${0}\n} else {\n\t\n}"],
     "description": "if/else statement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "else-if-statement": {
     "prefix": ["base else if"],
-    "body": "else if (${1:condition}) {\n\t${0}\n}",
+    "body": ["else if (${1:condition}) {\n\t${0}\n}"],
     "description": "else if statement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "ternary-operator": {
     "prefix": ["base ternary operator"],
-    "body": "${1:condition} ? ${2:expression} : ${3:expression};",
+    "body": ["${1:condition} ? ${2:expression} : ${3:expression};"],
     "description": "ternary operator",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "for-loop": {
     "prefix": ["base for"],
-    "body": "for (let ${1:i} = 0, ${2:len} = ${3:iterable}.length; ${1:i} < ${2:len}; ${1:i}++) {\n\t${0}\n}",
+    "body": [
+      "for (let ${1:i} = 0, ${2:len} = ${3:iterable}.length; ${1:i} < ${2:len}; ${1:i}++) {\n\t${0}\n}"
+    ],
     "description": "for loop",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "reverse-for-loop": {
     "prefix": ["base for reverse"],
-    "body": "for (let ${1:i} = ${2:iterable}.length - 1; ${1:i} >= 0; ${1:i}--) {\n\t${0}\n}",
+    "body": [
+      "for (let ${1:i} = ${2:iterable}.length - 1; ${1:i} >= 0; ${1:i}--) {\n\t${0}\n}"
+    ],
     "description": "reverse for loop",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "for-in-loop": {
     "prefix": ["base for in"],
-    "body": "for (let ${1:key} in ${2:array}) {\n\tif (${2:array}.hasOwnProperty(${1:key})) {\n\t\t${0}\n\t}\n}",
+    "body": [
+      "for (let ${1:key} in ${2:array}) {\n\tif (${2:array}.hasOwnProperty(${1:key})) {\n\t\t${0}\n\t}\n}"
+    ],
     "description": "for in loop",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "for-of-loop-es6-": {
     "prefix": ["base for of"],
-    "body": "for (let ${1:key} of ${2:array}) {\n\t${0}\n}",
+    "body": ["for (let ${1:key} of ${2:array}) {\n\t${0}\n}"],
     "description": "for of loop (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "while-loop": {
     "prefix": ["base while"],
-    "body": "while (${1:condition}) {\n\t${0}\n}",
+    "body": ["while (${1:condition}) {\n\t${0}\n}"],
     "description": "while loop",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "try-catch": {
     "prefix": ["base try catch"],
-    "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n}",
+    "body": ["try {\n\t${0}\n} catch (${1:err}) {\n\t\n}"],
     "description": "try/catch",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "try-finally": {
     "prefix": ["base try finally"],
-    "body": "try {\n\t${0}\n} finally {\n\t\n}",
+    "body": ["try {\n\t${0}\n} finally {\n\t\n}"],
     "description": "try/finally",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "try-catch-finally": {
     "prefix": ["base try catch finally"],
-    "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}",
+    "body": ["try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"],
     "description": "try/catch/finally",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "switch-case": {
     "prefix": ["base switch case"],
-    "body": "switch (${1:expr}) {\n\tcase ${2:value}:\n\t\treturn $0;\n\tdefault:\n\t\treturn;\n}",
+    "body": [
+      "switch (${1:expr}) {\n\tcase ${2:value}:\n\t\treturn $0;\n\tdefault:\n\t\treturn;\n}"
+    ],
     "description": "switch case",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "anonymous-function": {
     "prefix": ["base function anonymous"],
-    "body": "function (${1:arguments}) {\n\t${0}\n}",
+    "body": ["function (${1:arguments}) {\n\t${0}\n}"],
     "description": "anonymous function",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "named-function": {
     "prefix": ["base function named"],
-    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}",
+    "body": ["function ${1:name}(${2:arguments}) {\n\t${0}\n}"],
     "description": "named function",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "immediately-invoked-function-expression-iife-": {
     "prefix": ["base function immediate"],
-    "body": "((${1:arguments}) => {\n\t${0}\n})(${2});",
+    "body": ["((${1:arguments}) => {\n\t${0}\n})(${2});"],
     "description": "immediately-invoked function expression (IIFE)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "function-apply": {
     "prefix": ["base function apply"],
-    "body": "${1:fn}.apply(${2:this}, ${3:arguments})",
+    "body": ["${1:fn}.apply(${2:this}, ${3:arguments})"],
     "description": "function apply",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "function-call": {
     "prefix": ["base function call"],
-    "body": "${1:fn}.call(${2:this}, ${3:arguments})",
+    "body": ["${1:fn}.call(${2:this}, ${3:arguments})"],
     "description": "function call",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "function-bind": {
     "prefix": ["base function bind"],
-    "body": "${1:fn}.bind(${2:this}, ${3:arguments})",
+    "body": ["${1:fn}.bind(${2:this}, ${3:arguments})"],
     "description": "function bind",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "arrow-function-es6-": {
     "prefix": ["base function arrow"],
-    "body": "(${1:arguments}) => ${2:statement}",
+    "body": ["(${1:arguments}) => ${2:statement}"],
     "description": "arrow function (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "arrow-function-with-body-es6-": {
     "prefix": ["base function arrow body"],
-    "body": "(${1:arguments}) => {\n\t${0}\n}",
+    "body": ["(${1:arguments}) => {\n\t${0}\n}"],
     "description": "arrow function with body (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "generator-function-es6-": {
     "prefix": ["base function generator"],
-    "body": "function* (${1:arguments}) {\n\t${0}\n}",
+    "body": ["function* (${1:arguments}) {\n\t${0}\n}"],
     "description": "generator function (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "named-generator-function-es6-": {
     "prefix": ["base function generator named"],
-    "body": "function* ${1:name}(${2:arguments}) {\n\t${0}\n}",
+    "body": ["function* ${1:name}(${2:arguments}) {\n\t${0}\n}"],
     "description": "named generator function (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "sequence-of-0-n": {
     "prefix": ["base sequence of"],
-    "body": "[...Array(${1:length}).keys()]${0}",
+    "body": ["[...Array(${1:length}).keys()]${0}"],
     "description": "sequence of 0..n",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "foreach-loop": {
     "prefix": ["base foreach"],
-    "body": "${1}.forEach((${2:item}) => {\n\t${0}\n});",
+    "body": ["${1}.forEach((${2:item}) => {\n\t${0}\n});"],
     "description": "forEach loop",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "map": {
     "prefix": ["base map"],
-    "body": "${1}.map((${2:item}) => {\n\t${0}\n});",
+    "body": ["${1}.map((${2:item}) => {\n\t${0}\n});"],
     "description": "map",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "reduce": {
     "prefix": ["base reduce"],
-    "body": "${1}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial});",
+    "body": [
+      "${1}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial});"
+    ],
     "description": "reduce",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "filter": {
     "prefix": ["base filter"],
-    "body": "${1}.filter(${2:item} => {\n\t${0}\n});",
+    "body": ["${1}.filter(${2:item} => {\n\t${0}\n});"],
     "description": "filter",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "find": {
     "prefix": ["base find"],
-    "body": "${1}.find(${2:item} => {\n\t${0}\n});",
+    "body": ["${1}.find(${2:item} => {\n\t${0}\n});"],
     "description": "find",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "class-es6-": {
     "prefix": ["base class"],
-    "body": "class ${1:name} {\n\tconstructor(${2:arguments}) {\n\t\t${0}\n\t}\n}",
+    "body": [
+      "class ${1:name} {\n\tconstructor(${2:arguments}) {\n\t\t${0}\n\t}\n}"
+    ],
     "description": "class (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "child-class-es6-": {
     "prefix": ["base child class"],
-    "body": "class ${1:name} extends ${2:base} {\n\tconstructor(${3:arguments}) {\n\t\tsuper(${3:arguments});\n\t\t${0}\n\t}\n}",
+    "body": [
+      "class ${1:name} extends ${2:base} {\n\tconstructor(${3:arguments}) {\n\t\tsuper(${3:arguments});\n\t\t${0}\n\t}\n}"
+    ],
     "description": "child class (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "class-constructor-es6-": {
     "prefix": ["base class constructor"],
-    "body": "constructor(${1:arguments}) {\n\tsuper(${1:arguments});${0}\n}",
+    "body": ["constructor(${1:arguments}) {\n\tsuper(${1:arguments});${0}\n}"],
     "description": "class constructor (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "method-es6-syntax-": {
     "prefix": ["base method"],
-    "body": "${1:method}(${2:arguments}) {\n\t${0}\n}",
+    "body": ["${1:method}(${2:arguments}) {\n\t${0}\n}"],
     "description": "method (ES6 syntax)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "getter-es6-syntax-": {
     "prefix": ["base getter"],
-    "body": "get ${1:property}() {\n\t${0}\n}",
+    "body": ["get ${1:property}() {\n\t${0}\n}"],
     "description": "getter (ES6 syntax)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "setter-es6-syntax-": {
     "prefix": ["base setter"],
-    "body": "set ${1:property}(${2:value}) {\n\t${0}\n}",
+    "body": ["set ${1:property}(${2:value}) {\n\t${0}\n}"],
     "description": "setter (ES6 syntax)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "getter-and-setter-es6-syntax-": {
     "prefix": ["base getter setter"],
-    "body": "get ${1:property}() {\n\t${0}\n}\nset ${1:property}(${2:value}) {\n\t\n}",
+    "body": [
+      "get ${1:property}() {\n\t${0}\n}\nset ${1:property}(${2:value}) {\n\t\n}"
+    ],
     "description": "getter and setter (ES6 syntax)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "prototype-method": {
     "prefix": ["base prototype method"],
-    "body": "${1:Class}.prototype.${2:method} = function(${3:arguments}) {\n\t${0}\n};",
+    "body": [
+      "${1:Class}.prototype.${2:method} = function(${3:arguments}) {\n\t${0}\n};"
+    ],
     "description": "prototype method",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "object-assign": {
     "prefix": ["base object assign"],
-    "body": "Object.assign(${1:dest}, ${2:source})",
+    "body": ["Object.assign(${1:dest}, ${2:source})"],
     "description": "Object.assign",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "object-assign-copy-shallow-clone-": {
     "prefix": ["base object assign copy"],
-    "body": "Object.assign({}, ${1:original}, ${2:source})",
+    "body": ["Object.assign({}, ${1:original}, ${2:source})"],
     "description": "Object.assign copy (shallow clone)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "return": {
     "prefix": ["base return"],
-    "body": "return ${0};",
+    "body": ["return ${0};"],
     "description": "return",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "return-promise-es6-": {
     "prefix": ["base return promise"],
-    "body": "return new Promise((resolve, reject) => {\n\t${0}\n});",
+    "body": ["return new Promise((resolve, reject) => {\n\t${0}\n});"],
     "description": "return Promise (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "return-complex-value-such-as-jsx-components-": {
     "prefix": ["base return complex value"],
-    "body": "return (\n\t${0}\n);",
+    "body": ["return (\n\t${0}\n);"],
     "description": "return complex value (such as JSX components)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "typeof": {
     "prefix": ["base typeof"],
-    "body": "typeof ${1:source} === '${2:undefined}'",
+    "body": ["typeof ${1:source} === '${2:undefined}'"],
     "description": "typeof",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "instanceof": {
     "prefix": ["base instanceof"],
-    "body": "${1:source} instanceof ${2:Object}",
+    "body": ["${1:source} instanceof ${2:Object}"],
     "description": "instanceof",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "promise-es6-": {
     "prefix": ["base promise"],
-    "body": "new Promise((resolve, reject) => {\n\t${0}\n})",
+    "body": ["new Promise((resolve, reject) => {\n\t${0}\n})"],
     "description": "Promise (ES6)",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "promise-then": {
     "prefix": ["base promise then"],
-    "body": "${1:promise}.then((${2:value}) => {\n\t${0}\n})",
+    "body": ["${1:promise}.then((${2:value}) => {\n\t${0}\n})"],
     "description": "Promise.then",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "promise-catch": {
     "prefix": ["base promise catch"],
-    "body": "${1:promise}.catch((${2:err}) => {\n\t${0}\n})",
+    "body": ["${1:promise}.catch((${2:err}) => {\n\t${0}\n})"],
     "description": "Promise.catch",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exportnamedvariable": {
     "prefix": ["base export named variable"],
-    "body": "export const ${1:exportVariable} = ${2:localVariable};\n",
+    "body": ["export const ${1:exportVariable} = ${2:localVariable};\n"],
     "description": "Export named variable in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exportnamedfunction": {
     "prefix": ["base export named function"],
-    "body": "export const ${1:functionName} = (${2:params}) => {\n\t$0\n};\n",
+    "body": ["export const ${1:functionName} = (${2:params}) => {\n\t$0\n};\n"],
     "description": "Export named function in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exportdefaultfunction": {
     "prefix": ["base export default function"],
-    "body": "export default function ${1:${TM_FILENAME_BASE}}(${2:params}) {\n\t$0\n};\n",
+    "body": [
+      "export default function ${1:${TM_FILENAME_BASE}}(${2:params}) {\n\t$0\n};\n"
+    ],
     "description": "Export default function in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exportclass": {
     "prefix": ["base export class"],
-    "body": "export default class ${1:className} {\n\t$0\n};\n",
+    "body": ["export default class ${1:className} {\n\t$0\n};\n"],
     "description": "Export default class in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exportclassextends": {
     "prefix": ["base export class extends"],
-    "body": "export default class ${1:className} extends ${2:baseclassName} {\n\t$0\n};\n",
+    "body": [
+      "export default class ${1:className} extends ${2:baseclassName} {\n\t$0\n};\n"
+    ],
     "description": "Export default class which extends a base one in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "import": {
     "prefix": ["base import"],
-    "body": "import ${2:moduleName} from '${1:module}';$0",
+    "body": ["import ${2:moduleName} from '${1:module}';$0"],
     "description": "Imports entire module statement in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "importnomodulename": {
     "prefix": ["base import no module name"],
-    "body": "import '${1:module}';$0",
+    "body": ["import '${1:module}';$0"],
     "description": "Imports entire module in ES6 syntax without module name",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "importdestructing": {
     "prefix": ["base import destructing"],
-    "body": "import { $2 } from '${1:module}';$0",
+    "body": ["import { $2 } from '${1:module}';$0"],
     "description": "Imports only a portion of the module in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "importeverything": {
     "prefix": ["base import everything"],
-    "body": "import * as ${2:alias} from '${1:module}';$0",
+    "body": ["import * as ${2:alias} from '${1:module}';$0"],
     "description": "Imports everything as alias from the module in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "importas": {
     "prefix": ["base import as"],
-    "body": "import { ${2:originalName} as ${3:alias} } from '${1:module}';$0",
+    "body": [
+      "import { ${2:originalName} as ${3:alias} } from '${1:module}';$0"
+    ],
     "description": "Imports a specific portion of the module by assigning a local alias in ES6 syntax",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "require": {
     "prefix": ["base require"],
-    "body": "require('${1:module}');",
+    "body": ["require('${1:module}');"],
     "description": "require",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "require-local": {
     "prefix": ["base require local"],
-    "body": "require('./${1:module}');",
+    "body": ["require('./${1:module}');"],
     "description": "require local",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "require-assignment": {
     "prefix": ["base require assignment"],
-    "body": "const ${1:module} = require('${1:module}');",
+    "body": ["const ${1:module} = require('${1:module}');"],
     "description": "require assignment",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "require-assignment-local": {
     "prefix": ["base require assignment local"],
-    "body": "const ${1:module} = require('./${1:module}');",
+    "body": ["const ${1:module} = require('./${1:module}');"],
     "description": "require assignment local",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructuring-require-assignment": {
     "prefix": ["base require assignment"],
-    "body": "const {${1:module}} = require('${1:module}');",
+    "body": ["const {${1:module}} = require('${1:module}');"],
     "description": "destructuring require assignment",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "destructuring-require-assignment-local": {
     "prefix": ["base require assignment local destruct"],
-    "body": "const {${1:module}} = require('./${1:module}');",
+    "body": ["const {${1:module}} = require('./${1:module}');"],
     "description": "destructuring require assignment local",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "exports-member": {
     "prefix": ["base exports member"],
-    "body": "exports.${1:member} = ${2:value};",
+    "body": ["exports.${1:member} = ${2:value};"],
     "description": "exports.member",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "module-exports": {
     "prefix": ["base module exports"],
-    "body": "module.exports = ${1:name};",
+    "body": ["module.exports = ${1:name};"],
     "description": "module.exports",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "module-exports-object": {
     "prefix": ["base module exports object"],
-    "body": "module.exports = {\n\t${1:member}\n};",
+    "body": ["module.exports = {\n\t${1:member}\n};"],
     "description": "module exports object",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "event-handler": {
     "prefix": ["base event handler"],
-    "body": "${1:emitter}.on('${2:event}', (${3:arguments}) => {\n\t${0}\n});",
+    "body": [
+      "${1:emitter}.on('${2:event}', (${3:arguments}) => {\n\t${0}\n});"
+    ],
     "description": "event handler",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoleassert": {
     "prefix": ["base console assert"],
-    "body": "console.assert(${1:expression}, ${2:object});",
+    "body": ["console.assert(${1:expression}, ${2:object});"],
     "description": "If the specified expression is false, the message is written to the console along with a stack trace",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoleclear": {
     "prefix": ["base console clear"],
-    "body": "console.clear();",
+    "body": ["console.clear();"],
     "description": "Clears the console",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolecount": {
     "prefix": ["base console count"],
-    "body": "console.count(${1:label});",
+    "body": ["console.count(${1:label});"],
     "description": "Writes the the number of times that count() has been invoked at the same line and with the same label",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoledebug": {
     "prefix": ["base console debug"],
-    "body": "console.debug(${1:object});",
+    "body": ["console.debug(${1:object});"],
     "description": "Displays a message in the console. Also display a blue right arrow icon along with the logged message in Safari",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoledir": {
     "prefix": ["base console dir"],
-    "body": "console.dir(${1:object});",
+    "body": ["console.dir(${1:object});"],
     "description": "Prints a JavaScript representation of the specified object",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoleerror": {
     "prefix": ["base console error"],
-    "body": "console.error(${1:object});",
+    "body": ["console.error(${1:object});"],
     "description": "Displays a message in the console and also includes a stack trace from where the method was called",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolegroup": {
     "prefix": ["base console group"],
-    "body": "console.group('${1:label}');",
+    "body": ["console.group('${1:label}');"],
     "description": "Groups and indents all following output by an additional level, until console.groupEnd() is called.",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolegroupend": {
     "prefix": ["base console group end"],
-    "body": "console.groupEnd();",
+    "body": ["console.groupEnd();"],
     "description": "Closes out the corresponding console.group().",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolelog": {
     "prefix": ["base console log"],
-    "body": "console.log(${1:object});",
+    "body": ["console.log(${1:object});"],
     "description": "Displays a message in the console",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolelogobject": {
     "prefix": ["base console log object"],
-    "body": "console.log('${1:object} :>> ', ${1:object});",
+    "body": ["console.log('${1:object} :>> ', ${1:object});"],
     "description": "Displays an object in the console with its name",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoletrace": {
     "prefix": ["base console trace"],
-    "body": "console.trace(${1:object});",
+    "body": ["console.trace(${1:object});"],
     "description": "Prints a stack trace from the point where the method was called",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consolewarn": {
     "prefix": ["base console warn"],
-    "body": "console.warn(${1:object});",
+    "body": ["console.warn(${1:object});"],
     "description": "Displays a message in the console but also displays a yellow warning icon along with the logged message",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoleinfo": {
     "prefix": ["base console info"],
-    "body": "console.info(${1:object});",
+    "body": ["console.info(${1:object});"],
     "description": "Displays a message in the console but also displays a blue information icon along with the logged message",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoletable": {
     "prefix": ["base console table"],
-    "body": "console.table(${1:object});",
+    "body": ["console.table(${1:object});"],
     "description": "Displays tabular data as a table.",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoletime": {
     "prefix": ["base console time"],
-    "body": "console.time(${1:object});",
+    "body": ["console.time(${1:object});"],
     "description": "Sets starting point for execution time measurement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "consoletimeend": {
     "prefix": ["base console time end"],
-    "body": "console.timeEnd(${1:object});",
+    "body": ["console.timeEnd(${1:object});"],
     "description": "Sets end point for execution time measurement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "settimeout": {
     "prefix": ["base set timeout"],
-    "body": "setTimeout(() => {\n\t${0}\n}, ${1:delay});",
+    "body": ["setTimeout(() => {\n\t${0}\n}, ${1:delay});"],
     "description": "setTimeout",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "setinterval": {
     "prefix": ["base set interval"],
-    "body": "setInterval(() => {\n\t${0}\n}, ${1:delay});",
+    "body": ["setInterval(() => {\n\t${0}\n}, ${1:delay});"],
     "description": "setInterval",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "setimmediate": {
     "prefix": ["base set immediate"],
-    "body": "setImmediate(() => {\n\t${0}\n});",
+    "body": ["setImmediate(() => {\n\t${0}\n});"],
     "description": "setImmediate",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "process-nexttick": {
     "prefix": ["base process next tick"],
-    "body": "process.nextTick(() => {\n\t${0}\n});",
+    "body": ["process.nextTick(() => {\n\t${0}\n});"],
     "description": "process nextTick",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
   "insert-use-strict-statement": {
     "prefix": ["base use strict"],
-    "body": "'use strict';",
+    "body": ["'use strict';"],
     "description": "insert 'use strict' statement",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   }
