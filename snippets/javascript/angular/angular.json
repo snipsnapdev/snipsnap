@@ -179,13 +179,13 @@
     "scope": "html"
   },
   "pre-w-json": {
-    "prefix": ["angular pre w/ json", "a-prej"],
+    "prefix": ["angular pre json", "a-prej"],
     "body": ["<pre>{{${1:model} | json}}</pre>$0"],
     "description": "Angular pre debug | json",
     "scope": "html"
   },
   "pre-w-async-json": {
-    "prefix": ["angular pre w/ async json", "a-preja"],
+    "prefix": ["angular pre async json", "a-preja"],
     "body": ["<pre>{{${1:model} | async | json}}</pre>$0"],
     "description": "Angular pre debug | async | json",
     "scope": "html"
