@@ -9,34 +9,38 @@
 
 ![out](https://user-images.githubusercontent.com/2697570/73568644-23bc0180-4469-11ea-8b64-843c7a9a92d2.gif)
 
-<h2 align="center">Popular snippets</h2>
+<h2>Popular snippets</h2>
 <table>
   <tbody>
-    <tr>
-     <td valign="middle" align="center">
-<img width="50px" src="https://user-images.githubusercontent.com/2697570/85336537-0b638680-b4df-11ea-874a-a8373f7a1cc3.png" />
-    </td>
+   <tr>
+  <td valign="middle" align="center">
+<img width="80px" src="https://user-images.githubusercontent.com/2697570/85336537-0b638680-b4df-11ea-874a-a8373f7a1cc3.png" />
+ </td>
+ <td valign="middle" align="center">
+<img width="80px" src="https://user-images.githubusercontent.com/2697570/82653674-db933b80-9c1f-11ea-9731-7b8e0d1ab05c.png" />
+ </td>
+ <td valign="middle" align="center"><img width="80px" src="https://user-images.githubusercontent.com/2697570/82653826-15644200-9c20-11ea-8fe8-b0db379c83a3.png"/>
+ </td>
+  <td valign="middle" align="center">
+<img width="80px" src="https://user-images.githubusercontent.com/2697570/85336364-c63f5480-b4de-11ea-9014-e55eeb0eda93.png" />
+ </td>
+     <td valign="middle" align="center"><img width="80px" src="https://user-images.githubusercontent.com/2697570/82654143-90c5f380-9c20-11ea-9587-928a51c06839.png"/>
+ </td>
+ </tr><tr>
+ </td>
+     <td valign="middle" align="center"><img width="80px" src="https://user-images.githubusercontent.com/2697570/85003657-c8a85400-b156-11ea-938e-8577eea635a6.jpg"/>
+ </td>
+         <td valign="middle" align="center"><img width="80px" src="https://user-images.githubusercontent.com/2697570/82654470-147fe000-9c21-11ea-9975-a79b3721b8f6.png"/>
+ </td>
+             <td valign="middle" align="center"><img width="80px" src="https://user-images.githubusercontent.com/2697570/82654869-a2f46180-9c21-11ea-8034-71f63bcd8389.png"/>
+ </td>
     <td valign="middle" align="center">
-<img width="50px" src="https://user-images.githubusercontent.com/2697570/82653674-db933b80-9c1f-11ea-9731-7b8e0d1ab05c.png" />
-    </td>
-    <td valign="middle" align="center"><img width="50px" src="https://user-images.githubusercontent.com/2697570/82653826-15644200-9c20-11ea-8fe8-b0db379c83a3.png"/>
-    </td>
-     <td valign="middle" align="center">
-<img width="50px" src="https://user-images.githubusercontent.com/2697570/85336364-c63f5480-b4de-11ea-9014-e55eeb0eda93.png" />
-    </td>
-        <td valign="middle" align="center"><img width="50px" src="https://user-images.githubusercontent.com/2697570/82654143-90c5f380-9c20-11ea-9587-928a51c06839.png"/>
-    </td>
-    </td>
-        <td valign="middle" align="center"><img width="50px" src="https://user-images.githubusercontent.com/2697570/85003657-c8a85400-b156-11ea-938e-8577eea635a6.jpg"/>
-    </td>
-            <td valign="middle" align="center"><img width="50px" src="https://user-images.githubusercontent.com/2697570/82654470-147fe000-9c21-11ea-9975-a79b3721b8f6.png"/>
-    </td>
-                <td valign="middle" align="center"><img width="50px" src="https://user-images.githubusercontent.com/2697570/82654869-a2f46180-9c21-11ea-8034-71f63bcd8389.png"/>
-    </td>
-       <td valign="middle" align="center">
-<img width="50px" src="https://user-images.githubusercontent.com/2697570/85336667-4960aa80-b4df-11ea-996b-b9db80756f34.png" />
-    </td>
-    </tr>
+<img width="80px" src="https://user-images.githubusercontent.com/2697570/85336667-4960aa80-b4df-11ea-996b-b9db80756f34.png" />
+ </td>
+      <td valign="middle" align="center">
+<img width="80px" src="https://user-images.githubusercontent.com/2697570/85395351-44880f00-b550-11ea-8815-744aa64ecac6.png" />
+ </td>
+ </tr>
     </tbody>
 </table>
 <p align="center"><a href="https://github.com/snipsnapdev/snipsnap/tree/master/snippets/javascript">See the full list of supported libraries</a></p>
