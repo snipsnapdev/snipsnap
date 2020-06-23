@@ -58,8 +58,8 @@
     "body": ["import React, { useState, useEffect } from 'react'", ""],
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
-  "react-class-compoment": {
-    "prefix": ["react compoment class", "rcc"],
+  "react-class-component": {
+    "prefix": ["react component class", "rcc"],
     "body": [
       "import React, { Component } from 'react'",
       "",
@@ -350,7 +350,7 @@
     "description": "Creates a React Memo Function Component with ES7 module system with PropTypes",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
-  "react-class-compoment-proptypes": {
+  "react-class-component-proptypes": {
     "prefix": ["react component class proptypes", "rccp"],
     "body": [
       "import React, { Component } from 'react'",
@@ -374,8 +374,8 @@
     "description": "Creates a React component class with PropTypes and ES7 module system",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
-  "react-class-compoment-redux": {
-    "prefix": ["react compoment class redux", "rcredux"],
+  "react-class-component-redux": {
+    "prefix": ["react component class redux", "rcredux"],
     "body": [
       "import React, { Component } from 'react'",
       "import { connect } from 'react-redux'",
@@ -404,8 +404,8 @@
     "description": "Creates a React component class with connected redux and ES7 module system",
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
-  "react-class-compoment-redux-proptypes": {
-    "prefix": ["react compoment class redux proptypes", "rcreduxp"],
+  "react-class-component-redux-proptypes": {
+    "prefix": ["react component class redux proptypes", "rcreduxp"],
     "body": [
       "import React, { Component } from 'react'",
       "import PropTypes from 'prop-types'",
