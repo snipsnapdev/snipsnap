@@ -43,7 +43,7 @@
  </tr>
     </tbody>
 </table>
-<p align="center"><a href="https://github.com/snipsnapdev/snipsnap/tree/master/snippets/javascript">See the full list of supported libraries</a></p>
+<p><a href="https://github.com/snipsnapdev/snipsnap/tree/master/snippets/javascript">See the full list of supported libraries</a></p>
 
 ---
 ## Table of Contents
