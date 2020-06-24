@@ -1,0 +1,86 @@
+{
+  "cypress-cookies-get-all": {
+    "prefix": ["cypress cookies get all"],
+    "body": ["cy.getCookies();"],
+    "description": "Get all of the browser cookies.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-cookies-clear-all": {
+    "prefix": ["cypress cookies clear all"],
+    "body": ["cy.clearCookies();"],
+    "description": "Clear all browser cookies for current domain and subdomain.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-get": {
+    "prefix": ["cypress get"],
+    "body": ["cy.get('${1:selector}');"],
+    "description": "Get one or more DOM elements by selector or alias",
+    "scope": "javascript,typescript"
+  },
+  "cypress-go": {
+    "prefix": ["cypress go"],
+    "body": ["cy.go('${1:direction}');"],
+    "description": "Navigate back or forward to the previous or next URL in the browser’s history.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-scroll-to-coordinates": {
+    "prefix": ["cypress scroll to coordinates"],
+    "body": ["cy.scrollTo(${1:x}, ${2:y});"],
+    "description": "Scroll to a position defined by the distance in pixels from window/element’s x and y or percentage of the window/element’s width and height.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-scroll-to-position": {
+    "prefix": ["cypress scroll to position"],
+    "body": ["cy.scrollTo('${1:position}');"],
+    "description": "Scroll to a specified position. Valid positions are topLeft, top, topRight, left, center, right, bottomLeft, bottom, and bottomRight.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-request": {
+    "prefix": ["cypress request"],
+    "body": [
+      "cy.request({",
+      "\tmethod: '${1:METHOD}',",
+      "\turl: '${2:url}',",
+      "\tbody: ${3:body}",
+      "});"
+    ],
+    "description": "Make an HTTP request.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-route": {
+    "prefix": ["cypress route"],
+    "body": ["cy.route('${1:METHOD}', '${2:url}', ${3:response});"],
+    "description": "Use cy.route() to manage the behavior of network requests.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-server": {
+    "prefix": ["cypress server"],
+    "body": ["cy.server();"],
+    "description": "Start a server to begin routing responses to cy.route() and to change the behavior of network requests.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-viewport": {
+    "prefix": ["cypress viewport"],
+    "body": ["cy.viewport(${1:width}, ${2:height});"],
+    "description": "Control the size of the screen for your application.",
+    "scope": "javascript,typescript"
+  },
+  "cypress-viewport-preset": {
+    "prefix": ["cypress viewport preset"],
+    "body": ["cy.viewport('${1:preset}');"],
+    "description": "Control the size of the screen for your application via presets. Preset supports the following options: ipad-2, ipad-mini, iphone-3, iphone-4, iphone-5, iphone-6, iphone-6+, iphone-x, iphone-xr, macbook-11, macbook-13, macbook-15, samsung-note9, samsung-s10",
+    "scope": "javascript,typescript"
+  },
+  "cypress-visit": {
+    "prefix": ["cypress visit"],
+    "body": ["cy.visit('${1:url}');"],
+    "description": "Visit a remote URL",
+    "scope": "javascript,typescript"
+  },
+  "cypress-wait": {
+    "prefix": ["cypress wait"],
+    "body": ["cy.wait(${1:time});"],
+    "description": "Wait for a number of milliseconds or wait for an aliased resource to resolve before moving on to the next command.",
+    "scope": "javascript,typescript"
+  }
+}
