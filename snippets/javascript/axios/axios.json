@@ -26,7 +26,7 @@
     "description": "Use Axios to make a get request - promise based"
   },
   "axios-get-async-await": {
-    "prefix": ["axios get async/await"],
+    "prefix": ["axios get async await"],
     "body": [
       "async function ${1:name}() {",
       "\ttry {",
@@ -55,7 +55,7 @@
     "description": "Use Axios to make a post request - promise based"
   },
   "axios-post-async-await": {
-    "prefix": ["axios post async/await"],
+    "prefix": ["axios post async await"],
     "body": [
       "async function ${1:name}() {",
       "\ttry {",
