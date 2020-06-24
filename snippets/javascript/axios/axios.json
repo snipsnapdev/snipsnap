@@ -1,11 +1,11 @@
 {
-  "require-axios": {
+  "axios-require": {
     "prefix": ["axios require"],
     "body": ["const axios = require('axios').default;"],
     "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "description": "require axios"
   },
-  "import-axios": {
+  "axios-import": {
     "prefix": ["axios import"],
     "body": ["import axios from 'axios';"],
     "scope": "javascript,javascriptreact,typescript,typescriptreact",
