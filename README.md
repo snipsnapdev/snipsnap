@@ -68,7 +68,7 @@ Different snippets extensions follow different rules and use unpredictable short
 Each IDE has individual snippets format that does not compatible with other IDEs. So having independent snippets format could allow us to create Snipsnap extensions for each popular IDEs and using converters transform snippets from one format to another.
 
 ## 🛠️ How it works
-Snipsnap VS Code extension scans your package.json(or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
+Snipsnap VS Code extension scans your package.json (or yarn.lock) and searches on the server available snippets for packages you have in the project. It means that you don't need anymore install different extensions with snippets for frameworks, libraries you use. 
 
 Snipsnap extension creates `snipsnap.code-snippets` inside `.vscode` folder with all snippets, so snippets will be available even for other developers who did not install extension.
 
