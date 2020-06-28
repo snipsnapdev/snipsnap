@@ -15,11 +15,6 @@
     "scope": "svelte",
     "description": "add a script to your svelte file"
   },
-  "svelte-routing-import": {
-    "prefix": ["svelte import routing", "svroute"],
-    "body": ["import { Route, Router } from 'svelte-routing'"],
-    "scope": "svelte"
-  },
   "svelte-script-tag": {
     "prefix": ["svelte tag script", "svscript"],
     "body": [
@@ -500,5 +495,312 @@
       ],
       "scope": "svelte",
       "description": "svelte:options"
+  },
+  "svelte-create-component": {
+    "prefix": ["svelte create-component","svcreate-component"],
+    "body": [
+      "const component = new ${1:App}({",
+      "\ttarget: ${2|target,document.body|},",
+      "\tprops: ${3:props},",
+      "\tanchor: ${4:anchor},",
+      "\thydrate: ${5|false,true|},",
+      "\tintro: ${5|false,true|}",
+      "})"
+    ],
+    "scope": "javascript",
+    "description": "svelte create component"
+  },
+  "svelte-reactive-statement": {
+    "prefix": ["svelte reactive-statement","svrs"],
+    "body": [
+      "$: ${1:variable} = ${2:prop}"
+    ],
+    "scope": "javascript",
+    "description": "reactive statement"
+  },
+  "svelte-reactive-block": {
+    "prefix": ["svelte reactive-block","svrb"],
+    "body": [
+      "$: { ${1:console.log(${2:prop});}}"
+    ],
+    "scope": "javascript",
+    "description": "reactive block"
+  },
+  "svelte-action": {
+    "prefix": ["svelte action","svaction"],
+    "body": [
+      "function ${1:foo}(node) {",
+      "\t// the node has been mounted in the DOM",
+      "\treturn {",
+      "\t\tdestroy() {",
+      "\t\t\t// the node has been removed from the DOM",
+      "\t\t}",
+      "\t};",
+      "}"
+    ],
+    "scope": "javascript",
+    "description": "action function"
+  },
+  "svelte-action-parameters": {
+    "prefix": ["svelte action-parameters","svactionp"],
+    "body": [
+      "function ${1:foo}(node, ${2:parameters}) {",
+      "\t// the node has been mounted in the DOM",
+      "\treturn {",
+      "\t\tdestroy() {",
+      "\t\t\t// the node has been removed from the DOM",
+      "\t\t}",
+      "\t};",
+      "}"
+    ],
+    "scope": "javascript",
+    "description": "action function"
+  },
+  "svelte-action-update": {
+    "prefix": ["svelte action-update","svactionu"],
+    "body": [
+      "function ${1:foo}(node, ${2:parameters}) {",
+      "\t// the node has been mounted in the DOM",
+      "\treturn {",
+      "\t\tupdate(${2:parameters}) {",
+      "\t\t\t// the value of `${2:parameters}` has changed",
+      "\t\t}",
+      "\t\tdestroy() {",
+      "\t\t\t// the node has been removed from the DOM",
+      "\t\t}",
+      "\t};",
+      "}"
+    ],
+    "scope": "javascript",
+    "description": "action w/ update function"
+  },
+  "svelte-on-mount": {
+    "prefix": ["svelte lifecycle-mount","svlfm"],
+    "body": [
+      "onMount(() => {",
+      "\t${1:// content here}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "onMount lifecycle function"
+  },
+  "svelte-before-update": {
+    "prefix": ["svelte lifecycle-before-update","svlfbu"],
+    "body": [
+      "beforeUpdate(() => {",
+      "\t${1:// content here}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "beforeUpdate lifecycle function"
+  },
+  "svelte-after-update": {
+    "prefix": ["svelte lifecycle-after-update","svlfap"],
+    "body": [
+      "afterUpdate(() => {",
+      "\t${1:// content here}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "afterUpdate lifecycle function"
+  },
+  "svelte-on-destroy": {
+    "prefix": ["svelte lifecycle-destroy","svlfd"],
+    "body": [
+      "onDestroy(() => {",
+      "\t${1:// content here}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "onDestroy lifecycle function"
+  },
+  "svelte-tick": {
+    "prefix": ["svelte tick","sv-tick"],
+    "body": [
+      "await tick()"
+    ],
+    "scope": "javascript",
+    "description": "svelte tick function"
+  },
+  "svelte-set-context": {
+    "prefix": ["svelte set-content","sv-content"],
+    "body": [
+      "setContext(${1:key}, ${2:context})"
+    ],
+    "scope": "javascript",
+    "description": "svelte setContext"
+  },
+  "svelte-get-context": {
+    "prefix": ["svelte get-content","svgetc"],
+    "body": [
+      "getContext(${1:key})"
+    ],
+    "scope": "javascript",
+    "description": "svelte getContext"
+  },
+  "svelte-dispatch": {
+      "prefix": ["svelte dispatch","svdp"],
+      "body": [
+        "const dispatch = createEventDispatcher();"
+      ],
+      "scope": "javascript",
+      "description": "svelte dispatch"
+  },
+  "svelte-dispatch-event": {
+    "prefix": ["svelte dispatch-event","svdpe"],
+    "body": [
+      "dispatch(${1:key},${2:data})"
+    ],
+    "scope": "javascript",
+    "description": "svelte dispatch event"
+  },
+  "svelte-writeable": {
+    "prefix": ["svelte writeable","svw"],
+    "body": [
+      "const ${1:store} = writable(${2:initialValue});"
+    ],
+    "scope": "javascript",
+    "description": "svelte writeable"
+  },
+  "svelte-writeable-set": {
+    "prefix": ["svelte writeable-set","svwt"],
+    "body": [
+      "const ${1:store} = writable(${2:initialValue}, () => {",
+      "\t${3:console.log('got a subscriber');}",
+      "\treturn () => ${4:console.log('no more subscribers');}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "svelte writeable w/ set function"
+  },
+  "svelte-readable": {
+    "prefix": ["svelte readable","svr"],
+    "body": [
+      "const ${1:store} = readable(${2:initialValue}, () => {",
+      "\t${3:console.log('got a subscriber');}",
+      "\treturn () => ${4:console.log('no more subscribers');}",
+      "});"
+    ],
+    "scope": "javascript",
+    "description": "svelte readable (set function required)"
+  },
+  "svelte-derived": {
+    "prefix": ["svelte derived","svder"],
+    "body": [
+      "const ${1:derivedStore} = derived(${2:storeA}, $${2:storeA} => $${2:storeA} * 2);"
+    ],
+    "scope": "javascript",
+    "description": "svelte derived store"
+  },
+  "svelte-derived-multiple": {
+    "prefix": ["svelte derived-multiple","svderm"],
+    "body": [
+      "const ${1:derivedStore} = derived([${2:storeA}, ${3:storeB}], ([$${2:storeA}, $${3:storeB}]) => $${2:storeA} + $${3:storeB});"
+    ],
+    "scope": "javascript",
+    "description": "svelte derived store"
+  },
+  "svelte-derived-set": {
+    "prefix": ["svelte derived-set","svders"],
+    "body": [
+      "const ${1:derivedStore} = derived(${2:storeA}, ($${2:storeA}, set) => {",
+      "\tsetTimeout(() => set($${2:storeA}), 1000);",
+      "}, 'one moment...');"
+    ],
+    "scope": "javascript",
+    "description": "svelte derived store"
+  },
+  "svelte-derived-multiple-set": {
+    "prefix": ["svelte derived-multiple-set","svderms"],
+    "body": [
+      "const ${1:derivedStore} = derived([${2:storeA}, ${3:storeB}], ([$${2:storeA}, $${3:storeB}], set) => {",
+      "\tsetTimeout(() => set($${2:storeA} + $${3:storeB}), 1000);",
+      "}, 'one moment...');"
+    ],
+    "scope": "javascript",
+    "description": "svelte derived store"
+  },
+  "svelte-store-get": {
+    "prefix": ["svelte store-get-value","svstoregm"],
+    "body": [
+      "const ${1:value} = get(${2:store});"
+    ],
+    "scope": "javascript",
+    "description": "svelte get value from store"
+  },
+  "svelte-component-set": {
+    "prefix": ["svelte component-set","svcoms"],
+    "body": [
+      "${1:component}.$set(${2: params});"
+    ],
+    "scope": "javascript",
+    "description": "svelte component api $set"
+  },
+  "svelte-component-on": {
+    "prefix": ["svelte component-on","svcomon"],
+    "body": [
+      "${1:component}.$on(${2:eventname}, ${3:handler});"
+    ],
+    "scope": "javascript",
+    "description": "svelte component api $on"
+  },
+  "svelte-component-destroy": {
+    "prefix": ["svelte component-destroy","svcomd"],
+    "body": [
+      "${1:component}.$destroy();"
+    ],
+    "scope": "javascript",
+    "description": "svelte component api $destroy"
+  },
+  "svelte-render-component": {
+    "prefix": ["svelte render-component","svrcom"],
+    "body": [
+      "const { head, html, css } = ${1:App}.render({",
+      "\tprops: ${3:props},",
+      "})"
+    ],
+    "scope": "javascript",
+    "description": "svelte render component"
+  },
+  "svelte-tweened": {
+    "prefix": ["svelte tweened","svtw"],
+    "body": [
+      "const ${1:store} = tweened(${2:value}, ${3:options});"
+    ],
+    "scope": "javascript",
+    "description": "svelte create tweened store"
+  },
+  "svelte-spring": {
+    "prefix": ["svelte spring","svsp"],
+    "body": [
+      "const ${1:store} = spring(${2:value}, ${3:options});"
+    ],
+    "scope": "javascript",
+    "description": "svelte create spring store"
+  },
+  "svelte-register": {
+    "prefix": ["svelte register","svreg"],
+    "body": [
+      "require('svelte/register');",
+      "const ${1:App} = require('${2:./App.svelte}').default;"
+    ],
+    "scope": "javascript",
+    "description": "svelte register"
+  },
+  "svelte-routing-import": {
+    "prefix": ["svelte import routing", "svroute"],
+    "body": ["import { Route, Router } from 'svelte-routing'"],
+    "scope": "javascript"
+  },
+  "svelte-global-style": {
+    "prefix": ["svelte global-style","svsglobal"],
+    "body": [
+      ":global(${1:body}) {",
+      "\t/* this will apply to <body> */",
+      "\t${2:/* your styles go here */}",
+      "}"
+    ],
+    "scope": "javascript",
+    "description": "add global styles to your style tag"
   }
 }
