@@ -160,7 +160,7 @@
       "\t${4: <!-- content here -->}",
       "{/each}"
     ],
-    "scope": "svelte"=
+    "scope": "svelte"
   },
   "svelte-await-then-block": {
     "prefix": ["svelte await then","svawait"],
@@ -201,7 +201,7 @@
       "\t${5: <!-- content when promise was rejected -->}",
       "{/await}"
     ],
-    "scope": "svelte"=
+    "scope": "svelte"
   },
   "svelte-catch-block": {
     "prefix": ["svelte catch","svcatch"],
