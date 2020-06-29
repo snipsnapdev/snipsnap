@@ -721,6 +721,6 @@
       "\t${2:/* your styles go here */}",
       "}"
     ],
-    "scope": "javascript"
+    "scope": "css"
   }
 }
