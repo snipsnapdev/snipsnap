@@ -1,6 +1,6 @@
 {
   "svelte-component-format": {
-    "prefix": ["svelte format component", "svcomponent"],
+    "prefix": ["svelte component template", "svcomponent"],
     "body": [
       "<script>",
       "\t${1:// your script goes here}",
@@ -12,21 +12,19 @@
       "",
       "${3:<!-- markup (zero or more items) goes here -->}"
     ],
-    "scope": "svelte",
-    "description": "add a script to your svelte file"
+    "scope": "svelte"
   },
   "svelte-script-tag": {
-    "prefix": ["svelte tag script", "svscript"],
+    "prefix": ["svelte script", "svscript"],
     "body": [
       "<script>",
       "\t${1:// your script goes here}",
       "</script>"
     ],
-    "scope": "svelte",
-    "description": "add a script to your svelte file"
+    "scope": "svelte"
   },
   "svelte-script-context": {
-    "prefix": ["svelte context script","svscriptc"],
+    "prefix": ["svelte script context","svscriptc"],
     "body": [
       "<script context=\"module\">",
       "\t${1:// your script goes here}",
@@ -36,7 +34,7 @@
     "description": "add a script with context=\"module\" to your svelte file"
   },
   "svelte-style-tag": {
-    "prefix": ["svelte tag style","svstyle"],
+    "prefix": ["svelte style","svstyle"],
     "body": [
       "<style>",
       "\t${1:/* your styles go here */}",
@@ -50,24 +48,21 @@
     "body": [
       "{${1:expression}}"
     ],
-    "scope": "svelte",
-    "description": "basic expression"
+    "scope": "svelte"
   },
   "svelte-expression-html": {
     "prefix": ["svelte expression html","svexphtml"],
     "body": [
       "{@html ${1:expression}}"
     ],
-    "scope": "svelte",
-    "description": "html content expression"
+    "scope": "svelte"
   },
   "svelte-expression-debug": {
     "prefix": ["svelte expression debug","svexpdebug"],
     "body": [
       "{@debug ${1:var1}${2:,var2}}"
     ],
-    "scope": "svelte",
-    "description": "html content expression"
+    "scope": "svelte"
   },
   "svelte-if-block": {
     "prefix": ["svelte if-block","svif"],
@@ -80,7 +75,7 @@
     "description": "if block"
   },
   "svelte-if-else-block": {
-    "prefix": ["svelte if-else-block","svif-else"],
+    "prefix": ["svelte if else","svif-else"],
     "body": [
       "{#if ${1:condition}}",
       "\t${2: <!-- content here -->}",
@@ -88,20 +83,18 @@
       "\t${3: <!-- else content here -->}",
       "{/if}"
     ],
-    "scope": "svelte",
-    "description": "if else block"
+    "scope": "svelte"
   },
   "svelte-else-block": {
-    "prefix": ["svelte else-block","svelse"],
+    "prefix": ["svelte else","svelse"],
     "body": [
       "{:else}",
       "\t${1: <!-- else content here -->}"
     ],
-    "scope": "svelte",
-    "description": "else block"
+    "scope": "svelte"
   },
   "svelte-if-else-if-block": {
-    "prefix": ["svelte if-else-if-block","svif-else-if"],
+    "prefix": ["svelte if else if","svif-else-if"],
     "body": [
       "{#if ${1:condition}}",
       "\t${2: <!-- content here -->}",
@@ -111,20 +104,18 @@
       "\t${5: <!-- else content here -->}",
       "{/if}"
     ],
-    "scope": "svelte",
-    "description": "if else if block"
+    "scope": "svelte"
   },
   "svelte-else-if-block": {
-    "prefix": ["svelte else-if-block","svelse-if"],
+    "prefix": ["svelte else if","svelse-if"],
     "body": [
       "{:else if ${1: otherCondition}}",
       "\t${2: <!-- else if content here -->}"
     ],
-    "scope": "svelte",
-    "description": "else if block"
+    "scope": "svelte"
   },
   "svelte-each-block": {
-    "prefix": ["svelte each-block","sveach"],
+    "prefix": ["svelte each","sveach"],
     "body": [
       "{#each ${1:items} as ${2:item}}",
       "\t${3: <!-- content here -->}",
@@ -134,7 +125,7 @@
     "description": "each block"
   },
   "svelte-each-else-block": {
-    "prefix": ["svelte each-else-block","sveach-else"],
+    "prefix": ["svelte each else","sveach-else"],
     "body": [
       "{#each ${1:items} as ${2:item}}",
       "\t${3: <!-- content here -->}",
@@ -142,41 +133,37 @@
       "\t${4: <!-- empty list -->}",
       "{/each}"
     ],
-    "scope": "svelte",
-    "description": "each else block"
+    "scope": "svelte"
   },
   "svelte-each-index-block": {
-    "prefix": ["svelte each-index-block","sveach-index"],
+    "prefix": ["svelte each index","sveach-index"],
     "body": [
       "{#each ${1:items} as ${2:item}, ${3:i}}",
       "\t${4: <!-- content here -->}",
       "{/each}"
     ],
-    "scope": "svelte",
-    "description": "each index block"
+    "scope": "svelte"
   },
   "svelte-each-key-block": {
-    "prefix": ["svelte each-key-block","sveach-key"],
+    "prefix": ["svelte each key","sveach-key"],
     "body": [
       "{#each ${1:items} as ${2:item}, (${3:key})}",
       "\t${4: <!-- content here -->}",
       "{/each}"
     ],
-    "scope": "svelte",
-    "description": "each index block"
+    "scope": "svelte"
   },
   "svelte-each-index-key-block": {
-    "prefix": ["svelte each-index-key-block","sveach-i-k"],
+    "prefix": ["svelte each index key","sveach-i-k"],
     "body": [
       "{#each ${1:items} as ${2:item}, i (${3:key})}",
       "\t${4: <!-- content here -->}",
       "{/each}"
     ],
-    "scope": "svelte",
-    "description": "each index key block"
+    "scope": "svelte"=
   },
   "svelte-await-then-block": {
-    "prefix": ["svelte await-then-block","svawait"],
+    "prefix": ["svelte await then","svawait"],
     "body": [
       "{#await ${1:promise}}",
       "\t${2: <!-- content when promise is pending -->}",
@@ -184,30 +171,27 @@
       "\t${4: <!-- content when promise was fulfilled -->}",
       "{/await}"
     ],
-    "scope": "svelte",
-    "description": "await then block"
+    "scope": "svelte"
   },
   "svelte-then-block": {
-    "prefix": ["svelte then-block","svthen"],
+    "prefix": ["svelte then","svthen"],
     "body": [
       "{:then ${1:value}}",
       "\t${2: <!-- content when promise was fulfilled -->}"
     ],
-    "scope": "svelte",
-    "description": "then block"
+    "scope": "svelte"
   },
   "svelte-await-short-block": {
-    "prefix": ["svelte await-short-block","svawait-short"],
+    "prefix": ["svelte await short","svawait-short"],
     "body": [
       "{#await ${1:promise} then ${2:value}}",
       "\t${3: <!-- content when promise was fulfilled -->}",
       "{/await}"
     ],
-    "scope": "svelte",
-    "description": "await short block"
+    "scope": "svelte"
   },
   "svelte-await-catch-block": {
-    "prefix": ["svelte await-catch-block","svawait-catch"],
+    "prefix": ["svelte await catch","svawait-catch"],
     "body": [
       "{#await ${1:promise}}",
       "\t${2: <!-- content when promise is pending -->}",
@@ -217,20 +201,18 @@
       "\t${5: <!-- content when promise was rejected -->}",
       "{/await}"
     ],
-    "scope": "svelte",
-    "description": "await catch block"
+    "scope": "svelte"=
   },
   "svelte-catch-block": {
-    "prefix": ["svelte catch-block","svcatch"],
+    "prefix": ["svelte catch","svcatch"],
     "body": [
       "{:catch error}",
       "\t<!-- promise was rejected -->"
     ],
-    "scope": "svelte",
-    "description": "catch block"
+    "scope": "svelte"
   },
   "svelte-on-event": {
-    "prefix": ["svelte on-event","svon"],
+    "prefix": ["svelte on event","svon"],
     "body": [
       "on:${1:eventname}={${2:handler}}"
     ],
@@ -238,55 +220,49 @@
     "description": "on event"
   },
   "svelte-on-event-forward": {
-    "prefix": ["svelte on-event-foward","svon-foward"],
+    "prefix": ["svelte on event foward","svon-foward"],
     "body": [
       "on:${1:eventname}"
     ],
-    "scope": "svelte",
-    "description": "on event foward"
+    "scope": "svelte"
   },
   "svelte-on-event-modifiers": {
-    "prefix": ["svelte on-event-modifiers","svon-modifiers"],
+    "prefix": ["svelte on event modifiers","svon-modifiers"],
     "body": [
       "on:${1:eventname}|${2|preventDefault,stopPropagation,passive,capture,once|}={${3:handler}}"
     ],
-    "scope": "svelte",
-    "description": "on event w/ modifiers"
+    "scope": "svelte"
   },
   "svelte-on-event-inline": {
-    "prefix": ["svelte on-event-inline","svon-inline"],
+    "prefix": ["svelte on event inline","svon-inline"],
     "body": [
       "on:${1:click}=\"{() => ${2:count += 1}}\""
     ],
-    "scope": "svelte",
-    "description": "on event inline"
+    "scope": "svelte"
   },
   "svelte-modifiers": {
     "prefix": ["svelte modifier","svmodifier"],
     "body": [
       "|${1|preventDefault,stopPropagation,passive,capture,once|}"
     ],
-    "scope": "svelte",
-    "description": "modifier"
+    "scope": "svelte"
   },
   "svelte-bind": {
     "prefix": ["svelte bind","svbind-simple"],
     "body": [
       "bind:${1:property}"
     ],
-    "scope": "svelte",
-    "description": "bind property simple"
+    "scope": "svelte"
   },
   "svelte-bind-property": {
-    "prefix": ["svelte bind-property","svbind-property"],
+    "prefix": ["svelte bind property","svbind-property"],
     "body": [
       "bind:${1:property}={${2:variable}}"
     ],
-    "scope": "svelte",
-    "description": "bind property"
+    "scope": "svelte"
   },
   "svelte-bind-video": {
-    "prefix": ["svelte bind-video","svbind-video"],
+    "prefix": ["svelte bind video","svbind-video"],
     "body": [
       "<video",
       "src={${1:clip}}",
@@ -299,184 +275,161 @@
       "bind:${8:volume}",
       "></video>"
     ],
-    "scope": "svelte",
-    "description": "bind property"
+    "scope": "svelte"
   },
   "svelte-bind-block-level": {
-    "prefix": ["svelte bind-block-level","svbind-level"],
+    "prefix": ["svelte bind level","svbind-level"],
     "body": [
       "bind:${1|clientWidth,clientHeight,offsetWidth,offsetHeight|}={${2:variable}}"
     ],
-    "scope": "svelte",
-    "description": "bind property"
+    "scope": "svelte"
   },
   "svelte-bind-group": {
-    "prefix": ["svelte bind-group","svbind-group"],
+    "prefix": ["svelte bind group","svbind-group"],
     "body": [
       "bind:group={${1:variable}}"
     ],
-    "scope": "svelte",
-    "description": "bind group"
+    "scope": "svelte"
   },
   "svelte-bind-this": {
-    "prefix": ["svelte bind-this","svbind-this"],
+    "prefix": ["svelte bind this","svbind-this"],
     "body": [
       "bind:this={${1:dom_node}}"
     ],
-    "scope": "svelte",
-    "description": "bind this"
+    "scope": "svelte"
   },
   "svelte-class": {
     "prefix": ["svelte class","svcl"],
     "body": [
       "class:${1:name}={${2:condition}}"
     ],
-    "scope": "svelte",
-    "description": "class"
+    "scope": "svelte"
   },
   "svelte-class-short": {
-      "prefix": ["svelte class-short","svcls"],
+      "prefix": ["svelte class short","svcls"],
       "body": [
         "class:${1:name}}"
       ],
-      "scope": "svelte",
-      "description": "class shorthand"
+      "scope": "svelte"
   },
   "svelte-use": {
       "prefix": ["svelte use","svu"],
       "body": [
         "use:action"
       ],
-      "scope": "svelte",
-      "description": "use action"
+      "scope": "svelte"
   },
   "svelte-use-parameters": {
-      "prefix": ["svelte use-parameters","svupar"],
+      "prefix": ["svelte use parameters","svupar"],
       "body": [
         "use:action={${1:parameters}}"
       ],
-      "scope": "svelte",
-      "description": "use action w/ parameters"
+      "scope": "svelte"
   },
   "svelte-transition": {
       "prefix": ["svelte transition","svt"],
       "body": [
         "${1|transition,in,out|}:${2:name}"
       ],
-      "scope": "svelte",
-      "description": "transition"
+      "scope": "svelte"
   },
   "svelte-transition-params": {
-      "prefix": ["svelte transition-params","svtp"],
+      "prefix": ["svelte transition params","svtp"],
       "body": [
         "${1|transition,in,out|}:${2:name}={${3:params}}"
       ],
-      "scope": "svelte",
-      "description": "transition-params"
+      "scope": "svelte"
   },
   "svelte-transition-events": {
-      "prefix": ["svelte transition-events","svte"],
+      "prefix": ["svelte transition events","svte"],
       "body": [
         "on:${1|introstart,introend,outrostart,outroend|}=\"{() => status = '${1|introstart,introend,outrostart,outroend|}'}\""
       ],
-      "scope": "svelte",
-      "description": "transition-events"
+      "scope": "svelte"
   },
   "svelte-transition-local": {
-      "prefix": ["svelte transition-local","svtl"],
+      "prefix": ["svelte transition local","svtl"],
       "body": [
         "${1|transition,in,out|}:${2:name}|${3:local}"
       ],
-      "scope": "svelte",
-      "description": "transition local"
+      "scope": "svelte"
   },
   "svelte-transition-all": {
-      "prefix": ["svelte transition-all","svta"],
+      "prefix": ["svelte transition all","svta"],
       "body": [
         "${1|transition,in,out|}:${2:name}|${3:local}={${4:params}}"
       ],
-      "scope": "svelte",
-      "description": "transition"
+      "scope": "svelte"
   },
   "svelte-animate": {
       "prefix": ["svelte animate","sva"],
       "body": [
         "animate:${1:name}={${2:params}}"
       ],
-      "scope": "svelte",
-      "description": "animate"
+      "scope": "svelte"
   },
   "svelte-slot": {
       "prefix": ["svelte slot","svsl"],
       "body": [
         "<slot>${1:<!-- optional fallback -->}</slot>"
       ],
-      "scope": "svelte",
-      "description": "slot"
+      "scope": "svelte"
   },
   "svelte-slot-name": {
-      "prefix": ["svelte slot-name","svsn"],
+      "prefix": ["svelte slot name","svsn"],
       "body": [
         "<slot name=\"${1:x}\">${2:<!-- optional fallback -->}</slot>"
       ],
-      "scope": "svelte",
-      "description": "slot w/ name"
+      "scope": "svelte"
   },
   "svelte-slot-prop": {
-      "prefix": ["svelte slot-prop","svsp"],
+      "prefix": ["svelte slot prop","svsp"],
       "body": [
         "<slot ${1:prop}={${2:value}}>${3:<!-- optional fallback -->}</slot>"
       ],
-      "scope": "svelte",
-      "description": "slot w/ prop"
+      "scope": "svelte"
   },
   "svelte-self": {
       "prefix": ["svelte self","svse"],
       "body": [
         "<svelte:self />"
       ],
-      "scope": "svelte",
-      "description": "svelte:self"
+      "scope": "svelte"
   },
   "svelte-self-prop": {
-      "prefix": ["svelte self-prop","svsep"],
+      "prefix": ["svelte self prop","svsep"],
       "body": [
         "<svelte:self ${1:prop}={${2:value}} />"
       ],
-      "scope": "svelte",
-      "description": "svelte:self"
+      "scope": "svelte"
   },
   "svelte-component": {
       "prefix": ["svelte component","svc"],
       "body": [
         "<svelte:component this={${1:component}} />"
       ],
-      "scope": "svelte",
-      "description": "svelte:component"
+      "scope": "svelte"
   },
   "svelte-window": {
       "prefix": ["svelte window","svw"],
       "body": [
         "<svelte:window />"
       ],
-      "scope": "svelte",
-      "description": "svelte:window"
+      "scope": "svelte"
   },
   "svelte-window-bind": {
-      "prefix": ["svelte window-bind","svwb"],
+      "prefix": ["svelte window bind","svwb"],
       "body": [
         "bind:${1|innerWidth,innerHeight,outerWidth,outerHeight,scrollX,scrollY,online|}={${2:variable}}"
       ],
-      "scope": "svelte",
-      "description": "svelte:window bind properties"
+      "scope": "svelte"
   },
   "svelte-body": {
       "prefix": ["svelte body","svb"],
       "body": [
         "<svelte:body />"
       ],
-      "scope": "svelte",
-      "description": "svelte:body"
+      "scope": "svelte"
   },
   "svelte-head": {
       "prefix": ["svelte head","svh"],
@@ -485,19 +438,17 @@
         "\t${1:<!-- head content -->}",
         "</svelte:head>"
       ],
-      "scope": "svelte",
-      "description": "svelte:head"
+      "scope": "svelte"
   },
   "svelte-options": {
       "prefix": ["svelte options","svop"],
       "body": [
         "<svelte:options ${1|immutable,accessors,namespace,tag|}={${2:value}}/>"
       ],
-      "scope": "svelte",
-      "description": "svelte:options"
+      "scope": "svelte"
   },
   "svelte-create-component": {
-    "prefix": ["svelte create-component","svcreate-component"],
+    "prefix": ["svelte create component","svcreate-component"],
     "body": [
       "const component = new ${1:App}({",
       "\ttarget: ${2|target,document.body|},",
@@ -507,24 +458,21 @@
       "\tintro: ${5|false,true|}",
       "})"
     ],
-    "scope": "javascript",
-    "description": "svelte create component"
+    "scope": "javascript"
   },
   "svelte-reactive-statement": {
-    "prefix": ["svelte reactive-statement","svrs"],
+    "prefix": ["svelte reactive statement","svrs"],
     "body": [
       "$: ${1:variable} = ${2:prop}"
     ],
-    "scope": "javascript",
-    "description": "reactive statement"
+    "scope": "javascript"
   },
   "svelte-reactive-block": {
-    "prefix": ["svelte reactive-block","svrb"],
+    "prefix": ["svelte reactive","svrb"],
     "body": [
       "$: { ${1:console.log(${2:prop});}}"
     ],
-    "scope": "javascript",
-    "description": "reactive block"
+    "scope": "javascript"
   },
   "svelte-action": {
     "prefix": ["svelte action","svaction"],
@@ -538,11 +486,10 @@
       "\t};",
       "}"
     ],
-    "scope": "javascript",
-    "description": "action function"
+    "scope": "javascript"
   },
   "svelte-action-parameters": {
-    "prefix": ["svelte action-parameters","svactionp"],
+    "prefix": ["svelte action parameters","svactionp"],
     "body": [
       "function ${1:foo}(node, ${2:parameters}) {",
       "\t// the node has been mounted in the DOM",
@@ -553,11 +500,10 @@
       "\t};",
       "}"
     ],
-    "scope": "javascript",
-    "description": "action function"
+    "scope": "javascript"
   },
   "svelte-action-update": {
-    "prefix": ["svelte action-update","svactionu"],
+    "prefix": ["svelte action update","svactionu"],
     "body": [
       "function ${1:foo}(node, ${2:parameters}) {",
       "\t// the node has been mounted in the DOM",
@@ -571,28 +517,25 @@
       "\t};",
       "}"
     ],
-    "scope": "javascript",
-    "description": "action w/ update function"
+    "scope": "javascript"
   },
   "svelte-on-mount": {
-    "prefix": ["svelte lifecycle-mount","svlfm"],
+    "prefix": ["svelte lifecycle mount","svlfm"],
     "body": [
       "onMount(() => {",
       "\t${1:// content here}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "onMount lifecycle function"
+    "scope": "javascript"
   },
   "svelte-before-update": {
-    "prefix": ["svelte lifecycle-before-update","svlfbu"],
+    "prefix": ["svelte lifecycle before update","svlfbu"],
     "body": [
       "beforeUpdate(() => {",
       "\t${1:// content here}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "beforeUpdate lifecycle function"
+    "scope": "javascript"
   },
   "svelte-after-update": {
     "prefix": ["svelte lifecycle-after-update","svlfap"],
@@ -601,77 +544,68 @@
       "\t${1:// content here}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "afterUpdate lifecycle function"
+    "scope": "javascript"
   },
   "svelte-on-destroy": {
-    "prefix": ["svelte lifecycle-destroy","svlfd"],
+    "prefix": ["svelte lifecycle destroy","svlfd"],
     "body": [
       "onDestroy(() => {",
       "\t${1:// content here}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "onDestroy lifecycle function"
+    "scope": "javascript"
   },
   "svelte-tick": {
     "prefix": ["svelte tick","sv-tick"],
     "body": [
       "await tick()"
     ],
-    "scope": "javascript",
-    "description": "svelte tick function"
+    "scope": "javascript"
   },
   "svelte-set-context": {
-    "prefix": ["svelte set-content","sv-content"],
+    "prefix": ["svelte set content","sv-content"],
     "body": [
       "setContext(${1:key}, ${2:context})"
     ],
-    "scope": "javascript",
-    "description": "svelte setContext"
+    "scope": "javascript"
   },
   "svelte-get-context": {
-    "prefix": ["svelte get-content","svgetc"],
+    "prefix": ["svelte get content","svgetc"],
     "body": [
       "getContext(${1:key})"
     ],
-    "scope": "javascript",
-    "description": "svelte getContext"
+    "scope": "javascript"
   },
   "svelte-dispatch": {
       "prefix": ["svelte dispatch","svdp"],
       "body": [
         "const dispatch = createEventDispatcher();"
       ],
-      "scope": "javascript",
-      "description": "svelte dispatch"
+      "scope": "javascript"
   },
   "svelte-dispatch-event": {
-    "prefix": ["svelte dispatch-event","svdpe"],
+    "prefix": ["svelte dispatch event","svdpe"],
     "body": [
       "dispatch(${1:key},${2:data})"
     ],
-    "scope": "javascript",
-    "description": "svelte dispatch event"
+    "scope": "javascript"
   },
   "svelte-writeable": {
     "prefix": ["svelte writeable","svw"],
     "body": [
       "const ${1:store} = writable(${2:initialValue});"
     ],
-    "scope": "javascript",
-    "description": "svelte writeable"
+    "scope": "javascript"
   },
   "svelte-writeable-set": {
-    "prefix": ["svelte writeable-set","svwt"],
+    "prefix": ["svelte writeable set","svwt"],
     "body": [
       "const ${1:store} = writable(${2:initialValue}, () => {",
       "\t${3:console.log('got a subscriber');}",
       "\treturn () => ${4:console.log('no more subscribers');}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "svelte writeable w/ set function"
+    "scope": "javascript"
   },
   "svelte-readable": {
     "prefix": ["svelte readable","svr"],
@@ -681,102 +615,90 @@
       "\treturn () => ${4:console.log('no more subscribers');}",
       "});"
     ],
-    "scope": "javascript",
-    "description": "svelte readable (set function required)"
+    "scope": "javascript"
   },
   "svelte-derived": {
     "prefix": ["svelte derived","svder"],
     "body": [
       "const ${1:derivedStore} = derived(${2:storeA}, $${2:storeA} => $${2:storeA} * 2);"
     ],
-    "scope": "javascript",
-    "description": "svelte derived store"
+    "scope": "javascript"
   },
   "svelte-derived-multiple": {
-    "prefix": ["svelte derived-multiple","svderm"],
+    "prefix": ["svelte derived multiple","svderm"],
     "body": [
       "const ${1:derivedStore} = derived([${2:storeA}, ${3:storeB}], ([$${2:storeA}, $${3:storeB}]) => $${2:storeA} + $${3:storeB});"
     ],
-    "scope": "javascript",
-    "description": "svelte derived store"
+    "scope": "javascript"
   },
   "svelte-derived-set": {
-    "prefix": ["svelte derived-set","svders"],
+    "prefix": ["svelte derived set","svders"],
     "body": [
       "const ${1:derivedStore} = derived(${2:storeA}, ($${2:storeA}, set) => {",
       "\tsetTimeout(() => set($${2:storeA}), 1000);",
       "}, 'one moment...');"
     ],
-    "scope": "javascript",
-    "description": "svelte derived store"
+    "scope": "javascript"
   },
   "svelte-derived-multiple-set": {
-    "prefix": ["svelte derived-multiple-set","svderms"],
+    "prefix": ["svelte derived multiple set","svderms"],
     "body": [
       "const ${1:derivedStore} = derived([${2:storeA}, ${3:storeB}], ([$${2:storeA}, $${3:storeB}], set) => {",
       "\tsetTimeout(() => set($${2:storeA} + $${3:storeB}), 1000);",
       "}, 'one moment...');"
     ],
-    "scope": "javascript",
-    "description": "svelte derived store"
+    "scope": "javascript"
   },
   "svelte-store-get": {
     "prefix": ["svelte store-get-value","svstoregm"],
     "body": [
       "const ${1:value} = get(${2:store});"
     ],
-    "scope": "javascript",
-    "description": "svelte get value from store"
+    "scope": "javascript"
   },
   "svelte-component-set": {
-    "prefix": ["svelte component-set","svcoms"],
+    "prefix": ["svelte component set","svcoms"],
     "body": [
       "${1:component}.$set(${2: params});"
     ],
-    "scope": "javascript",
-    "description": "svelte component api $set"
+    "scope": "javascript"
   },
   "svelte-component-on": {
-    "prefix": ["svelte component-on","svcomon"],
+    "prefix": ["svelte component on","svcomon"],
     "body": [
       "${1:component}.$on(${2:eventname}, ${3:handler});"
     ],
-    "scope": "javascript",
-    "description": "svelte component api $on"
+    "scope": "javascript"
   },
   "svelte-component-destroy": {
-    "prefix": ["svelte component-destroy","svcomd"],
+    "prefix": ["svelte component destroy","svcomd"],
     "body": [
       "${1:component}.$destroy();"
     ],
-    "scope": "javascript",
-    "description": "svelte component api $destroy"
+    "scope": "javascript"
   },
   "svelte-render-component": {
-    "prefix": ["svelte render-component","svrcom"],
+    "prefix": ["svelte render component","svrcom"],
     "body": [
       "const { head, html, css } = ${1:App}.render({",
       "\tprops: ${3:props},",
       "})"
     ],
-    "scope": "javascript",
-    "description": "svelte render component"
+    "scope": "javascript"
   },
   "svelte-tweened": {
     "prefix": ["svelte tweened","svtw"],
     "body": [
       "const ${1:store} = tweened(${2:value}, ${3:options});"
     ],
-    "scope": "javascript",
-    "description": "svelte create tweened store"
+    "scope": "javascript"
   },
   "svelte-spring": {
     "prefix": ["svelte spring","svsp"],
     "body": [
       "const ${1:store} = spring(${2:value}, ${3:options});"
     ],
-    "scope": "javascript",
-    "description": "svelte create spring store"
+    "scope": "javascript"
   },
   "svelte-register": {
     "prefix": ["svelte register","svreg"],
@@ -784,8 +706,7 @@
       "require('svelte/register');",
       "const ${1:App} = require('${2:./App.svelte}').default;"
     ],
-    "scope": "javascript",
-    "description": "svelte register"
+    "scope": "javascript"
   },
   "svelte-routing-import": {
     "prefix": ["svelte import routing", "svroute"],
@@ -793,14 +714,13 @@
     "scope": "javascript"
   },
   "svelte-global-style": {
-    "prefix": ["svelte global-style","svsglobal"],
+    "prefix": ["svelte global style","svsglobal"],
     "body": [
       ":global(${1:body}) {",
       "\t/* this will apply to <body> */",
       "\t${2:/* your styles go here */}",
       "}"
     ],
-    "scope": "javascript",
-    "description": "add global styles to your style tag"
+    "scope": "javascript"
   }
 }
