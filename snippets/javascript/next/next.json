@@ -81,5 +81,28 @@
     "prefix": ["next head"],
     "body": ["<Head>", "${1:content}", "</Head>"],
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "next-api": {
+    "prefix": ["next api"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "body": [
+      "export default (req, res) => {",
+      "  res.json(${1:object});",
+      "};"
+    ],
+    "description": "API routes provide built in middlewares which parse the incoming request. Those middlewares are: req.cookies, req.body, req.query."
+  },
+  "next-api-method": {
+    "prefix": ["next api method"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "body": [
+      "export default (req, res) => {",
+      "  if (req.method === 'POST') {",
+      "    $1",
+      "  } else {",
+      "    $2",
+      "  }",
+      "};"
+    ]
   }
 }
