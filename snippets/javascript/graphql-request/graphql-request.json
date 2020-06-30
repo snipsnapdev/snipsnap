@@ -1,0 +1,86 @@
+{
+  "graphql-request-import-request": {
+    "prefix": ["graphql-request import request"],
+    "body": ["import { request } from 'graphql-request';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-require-client": {
+    "prefix": ["graphql-request require client"],
+    "body": ["const { GraphQLClient } = require('graphql-request');"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-require-request": {
+    "prefix": ["graphql-request require request"],
+    "body": ["const { request } = require('graphql-request');"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-import-client": {
+    "prefix": ["graphql-request import client"],
+    "body": ["import { GraphQLClient } from 'graphql-request';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-client": {
+    "prefix": ["graphql-request client"],
+    "body": [
+      "const ${1:client} = new GraphQLClient(",
+      "  ${2:url},",
+      "  {",
+      "    headers: {",
+      "      ${3:key}: ${4:value}",
+      "    },",
+      "  }",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-request": {
+    "prefix": ["graphql-request request"],
+    "body": [
+      "const ${1:results} = await request(",
+      "  ${2:url},",
+      "  ${3:query}",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-request-variables": {
+    "prefix": ["graphql-request request variables"],
+    "body": [
+      "const ${1:results} = await request(",
+      "  ${2:url},",
+      "  ${3:query},",
+      "  ${4:variables}",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-query": {
+    "prefix": ["graphql-request query"],
+    "body": [
+      "const ${1:queryName} = `query ${1:queryName} {",
+      "  ${2:query}",
+      "}",
+      "`;"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-client-request": {
+    "prefix": ["graphql-request client request"],
+    "body": [
+      "const ${1:results} = await ${2:client}.request(",
+      "  ${3:query}",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "graphql-request-client-request-variables": {
+    "prefix": ["graphql-request client request variables"],
+    "body": [
+      "const ${1:results} = await ${2:client}.request(",
+      "  ${3:query},",
+      "  ${4:variables}",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  }
+}
