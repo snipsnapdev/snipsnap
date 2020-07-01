@@ -7,6 +7,15 @@
 </a>
 </h4>
 
+<p align="center">
+  <img src="https://img.shields.io/github/license/snipsnapdev/snipsnap"/>
+  <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-vscode">
+    <img alt="VS Code Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/snipsnapdev.snipsnap-vscode"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-vscode">
+    <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/snipsnapdev.snipsnap-vscode"></a>
+  <a href="https://twitter.com/snipsnap_dev"><img src="https://img.shields.io/twitter/follow/snipsnap_dev?style=social"/></a>
+</p>
+
 ![out](https://user-images.githubusercontent.com/2697570/73568644-23bc0180-4469-11ea-8b64-843c7a9a92d2.gif)
 
 <h2>Popular snippets</h2>
