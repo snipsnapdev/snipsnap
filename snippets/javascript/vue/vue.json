@@ -1,13 +1,7 @@
 {
   "vue-template": {
     "prefix": ["vue template", "template"],
-    "body": [
-      "<template>",
-      "\t<${1:div}$2>",
-      "\t\t$0",
-      "\t</${1:div}>",
-      "</template>"
-    ],
+    "body": ["<template>", "\t<${1:div}$2>", "\t\t$0", "\t</${1:div}>", "</template>"],
     "description": "template element",
     "scope": "vue"
   },
@@ -55,9 +49,7 @@
   },
   "vue-v-for": {
     "prefix": ["vue v-for", "vfor"],
-    "body": [
-      "v-for=\"(${1:item}, ${2:index}) in ${3:items}\" :key=\"${4:index}\""
-    ],
+    "body": ["v-for=\"(${1:item}, ${2:index}) in ${3:items}\" :key=\"${4:index}\""],
     "description": "Expects: Array | Object | number | string",
     "scope": "vue-html"
   },
@@ -327,13 +319,7 @@
   },
   "vue-computed": {
     "prefix": ["vue computed", "vcomputed"],
-    "body": [
-      "computed: {",
-      "\t${1:name}() {",
-      "\t\treturn this.${2:data} ${0}",
-      "\t}",
-      "},"
-    ],
+    "body": ["computed: {", "\t${1:name}() {", "\t\treturn this.${2:data} ${0}", "\t}", "},"],
     "description": "computed value",
     "scope": "javascript"
   },
@@ -387,13 +373,7 @@
   },
   "vue-watchers": {
     "prefix": ["vue watchers", "vwatcher"],
-    "body": [
-      "watch: {",
-      "\t${1:data}(${2:newValue}, ${3:oldValue}) {",
-      "\t\t${0}",
-      "\t}",
-      "},"
-    ],
+    "body": ["watch: {", "\t${1:data}(${2:newValue}, ${3:oldValue}) {", "\t\t${0}", "\t}", "},"],
     "description": "vue watcher",
     "scope": "javascript"
   },
@@ -415,14 +395,7 @@
   },
   "vue-props-with-default": {
     "prefix": ["vue props with default", "vprops"],
-    "body": [
-      "props: {",
-      "\t${1:propName}: {",
-      "\t\ttype: ${2:Number},",
-      "\t\tdefault: ${0}",
-      "\t},",
-      "},"
-    ],
+    "body": ["props: {", "\t${1:propName}: {", "\t\ttype: ${2:Number},", "\t\tdefault: ${0}", "\t},", "},"],
     "description": "Vue Props with Default",
     "scope": "javascript"
   },
@@ -518,25 +491,13 @@
   },
   "vue-filter": {
     "prefix": ["vue filter", "vfilter"],
-    "body": [
-      "filters: {",
-      "\t${1:fnName}: function(${2:value}) {",
-      "\t\treturn ${2:value}${0};",
-      "\t}",
-      "}"
-    ],
+    "body": ["filters: {", "\t${1:fnName}: function(${2:value}) {", "\t\treturn ${2:value}${0};", "\t}", "}"],
     "description": "vue filter",
     "scope": "javascript"
   },
   "vue-mixin": {
     "prefix": ["vue mixin", "vmixin"],
-    "body": [
-      "const ${1:mixinName} = {",
-      "\tmounted() {",
-      "\t\tconsole.log('hello from mixin!')",
-      "\t},",
-      "}"
-    ],
+    "body": ["const ${1:mixinName} = {", "\tmounted() {", "\t\tconsole.log('hello from mixin!')", "\t},", "}"],
     "description": "vue mixin",
     "scope": "javascript"
   },
@@ -593,21 +554,13 @@
   },
   "vue-commit-vuex-store-in-methods": {
     "prefix": ["vue commit vuex store in methods", "vcommit"],
-    "body": [
-      "${1:mutationName}() {",
-      "\tthis.\\$store.commit('${1:mutationName}', ${2:payload})",
-      "}"
-    ],
+    "body": ["${1:mutationName}() {", "\tthis.\\$store.commit('${1:mutationName}', ${2:payload})", "}"],
     "description": "commit to vuex store in methods for mutation",
     "scope": "javascript"
   },
   "vue-dispatch-vuex-store-in-methods": {
     "prefix": ["vue dispatch vuex store in methods", "vdispatch"],
-    "body": [
-      "${1:actionName}() {",
-      "\tthis.\\$store.dispatch('${1:actionName}', ${2:payload})",
-      "}"
-    ],
+    "body": ["${1:actionName}() {", "\tthis.\\$store.dispatch('${1:actionName}', ${2:payload})", "}"],
     "description": "dispatch to vuex store in methods for action",
     "scope": "javascript"
   },
@@ -745,6 +698,112 @@
       "</style>"
     ],
     "description": "Base for Vue File with Typescript",
+    "scope": "vue"
+  },
+  "vue-v3reactive": {
+    "prefix": ["vue v3 reactive"],
+    "body": ["const ${1:name} = reactive({", "\t${2:count}: ${3:0}", "})"],
+    "description": "Set reactive property - Vue Composition API",
+    "scope": "javascript"
+  },
+  "vue-v3computed": {
+    "prefix": ["vue v3 computed"],
+    "body": ["const ${1:name} = computed(() => {", "\treturn ${2}", "})"],
+    "description": "Set computed property - Vue Composition API",
+    "scope": "javascript"
+  },
+  "vue-v3watch": {
+    "prefix": ["vue v3 watch"],
+    "body": ["watch(() => ${1:foo}, (newValue, oldValue) => {", "\t${2}", "})"],
+    "description": "Requires watching a specific data source, and applies side effects in a separate callback function.",
+    "scope": "javascript"
+  },
+  "vue-v3watch-array": {
+    "prefix": ["vue v3 watch-array"],
+    "body": ["watch([${1:foo}, ${2:bar}], ([new${1}, new${2}], [prev${1}, prev${2}]) => {", "\t${3}", "})"],
+    "description": "Requires watching an array, and applies side effects in a separate callback function.",
+    "scope": "javascript"
+  },
+  "vue-v3watcheffect": {
+    "prefix": ["vue v3 watcheffect"],
+    "body": ["watchEffect(() => {", "\t${1}", "})"],
+    "description": "Run a function immediately while reactively tracking its dependencies, and re-run it whenever the dependencies have changed.",
+    "scope": "javascript"
+  },
+  "vue-v3ref": {
+    "prefix": ["vue v3ref"],
+    "body": ["const ${1:name} = ref(${2:initialValue})"],
+    "description": "Takes an inner value and returns a reactive and mutable ref object.",
+    "scope": "javascript"
+  },
+  "vue-v3lifecylehook-import": {
+    "prefix": ["vue v3 importlifecylehook "],
+    "body": [
+      "import ${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|} from '${2|vue,@vue/composition-api|}'"
+    ],
+    "description": "Import Lifecycle hooks to use in file",
+    "scope": "javascript"
+  },
+  "vue-v3lifecylehook": {
+    "prefix": ["vue v3 lifecylehook"],
+    "body": [
+      "${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|}(() => {${2}})"
+    ],
+    "description": "Lifecycle hooks can be registered with directly imported `onXXX` functions:",
+    "scope": "javascript"
+  },
+  "vue-single-file-component-v3": {
+    "prefix": ["vue v3 base"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script>",
+      "import { ${0|ref,reactive,computed,readonly,watchEffect,watch|} } from '${1|vue,@vue/composition-api|}'",
+      "export default {",
+      "\tsetup () {",
+      "\t\t${2}",
+      "",
+      "\t\treturn {}",
+      "\t}",
+      "}",
+      "</script>",
+      "",
+      "<style lang=\"scss\" scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File Composition API with SCSS",
+    "scope": "vue"
+  },
+  "vue-single-file-component-with-typescript-v3": {
+    "prefix": ["vue v3 base ts"],
+    "body": [
+      "<template>",
+      "\t<div>",
+      "",
+      "\t</div>",
+      "</template>",
+      "",
+      "<script lang=\"ts\">",
+      "import Vue from 'vue'",
+      "",
+      "export default Vue.extend({",
+      "\tsetup () {",
+      "\t\t${0}\n",
+      "\t\treturn {}",
+      "\t}",
+      "})",
+      "</script>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Base for Vue File Composition API - Typescript",
     "scope": "vue"
   }
 }
