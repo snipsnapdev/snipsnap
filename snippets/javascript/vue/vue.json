@@ -701,31 +701,31 @@
     "scope": "vue"
   },
   "vue-v3reactive": {
-    "prefix": ["vue v3reactive"],
+    "prefix": ["vue v3 reactive"],
     "body": ["const ${1:name} = reactive({", "\t${2:count}: ${3:0}", "})"],
     "description": "Set reactive property - Vue Composition API",
     "scope": "javascript"
   },
   "vue-v3computed": {
-    "prefix": ["vue v3computed"],
+    "prefix": ["vue v3 computed"],
     "body": ["const ${1:name} = computed(() => {", "\treturn ${2}", "})"],
     "description": "Set computed property - Vue Composition API",
     "scope": "javascript"
   },
   "vue-v3watch": {
-    "prefix": ["vue v3watch"],
+    "prefix": ["vue v3 watch"],
     "body": ["watch(() => ${1:foo}, (newValue, oldValue) => {", "\t${2}", "})"],
     "description": "Requires watching a specific data source, and applies side effects in a separate callback function.",
     "scope": "javascript"
   },
   "vue-v3watch-array": {
-    "prefix": ["vue v3watch-array"],
+    "prefix": ["vue v3 watch-array"],
     "body": ["watch([${1:foo}, ${2:bar}], ([new${1}, new${2}], [prev${1}, prev${2}]) => {", "\t${3}", "})"],
     "description": "Requires watching an array, and applies side effects in a separate callback function.",
     "scope": "javascript"
   },
   "vue-v3watcheffect": {
-    "prefix": ["vue v3watcheffect"],
+    "prefix": ["vue v3 watcheffect"],
     "body": ["watchEffect(() => {", "\t${1}", "})"],
     "description": "Run a function immediately while reactively tracking its dependencies, and re-run it whenever the dependencies have changed.",
     "scope": "javascript"
@@ -737,7 +737,7 @@
     "scope": "javascript"
   },
   "vue-v3lifecylehook-import": {
-    "prefix": ["vue v3importlifecylehook "],
+    "prefix": ["vue v3 importlifecylehook "],
     "body": [
       "import ${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|} from '${2|vue,@vue/composition-api|}'"
     ],
@@ -745,7 +745,7 @@
     "scope": "javascript"
   },
   "vue-v3lifecylehook": {
-    "prefix": ["vue v3lifecylehook"],
+    "prefix": ["vue v3 lifecylehook"],
     "body": [
       "${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|}(() => {${2}})"
     ],
@@ -753,7 +753,7 @@
     "scope": "javascript"
   },
   "vue-single-file-component-v3": {
-    "prefix": ["vue v3base"],
+    "prefix": ["vue v3 base"],
     "body": [
       "<template>",
       "\t<div>",
@@ -780,7 +780,7 @@
     "scope": "vue"
   },
   "vue-single-file-component-with-typescript-v3": {
-    "prefix": ["vue v3base ts"],
+    "prefix": ["vue v3 base ts"],
     "body": [
       "<template>",
       "\t<div>",
