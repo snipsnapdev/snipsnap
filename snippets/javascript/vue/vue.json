@@ -736,16 +736,16 @@
     "description": "Takes an inner value and returns a reactive and mutable ref object.",
     "scope": "javascript"
   },
-  "vue-v3lifecylehook-import": {
-    "prefix": ["vue v3 importlifecylehook "],
+  "vue-v3lifecyclehook-import": {
+    "prefix": ["vue v3 importlifecyclehook "],
     "body": [
       "import ${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|} from '${2|vue,@vue/composition-api|}'"
     ],
     "description": "Import Lifecycle hooks to use in file",
     "scope": "javascript"
   },
-  "vue-v3lifecylehook": {
-    "prefix": ["vue v3 lifecylehook"],
+  "vue-v3lifecyclehook": {
+    "prefix": ["vue v3 lifecyclehook"],
     "body": [
       "${1|onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,,onActivated,onDeactivated,onErrorCaptured,onRenderTracked,onRenderTriggered|}(() => {${2}})"
     ],
