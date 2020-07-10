@@ -18,6 +18,11 @@
     ],
     "scope": "javascript,javascriptreact,typescript,typescriptreact"
   },
+  "gatsby-export-query": {
+    "prefix": ["gatsby export query"],
+    "body": ["export const query = graphql``;"],
+    "description": "Gatsby uses the concept of a page query, which is a query for a specific page in a site.Note that you can only have one page query per file."
+  },
   "gatsby-link": {
     "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link"],
