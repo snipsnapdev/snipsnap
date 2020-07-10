@@ -20,7 +20,7 @@
   },
   "gatsby-export-query": {
     "prefix": ["gatsby export query"],
-    "body": ["export const query = graphql``;"],
+    "body": ["export const query = graphql`${1:query}`;"],
     "description": "Gatsby uses the concept of a page query, which is a query for a specific page in a site.Note that you can only have one page query per file."
   },
   "gatsby-link": {
