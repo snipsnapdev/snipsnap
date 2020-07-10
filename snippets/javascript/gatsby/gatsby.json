@@ -1,4 +1,23 @@
 {
+  "gatsby-graphql-import": {
+    "prefix": ["gatsby import graphql"],
+    "body": ["import { graphql } from 'gatsby';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "gatsby-usestaticquery-import": {
+    "prefix": ["gatsby import usestaticquery"],
+    "body": ["import { useStaticQuery, graphql } from \"gatsby\""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "gatsby-usestatic-query": {
+    "prefix": ["gatsby usestaticquery"],
+    "body": [
+      "const {${1:site}} = useStaticQuery(",
+      "  graphql`${2:query}`",
+      ");"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
   "gatsby-link": {
     "scope": "javascript,javascriptreact,typescript,typescriptreact",
     "prefix": ["gatsby link"],
