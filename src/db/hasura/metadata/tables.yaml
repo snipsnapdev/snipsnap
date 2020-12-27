@@ -1,0 +1,12 @@
+- table:
+    schema: public
+    name: accounts
+- table:
+    schema: public
+    name: sessions
+- table:
+    schema: public
+    name: users
+- table:
+    schema: public
+    name: verification_requests

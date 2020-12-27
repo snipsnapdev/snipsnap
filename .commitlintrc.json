@@ -1,0 +1,21 @@
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "scope-enum": [
+      2,
+      "always",
+      [
+        "components",
+        "constants",
+        "hooks",
+        "icons",
+        "images",
+        "layouts",
+        "pages",
+        "styles",
+        "templates",
+        "utils"
+      ]
+    ]
+  }
+}
