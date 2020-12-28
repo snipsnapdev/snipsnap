@@ -22,3 +22,4 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: guest
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS512","key":"SnmqUcykgtfCmj1upFxK2o5hPDMtM3SzER9Fh9UMylktjSnmqUcykgtfCmj1upFxK2o5hPDMtM3SzER9Fh9UMylktj"}'
