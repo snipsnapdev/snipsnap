@@ -6,7 +6,54 @@
     name: sessions
 - table:
     schema: public
+    name: templates
+  object_relationships:
+  - name: owner
+    using:
+      foreign_key_constraint_on: owner_id
+- table:
+    schema: public
+    name: templates_groups
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+  array_relationships:
+  - name: templates
+    using:
+      foreign_key_constraint_on:
+        column: template_group_id
+        table:
+          schema: public
+          name: templates
+- table:
+    schema: public
     name: users
+  array_relationships:
+  - name: owned_templates
+    using:
+      foreign_key_constraint_on:
+        column: owner_id
+        table:
+          schema: public
+          name: templates
+  - name: templates_groups
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: templates_groups
+- table:
+    schema: public
+    name: users_templates_groups
+  object_relationships:
+  - name: templates_group
+    using:
+      foreign_key_constraint_on: template_group_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
 - table:
     schema: public
     name: verification_requests
