@@ -3,11 +3,28 @@ import dynamic from 'next/dynamic';
 
 const MonacoEditor = dynamic(import('react-monaco-editor'), { ssr: false });
 
+const LANGUAGES = ['typescript', 'javascript', 'html', 'css', 'python'];
+
 const Editor = () => {
   const [code, setCode] = useState('');
-  // etc
+  const [language, setLanguage] = useState('typescript');
+
   return (
     <div>
+      {/* TODO: replace with select */}
+      <div style={{ display: 'flex', width: '800px', justifyContent: 'space-between' }}>
+        {LANGUAGES.map((lang, index) => (
+          <button
+            type="button"
+            key={`language-${index}`}
+            onClick={() => {
+              setLanguage(lang);
+            }}
+          >
+            {lang}
+          </button>
+        ))}
+      </div>
       <MonacoEditor
         editorDidMount={() => {
           window.MonacoEnvironment.getWorkerUrl = (_moduleId, label) => {
@@ -19,7 +36,7 @@ const Editor = () => {
             return '_next/static/editor.worker.js';
           };
         }}
-        language="css"
+        language={language}
         width="800"
         height="600"
         theme="vs-dark"
