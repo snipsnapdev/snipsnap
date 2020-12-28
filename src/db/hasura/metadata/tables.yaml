@@ -50,7 +50,7 @@
   object_relationships:
   - name: templates_group
     using:
-      foreign_key_constraint_on: template_group_id
+      foreign_key_constraint_on: templates_group_id
   - name: user
     using:
       foreign_key_constraint_on: user_id
