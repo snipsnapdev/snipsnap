@@ -16,11 +16,16 @@
   },
   "dependencies": {
     "@prisma/client": "^2.13.1",
+    "@zeit/next-css": "^1.0.1",
     "classnames": "^2.2.6",
+    "monaco-editor": "^0.21.2",
+    "monaco-editor-webpack-plugin": "^2.1.0",
     "next": "10.0.3",
     "next-auth": "^3.1.0",
+    "next-transpile-modules": "^6.0.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-monaco-editor": "^0.41.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -42,6 +47,7 @@
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0"
+    "stylelint-scss": "^3.18.0",
+    "url-loader": "^4.1.1"
   }
 }
