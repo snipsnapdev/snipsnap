@@ -20,6 +20,7 @@ const Editor = () => {
             onClick={() => {
               setLanguage(lang);
             }}
+            style={language === lang ? { backgroundColor: 'yellow' } : {}}
           >
             {lang}
           </button>
@@ -48,6 +49,7 @@ const Editor = () => {
         }}
         onChange={setCode}
       />
+      <button onClick={() => console.log(code)}>Print to console</button>
     </div>
   );
 };
