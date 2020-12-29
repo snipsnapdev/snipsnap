@@ -1,2 +1,17 @@
+type Mutation {
+  create_templates (
+    data: TemplateInput!
+  ): TemplateOutput
+}
 
+
+
+
+input TemplateInput {
+  name : String!
+}
+
+type TemplateOutput {
+  name : String!
+}
 
