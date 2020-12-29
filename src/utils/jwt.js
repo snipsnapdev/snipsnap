@@ -1,21 +1,37 @@
-import jose from 'jose';
-import hkdf from 'futoin-hkdf';
+import jwt from 'jsonwebtoken';
 
-const SIGNATURE_ALGORITHM = 'HS512';
 const MAX_AGE = 24 * 60 * 60; // 1 day
-const signingOptions = {
-  expiresIn: `${MAX_AGE}s`,
-};
-const { JWT_SIGNING_PRIVATE_KEY } = process.env;
 
-const getSigningKey = () => {
-  const key = Buffer.from(JWT_SIGNING_PRIVATE_KEY, 'base64').toString();
-  return jose.JWK.asKey(JSON.parse(key));
-};
-const sign = ({ token }) => {
-  const _signingKey = getSigningKey();
-  const signedToken = jose.JWT.sign(token, _signingKey, signingOptions);
-  return signedToken;
+const { JWT_SECRET } = process.env;
+
+const ENCRYPTION_ALGORITHM = 'HS512';
+
+const encode = ({ token }) => {
+  const tokenContent = {
+    id: token.id,
+    name: token.name,
+    email: token.email,
+    picture: token.picture,
+    'https://hasura.io/jwt/claims': {
+      'x-hasura-allowed-roles': ['user'],
+      'x-hasura-default-role': 'user',
+      'x-hasura-role': 'user',
+      'x-hasura-user-id': token.id,
+    },
+  };
+  const encodedToken = jwt.sign(tokenContent, JWT_SECRET, {
+    algorithm: ENCRYPTION_ALGORITHM,
+    expiresIn: `${MAX_AGE}s`,
+  });
+  return encodedToken;
 };
 
-export default { sign };
+const decode = ({ token }) => {
+  const decodedToken = jwt.verify(token, JWT_SECRET, {
+    algorithms: 'HS512',
+  });
+
+  return decodedToken;
+};
+
+export default { encode, decode };

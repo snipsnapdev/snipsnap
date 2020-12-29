@@ -19,20 +19,12 @@ const options = {
     jwt: true,
   },
   jwt: {
-    signingKey: Buffer.from(process.env.JWT_SIGNING_PRIVATE_KEY, 'base64').toString(),
-    encode: async ({ token, secret }) => {
-      token['https://hasura.io/jwt/claims'] = {
-        'x-hasura-allowed-roles': ['user'],
-        'x-hasura-default-role': 'user',
-        'x-hasura-role': 'user',
-        'x-hasura-user-id': token.id,
-      };
-      return jwt.sign({ token, secret });
-    },
+    encode: async ({ token }) => jwt.encode({ token }),
+    decode: async ({ token }) => jwt.decode({ token }),
   },
   callbacks: {
     session: async (session, user) => {
-      const encodedToken = jwt.sign({ token: user });
+      const encodedToken = jwt.encode({ token: user });
       session.id = user.id;
       session.token = encodedToken;
       return Promise.resolve(session);
