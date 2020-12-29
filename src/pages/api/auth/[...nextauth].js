@@ -7,7 +7,6 @@ import { PrismaClient } from '@prisma/client';
 import jwt from 'utils/jwt';
 
 const prisma = new PrismaClient();
-const { JWT_SECRET } = process.env;
 const options = {
   providers: [
     Providers.GitHub({
@@ -20,7 +19,7 @@ const options = {
     jwt: true,
   },
   jwt: {
-    secret: JWT_SECRET,
+    signingKey: Buffer.from(process.env.JWT_SIGNING_PRIVATE_KEY, 'base64').toString(),
     encode: async ({ token, secret }) => {
       token['https://hasura.io/jwt/claims'] = {
         'x-hasura-allowed-roles': ['user'],
@@ -33,7 +32,7 @@ const options = {
   },
   callbacks: {
     session: async (session, user) => {
-      const encodedToken = jwt.sign({ token: user, secret: JWT_SECRET });
+      const encodedToken = jwt.sign({ token: user });
       session.id = user.id;
       session.token = encodedToken;
       return Promise.resolve(session);

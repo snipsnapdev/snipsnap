@@ -6,19 +6,14 @@ const MAX_AGE = 24 * 60 * 60; // 1 day
 const signingOptions = {
   expiresIn: `${MAX_AGE}s`,
 };
+const { JWT_SIGNING_PRIVATE_KEY } = process.env;
 
-const getDerivedSigningKey = (secret) => {
-  const buffer = hkdf(secret, 64, { info: 'NextAuth.js Generated Signing Key', hash: 'SHA-256' });
-  const key = jose.JWK.asKey(buffer, {
-    alg: SIGNATURE_ALGORITHM,
-    use: 'sig',
-    kid: 'nextauth-auto-generated-signing-key',
-  });
-  return key;
+const getSigningKey = () => {
+  const key = Buffer.from(JWT_SIGNING_PRIVATE_KEY, 'base64').toString();
+  return jose.JWK.asKey(JSON.parse(key));
 };
-
-const sign = ({ token, secret }) => {
-  const _signingKey = getDerivedSigningKey(secret);
+const sign = ({ token }) => {
+  const _signingKey = getSigningKey();
   const signedToken = jose.JWT.sign(token, _signingKey, signingOptions);
   return signedToken;
 };
