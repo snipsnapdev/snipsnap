@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/mode-css';
+import 'ace-builds/src-noconflict/theme-monokai';
 
-const MonacoEditor = dynamic(import('react-monaco-editor'), { ssr: false });
+const LANGUAGES = ['javascript', 'html', 'css', 'json'];
 
-const LANGUAGES = ['typescript', 'javascript', 'html', 'css', 'python'];
+function onChange(newValue) {
+  console.log('change', newValue);
+}
 
 const Editor = () => {
   const [code, setCode] = useState('');
-  const [language, setLanguage] = useState('typescript');
+  const [language, setLanguage] = useState('javascript');
 
   return (
     <div>
@@ -26,28 +33,12 @@ const Editor = () => {
           </button>
         ))}
       </div>
-      <MonacoEditor
-        editorDidMount={() => {
-          window.MonacoEnvironment.getWorkerUrl = (_moduleId, label) => {
-            if (label === 'json') return '_next/static/json.worker.js';
-            if (label === 'css') return '_next/static/css.worker.js';
-            if (label === 'html') return '_next/static/html.worker.js';
-            if (label === 'typescript' || label === 'javascript')
-              return '_next/static/ts.worker.js';
-            return '_next/static/editor.worker.js';
-          };
-        }}
-        language={language}
-        width="800"
-        height="600"
-        theme="vs-dark"
-        value={code}
-        options={{
-          minimap: {
-            enabled: false,
-          },
-        }}
-        onChange={setCode}
+      <AceEditor
+        mode={language}
+        theme="monokai"
+        onChange={onChange}
+        name="UNIQUE_ID_OF_DIV"
+        editorProps={{ $blockScrolling: true }}
       />
       <button onClick={() => console.log(code)}>Print to console</button>
     </div>

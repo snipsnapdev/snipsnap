@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Button } from 'antd';
+
 import styles from './home.module.scss';
 
 export default function Home() {
@@ -16,9 +16,6 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
-        <Button type="primary">Primary Button</Button>
-        <Button>Default Button</Button>
 
         <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.js</code>
