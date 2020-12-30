@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import Link from 'next/link';
+import Menu from './menu/menu';
 
 import styles from './sidebar.module.scss';
-import Search from './icons/search-icon.svg';
-import Clock from './icons/clock-icon.svg';
 
 const cx = classNames.bind(styles);
 
@@ -25,16 +24,7 @@ const Sidebar = ({ userName }) => {
           <a className={cx('button')}>Create Template</a>
         </Link>
       </div>
-      <div className={cx('search-wrapper')}>
-        <button>
-          <Search className={cx('icon')} />
-          Search
-        </button>
-        <button>
-          <Clock className={cx('icon')} />
-          Recent
-        </button>
-      </div>
+      <Menu />
       <div className={cx('templates')}>
         <h3>Templates groups</h3>
         <Link href="#">
