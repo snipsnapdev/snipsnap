@@ -27,7 +27,7 @@
   line-height: $line-height-sm;
   color: $color-tertiary;
   text-align: left;
-  background-color: $color-additional-4;
+  background-color: $color-additional-5;
   border-radius: 3px;
 
   &::after {
@@ -54,7 +54,7 @@
   &::after {
     right: 4px;
     bottom: -4px;
-    border-color: $color-additional-4 transparent transparent transparent;
+    border-color: $color-additional-5 transparent transparent transparent;
     border-width: 4px 4px 0 4px;
   }
 }
@@ -66,7 +66,7 @@
   &::after {
     top: -4px;
     right: 4px;
-    border-color: transparent transparent $color-additional-4 transparent;
+    border-color: transparent transparent $color-additional-5 transparent;
     border-width: 0 4px 4px 4px;
   }
 }
