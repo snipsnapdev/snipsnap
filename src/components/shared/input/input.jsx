@@ -8,7 +8,14 @@ const Input = ({ label }) => (
   <div className={cx('group')}>
     <label className={cx('label')}>{label}</label>
     <div>
-      <input className={cx('input')} type="text" value="Hello world" />
+      <input
+        className={cx('input')}
+        type="text"
+        value="Create React component"
+        onChange={() => {
+          console.log('changed');
+        }}
+      />
     </div>
   </div>
 );

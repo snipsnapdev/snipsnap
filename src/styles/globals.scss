@@ -20,3 +20,23 @@ body {
   color: $color-tertiary;
   background-color: $color-secondary;
 }
+
+h1 {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  line-height: $line-height-lg;
+}
+
+h2 {
+  font-size: $font-size-md;
+  font-weight: 600;
+  line-height: $line-height-md;
+}
+
+h1,
+h2 {
+  &.with-tooltip {
+    display: flex;
+    justify-content: space-between;
+  }
+}

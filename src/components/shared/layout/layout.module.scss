@@ -1,3 +1,9 @@
 .main {
+  flex-grow: 1;
+  min-height: 100vh;
   padding-left: 240px;
+}
+
+.wrapper {
+  display: flex;
 }
