@@ -67,7 +67,7 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
               setIsOpen(!isOpen);
             }}
           >
-            <span>{folder.name}</span>
+            <span className={cx('folder-name')}>{folder.name}</span>
             <Chevron className={cx(isOpen ? 'icon-open' : 'icon-close')} />
           </button>
         </span>

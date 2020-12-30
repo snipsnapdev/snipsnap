@@ -39,6 +39,14 @@
   align-items: center;
 }
 
+.folder-name {
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  line-height: $line-height-sm;
+  color: $color-tertiary;
+}
+
 .icon-folder {
   margin-right: 7px;
 }

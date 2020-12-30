@@ -1,11 +1,15 @@
 .wrapper {
   width: 340px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
   font-family: $font-family;
-  font-size: 12px;
+  font-size: $font-size-sm;
   font-weight: 500;
-  line-height: 15.6px;
+  line-height: $line-height-sm;
   color: $color-tertiary;
   background-color: $color-primary;
+  border-radius: 3px;
 
   &-dragover {
     background-color: $color-secondary;
