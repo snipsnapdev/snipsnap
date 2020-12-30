@@ -1,6 +1,7 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
 import useForceRender from 'hooks/use-force-render';
+import TreeRecursive from 'components/file-browser/tree-recursive';
 import styles from './file-browser.module.scss';
 
 const filesData = [
@@ -157,128 +158,6 @@ const filesData = [
     },
   },
 ];
-
-const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
-  const fileRef = React.useRef();
-
-  React.useEffect(() => {
-    const fileElem = fileRef.current;
-    fileElem.addEventListener('dragover', onDragOver);
-    fileElem.addEventListener('dragleave', onDragLeave);
-    fileElem.addEventListener('dragexit', onDragLeave);
-
-    return () => {
-      fileElem.removeEventListener('dragover', onDragOver);
-      fileElem.removeEventListener('dragleave', onDragLeave);
-      fileElem.removeEventListener('dragexit', onDragLeave);
-    };
-  }, [onDragLeave, onDragOver]);
-
-  return (
-    <div ref={fileRef}>
-      file: {file.name}
-      <button className={styles.deleteBtn} onClick={() => onDelete(file.id)}>
-        X
-      </button>
-    </div>
-  );
-};
-
-const Folder = ({ folder, handleDrop, onDelete }) => {
-  const folderRef = React.useRef();
-  const [isDragOver, setIsDragOver] = React.useState(false);
-
-  const handleDragOver = React.useCallback((evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    setIsDragOver(true);
-  }, []);
-  const handleDragLeave = React.useCallback((evt) => {
-    evt.stopPropagation();
-    setIsDragOver(false);
-  }, []);
-
-  const handleFileDrop = React.useCallback((evt) => {
-    evt.preventDefault();
-    console.log('file drop to', folder.id);
-    handleDrop(folder.id, evt);
-    setIsDragOver(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect(() => {
-    const folderElem = folderRef.current;
-
-    folderElem.addEventListener('dragover', handleDragOver);
-    folderElem.addEventListener('dragleave', handleDragLeave);
-    folderElem.addEventListener('dragexit', handleDragLeave);
-    folderElem.addEventListener('drop', handleFileDrop);
-
-    return () => {
-      folderElem.removeEventListener('dragover', handleDragOver);
-      folderElem.removeEventListener('dragleave', handleDragLeave);
-      folderElem.removeEventListener('dragexit', handleDragLeave);
-      folderElem.removeEventListener('drop', handleFileDrop);
-    };
-  }, [handleDragLeave, handleDragOver, handleFileDrop]);
-  return (
-    <div ref={folderRef} style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}>
-      <div>
-        folder: {folder.name}
-        <button className={styles.deleteBtn} onClick={() => onDelete(folder.id)}>
-          X
-        </button>
-      </div>
-      <div className={styles.collapsible}>
-        {/* Call the <TreeRecursive /> component with the current item.childrens */}
-        {folder.files && folder.files.length > 0 && (
-          <TreeRecursive
-            data={folder.files}
-            parentDragOverHandler={handleDragOver}
-            parentDragLeaveHandler={handleDragLeave}
-            dropHandler={handleDrop}
-            parentId={folder.id}
-            onItemDelete={onDelete}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
-
-const TreeRecursive = ({
-  data,
-  parentDragOverHandler,
-  parentDragLeaveHandler,
-  dropHandler,
-  parentId,
-  onItemDelete,
-}) => (
-  <>
-    {data.map((item) => {
-      if (item.type === 'file') {
-        return (
-          <File
-            key={`browser-${item.data.id}`}
-            file={item.data}
-            onDragOver={parentDragOverHandler}
-            onDragLeave={parentDragLeaveHandler}
-            onDrop={(evt) => dropHandler(parentId, evt)}
-            onDelete={onItemDelete}
-          />
-        );
-      }
-      return (
-        <Folder
-          key={`browser-${item.data.id}`}
-          folder={item.data}
-          handleDrop={dropHandler}
-          onDelete={onItemDelete}
-        />
-      );
-    })}
-  </>
-);
 
 let id = 1;
 const addIdsToFiles = (file) => ({
@@ -468,7 +347,7 @@ const FileBrowser = () => {
 
   return (
     <div
-      className={styles.tree}
+      className={styles.wrapper}
       ref={treeRef}
       style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}
     >
