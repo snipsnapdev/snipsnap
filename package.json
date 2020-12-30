@@ -24,6 +24,7 @@
     "lodash": "^4.17.20",
     "next": "10.0.3",
     "next-auth": "^3.1.0",
+    "next-react-svg": "^1.1.2",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^6.0.0",
     "null-loader": "^4.0.1",
@@ -31,12 +32,14 @@
     "react-ace": "^9.2.1",
     "react-dom": "17.0.1",
     "sass": "^1.30.0",
+    "sass-resources-loader": "^2.1.1",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@prisma/cli": "^2.13.1",
+    "@svgr/webpack": "^5.5.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.1.0",
