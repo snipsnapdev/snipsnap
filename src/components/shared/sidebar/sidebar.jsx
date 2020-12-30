@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 
 import Link from 'next/link';
 
+import Input from 'components/shared/input';
 import styles from './sidebar.module.scss';
 import Search from './icons/search-icon.svg';
 import Clock from './icons/clock-icon.svg';
