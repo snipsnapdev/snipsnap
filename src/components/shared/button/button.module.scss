@@ -8,16 +8,27 @@
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  cursor: pointer;
   border-radius: 5px;
+  transition-duration: $transition-base;
+  transition-property: background-color, border;
 
   &_theme {
     &_primary {
       background-color: $color-accent-primary;
+
+      @include hover {
+        background-color: $color-accent-secondary;
+      }
     }
 
     &_secondary {
       background-color: transparent;
       border: 1px solid $color-additional-2;
+
+      @include hover {
+        border: 1px solid $color-tertiary;
+      }
     }
 
     &_tertiary {
