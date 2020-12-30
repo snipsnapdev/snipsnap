@@ -257,7 +257,7 @@ const TreeRecursive = ({
   </>
 );
 
-let id = 0;
+let id = 1;
 const addIdsToFiles = (file) => ({
   type: file.type,
   data: {
