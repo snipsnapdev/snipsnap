@@ -6,7 +6,7 @@ import styles from './dropdown-menu.module.scss';
 
 const cx = classNames.bind(styles);
 
-const DropdownMenu = ({ className: additionalClassName, isOpen, children }) => {
+const DropdownMenu = ({ className: additionalClassName, children }) => {
   const handleClose = ({ target }) => {
     const wrapper = document.querySelectorAll(`.${styles.wrapper}`);
 
@@ -28,16 +28,14 @@ const DropdownMenu = ({ className: additionalClassName, isOpen, children }) => {
     };
   }, []);
 
-  return <div className={cx('wrapper', { active: isOpen }, additionalClassName)}>{children}</div>;
+  return <div className={cx('wrapper', additionalClassName)}>{children}</div>;
 };
 
 DropdownMenu.propTypes = {
-  isOpen: PropTypes.bool,
   children: PropTypes.objectOf(PropTypes.any),
 };
 
 DropdownMenu.defaultProps = {
-  isOpen: false,
   children: `Dropdown`,
 };
 

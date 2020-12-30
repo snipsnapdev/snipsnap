@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -13,20 +13,17 @@ const cx = classNames.bind(styles);
 
 const Sidebar = ({ userName, buttonText }) => {
   const avatar = userName.slice(0, 1);
-  const [isDropdownUserOpen, setIsDropdownUserOpen] = useState(false);
-
-  const handleOpenDropdownUser = () => setIsDropdownUserOpen(true);
 
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('user-wrapper')} onClick={handleOpenDropdownUser}>
+      <div className={cx('user-wrapper')}>
         <div className={cx('user-info')}>
           <div className={cx('avatar-wrapper')}>
             <div className={cx('avatar')}>{avatar}</div>
           </div>
           <span>{userName}</span>
 
-          <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropdownUserOpen}>
+          <DropdownMenu className={cx('user-info-dropdown')}>
             <a href="/api/auth/signout">Log out</a>
           </DropdownMenu>
         </div>
