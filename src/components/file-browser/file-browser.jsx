@@ -158,7 +158,7 @@ const filesData = [
   },
 ];
 
-const File = ({ file, onDragOver, onDragLeave }) => {
+const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
   const fileRef = React.useRef();
 
   React.useEffect(() => {
@@ -174,10 +174,17 @@ const File = ({ file, onDragOver, onDragLeave }) => {
     };
   }, [onDragLeave, onDragOver]);
 
-  return <div ref={fileRef}>file: {file.name}</div>;
+  return (
+    <div ref={fileRef}>
+      file: {file.name}
+      <button className={styles.deleteBtn} onClick={() => onDelete(file.id)}>
+        X
+      </button>
+    </div>
+  );
 };
 
-const Folder = ({ folder, handleDrop }) => {
+const Folder = ({ folder, handleDrop, onDelete }) => {
   const folderRef = React.useRef();
   const [isDragOver, setIsDragOver] = React.useState(false);
 
@@ -216,7 +223,12 @@ const Folder = ({ folder, handleDrop }) => {
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
   return (
     <div ref={folderRef} style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}>
-      <div>folder: {folder.name}</div>
+      <div>
+        folder: {folder.name}
+        <button className={styles.deleteBtn} onClick={() => onDelete(folder.id)}>
+          X
+        </button>
+      </div>
       <div className={styles.collapsible}>
         {/* Call the <TreeRecursive /> component with the current item.childrens */}
         {folder.files && folder.files.length > 0 && (
@@ -226,6 +238,7 @@ const Folder = ({ folder, handleDrop }) => {
             parentDragLeaveHandler={handleDragLeave}
             dropHandler={handleDrop}
             parentId={folder.id}
+            onItemDelete={onDelete}
           />
         )}
       </div>
@@ -239,20 +252,30 @@ const TreeRecursive = ({
   parentDragLeaveHandler,
   dropHandler,
   parentId,
+  onItemDelete,
 }) => (
   <>
     {data.map((item) => {
       if (item.type === 'file') {
         return (
           <File
+            key={`browser-${item.data.id}`}
             file={item.data}
             onDragOver={parentDragOverHandler}
             onDragLeave={parentDragLeaveHandler}
             onDrop={(evt) => dropHandler(parentId, evt)}
+            onDelete={onItemDelete}
           />
         );
       }
-      return <Folder folder={item.data} handleDrop={dropHandler} />;
+      return (
+        <Folder
+          key={`browser-${item.data.id}`}
+          folder={item.data}
+          handleDrop={dropHandler}
+          onDelete={onItemDelete}
+        />
+      );
     })}
   </>
 );
@@ -286,7 +309,7 @@ const sortFiles = (files) => {
   files.filter((item) => item.type === 'folder').forEach((item) => sortFiles(item.data.files));
 };
 
-// Handle add file
+// Find path to folder with id=folderId
 const findFolderPathByKey = (data, folderId, path = []) => {
   for (const item of data) {
     if (item.data.id === folderId) {
@@ -319,7 +342,18 @@ const FileBrowser = () => {
   }, []);
 
   const handleDeleteFile = (fileId) => {
-    // TODO: find parent by id and delete
+    const data = dataRef.current;
+    const newData = cloneDeep(data);
+    const filePath = findFolderPathByKey(newData, fileId);
+    // if file/folder in root directory
+    if (filePath.length === 1) {
+      setData(newData.filter((item) => item.data.id !== fileId));
+      // if has parent folder
+    } else {
+      const parentFolder = filePath[filePath.length - 2];
+      parentFolder.data.files = parentFolder.data.files.filter((item) => item.data.id !== fileId);
+      setData(newData);
+    }
   };
 
   const treeRef = React.useRef();
@@ -337,9 +371,7 @@ const FileBrowser = () => {
   }, []);
 
   const handleFileDrop = (evt) => {
-    console.log('File(s) dropped');
-
-    // Prevent default behavior (Prevent file from being opened)
+    // Prevent file from being opened
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -349,7 +381,6 @@ const FileBrowser = () => {
         // If dropped items aren't files, reject them
         if (evt.dataTransfer.items[i].kind === 'file') {
           const file = evt.dataTransfer.items[i].getAsFile();
-          console.log(`... file[${i}].name = ${file.name}`);
 
           return new Promise((resolve) => {
             const reader = new window.FileReader();
@@ -371,8 +402,6 @@ const FileBrowser = () => {
     } else {
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < evt.dataTransfer.files.length; i++) {
-        console.log(`... file[${i}].name = ${evt.dataTransfer.files[i].name}`);
-
         const file = evt.dataTransfer.files[i];
         return new Promise((resolve) => {
           const reader = new window.FileReader();
@@ -449,6 +478,7 @@ const FileBrowser = () => {
         parentDragLeaveHandler={handleDragLeave}
         dropHandler={handleAddFile}
         parentId={null}
+        onItemDelete={handleDeleteFile}
       />
     </div>
   );
