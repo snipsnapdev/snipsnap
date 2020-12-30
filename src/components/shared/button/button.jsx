@@ -18,30 +18,39 @@ const Button = (props) => {
   );
 
   if (type === 'plus') {
-    return (
+    return to ? (
       <Link href={to}>
         <a className={className} {...otherProps} />
       </Link>
+    ) : (
+      <button className={className} {...otherProps} />
     );
   }
-  return (
+  return to ? (
     <Link href={to}>
       <a className={className} {...otherProps}>
         {children}
       </a>
     </Link>
+  ) : (
+    <button className={className} {...otherProps}>
+      {children}
+    </button>
   );
 };
 
 Button.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  to: PropTypes.string,
+  children: PropTypes.string,
+  size: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
 };
 
 Button.defaultProps = {
   className: null,
   theme: 'primary',
   type: null,
+  to: null,
 };
 
 export default Button;
