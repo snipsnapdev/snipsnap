@@ -35,12 +35,31 @@
   align-items: center;
 }
 
-.folder-icon {
+.icon-folder {
   margin-right: 7px;
+}
+
+.button-collapse {
+  @include reset-button;
+
+  color: $color-tertiary;
+
+  & span {
+    margin-right: 5px;
+  }
+}
+
+.icon-open {
+  transform: rotateX(180deg);
 }
 
 .collapsible {
   padding-left: 17px;
+  overflow: hidden;
+
+  &-hidden {
+    height: 0;
+  }
 }
 
 .button-delete {
