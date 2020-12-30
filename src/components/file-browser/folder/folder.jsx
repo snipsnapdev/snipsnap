@@ -1,6 +1,12 @@
 import React from 'react';
 import TreeRecursive from 'components/file-browser/tree-recursive';
+import classNames from 'classnames/bind';
+import DeleteIcon from '../icons/cross.svg';
+import FolderIcon from '../icons/folder.svg';
+
 import styles from './folder.module.scss';
+
+const cx = classNames.bind(styles);
 
 const Folder = ({ folder, handleDrop, onDelete }) => {
   const folderRef = React.useRef();
@@ -40,11 +46,18 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
     };
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
   return (
-    <div ref={folderRef} style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}>
+    <div
+      ref={folderRef}
+      style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}
+      className={cx('folder')}
+    >
       <div className={styles.wrapper}>
-        folder: {folder.name}
-        <button className={styles.deleteBtn} onClick={() => onDelete(folder.id)}>
-          X
+        <span className={cx('folder-title')}>
+          <FolderIcon className={cx('folder-icon')} />
+          {folder.name}
+        </span>
+        <button className={cx('button-delete')} onClick={() => onDelete(folder.id)}>
+          <DeleteIcon className={cx('icon')} />
         </button>
       </div>
       <div className={styles.collapsible}>

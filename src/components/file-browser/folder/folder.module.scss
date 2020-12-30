@@ -1,8 +1,50 @@
+.folder {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 20px;
+    left: 9px;
+    width: 1px;
+    height: calc(100% - 25px);
+    content: '';
+    background-color: #2e3038;
+  }
+}
+
 .wrapper {
   display: flex;
   justify-content: space-between;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-additional;
+    border-radius: 3px;
+
+    & .button-delete {
+      display: flex;
+    }
+  }
+}
+
+.folder-title {
+  display: flex;
+  align-items: center;
+}
+
+.folder-icon {
+  margin-right: 7px;
 }
 
 .collapsible {
-  padding-left: 20px;
+  padding-left: 17px;
+}
+
+.button-delete {
+  @include reset-button;
+
+  display: none;
 }

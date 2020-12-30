@@ -1,4 +1,41 @@
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &::before {
+    position: absolute;
+    top: 12px;
+    left: 8px;
+    width: 5px;
+    height: 5px;
+    content: '';
+    background-color: #454754;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background-color: $color-additional;
+    border-radius: 3px;
+
+    &::before {
+      background-color: $color-tertiary;
+    }
+
+    & .button-delete {
+      display: flex;
+    }
+  }
+}
+
+.button-delete {
+  @include reset-button;
+
+  display: none;
 }

@@ -1,5 +1,9 @@
 import React from 'react';
+import classNames from 'classnames/bind';
+import DeleteIcon from '../icons/cross.svg';
 import styles from './file.module.scss';
+
+const cx = classNames.bind(styles);
 
 const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
   const fileRef = React.useRef();
@@ -19,9 +23,9 @@ const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
 
   return (
     <div ref={fileRef} className={styles.wrapper}>
-      file: {file.name}
-      <button className={styles.deleteBtn} onClick={() => onDelete(file.id)}>
-        X
+      {file.name}
+      <button className={cx('button-delete')} onClick={() => onDelete(file.id)}>
+        <DeleteIcon className={cx('icon')} />
       </button>
     </div>
   );
