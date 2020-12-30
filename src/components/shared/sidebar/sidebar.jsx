@@ -10,7 +10,7 @@ import Clock from './icons/clock-icon.svg';
 
 const cx = classNames.bind(styles);
 
-const Sidebar = ({ userName, buttonText }) => {
+const Sidebar = ({ userName }) => {
   const avatar = userName.slice(0, 1);
   return (
     <div className={cx('wrapper')}>
@@ -22,7 +22,7 @@ const Sidebar = ({ userName, buttonText }) => {
           <span>{userName}</span>
         </div>
         <Link href="#">
-          <a className={cx('button')}>{buttonText}</a>
+          <a className={cx('button')}>Create Template</a>
         </Link>
       </div>
       <div className={cx('search-wrapper')}>
@@ -47,6 +47,8 @@ const Sidebar = ({ userName, buttonText }) => {
 
 Sidebar.propTypes = {};
 
-Sidebar.defaultProps = {};
+Sidebar.defaultProps = {
+  userName: 'Alex Barashkov',
+};
 
 export default Sidebar;
