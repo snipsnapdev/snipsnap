@@ -1,21 +1,17 @@
-/* montserrat-regular - latin */
-
-/* montserrat-500 - latin */
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
   src:
     url('/fonts/montserrat-v15-latin-500.woff2') format('woff2'),
-    url('/fonts/montserrat-v15-latin-    f') format('woff');
+    url('/fonts/montserrat-v15-latin-500.woff') format('woff');
 }
 
-/* montserrat-600 - latin */
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
   src:
     url('/fonts/montserrat-v15-latin-600.woff2') format('woff2'),
-    url('/fonts/montserrat-v15-latin-    f') format('woff');
+    url('/fonts/montserrat-v15-latin-600.woff') format('woff');
 }
