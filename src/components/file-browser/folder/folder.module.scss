@@ -21,10 +21,10 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: $color-additional;
+    background-color: $color-additional-1;
     border-radius: 3px;
 
-    & .button-delete {
+    & .button-menu {
       display: flex;
     }
   }
@@ -62,8 +62,34 @@
   }
 }
 
-.button-delete {
+.button-menu {
   @include reset-button;
 
   display: none;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.folder-menu-dropdown {
+  position: absolute;
+  top: 20px;
+  right: -10px;
+  z-index: 3;
+  width: 100px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    outline: none;
+  }
 }

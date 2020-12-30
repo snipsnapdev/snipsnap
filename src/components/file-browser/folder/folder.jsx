@@ -1,7 +1,8 @@
 import React from 'react';
 import TreeRecursive from 'components/file-browser/tree-recursive';
+import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
 import classNames from 'classnames/bind';
-import DeleteIcon from '../icons/cross.svg';
+import DotsIcon from '../icons/dots.svg';
 import FolderIcon from '../icons/folder.svg';
 import Chevron from '../icons/chevron-down.svg';
 
@@ -13,6 +14,14 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
   const folderRef = React.useRef();
   const [isOpen, setIsOpen] = React.useState(true);
   const [isDragOver, setIsDragOver] = React.useState(false);
+
+  const [isMenuOpened, setIsMenuOpened] = React.useState(false);
+
+  const handleDelete = () => onDelete(folder.id);
+  const handleAddFile = () => {};
+  const handleAddFolder = () => {};
+
+  const handleRenameFolder = () => {};
 
   const handleDragOver = React.useCallback((evt) => {
     evt.preventDefault();
@@ -66,9 +75,15 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
             <Chevron className={cx(isOpen ? 'icon-open' : 'icon-close')} />
           </button>
         </span>
-        <button className={cx('button-delete')} onClick={() => onDelete(folder.id)}>
-          <DeleteIcon className={cx('icon')} />
+        <button className={cx('button-menu')} onClick={() => setIsMenuOpened(!isMenuOpened)}>
+          <DotsIcon className={cx('icon')} />
         </button>
+        <DropdownMenu className={cx('folder-menu-dropdown')} isOpen={isMenuOpened}>
+          <button onClick={handleAddFile}>Add file</button>
+          <button onClick={handleAddFolder}>Add folder</button>
+          <button onClick={handleRenameFolder}>Rename</button>
+          <button onClick={handleDelete}>Delete</button>
+        </DropdownMenu>
       </div>
       <div className={cx('collapsible', !isOpen && 'collapsible-hidden')}>
         {/* Call the <TreeRecursive /> component with the current item.childrens */}
