@@ -10,6 +10,10 @@
     content: '';
     background-color: #2e3038;
   }
+
+  &-dragover {
+    background-color: $color-secondary;
+  }
 }
 
 .wrapper {

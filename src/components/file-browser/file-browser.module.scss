@@ -6,4 +6,8 @@
   line-height: 15.6px;
   color: $color-tertiary;
   background-color: $color-primary;
+
+  &-dragover {
+    background-color: $color-secondary;
+  }
 }

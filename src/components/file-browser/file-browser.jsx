@@ -2,7 +2,10 @@ import React from 'react';
 import { cloneDeep } from 'lodash';
 import useForceRender from 'hooks/use-force-render';
 import TreeRecursive from 'components/file-browser/tree-recursive';
+import classNames from 'classnames/bind';
 import styles from './file-browser.module.scss';
+
+const cx = classNames.bind(styles);
 
 const filesData = [
   {
@@ -346,11 +349,7 @@ const FileBrowser = () => {
   }, [handleDragOver, handleDragLeave]);
 
   return (
-    <div
-      className={styles.wrapper}
-      ref={treeRef}
-      style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}
-    >
+    <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
       <TreeRecursive
         data={dataRef.current}
         parentDragOverHandler={handleDragOver}

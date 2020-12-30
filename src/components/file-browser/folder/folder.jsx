@@ -57,11 +57,7 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
     };
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
   return (
-    <div
-      ref={folderRef}
-      style={{ backgroundColor: isDragOver ? 'blue' : 'transparent' }}
-      className={cx('folder')}
-    >
+    <div ref={folderRef} className={cx('folder', isDragOver && 'folder-dragover')}>
       <div className={styles.wrapper}>
         <span className={cx('folder-title')}>
           <FolderIcon className={cx('icon-folder')} />
