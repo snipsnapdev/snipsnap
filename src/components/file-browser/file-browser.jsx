@@ -240,33 +240,32 @@ const TreeRecursive = ({
   dropHandler,
   parentId,
 }) => (
-    <>
-      {data.map((item) => {
-        if (item.type === 'file') {
-          return (
-            <File
-              file={item.data}
-              onDragOver={parentDragOverHandler}
-              onDragLeave={parentDragLeaveHandler}
-              onDrop={(evt) => dropHandler(parentId, evt)}
-            />
-          );
-        } 
-          return <Folder folder={item.data} handleDrop={dropHandler} />;
-        
-      })}
-    </>
-  );
+  <>
+    {data.map((item) => {
+      if (item.type === 'file') {
+        return (
+          <File
+            file={item.data}
+            onDragOver={parentDragOverHandler}
+            onDragLeave={parentDragLeaveHandler}
+            onDrop={(evt) => dropHandler(parentId, evt)}
+          />
+        );
+      }
+      return <Folder folder={item.data} handleDrop={dropHandler} />;
+    })}
+  </>
+);
 
 let id = 0;
 const addIdsToFiles = (file) => ({
-    type: file.type,
-    data: {
-      ...file.data,
-      id: id++,
-      ...(file.data.files ? { files: file.data.files.map((ch) => addIdsToFiles(ch)) } : {}),
-    },
-  });
+  type: file.type,
+  data: {
+    ...file.data,
+    id: id++,
+    ...(file.data.files ? { files: file.data.files.map((ch) => addIdsToFiles(ch)) } : {}),
+  },
+});
 
 // folders first
 const fileComparator = (file1, file2) => {
@@ -350,7 +349,7 @@ const FileBrowser = () => {
         // If dropped items aren't files, reject them
         if (evt.dataTransfer.items[i].kind === 'file') {
           const file = evt.dataTransfer.items[i].getAsFile();
-          console.log(`... file[${  i  }].name = ${  file.name}`);
+          console.log(`... file[${i}].name = ${file.name}`);
 
           return new Promise((resolve) => {
             const reader = new window.FileReader();
@@ -363,8 +362,6 @@ const FileBrowser = () => {
                   content: fileContent,
                 },
               };
-              console.log('new file', newFile);
-              // TODO: add file to folder
               resolve(newFile);
             };
             reader.readAsText(file);
@@ -374,8 +371,24 @@ const FileBrowser = () => {
     } else {
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < evt.dataTransfer.files.length; i++) {
-        console.log(`... file[${  i  }].name = ${  evt.dataTransfer.files[i].name}`);
-        return null;
+        console.log(`... file[${i}].name = ${evt.dataTransfer.files[i].name}`);
+
+        const file = evt.dataTransfer.files[i];
+        return new Promise((resolve) => {
+          const reader = new window.FileReader();
+          reader.onload = () => {
+            const fileContent = reader.result;
+            const newFile = {
+              type: 'file',
+              data: {
+                name: file.name,
+                content: fileContent,
+              },
+            };
+            resolve(newFile);
+          };
+          reader.readAsText(file);
+        });
       }
     }
   };
