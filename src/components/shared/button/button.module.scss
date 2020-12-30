@@ -1,26 +1,42 @@
 .button {
   display: flex;
   justify-content: center;
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+  font-family: $font-family;
   line-height: inherit;
   color: $color-tertiary;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
   border-radius: 5px;
+  outline: none;
+  transition-duration: $transition-base;
+  transition-property: background-color, border;
 
   &_theme {
     &_primary {
       background-color: $color-accent-primary;
+
+      @include hover {
+        background-color: $color-accent-secondary;
+      }
     }
 
     &_secondary {
       background-color: transparent;
       border: 1px solid $color-additional-2;
+
+      @include hover {
+        border: 1px solid $color-tertiary;
+      }
     }
 
     &_tertiary {
+      background-color: transparent;
       border: 1px dashed $color-additional-2;
     }
   }

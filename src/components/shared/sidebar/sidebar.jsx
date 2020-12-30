@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import { signIn, signOut } from 'next-auth/client';
+import { signOut } from 'next-auth/client';
 import Button from 'components/shared/button/button';
 import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
+import Input from 'components/shared/input';
 import Menu from './menu/menu';
 
 import styles from './sidebar.module.scss';
@@ -28,18 +29,15 @@ const Sidebar = ({ userName, buttonText }) => {
           <span>{userName}</span>
 
           <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropDownUserOpen}>
-            <button onClick={signIn}>Sign in</button>
             <button onClick={signOut}>Log out</button>
           </DropdownMenu>
         </div>
-        <Button theme="primary" to="#">
-          {buttonText}
-        </Button>
+        <Button theme="tertiary">{buttonText}</Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
         <h3>Templates groups</h3>
-        <Button type="plus" to="#" />
+        <Button type="plus" />
       </div>
     </div>
   );
