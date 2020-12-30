@@ -1,8 +1,11 @@
 .wrapper {
   width: 340px;
+  max-height: 397px;
   padding-top: 10px;
   padding-right: 20px;
   padding-left: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
   font-family: $font-family;
   font-size: $font-size-sm;
   font-weight: 500;
