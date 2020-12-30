@@ -10,12 +10,7 @@ const cx = classNames.bind(styles);
 const Button = (props) => {
   const { className: additionalClassName, children, theme, type, to, ...otherProps } = props;
 
-  const className = cx(
-    'button',
-    `button_type_${type}`,
-    `button_theme_${theme}`,
-    additionalClassName
-  );
+  const className = cx('button', `type-${type}`, `theme-${theme}`, additionalClassName);
 
   if (type === 'plus') {
     return to ? (

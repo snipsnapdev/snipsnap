@@ -2,12 +2,12 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 11px;
+  padding-bottom: 11px;
   font-family: $font-family;
   font-size: $font-size-sm;
   font-weight: 600;
-  line-height: inherit;
+  line-height: 1;
   color: $color-tertiary;
   text-decoration: none;
   text-transform: uppercase;
@@ -17,10 +17,10 @@
   border-radius: 5px;
   outline: none;
   transition-duration: $transition-base;
-  transition-property: background-color, border;
+  transition-property: background-color, border, color;
 
-  &_theme {
-    &_primary {
+  &.theme {
+    &-primary {
       background-color: $color-accent-primary;
 
       @include hover {
@@ -28,7 +28,7 @@
       }
     }
 
-    &_secondary {
+    &-secondary {
       background-color: transparent;
       border: 1px solid $color-additional-2;
 
@@ -37,14 +37,18 @@
       }
     }
 
-    &_tertiary {
+    &-tertiary {
       background-color: transparent;
       border: 1px dashed $color-additional-2;
+
+      @include hover {
+        border: 1px solid $color-tertiary;
+      }
     }
   }
 
-  &_type {
-    &_plus {
+  &.type {
+    &-plus {
       position: relative;
       display: inline-block;
       width: 20px;
