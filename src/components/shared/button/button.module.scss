@@ -1,0 +1,54 @@
+.button {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: inherit;
+  color: $color-tertiary;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 5px;
+
+  &_theme {
+    &_primary {
+      background-color: $color-accent-primary;
+    }
+
+    &_secondary {
+      background-color: transparent;
+      border: 1px solid $color-additional-2;
+    }
+
+    &_tertiary {
+      border: 1px dashed $color-additional-2;
+    }
+  }
+
+  &_type {
+    &_plus {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: $color-accent-primary;
+      border-radius: 3px;
+
+      &::before,
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1px;
+        height: 8px;
+        content: '';
+        background-color: $color-tertiary;
+        transform: translate(-50%, -50%);
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+  }
+}
