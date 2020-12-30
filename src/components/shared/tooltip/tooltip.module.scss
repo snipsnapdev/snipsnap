@@ -37,6 +37,14 @@
     content: '';
     border-style: solid;
   }
+
+  p {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .top {

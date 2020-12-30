@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import Tooltip from 'components/shared/tooltip';
+import Button from 'components/shared/button';
 import styles from './prompts.module.scss';
 
 const cx = classNames.bind(styles);
@@ -19,6 +20,9 @@ const Prompts = (props) => (
         </p>
       </Tooltip>
     </h2>
+    <div className={cx('content')}>
+      <Button theme="tertiary">+ Add prompt</Button>
+    </div>
   </div>
 );
 

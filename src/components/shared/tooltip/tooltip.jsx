@@ -7,13 +7,7 @@ const cx = classNames.bind(styles);
 const Tooltip = ({ children, position = 'top' }) => (
   <div className={cx('wrapper')}>
     <span>?</span>
-    <div
-      className={cx('content', {
-        [`${position}`]: true,
-      })}
-    >
-      {children}
-    </div>
+    <div className={cx('content', `${position}`)}>{children}</div>
   </div>
 );
 
