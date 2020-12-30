@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import { signOut } from 'next-auth/client';
+import { signIn, signOut } from 'next-auth/client';
 import Button from 'components/shared/button/button';
 import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
 import Menu from './menu/menu';
@@ -28,6 +28,7 @@ const Sidebar = ({ userName, buttonText }) => {
           <span>{userName}</span>
 
           <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropDownUserOpen}>
+            <button onClick={signIn}>Sign in</button>
             <button onClick={signOut}>Log out</button>
           </DropdownMenu>
         </div>
