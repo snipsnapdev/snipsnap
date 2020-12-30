@@ -14,18 +14,18 @@ const icons = {
 };
 
 const Menu = ({ items }) => (
-    <div className={cx('wrapper')}>
-      {items.map(({ text, iconName }, index) => {
-        const Icon = icons[iconName];
-        return (
-          <button className={cx('button')} key={index}>
-            <Icon className={cx('icon')} />
-            {text}
-          </button>
-        );
-      })}
-    </div>
-  );
+  <div className={cx('wrapper')}>
+    {items.map(({ text, iconName }, index) => {
+      const Icon = icons[iconName];
+      return (
+        <button className={cx('button')} key={index}>
+          <Icon className={cx('icon')} />
+          {text}
+        </button>
+      );
+    })}
+  </div>
+);
 
 Menu.propTypes = {
   items: PropTypes.arrayOf(

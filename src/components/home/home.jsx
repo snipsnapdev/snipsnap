@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import classNames from 'classnames/bind';
+import Input from 'components/shared/input';
 import styles from './home.module.scss';
 
 const cx = classNames.bind(styles);
@@ -11,8 +12,6 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={cx('wrapper')}>{/* <Sidebar {...sidebar} /> */}</main>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import { signOut } from 'next-auth/client';
 import Button from 'components/shared/button/button';
 import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
+import Input from 'components/shared/input';
 import Menu from './menu/menu';
 
 import styles from './sidebar.module.scss';
