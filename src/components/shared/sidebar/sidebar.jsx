@@ -31,7 +31,7 @@ const Sidebar = ({ userName, buttonText }) => {
             <button onClick={signOut}>Log out</button>
           </DropdownMenu>
         </div>
-        <Button theme="tertiary">{buttonText}</Button>
+        <Button theme="primary">{buttonText}</Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
