@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import { signOut } from 'next-auth/client';
-import Button from 'components/shared/button/button';
-import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
+import Button from 'components/shared/button';
+import DropdownMenu from 'components/shared/dropdown-menu';
 import Input from 'components/shared/input';
 import Menu from './menu/menu';
 
@@ -14,25 +14,24 @@ const cx = classNames.bind(styles);
 
 const Sidebar = ({ userName, buttonText }) => {
   const avatar = userName.slice(0, 1);
-  const [isDropDownUserOpen, setIsDropDownUserOpen] = useState(false);
+  const [isDropdownUserOpen, setIsDropdownUserOpen] = useState(false);
 
-  const handleUserClick = () => {
-    setIsDropDownUserOpen(!isDropDownUserOpen);
-  };
+  const handleOpenDropdownUser = () => setIsDropdownUserOpen(true);
+
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('user-wrapper')} onClick={handleUserClick}>
+      <div className={cx('user-wrapper')} onClick={handleOpenDropdownUser}>
         <div className={cx('user-info')}>
           <div className={cx('avatar-wrapper')}>
             <div className={cx('avatar')}>{avatar}</div>
           </div>
           <span>{userName}</span>
 
-          <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropDownUserOpen}>
+          <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropdownUserOpen}>
             <button onClick={signOut}>Log out</button>
           </DropdownMenu>
         </div>
-        <Button theme="tertiary">{buttonText}</Button>
+        <Button theme="primary">{buttonText}</Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
