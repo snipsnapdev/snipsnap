@@ -1,0 +1,21 @@
+.label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  color: $color-additional-3;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 15px;
+  font-size: $font-size-md;
+  line-height: $line-height-md;
+  color: $color-tertiary;
+  background: $color-primary;
+  border: 1px solid $color-primary;
+
+  &:focus {
+    border-color: $color-accent-primary;
+  }
+}

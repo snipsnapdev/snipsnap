@@ -1,11 +1,11 @@
-import Home from 'components/home';
+import CreateTemplate from 'components/pages/create-template';
 import Layout from 'components/shared/layout';
-import { getSession } from 'next-auth/client';
 import withAuth from 'components/shared/with-auth';
+import { getSession } from 'next-auth/client';
 
-const HomePage = () => (
+const CreateTemplatePage = () => (
   <Layout>
-    <Home />
+    <CreateTemplate />
   </Layout>
 );
 
@@ -16,4 +16,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default withAuth(HomePage);
+export default withAuth(CreateTemplatePage);

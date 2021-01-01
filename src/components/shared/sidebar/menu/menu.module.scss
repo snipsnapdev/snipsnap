@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid $color-additional-1;
+}
+
+.button {
+  display: flex;
+  padding: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.icon {
+  margin-right: 10px;
+}
