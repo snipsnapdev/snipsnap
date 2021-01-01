@@ -7,12 +7,45 @@ module.exports = {
   },
   webpack(config) {
     config.module.rules.push({
-      test: /\.svg$/,
+      test: /\.inline.svg$/,
       use: [
         {
           loader: '@svgr/webpack',
           options: {
-            svgo: false,
+            svgo: true,
+            svgoConfig: {
+              plugins: [
+                {
+                  removeViewBox: false,
+                },
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    config.module.rules.push({
+      test: /\.url.svg$/,
+      issuer: /\.\w+(?<!(s?c|sa)ss)$/i,
+      use: [
+        {
+          loader: require.resolve('url-loader'),
+          options: {
+            limit: 512,
+            publicPath: '/_next/static/images',
+            outputPath: 'static/images',
+            fallback: require.resolve('file-loader'),
+          },
+        },
+        {
+          loader: require.resolve('svgo-loader'),
+          options: {
+            plugins: [
+              {
+                removeViewBox: false,
+              },
+            ],
           },
         },
       ],

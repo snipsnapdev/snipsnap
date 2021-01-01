@@ -8,27 +8,42 @@ import styles from './button.module.scss';
 const cx = classNames.bind(styles);
 
 const Button = (props) => {
-  const { className: additionalClassName, children, theme, type, to, ...otherProps } = props;
+  const {
+    className: additionalClassName,
+    children,
+    theme,
+    size,
+    icon: Icon,
+    loading,
+    to,
+    ...otherProps
+  } = props;
 
-  const className = cx('button', `type-${type}`, `theme-${theme}`, additionalClassName);
+  const className = cx(
+    'button',
+    `theme-${theme}`,
+    `size-${size}`,
+    { loading },
+    additionalClassName
+  );
 
-  if (type === 'plus') {
-    return to ? (
-      <Link href={to}>
-        <a className={className} {...otherProps} />
-      </Link>
-    ) : (
-      <button className={className} {...otherProps} />
+  const renderIcon = () =>
+    Icon && (
+      <span className={cx('icon-wrapper')}>
+        <Icon className={cx('icon')} />
+      </span>
     );
-  }
+
   return to ? (
     <Link href={to}>
       <a className={className} {...otherProps}>
+        {renderIcon()}
         {children}
       </a>
     </Link>
   ) : (
     <button className={className} {...otherProps}>
+      {renderIcon()}
       {children}
     </button>
   );
@@ -38,14 +53,18 @@ Button.propTypes = {
   className: PropTypes.string,
   to: PropTypes.string,
   children: PropTypes.string,
-  size: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  theme: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  size: PropTypes.oneOf(['md', 'lg']),
+  loading: PropTypes.bool,
 };
 
 Button.defaultProps = {
   className: null,
   theme: 'primary',
-  type: null,
   to: null,
+  size: 'md',
+  loading: false,
+  icon: null,
 };
 
 export default Button;

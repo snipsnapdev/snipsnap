@@ -5,8 +5,8 @@ import classNames from 'classnames/bind';
 import Button from 'components/shared/button';
 import DropdownMenu from 'components/shared/dropdown-menu';
 import Input from 'components/shared/input';
+import { signOut } from 'next-auth/client';
 import Menu from './menu/menu';
-
 import styles from './sidebar.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,7 +24,9 @@ const Sidebar = ({ userName, buttonText }) => {
           <span>{userName}</span>
 
           <DropdownMenu className={cx('user-info-dropdown')}>
-            <a href="/api/auth/signout">Log out</a>
+            <a href="/" onClick={() => signOut()}>
+              Log out
+            </a>
           </DropdownMenu>
         </div>
         <Button theme="primary">{buttonText}</Button>

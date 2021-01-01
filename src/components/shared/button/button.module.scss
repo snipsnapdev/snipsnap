@@ -1,16 +1,12 @@
 .button {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-top: 11px;
-  padding-bottom: 11px;
   font-family: $font-family;
-  font-size: $font-size-sm;
-  font-weight: 600;
   line-height: 1;
   color: $color-tertiary;
   text-decoration: none;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
   border: none;
@@ -18,6 +14,82 @@
   outline: none;
   transition-duration: $transition-base;
   transition-property: background-color, border, color;
+
+  .loader {
+    position: absolute;
+    opacity: 0;
+    transition-timing-function: ease;
+    transition-duration: $transition-base;
+    transition-property: opacity, transform;
+    transform: translateY(5px);
+  }
+
+  .icon {
+    opacity: 1;
+    transition-timing-function: ease;
+    transition-duration: $transition-base;
+    transition-property: opacity, transform;
+    transform: translateY(0);
+  }
+
+  &.loading {
+    .icon {
+      opacity: 0;
+      transition-timing-function: ease;
+      transition-duration: $transition-base;
+      transition-property: opacity, transform;
+      transform: translateY(-5px);
+    }
+
+    .icon-wrapper::after {
+      opacity: 1;
+      transition-timing-function: ease;
+      transition-duration: $transition-base;
+      transition-property: opacity, transform;
+      transform: translateY(0);
+    }
+  }
+
+  &.size {
+    &-md {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: $font-size-sm;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &-lg {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      font-size: $font-size-md;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      .icon-wrapper {
+        display: flex;
+        align-items: center;
+        height: $font-size-md;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .icon-wrapper {
+    &::after {
+      position: absolute;
+      display: block;
+      width: 24px;
+      height: 24px;
+      content: '';
+      background: url('./loader.url.svg');
+      opacity: 0;
+      transition-timing-function: ease;
+      transition-duration: $transition-base;
+      transition-property: opacity, transform;
+      transform: translateY(5px);
+    }
+  }
 
   &.theme {
     &-primary {

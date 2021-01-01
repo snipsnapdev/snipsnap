@@ -48,30 +48,6 @@
   letter-spacing: 0.05em;
 }
 
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  color: #fff;
-  text-transform: uppercase;
-  white-space: nowrap;
-  vertical-align: top;
-  cursor: pointer;
-  background-color: #73f;
-  border: none;
-  border-radius: 7px;
-  outline: none;
-
-  svg {
-    margin-right: 10px;
-  }
-}
-
 .shape {
   position: absolute;
 

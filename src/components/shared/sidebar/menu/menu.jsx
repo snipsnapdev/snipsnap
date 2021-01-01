@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import styles from './menu.module.scss';
-import Search from './icons/search-icon.svg';
-import Clock from './icons/clock-icon.svg';
+import Search from './icons/search-icon.inline.svg';
+import Clock from './icons/clock-icon.inline.svg';
 
 const cx = classNames.bind(styles);
 
