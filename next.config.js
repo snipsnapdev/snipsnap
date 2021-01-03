@@ -5,6 +5,9 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: '@import "./src/styles/mixins.scss", "./src/styles/variables.scss";',
   },
+  images: {
+    domains: ['avatars0.githubusercontent.com'],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.inline.svg$/,

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import DropdownMenu from 'components/shared/dropdown-menu';
 import Input from 'components/shared/input';
 
+import Avatar from '../avatar';
 import Button from '../button';
 
 import Menu from './menu/menu';
@@ -15,19 +16,15 @@ const cx = classNames.bind(styles);
 const Sidebar = () => {
   const [session] = useSession();
   const {
-    user: { name: userName },
+    user: { name: userName, image: avatar },
   } = session;
-  const avatar = userName.slice(0, 1);
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('user-wrapper')}>
         <div className={cx('user-info')}>
-          <div className={cx('avatar-wrapper')}>
-            <div className={cx('avatar')}>{avatar}</div>
-          </div>
+          <Avatar userName={userName} avatar={avatar} className={cx('avatar')} />
           <span>{userName}</span>
-
           <DropdownMenu className={cx('user-info-dropdown')}>
             <a href="/" onClick={() => signOut()}>
               Log out
