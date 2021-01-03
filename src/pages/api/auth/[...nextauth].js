@@ -1,9 +1,10 @@
+import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+
 // Change it to default prisma adapter once it's fixed
 // https://github.com/nextauthjs/next-auth/issues/683
 import Adapter from 'db/prisma/prisma-next-auth-adapter';
-import { PrismaClient } from '@prisma/client';
 import jwt from 'utils/jwt';
 
 const prisma = new PrismaClient();

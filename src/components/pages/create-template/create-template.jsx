@@ -1,6 +1,8 @@
-import Input from 'components/shared/input';
-import React from 'react';
 import classNames from 'classnames/bind';
+import React from 'react';
+
+import Input from 'components/shared/input';
+
 import styles from './create-template.module.scss';
 import Prompts from './prompts';
 

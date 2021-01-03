@@ -1,6 +1,8 @@
-import Sidebar from 'components/shared/sidebar';
-import React from 'react';
 import classNames from 'classnames/bind';
+import React from 'react';
+
+import Sidebar from 'components/shared/sidebar';
+
 import styles from './layout.module.scss';
 
 const cx = classNames.bind(styles);

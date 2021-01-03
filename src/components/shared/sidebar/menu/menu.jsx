@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import styles from './menu.module.scss';
-import Search from './icons/search-icon.inline.svg';
 import Clock from './icons/clock-icon.inline.svg';
+import Search from './icons/search-icon.inline.svg';
+import styles from './menu.module.scss';
 
 const cx = classNames.bind(styles);
 

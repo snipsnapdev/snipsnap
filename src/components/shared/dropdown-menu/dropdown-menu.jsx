@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 
 import styles from './dropdown-menu.module.scss';
 

@@ -1,13 +1,14 @@
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/client';
+import { useState } from 'react';
 
 import Button from 'components/shared/button';
-import { useState } from 'react';
+
+import GithubSvg from './images/github.inline.svg';
 import shape1 from './images/shape-1.url.svg';
 import shape2 from './images/shape-2.url.svg';
 import shape3 from './images/shape-3.url.svg';
 import shape4 from './images/shape-4.url.svg';
-import GithubSvg from './images/github.inline.svg';
 import styles from './login.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,11 +25,11 @@ export default function Login() {
           theme="primary"
           loading={loading}
           size="lg"
+          icon={GithubSvg}
           onClick={() => {
             setLoading(true);
             signIn('github', { callbackUrl: CALLBACK_URL });
           }}
-          icon={GithubSvg}
         >
           login with github
         </Button>

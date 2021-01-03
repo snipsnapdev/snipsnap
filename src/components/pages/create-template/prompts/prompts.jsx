@@ -1,7 +1,9 @@
-import React from 'react';
 import classNames from 'classnames/bind';
-import Tooltip from 'components/shared/tooltip';
+import React from 'react';
+
 import Button from 'components/shared/button';
+import Tooltip from 'components/shared/tooltip';
+
 import styles from './prompts.module.scss';
 
 const cx = classNames.bind(styles);

@@ -1,17 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { signOut, useSession } from 'next-auth/client';
+import PropTypes from 'prop-types';
 
-import Button from 'components/shared/button';
 import DropdownMenu from 'components/shared/dropdown-menu';
 import Input from 'components/shared/input';
-import { signOut } from 'next-auth/client';
+
+import Button from '../button';
+
 import Menu from './menu/menu';
 import styles from './sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Sidebar = ({ userName, buttonText }) => {
+const Sidebar = () => {
+  const [session] = useSession();
+  const {
+    user: { name: userName },
+  } = session;
   const avatar = userName.slice(0, 1);
 
   return (
@@ -29,22 +34,14 @@ const Sidebar = ({ userName, buttonText }) => {
             </a>
           </DropdownMenu>
         </div>
-        <Button theme="primary">{buttonText}</Button>
+        <Button theme="primary">Create Template</Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
         <h3>Templates groups</h3>
-        <Button type="plus" />
       </div>
     </div>
   );
-};
-
-Sidebar.propTypes = {};
-
-Sidebar.defaultProps = {
-  userName: 'Alex Barashkov',
-  buttonText: 'Create template',
 };
 
 export default Sidebar;

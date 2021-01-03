@@ -1,7 +1,8 @@
+import { getSession } from 'next-auth/client';
+
 import CreateTemplate from 'components/pages/create-template';
 import Layout from 'components/shared/layout';
 import withAuth from 'components/shared/with-auth';
-import { getSession } from 'next-auth/client';
 
 const CreateTemplatePage = () => (
   <Layout>

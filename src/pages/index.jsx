@@ -1,6 +1,7 @@
+import { getSession } from 'next-auth/client';
+
 import Home from 'components/home';
 import Layout from 'components/shared/layout';
-import { getSession } from 'next-auth/client';
 import withAuth from 'components/shared/with-auth';
 
 const HomePage = () => (
