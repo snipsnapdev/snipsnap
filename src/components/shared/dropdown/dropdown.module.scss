@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  z-index: 1;
+  display: none;
+}
+
+.position-top-left {
+  top: 100%;
+  left: 0;
+}
+
+.position-top-right {
+  top: 100%;
+  right: 0;
+}
+
+.opened {
+  .menu {
+    display: block;
+  }
+}

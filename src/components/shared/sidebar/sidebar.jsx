@@ -2,11 +2,12 @@ import classNames from 'classnames/bind';
 import { signOut, useSession } from 'next-auth/client';
 import PropTypes from 'prop-types';
 
-import DropdownMenu from 'components/shared/dropdown-menu';
+import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
 
 import Avatar from '../avatar';
 import Button from '../button';
+import TemplatesGroupsTree from '../templates-groups-tree';
 
 import Menu from './menu/menu';
 import styles from './sidebar.module.scss';
@@ -19,23 +20,27 @@ const Sidebar = () => {
     user: { name: userName, image: avatar },
   } = session;
 
+  const userMenu = (
+    <>
+      <a href="/" onClick={() => signOut()}>
+        Log Out
+      </a>
+    </>
+  );
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('user-wrapper')}>
-        <div className={cx('user-info')}>
+        <Dropdown menu={userMenu} className={cx('user-info')}>
           <Avatar userName={userName} avatar={avatar} className={cx('avatar')} />
           <span>{userName}</span>
-          <DropdownMenu className={cx('user-info-dropdown')}>
-            <a href="/" onClick={() => signOut()}>
-              Log out
-            </a>
-          </DropdownMenu>
-        </div>
+        </Dropdown>
         <Button theme="primary">Create Template</Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
-        <h3>Templates groups</h3>
+        <h2>Templates groups</h2>
+        <TemplatesGroupsTree />
       </div>
     </div>
   );

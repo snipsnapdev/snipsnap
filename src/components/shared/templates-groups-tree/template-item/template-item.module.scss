@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 35px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-additional-6;
+
+    .icon {
+      path {
+        fill: $color-tertiary;
+      }
+    }
+  }
+}
+
+.icon {
+  margin-right: 7px;
+}
+
+.name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // white-space: nowrap;
+}
