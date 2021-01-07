@@ -1,11 +1,16 @@
 import { getSession } from 'next-auth/client';
+import Head from 'next/head';
 
-import Home from 'components/home';
+import Home from 'components/pages/home';
 import Layout from 'components/shared/layout';
 import withAuth from 'components/shared/with-auth';
+import generatePageTitle from 'utils/generate-page-title';
 
 const HomePage = () => (
   <Layout>
+    <Head>
+      <title>{generatePageTitle()}</title>
+    </Head>
     <Home />
   </Layout>
 );

@@ -7,6 +7,7 @@ import Input from 'components/shared/input';
 
 import Avatar from '../avatar';
 import Button from '../button';
+import IconButton from '../icon-button';
 import TemplatesGroupsTree from '../templates-groups-tree';
 
 import Menu from './menu/menu';
@@ -35,11 +36,16 @@ const Sidebar = () => {
           <Avatar userName={userName} avatar={avatar} className={cx('avatar')} />
           <span>{userName}</span>
         </Dropdown>
-        <Button theme="primary">Create Template</Button>
+        <Button to="/create-template" theme="primary">
+          Create Template
+        </Button>
       </div>
       <Menu />
       <div className={cx('templates')}>
-        <h2>Templates groups</h2>
+        <h2>
+          Templates groups
+          <IconButton icon="plus" className={cx('group-create-button')} />
+        </h2>
         <TemplatesGroupsTree />
       </div>
     </div>

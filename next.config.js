@@ -6,7 +6,7 @@ module.exports = {
     prependData: '@import "./src/styles/mixins.scss", "./src/styles/variables.scss";',
   },
   images: {
-    domains: ['avatars0.githubusercontent.com'],
+    domains: ['avatars0.githubusercontent.com', 'avatars1.githubusercontent.com'],
   },
   webpack(config) {
     config.module.rules.push({

@@ -1,1 +1,20 @@
-/* your css code */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 3px;
+}
+
+.size-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-primary {
+  background-color: $color-accent-primary;
+
+  &:hover {
+    background-color: $color-accent-secondary;
+  }
+}
