@@ -17,6 +17,7 @@ const IconButton = (props) => {
     <button
       type="button"
       className={cx('wrapper', `size-${size}`, `theme-${theme}`, additionalClassName)}
+      {...otherProps}
     >
       <Icon />
     </button>

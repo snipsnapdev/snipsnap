@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import Menu from 'components/shared/dropdown/menu';
+import useOutsideClick from 'hooks/use-outside-click';
 
 import styles from './dropdown.module.scss';
 
@@ -15,7 +16,6 @@ const Dropdown = ({
   position,
   stopPropagation,
 }) => {
-  const node = useRef();
   const [isOpened, setIsOpened] = useState(false);
 
   const toggle = (e) => {
@@ -23,28 +23,14 @@ const Dropdown = ({
     stopPropagation && e.stopPropagation();
   };
 
-  const handleClickOutside = (e) => {
-    if (node.current.contains(e.target)) {
-      return;
-    }
+  const handleClickOutside = () => {
     setIsOpened(false);
   };
-
-  useEffect(() => {
-    if (isOpened) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpened]);
+  const { register } = useOutsideClick(handleClickOutside, isOpened);
 
   return (
     <div
-      ref={node}
+      ref={register}
       className={cx('wrapper', additionalClassName, { opened: isOpened })}
       onClick={toggle}
     >
