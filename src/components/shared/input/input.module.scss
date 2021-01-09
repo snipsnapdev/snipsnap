@@ -1,5 +1,9 @@
+.group {
+  display: block;
+}
+
 .label {
-  display: inline-block;
+  display: block;
   margin-bottom: 5px;
   font-size: $font-size-sm;
   line-height: $line-height-sm;
@@ -18,4 +22,8 @@
   &:focus {
     border-color: $color-accent-primary;
   }
+}
+
+.error {
+  margin-top: 5px;
 }

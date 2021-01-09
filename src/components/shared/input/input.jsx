@@ -1,24 +1,17 @@
 import classNames from 'classnames/bind';
-import React from 'react';
 
 import styles from './input.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Input = ({ label }) => (
-  <div className={cx('group')}>
-    {/* <label className={cx('label')}>{label}</label> */}
+const Input = ({ label, name, register, required, errors }) => (
+  <label className={cx('group')}>
+    <div className={cx('label')}>{label}</div>
     <div>
-      <input
-        className={cx('input')}
-        type="text"
-        value="Create React component"
-        onChange={() => {
-          console.log('changed');
-        }}
-      />
+      <input className={cx('input')} name={name} ref={register({ required })} type="text" />
+      {errors && <div className={cx('error')}>{errors.message}</div>}
     </div>
-  </div>
+  </label>
 );
 
 export default Input;
