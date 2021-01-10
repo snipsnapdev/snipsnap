@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useSession } from 'next-auth/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, gqlClient } from 'api/graphql';
@@ -24,7 +25,7 @@ const schema = yup.object().shape({
 const cx = classNames.bind(styles);
 
 const query = gql`
-  mutation create_templates_group($name: String!) {
+  mutation createTemplatesGroup($name: String!) {
     insert_templates_groups_one(object: { name: $name }) {
       name
       user_id
@@ -45,6 +46,8 @@ const TemplatesGroups = () => {
       setLoading(true);
       await gqlClient(token).request(query, { name });
       setLoading(false);
+      setIsModalOpen(false);
+      mutate('getOwnedTemplatesGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);

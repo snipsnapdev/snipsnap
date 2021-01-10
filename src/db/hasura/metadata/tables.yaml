@@ -11,6 +11,21 @@
   - name: owner
     using:
       foreign_key_constraint_on: owner_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - files
+      - id
+      - name
+      - owner_id
+      - prompts
+      - template_group_id
+      - updated_at
+      filter:
+        owner_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: templates_groups

@@ -32,7 +32,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           <GroupSvg className={cx('icon')} />
         </div>
         <span className={cx('name')}>{name}</span>
-        <ArrowSvg className={cx('arrow')} />
+        {templates.length > 0 && <ArrowSvg className={cx('arrow')} />}
         <div className={cx('options')}>
           <Dropdown
             menu={groupMenu}
