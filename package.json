@@ -21,6 +21,8 @@
     "babel-plugin-import": "^1.13.3",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.4.0",
     "jsonwebtoken": "^8.5.1",
     "next": "10.0.3",
     "next-auth": "^3.1.0",

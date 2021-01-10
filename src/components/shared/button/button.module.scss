@@ -15,13 +15,46 @@
   transition-duration: $transition-base;
   transition-property: background-color, border, color;
 
+  &.with-icon {
+    .loader {
+      position: absolute;
+    }
+
+    &.loading {
+      .icon {
+        opacity: 0;
+        transition-timing-function: ease;
+        transition-duration: $transition-base;
+        transition-property: opacity, transform;
+        transform: translateY(-5px);
+      }
+    }
+  }
+
+  &:not(.with-icon) {
+    &.loading {
+      .text {
+        opacity: 0;
+        transition-timing-function: ease;
+        transition-duration: $transition-base;
+        transition-property: opacity, transform;
+        transform: translateY(-5px);
+      }
+    }
+  }
+
   .loader {
     position: absolute;
-    opacity: 0;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    height: $font-size-md;
+    opacity: 1;
     transition-timing-function: ease;
     transition-duration: $transition-base;
     transition-property: opacity, transform;
-    transform: translateY(5px);
+    transform: translateX(-50%) translateY(-50%);
   }
 
   .icon {
@@ -32,22 +65,11 @@
     transform: translateY(0);
   }
 
-  &.loading {
-    .icon {
-      opacity: 0;
-      transition-timing-function: ease;
-      transition-duration: $transition-base;
-      transition-property: opacity, transform;
-      transform: translateY(-5px);
-    }
-
-    .icon-wrapper::after {
-      opacity: 1;
-      transition-timing-function: ease;
-      transition-duration: $transition-base;
-      transition-property: opacity, transform;
-      transform: translateY(0);
-    }
+  .icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
   }
 
   &.size {
@@ -57,6 +79,10 @@
       font-size: $font-size-sm;
       font-weight: 600;
       text-transform: uppercase;
+
+      .icon-wrapper {
+        height: $font-size-sm;
+      }
     }
 
     &-lg {
@@ -67,27 +93,8 @@
       text-transform: uppercase;
 
       .icon-wrapper {
-        display: flex;
-        align-items: center;
         height: $font-size-md;
-        margin-right: 10px;
       }
-    }
-  }
-
-  .icon-wrapper {
-    &::after {
-      position: absolute;
-      display: block;
-      width: 24px;
-      height: 24px;
-      content: '';
-      background: url('./loader.url.svg');
-      opacity: 0;
-      transition-timing-function: ease;
-      transition-duration: $transition-base;
-      transition-property: opacity, transform;
-      transform: translateY(5px);
     }
   }
 

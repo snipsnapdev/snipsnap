@@ -1,9 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import { useSession } from 'next-auth/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { gql, gqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
@@ -19,14 +21,34 @@ const schema = yup.object().shape({
     .required('Name is required')
     .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
 });
-
 const cx = classNames.bind(styles);
+
+const query = gql`
+  mutation create_templates_group($name: String!) {
+    insert_templates_groups_one(object: { name: $name }) {
+      name
+      user_id
+      id
+    }
+  }
+`;
+
 const TemplatesGroups = () => {
+  const [{ token }] = useSession();
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const onSubmit = (data) => {
+  const onSubmit = async ({ name }) => {
+    try {
+      setLoading(true);
+      await gqlClient(token).request(query, { name });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
     clearErrors();
   };
 
@@ -48,7 +70,7 @@ const TemplatesGroups = () => {
             >
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input label="Name" name="name" register={register} errors={errors.name} />
-                <Button className={cx('add-group-button')} type="submit">
+                <Button className={cx('add-group-button')} type="submit" loading={loading}>
                   Add group
                 </Button>
               </form>

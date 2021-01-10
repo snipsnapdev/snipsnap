@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import styles from './button.module.scss';
+import loaderSvg from './loader.url.svg';
 
 const cx = classNames.bind(styles);
 
@@ -15,22 +15,29 @@ const Button = (props) => {
     size,
     icon: Icon,
     loading,
+    type,
     to,
     ...otherProps
   } = props;
-
+  const withIcon = !!Icon;
   const className = cx(
     'button',
     `theme-${theme}`,
     `size-${size}`,
     { loading },
-    additionalClassName
+    additionalClassName,
+    { 'with-icon': withIcon }
   );
 
   const renderIcon = () =>
     Icon && (
       <span className={cx('icon-wrapper')}>
         <Icon className={cx('icon')} />
+        {loading && (
+          <span className={cx('loader')}>
+            <img src={loaderSvg} />
+          </span>
+        )}
       </span>
     );
 
@@ -42,9 +49,14 @@ const Button = (props) => {
       </a>
     </Link>
   ) : (
-    <button className={className} {...otherProps}>
+    <button type={type} className={className} {...otherProps}>
       {renderIcon()}
-      {children}
+      <span className={cx('text')}>{children}</span>
+      {!withIcon && loading && (
+        <span className={cx('loader')}>
+          <img src={loaderSvg} />
+        </span>
+      )}
     </button>
   );
 };
