@@ -17,6 +17,7 @@ const Button = (props) => {
     loading,
     type,
     to,
+    disabled,
     ...otherProps
   } = props;
   const withIcon = !!Icon;
@@ -49,7 +50,7 @@ const Button = (props) => {
       </a>
     </Link>
   ) : (
-    <button type={type} className={className} {...otherProps}>
+    <button type={type} className={className} disabled={disabled} {...otherProps}>
       {renderIcon()}
       <span className={cx('text')}>{children}</span>
       {!withIcon && loading && (
@@ -68,6 +69,7 @@ Button.propTypes = {
   theme: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
   size: PropTypes.oneOf(['md', 'lg']),
   loading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -76,6 +78,7 @@ Button.defaultProps = {
   to: null,
   size: 'md',
   loading: false,
+  disabled: false,
   icon: null,
 };
 
