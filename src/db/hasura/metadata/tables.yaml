@@ -16,6 +16,12 @@
       filter:
         owner_id:
           _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        owner_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: templates_groups
