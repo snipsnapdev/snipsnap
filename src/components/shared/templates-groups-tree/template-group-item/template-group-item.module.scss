@@ -44,9 +44,10 @@
 
 .options-inner {
   padding-top: 7px;
-  padding-right: 7px;
+  padding-right: 10px;
   padding-bottom: 7px;
-  padding-left: 7px;
+  padding-left: 10px;
+  margin-right: -10px;
 
   &:hover {
     circle {
