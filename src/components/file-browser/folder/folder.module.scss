@@ -28,8 +28,8 @@
     background-color: $color-additional-1;
     border-radius: 3px;
 
-    & .button-menu {
-      display: flex;
+    .options {
+      visibility: visible;
     }
   }
 }
@@ -74,34 +74,24 @@
   }
 }
 
-.button-menu {
-  @include reset-button;
-
-  display: none;
-  padding-right: 10px;
-  padding-left: 10px;
+.options {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  margin-left: auto;
+  visibility: hidden;
 }
 
-.folder-menu-dropdown {
-  position: absolute;
-  top: 20px;
-  right: -10px;
-  z-index: 3;
-  width: 100px;
+.options-inner {
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-right: -10px;
 
-  button {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    cursor: pointer;
-    background-color: inherit;
-    border: none;
-    outline: none;
+  &:hover {
+    circle {
+      fill: $color-tertiary;
+    }
   }
 }

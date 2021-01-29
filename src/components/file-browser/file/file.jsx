@@ -1,6 +1,8 @@
-import React from 'react';
 import classNames from 'classnames/bind';
-import DeleteIcon from '../icons/cross.svg';
+import React from 'react';
+
+import CloseSvg from 'icons/close.inline.svg';
+
 import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
@@ -25,7 +27,7 @@ const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
     <div ref={fileRef} className={styles.wrapper}>
       {file.name}
       <button className={cx('button-delete')} onClick={() => onDelete(file.id)}>
-        <DeleteIcon className={cx('icon')} />
+        <CloseSvg className={cx('icon')} />
       </button>
     </div>
   );
