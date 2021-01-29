@@ -34,7 +34,7 @@
     }
 
     & .button-delete {
-      display: flex;
+      visibility: visible;
     }
   }
 }
@@ -42,5 +42,22 @@
 .button-delete {
   @include reset-button;
 
-  display: none;
+  display: flex;
+  align-items: center;
+  height: 8px;
+  visibility: hidden;
+
+  svg {
+    path {
+      stroke: $color-additional-3;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-tertiary;
+      }
+    }
+  }
 }
