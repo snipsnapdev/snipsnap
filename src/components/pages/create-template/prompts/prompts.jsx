@@ -61,7 +61,6 @@ const Prompts = ({ title, tooltip, buttonText }) => {
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
         <h2>{title}</h2>
-
         <Button
           className={cx('button-disclosure', { active: visibilityPrompts })}
           theme="secondary"
@@ -70,53 +69,50 @@ const Prompts = ({ title, tooltip, buttonText }) => {
         >
           <ArrowRightSvg />
         </Button>
-
         <Tooltip className={cx('tooltip')} position="bottom">
           {tooltip}
         </Tooltip>
       </div>
 
-      <div className={cx('content')}>
-        <div className={cx('items-wrapper', { active: visibilityPrompts })}>
-          <form onBlur={handleSubmit((values) => console.log(values))}>
-            <ul>
-              {fields.map((item, index) => (
-                <li className={cx('item')} key={item.id}>
-                  <Input
-                    className={cx('item-input')}
-                    label="Message"
-                    name={`prompts[${index}].message`}
-                    defaultValue={item.message}
-                    ref={register()}
-                    errors={errors?.prompts?.[index]?.message}
-                  />
-                  <Input
-                    className={cx('item-input')}
-                    label="Variable name"
-                    name={`prompts[${index}].variableName`}
-                    defaultValue={item.variableName}
-                    ref={register()}
-                    errors={errors?.prompts?.[index]?.variableName}
-                  />
+      <div className={cx('items-wrapper', { active: visibilityPrompts })}>
+        <form onBlur={handleSubmit((values) => console.log(values))}>
+          <ul>
+            {fields.map((item, index) => (
+              <li className={cx('item')} key={item.id}>
+                <Input
+                  className={cx('item-input')}
+                  label="Message"
+                  name={`prompts[${index}].message`}
+                  defaultValue={item.message}
+                  ref={register()}
+                  errors={errors?.prompts?.[index]?.message}
+                />
+                <Input
+                  className={cx('item-input')}
+                  label="Variable name"
+                  name={`prompts[${index}].variableName`}
+                  defaultValue={item.variableName}
+                  ref={register()}
+                  errors={errors?.prompts?.[index]?.variableName}
+                />
 
-                  <span
-                    className={cx('item-button-remove')}
-                    onClick={() => {
-                      remove(index);
-                    }}
-                  >
-                    <CloseSvg />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </form>
-        </div>
-
-        <Button theme="tertiary" onClick={addItem}>
-          {buttonText}
-        </Button>
+                <span
+                  className={cx('item-button-remove')}
+                  onClick={() => {
+                    remove(index);
+                  }}
+                >
+                  <CloseSvg />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </form>
       </div>
+
+      <Button theme="tertiary" onClick={addItem}>
+        {buttonText}
+      </Button>
     </div>
   );
 };
