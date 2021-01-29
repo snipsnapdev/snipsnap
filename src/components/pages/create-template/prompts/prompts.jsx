@@ -13,10 +13,9 @@ import CloseSvg from 'icons/close.inline.svg';
 
 import styles from './prompts.module.scss';
 
-
 const formSchema = {
-  message: yup.string().required('message is required'),
-  variableName: yup.string().required('variableName is required'),
+  message: yup.string().required('Message is required'),
+  variableName: yup.string().required('Variable name is required'),
 };
 
 const fieldsSchema = yup.object().shape({
@@ -38,7 +37,7 @@ const Prompts = ({ title, tooltip, buttonText }) => {
 
   const [visibilityPrompts, setVisibilityPrompts] = useState(false);
 
-  const {isValid} = formState;
+  const { isValid } = formState;
 
   const addItem = () => {
     if (fields.length === 0) {
@@ -61,7 +60,7 @@ const Prompts = ({ title, tooltip, buttonText }) => {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
-        <h2 className="with-tooltip">{title}</h2>
+        <h2>{title}</h2>
 
         <Button
           className={cx('button-disclosure', { active: visibilityPrompts })}
