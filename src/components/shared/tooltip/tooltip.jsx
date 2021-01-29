@@ -5,10 +5,10 @@ import styles from './tooltip.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Tooltip = ({ children, position = 'top' }) => (
-  <div className={cx('wrapper')}>
+const Tooltip = ({ className: additionalClassName, children, position = 'top' }) => (
+  <div className={cx('wrapper', additionalClassName)}>
     <span>?</span>
-    <div className={cx('content', `${position}`)}>{children}</div>
+    <div className={cx('content', `${position}`)} dangerouslySetInnerHTML={{ __html: children }} />
   </div>
 );
 
