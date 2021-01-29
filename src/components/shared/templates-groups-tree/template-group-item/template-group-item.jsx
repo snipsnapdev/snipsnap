@@ -15,9 +15,19 @@ import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const query = gql`
+const deleteQuery = gql`
   mutation deleteTemplateGroup($id: uuid!) {
     delete_templates_groups_by_pk(id: $id) {
+      name
+      user_id
+      id
+    }
+  }
+`;
+
+const renameQuery = gql`
+  mutation renameTemplateGroup($id: uuid!, $newName: String!) {
+    update_templates_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
       name
       user_id
       id
@@ -34,7 +44,19 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const onDelete = async (groupId) => {
     try {
       setLoading(true);
-      await gqlClient(token).request(query, { id: groupId });
+      await gqlClient(token).request(deleteQuery, { id: groupId });
+      setLoading(false);
+      mutate('getOwnedTemplatesGroups');
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  const onRename = async (groupId, newName) => {
+    try {
+      setLoading(true);
+      await gqlClient(token).request(renameQuery, { id: groupId, newName });
       setLoading(false);
       mutate('getOwnedTemplatesGroups');
     } catch (err) {
@@ -44,12 +66,13 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   };
 
   const groupMenu = (groupId) => (
-      <>
-        <a href="#">Edit</a>
-        {/* <a href="#">Delete</a> */}
-        <div onClick={() => onDelete(groupId)}>Delete</div>
-      </>
-    );
+    <>
+      {/* <a href="#">Edit</a> */}
+      {/* <a href="#">Delete</a> */}
+      <div onClick={() => onRename(groupId, 'Renamed')}>Rename</div>
+      <div onClick={() => onDelete(groupId)}>Delete</div>
+    </>
+  );
 
   // const groupMenu = (
   //   <>
