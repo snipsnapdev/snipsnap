@@ -1,11 +1,9 @@
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
 import { useState } from 'react';
-import { mutate } from 'swr';
 
-import { gql, gqlClient } from 'api/graphql';
 import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
+import RenameGroupModal from 'components/shared/rename-group-modal';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
 import GroupSvg from 'icons/group.inline.svg';
@@ -16,63 +14,15 @@ import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const deleteQuery = gql`
-  mutation deleteTemplateGroup($id: uuid!) {
-    delete_templates_groups_by_pk(id: $id) {
-      name
-      user_id
-      id
-    }
-  }
-`;
-
-const renameQuery = gql`
-  mutation renameTemplateGroup($id: uuid!, $newName: String!) {
-    update_templates_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
-      name
-      user_id
-      id
-    }
-  }
-`;
-
 const TemplateGroupItem = ({ name, groupId, templates }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const [{ token }] = useSession();
-  const [loading, setLoading] = useState(false);
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
 
-  const onDelete = async () => {
-    try {
-      setLoading(true);
-      await gqlClient(token).request(deleteQuery, { id: groupId });
-      setLoading(false);
-      mutate('getOwnedTemplatesGroups');
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-
-    setIsDeleteModalOpen(false);
-  };
-
-  const onRename = async (groupId, newName) => {
-    try {
-      setLoading(true);
-      await gqlClient(token).request(renameQuery, { id: groupId, newName });
-      setLoading(false);
-      mutate('getOwnedTemplatesGroups');
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
-
-  const groupMenu = (groupId) => (
+  const groupMenu = (
     <>
-      <div onClick={() => onRename(groupId, 'Renamed')}>Rename</div>
+      <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
       <div onClick={() => setIsDeleteModalOpen(true)}>Delete</div>
     </>
   );
@@ -91,8 +41,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
         {templates.length > 0 && <ArrowSvg className={cx('arrow')} />}
         <div className={cx('options')}>
           <Dropdown
-            menu={groupMenu(groupId)}
-            // menu={groupMenu}
+            menu={groupMenu}
             className={cx('options-inner')}
             position="top-right"
             stopPropagation
@@ -113,6 +62,14 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           name={name}
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
+        />
+      )}
+      {isRenameModalOpen && (
+        <RenameGroupModal
+          id={groupId}
+          name={name}
+          isOpen={isRenameModalOpen}
+          onClose={() => setIsRenameModalOpen(false)}
         />
       )}
     </div>
