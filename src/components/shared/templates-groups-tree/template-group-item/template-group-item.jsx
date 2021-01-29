@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { mutate } from 'swr';
 
 import { gql, gqlClient } from 'api/graphql';
+import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
@@ -41,7 +42,9 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const [{ token }] = useSession();
   const [loading, setLoading] = useState(false);
 
-  const onDelete = async (groupId) => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const onDelete = async () => {
     try {
       setLoading(true);
       await gqlClient(token).request(deleteQuery, { id: groupId });
@@ -51,6 +54,8 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
       setLoading(false);
       console.log(err);
     }
+
+    setIsDeleteModalOpen(false);
   };
 
   const onRename = async (groupId, newName) => {
@@ -67,19 +72,10 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
 
   const groupMenu = (groupId) => (
     <>
-      {/* <a href="#">Edit</a> */}
-      {/* <a href="#">Delete</a> */}
       <div onClick={() => onRename(groupId, 'Renamed')}>Rename</div>
-      <div onClick={() => onDelete(groupId)}>Delete</div>
+      <div onClick={() => setIsDeleteModalOpen(true)}>Delete</div>
     </>
   );
-
-  // const groupMenu = (
-  //   <>
-  //     <a href="#">Edit</a>
-  //     <a href="#">Delete</a>
-  //   </>
-  // );
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -111,6 +107,14 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
             <TemplateItem key={template.id} name={template.name} templateId={template.id} />
           ))}
       </div>
+      {isDeleteModalOpen && (
+        <DeleteGroupModal
+          id={groupId}
+          name={name}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
