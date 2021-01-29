@@ -1,0 +1,61 @@
+.wrapper {
+  overflow: auto;
+  background: rgba(28, 29, 34, 0.9);
+  inset: 0 0 0 0;
+  backdrop-filter: blur(10px);
+}
+
+.open {
+  position: fixed;
+  z-index: 10;
+}
+
+.content {
+  position: relative;
+  z-index: 11;
+  width: 400px;
+  background: $color-additional-6;
+  border-radius: 5px;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 30px env(safe-area-inset-right) 30px env(safe-area-inset-left);
+}
+
+.header {
+  padding-top: 15px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  border-bottom: 1px solid $color-additional-8;
+}
+
+.body {
+  padding: 30px;
+}
+
+.close {
+  position: absolute;
+  top: -10px;
+  right: -32px;
+  padding: 10px;
+  cursor: pointer;
+
+  svg {
+    path {
+      stroke: $color-additional-3;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-tertiary;
+      }
+    }
+  }
+}

@@ -1,14 +1,6 @@
-actions:
-- name: create_templates
-  definition:
-    kind: synchronous
-    handler: http://host.docker.internal:3011/templates
-  permissions:
-  - role: user
+actions: []
 custom_types:
   enums: []
-  input_objects:
-  - name: TemplateInput
-  objects:
-  - name: TemplateOutput
+  input_objects: []
+  objects: []
   scalars: []

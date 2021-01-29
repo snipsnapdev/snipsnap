@@ -1,14 +1,25 @@
-import Home from 'components/home';
+import { getSession } from 'next-auth/client';
+import Head from 'next/head';
+
+import Home from 'components/pages/home';
 import Layout from 'components/shared/layout';
-import { useSession } from 'next-auth/client';
+import withAuth from 'components/shared/with-auth';
+import generatePageTitle from 'utils/generate-page-title';
 
-const HomePage = () => {
-  const [session, loading] = useSession();
-  return (
-    <Layout>
-      <Home />
-    </Layout>
-  );
-};
+const HomePage = () => (
+  <Layout>
+    <Head>
+      <title>{generatePageTitle()}</title>
+    </Head>
+    <Home />
+  </Layout>
+);
 
-export default HomePage;
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  return {
+    props: { session },
+  };
+}
+
+export default withAuth(HomePage);

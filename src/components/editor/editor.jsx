@@ -24,10 +24,10 @@ const Editor = () => {
           <button
             type="button"
             key={`language-${index}`}
+            style={language === lang ? { backgroundColor: 'yellow' } : {}}
             onClick={() => {
               setLanguage(lang);
             }}
-            style={language === lang ? { backgroundColor: 'yellow' } : {}}
           >
             {lang}
           </button>
@@ -36,9 +36,9 @@ const Editor = () => {
       <AceEditor
         mode={language}
         theme="monokai"
-        onChange={onChange}
         name="UNIQUE_ID_OF_DIV"
         editorProps={{ $blockScrolling: true }}
+        onChange={onChange}
       />
       <button onClick={() => console.log(code)}>Print to console</button>
     </div>

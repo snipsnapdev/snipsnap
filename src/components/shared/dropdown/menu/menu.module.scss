@@ -1,0 +1,27 @@
+.menu {
+  min-width: 80px;
+  background-color: $color-quaternary;
+  border-radius: 3px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  transition: $transition-base;
+  transform: translateY(10px);
+
+  > * {
+    display: block;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    color: $color-tertiary;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color $transition-base;
+
+    &:hover {
+      background-color: $color-additional-4;
+    }
+  }
+}

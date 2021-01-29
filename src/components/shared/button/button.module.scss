@@ -1,24 +1,105 @@
 .button {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
   font-family: $font-family;
-  line-height: inherit;
+  line-height: 1;
   color: $color-tertiary;
   text-decoration: none;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
   border: none;
   border-radius: 5px;
   outline: none;
   transition-duration: $transition-base;
-  transition-property: background-color, border;
+  transition-property: background-color, border, color;
 
-  &_theme {
-    &_primary {
+  &.with-icon {
+    .loader {
+      position: absolute;
+    }
+
+    &.loading {
+      .icon {
+        opacity: 0;
+        transition-timing-function: ease;
+        transition-duration: $transition-base;
+        transition-property: opacity, transform;
+        transform: translateY(-5px);
+      }
+    }
+  }
+
+  &:not(.with-icon) {
+    &.loading {
+      .text {
+        opacity: 0;
+        transition-timing-function: ease;
+        transition-duration: $transition-base;
+        transition-property: opacity, transform;
+        transform: translateY(-5px);
+      }
+    }
+  }
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    height: $font-size-md;
+    opacity: 1;
+    transition-timing-function: ease;
+    transition-duration: $transition-base;
+    transition-property: opacity, transform;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .icon {
+    opacity: 1;
+    transition-timing-function: ease;
+    transition-duration: $transition-base;
+    transition-property: opacity, transform;
+    transform: translateY(0);
+  }
+
+  .icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  &.size {
+    &-md {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: $font-size-sm;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      .icon-wrapper {
+        height: $font-size-sm;
+      }
+    }
+
+    &-lg {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      font-size: $font-size-md;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      .icon-wrapper {
+        height: $font-size-md;
+      }
+    }
+  }
+
+  &.theme {
+    &-primary {
       background-color: $color-accent-primary;
 
       @include hover {
@@ -26,7 +107,7 @@
       }
     }
 
-    &_secondary {
+    &-secondary {
       background-color: transparent;
       border: 1px solid $color-additional-2;
 
@@ -35,14 +116,18 @@
       }
     }
 
-    &_tertiary {
+    &-tertiary {
       background-color: transparent;
       border: 1px dashed $color-additional-2;
+
+      @include hover {
+        border: 1px solid $color-tertiary;
+      }
     }
   }
 
-  &_type {
-    &_plus {
+  &.type {
+    &-plus {
       position: relative;
       display: inline-block;
       width: 20px;

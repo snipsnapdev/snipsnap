@@ -1,22 +1,22 @@
 import jwt from 'jsonwebtoken';
 
-const MAX_AGE = 24 * 60 * 60; // 1 day
+const MAX_AGE = 8 * 60 * 60; // 8 hours
 
 const { JWT_SECRET } = process.env;
 
 const ENCRYPTION_ALGORITHM = 'HS512';
 
-const encode = ({ token }) => {
+const encode = (user, expires) => {
   const tokenContent = {
-    id: token.id,
-    name: token.name,
-    email: token.email,
-    picture: token.picture,
+    id: user.userId,
+    name: user.name,
+    email: user.email,
+    picture: user.picture,
     'https://hasura.io/jwt/claims': {
       'x-hasura-allowed-roles': ['user'],
       'x-hasura-default-role': 'user',
       'x-hasura-role': 'user',
-      'x-hasura-user-id': token.id,
+      'x-hasura-user-id': user.userId,
     },
   };
   const encodedToken = jwt.sign(tokenContent, JWT_SECRET, {

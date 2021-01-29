@@ -2,7 +2,8 @@ import '../styles/globals.scss';
 
 import { Provider } from 'next-auth/client';
 
-function MyApp({ Component, pageProps }) {
+function Snipsnap({ Component, pageProps }) {
+  console.log(pageProps);
   return (
     <Provider session={pageProps.session}>
       <Component {...pageProps} />
@@ -10,4 +11,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default Snipsnap;

@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 35px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-additional-6;
+
+    .icon {
+      path {
+        fill: $color-tertiary;
+      }
+    }
+
+    .delete-icon {
+      visibility: visible;
+    }
+  }
+}
+
+.icon {
+  margin-right: 7px;
+}
+
+.name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // white-space: nowrap;
+}
+
+.delete-icon {
+  display: flex;
+  align-items: center;
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  cursor: pointer;
+  visibility: hidden;
+
+  svg {
+    path {
+      stroke: $color-additional-3;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-tertiary;
+      }
+    }
+  }
+}

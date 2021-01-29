@@ -1,40 +1,62 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+
 import styles from './button.module.scss';
+import loaderSvg from './loader.url.svg';
 
 const cx = classNames.bind(styles);
 
 const Button = (props) => {
-  const { className: additionalClassName, children, theme, type, to, ...otherProps } = props;
-
+  const {
+    className: additionalClassName,
+    children,
+    theme,
+    size,
+    icon: Icon,
+    loading,
+    type,
+    to,
+    ...otherProps
+  } = props;
+  const withIcon = !!Icon;
   const className = cx(
     'button',
-    `button_type_${type}`,
-    `button_theme_${theme}`,
-    additionalClassName
+    `theme-${theme}`,
+    `size-${size}`,
+    { loading },
+    additionalClassName,
+    { 'with-icon': withIcon }
   );
 
-  if (type === 'plus') {
-    return to ? (
-      <Link href={to}>
-        <a className={className} {...otherProps} />
-      </Link>
-    ) : (
-      <button className={className} {...otherProps} />
+  const renderIcon = () =>
+    Icon && (
+      <span className={cx('icon-wrapper')}>
+        <Icon className={cx('icon')} />
+        {loading && (
+          <span className={cx('loader')}>
+            <img src={loaderSvg} />
+          </span>
+        )}
+      </span>
     );
-  }
+
   return to ? (
     <Link href={to}>
       <a className={className} {...otherProps}>
+        {renderIcon()}
         {children}
       </a>
     </Link>
   ) : (
-    <button className={className} {...otherProps}>
-      {children}
+    <button type={type} className={className} {...otherProps}>
+      {renderIcon()}
+      <span className={cx('text')}>{children}</span>
+      {!withIcon && loading && (
+        <span className={cx('loader')}>
+          <img src={loaderSvg} />
+        </span>
+      )}
     </button>
   );
 };
@@ -43,14 +65,18 @@ Button.propTypes = {
   className: PropTypes.string,
   to: PropTypes.string,
   children: PropTypes.string,
-  size: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  theme: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  size: PropTypes.oneOf(['md', 'lg']),
+  loading: PropTypes.bool,
 };
 
 Button.defaultProps = {
   className: null,
   theme: 'primary',
-  type: null,
   to: null,
+  size: 'md',
+  loading: false,
+  icon: null,
 };
 
 export default Button;

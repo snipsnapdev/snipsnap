@@ -1,0 +1,94 @@
+.group-wrapper {
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background: $color-additional-6;
+
+    .icon {
+      path {
+        fill: $color-tertiary;
+      }
+
+      rect {
+        stroke: $color-tertiary;
+      }
+    }
+
+    .options {
+      visibility: visible;
+    }
+  }
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  margin-right: 8px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  margin-left: auto;
+  visibility: hidden;
+}
+
+.options-inner {
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-right: -10px;
+
+  &:hover {
+    circle {
+      fill: $color-tertiary;
+    }
+  }
+}
+
+.name {
+  max-width: 140px;
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.templates {
+  position: relative;
+  display: none;
+}
+
+.arrow {
+  transform: rotate(-90deg);
+}
+
+.expanded {
+  .templates {
+    display: block;
+
+    &::after {
+      position: absolute;
+      top: -7px;
+      bottom: 0;
+      left: 19px;
+      width: 1px;
+      content: '';
+      background-color: $color-additional-7;
+    }
+  }
+
+  .arrow {
+    transform: rotate(0deg);
+  }
+}

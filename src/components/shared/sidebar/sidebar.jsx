@@ -1,53 +1,46 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { signOut, useSession } from 'next-auth/client';
 
-import { signOut } from 'next-auth/client';
-import Button from 'components/shared/button/button';
-import DropdownMenu from 'components/shared/dropdown-menu/dropdown-menu';
-import Input from 'components/shared/input';
+import Dropdown from 'components/shared/dropdown';
+
+import Avatar from '../avatar';
+import Button from '../button';
+
 import Menu from './menu/menu';
-
 import styles from './sidebar.module.scss';
+import TemplatesGroups from './templates-groups';
 
 const cx = classNames.bind(styles);
 
-const Sidebar = ({ userName, buttonText }) => {
-  const avatar = userName.slice(0, 1);
-  const [isDropDownUserOpen, setIsDropDownUserOpen] = useState(false);
+const Sidebar = () => {
+  const [session] = useSession();
+  const {
+    user: { name: userName, image: avatar },
+  } = session;
 
-  const handleUserClick = () => {
-    setIsDropDownUserOpen(!isDropDownUserOpen);
-  };
+  const userMenu = (
+    <>
+      <a href="/" onClick={() => signOut()}>
+        Log Out
+      </a>
+    </>
+  );
+
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('user-wrapper')} onClick={handleUserClick}>
-        <div className={cx('user-info')}>
-          <div className={cx('avatar-wrapper')}>
-            <div className={cx('avatar')}>{avatar}</div>
-          </div>
+      <div className={cx('user-wrapper')}>
+        <Dropdown menu={userMenu} className={cx('user-info')}>
+          <Avatar userName={userName} avatar={avatar} className={cx('avatar')} />
           <span>{userName}</span>
-
-          <DropdownMenu className={cx('user-info-dropdown')} isOpen={isDropDownUserOpen}>
-            <button onClick={signOut}>Log out</button>
-          </DropdownMenu>
-        </div>
-        <Button theme="tertiary">{buttonText}</Button>
+        </Dropdown>
+        <Button to="/create-template" theme="primary">
+          Create Template
+        </Button>
       </div>
       <Menu />
-      <div className={cx('templates')}>
-        <h3>Templates groups</h3>
-        <Button type="plus" />
-      </div>
+      <TemplatesGroups />
     </div>
   );
-};
-
-Sidebar.propTypes = {};
-
-Sidebar.defaultProps = {
-  userName: 'Alex Barashkov',
-  buttonText: 'Create template',
 };
 
 export default Sidebar;
