@@ -1,23 +1,22 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import styles from './input.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Input = React.forwardRef((props, ref) => {
-  const { className: additionalClassName, label, type, errors, ...otherProps } = props;
+const Input = (props) => {
+  const { className: additionalClassName, register, label, type, errors, ...otherProps } = props;
   return (
     <label className={cx('group', additionalClassName)}>
       <div className={cx('label')}>{label}</div>
       <div>
-        <input className={cx('input')} type={type} ref={ref} {...otherProps} />
+        <input className={cx('input')} type={type} ref={register()} {...otherProps} />
         {errors && <div className={cx('error')}>{errors.message}</div>}
       </div>
     </label>
   );
-});
+};
 
 Input.defaultProps = {
   type: 'text',

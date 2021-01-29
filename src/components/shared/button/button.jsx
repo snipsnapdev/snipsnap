@@ -65,7 +65,7 @@ const Button = (props) => {
 Button.propTypes = {
   className: PropTypes.string,
   to: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.node,
   theme: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
   size: PropTypes.oneOf(['md', 'lg']),
   loading: PropTypes.bool,
