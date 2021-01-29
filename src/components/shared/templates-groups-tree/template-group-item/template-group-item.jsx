@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
+import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
+import RenameGroupModal from 'components/shared/rename-group-modal';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
 import GroupSvg from 'icons/group.inline.svg';
@@ -14,10 +16,14 @@ const cx = classNames.bind(styles);
 
 const TemplateGroupItem = ({ name, groupId, templates }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
+
   const groupMenu = (
     <>
-      <a href="#">Edit</a>
-      <a href="#">Delete</a>
+      <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
+      <div onClick={() => setIsDeleteModalOpen(true)}>Delete</div>
     </>
   );
 
@@ -50,6 +56,22 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
             <TemplateItem key={template.id} name={template.name} templateId={template.id} />
           ))}
       </div>
+      {isDeleteModalOpen && (
+        <DeleteGroupModal
+          id={groupId}
+          name={name}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        />
+      )}
+      {isRenameModalOpen && (
+        <RenameGroupModal
+          id={groupId}
+          name={name}
+          isOpen={isRenameModalOpen}
+          onClose={() => setIsRenameModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
