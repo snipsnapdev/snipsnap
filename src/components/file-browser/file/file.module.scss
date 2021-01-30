@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  line-height: $line-height-sm;
+  color: $color-tertiary;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &::before {
+    position: absolute;
+    top: 12px;
+    left: 8px;
+    width: 5px;
+    height: 5px;
+    content: '';
+    background-color: #454754;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background-color: $color-additional-1;
+    border-radius: 3px;
+
+    &::before {
+      background-color: $color-tertiary;
+    }
+
+    & .button-delete {
+      visibility: visible;
+    }
+  }
+}
+
+.button-delete {
+  @include reset-button;
+
+  display: flex;
+  align-items: center;
+  height: 8px;
+  visibility: hidden;
+
+  svg {
+    path {
+      stroke: $color-additional-3;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-tertiary;
+      }
+    }
+  }
+}
