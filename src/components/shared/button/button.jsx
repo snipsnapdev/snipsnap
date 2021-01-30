@@ -80,6 +80,7 @@ Button.defaultProps = {
   loading: false,
   disabled: false,
   icon: null,
+  type: 'button',
 };
 
 export default Button;

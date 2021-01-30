@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import FileBrowser from 'components/file-browser';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 
@@ -44,7 +45,15 @@ const CreateTemplate = (props) => {
           <div className={cx('main')}>
             <Input label="Template name" name="name" register={register} errors={errors.name} />
           </div>
-          <Prompts control={control} register={register} errors={errors} />
+          <div className={cx('prompts-wrapper')}>
+            <Prompts control={control} register={register} errors={errors} />
+          </div>
+          <div className={cx('file-browser-wrapper')}>
+            <div className={cx('file-browser-head')}>
+              <h2 className={cx('file-browser-title')}>Files</h2>
+            </div>
+            <FileBrowser />
+          </div>
           <Button className={cx('create')} type="submit">
             Create
           </Button>
