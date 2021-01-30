@@ -72,7 +72,7 @@ const TemplatesGroups = () => {
               onRequestClose={() => setIsModalOpen(false)}
             >
               <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Name" name="name" register={register} errors={errors.name} />
+                <Input label="Name" name="name" ref={register} errors={errors.name} />
                 <Button className={cx('add-group-button')} type="submit" loading={loading}>
                   Add group
                 </Button>

@@ -1,3 +1,80 @@
-.content {
-  margin-top: 15px;
+.head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.button-disclosure {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0 !important;
+  margin-left: 10px;
+  background-color: $color-primary;
+  border-radius: 3px;
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  svg {
+    transition: $transition-base;
+  }
+
+  &.active {
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.tooltip {
+  margin-left: auto;
+}
+
+.items-wrapper {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.item {
+  position: relative;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid $color-quaternary;
+  border-radius: 5px;
+
+  &-input {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &-button-remove {
+    position: absolute;
+    top: -10px;
+    right: -35px;
+    padding: 10px;
+    cursor: pointer;
+
+    svg {
+      path {
+        stroke: $color-additional-3;
+      }
+    }
+
+    &:hover {
+      svg {
+        path {
+          stroke: $color-tertiary;
+        }
+      }
+    }
+  }
 }
