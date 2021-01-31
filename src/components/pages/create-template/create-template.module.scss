@@ -22,3 +22,11 @@
 .prompts-wrapper {
   margin-bottom: 30px;
 }
+
+.wrapper {
+  display: flex;
+}
+
+.right-column {
+  flex-grow: 1;
+}

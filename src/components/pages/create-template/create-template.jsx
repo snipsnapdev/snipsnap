@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -9,6 +10,8 @@ import Input from 'components/shared/input';
 
 import styles from './create-template.module.scss';
 import Prompts from './prompts';
+
+const Editor = dynamic(import('components/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
 
@@ -38,7 +41,7 @@ const CreateTemplate = (props) => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <div>
+    <div className={cx('wrapper')}>
       <div className={cx('left-column')}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1 className={cx('title')}>Create template</h1>
@@ -58,6 +61,9 @@ const CreateTemplate = (props) => {
             Create
           </Button>
         </form>
+      </div>
+      <div className={cx('right-column')}>
+        <Editor />
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 78px;
+  padding-right: 40px;
+
+  :global {
+    .ace-tm .ace_gutter {
+      background: $color-primary;
+    }
+
+    .ace_editor {
+      background-color: $color-primary;
+    }
+
+    .ace_gutter-cell {
+      color: $color-additional-3;
+    }
+  }
+}
+
+.file-path {
+  margin-bottom: 5px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  color: $color-additional-3;
+}
