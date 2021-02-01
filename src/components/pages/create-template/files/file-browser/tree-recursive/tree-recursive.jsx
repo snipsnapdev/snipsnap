@@ -9,7 +9,7 @@ const TreeRecursive = ({
   data,
   parentDragOverHandler,
   parentDragLeaveHandler,
-  dropHandler,
+  onDropFile,
   parentId,
   onItemDelete,
   onOpenFile,
@@ -28,7 +28,7 @@ const TreeRecursive = ({
             level={level}
             onDragOver={parentDragOverHandler}
             onDragLeave={parentDragLeaveHandler}
-            onDrop={(evt) => dropHandler(parentId, evt)}
+            onDrop={(evt) => onDropFile(parentId, evt)}
             onDelete={onItemDelete}
             onOpen={onOpenFile}
           />
@@ -38,9 +38,9 @@ const TreeRecursive = ({
         <Folder
           key={`browser-${item.id}`}
           folder={item}
-          handleDrop={dropHandler}
           level={level}
           onDelete={onItemDelete}
+          onDropFile={onDropFile}
           onAddFile={onAddFile}
           onAddFolder={onAddFolder}
           onOpenFile={onOpenFile}

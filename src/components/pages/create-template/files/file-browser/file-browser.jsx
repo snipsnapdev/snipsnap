@@ -46,11 +46,8 @@ const FileBrowser = () => {
             reader.onload = () => {
               const fileContent = reader.result;
               const newFile = {
-                type: 'file',
-                data: {
-                  name: file.name,
-                  content: fileContent,
-                },
+                name: file.name,
+                content: fileContent,
               };
               resolve(newFile);
             };
@@ -67,11 +64,8 @@ const FileBrowser = () => {
           reader.onload = () => {
             const fileContent = reader.result;
             const newFile = {
-              type: 'file',
-              data: {
-                name: file.name,
-                content: fileContent,
-              },
+              name: file.name,
+              content: fileContent,
             };
             resolve(newFile);
           };
@@ -79,6 +73,12 @@ const FileBrowser = () => {
         });
       }
     }
+  };
+
+  const handleDropFile = async (folderId, evt) => {
+    const newFile = await handleFileDrop(evt);
+
+    store.addFile(newFile, folderId);
   };
 
   const handleAddFile = (fileName, parentFolderId) => {
@@ -114,7 +114,7 @@ const FileBrowser = () => {
     const treeElem = treeRef.current;
 
     const dropHandler = (evt) => {
-      handleAddFile(null, evt);
+      handleDropFile(null, evt);
       setIsDragOver(false);
     };
 
@@ -138,11 +138,11 @@ const FileBrowser = () => {
         data={files}
         parentDragOverHandler={handleDragOver}
         parentDragLeaveHandler={handleDragLeave}
-        dropHandler={handleAddFile}
         parentId={null}
         level={0}
         onAddFile={handleAddFile}
         onAddFolder={handleAddFolder}
+        onDropFile={handleDropFile}
         onRenameFolder={handleRenameFolder}
         onItemDelete={handleDeleteFile}
         onOpenFile={(file) => store.openFile(file.id)}

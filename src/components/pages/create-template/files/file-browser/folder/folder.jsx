@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 
 const Folder = ({
   folder,
-  handleDrop,
+  onDropFile,
   onDelete,
   onOpenFile,
   onAddFile,
@@ -42,7 +42,7 @@ const Folder = ({
   const handleFileDrop = useCallback((evt) => {
     evt.preventDefault();
     console.log('file drop to', folder.id);
-    handleDrop(folder.id, evt);
+    onDropFile(folder.id, evt);
     setIsDragOver(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -142,10 +142,10 @@ const Folder = ({
             data={folder.data.files}
             parentDragOverHandler={handleDragOver}
             parentDragLeaveHandler={handleDragLeave}
-            dropHandler={handleDrop}
             parentId={folder.id}
             level={level + 1}
             onItemDelete={onDelete}
+            onDropFile={onDropFile}
             onAddFile={onAddFile}
             onAddFolder={onAddFolder}
             onOpenFile={onOpenFile}
