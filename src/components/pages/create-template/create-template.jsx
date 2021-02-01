@@ -40,7 +40,10 @@ const CreateTemplate = (props) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = ({ name, prompts }) => {
+    const filesForApi = templateStore.formatFilesDataForApi();
+    console.log('Save template', name, prompts, filesForApi);
+  };
 
   const templateStore = React.useMemo(() => new TemplateStore(), []);
 

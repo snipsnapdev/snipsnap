@@ -20,7 +20,6 @@ import { useTemplateStore } from 'stores/template-store';
 import styles from './editor.module.scss';
 import LANGUAGE_MAPPING from './extension-language-mapping';
 
-
 const cx = classNames.bind(styles);
 
 const DEFAULT_LANGUAGE = 'JavaScript';
@@ -54,8 +53,8 @@ const Editor = () => {
 
   const languageOptions = (
     <>
-      {LANGUAGES.map((item) => (
-        <div key={item} onClick={() => setLanguage(item)}>
+      {LANGUAGES.map((item, i) => (
+        <div key={`${item}-${i}`} onClick={() => setLanguage(item)}>
           {item}
         </div>
       ))}

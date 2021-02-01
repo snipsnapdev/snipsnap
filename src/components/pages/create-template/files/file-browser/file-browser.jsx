@@ -12,8 +12,6 @@ const FileBrowser = () => {
   const store = useTemplateStore();
   const files = store.getFiles();
 
-  console.log('RENDER: File browse', files);
-
   const treeRef = React.useRef();
   const [isDragOver, setIsDragOver] = React.useState(false);
 
