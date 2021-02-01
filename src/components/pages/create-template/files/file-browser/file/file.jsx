@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef } from 'react';
 
 import CloseSvg from 'icons/close.inline.svg';
+import { useTemplateStore } from 'stores/template-store';
+
 
 import styles from './file.module.scss';
 
@@ -9,6 +11,7 @@ const cx = classNames.bind(styles);
 
 const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
   const fileRef = useRef();
+  const store = useTemplateStore();
 
   useEffect(() => {
     const fileElem = fileRef.current;
@@ -34,7 +37,7 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
   return (
     <div
       ref={fileRef}
-      className={styles.wrapper}
+      className={cx('wrapper', file.id === store.getOpenFile().id && 'wrapper-selected')}
       style={{ paddingLeft: 20 + 25 * level }}
       onClick={handleClick}
     >

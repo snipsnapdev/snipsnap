@@ -13,7 +13,6 @@ const FileBrowser = () => {
   const files = store.getFiles();
 
   console.log('RENDER: File browse', files);
-  const dataRef = React.useRef([]);
 
   const treeRef = React.useRef();
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -88,10 +87,6 @@ const FileBrowser = () => {
       content: '',
     };
     store.addFile(fileData, parentFolderId);
-  };
-
-  const handleUploadFile = async (folderId, evt) => {
-    // TODO
   };
 
   const handleAddFolder = (folderName, parentFolderId) => {

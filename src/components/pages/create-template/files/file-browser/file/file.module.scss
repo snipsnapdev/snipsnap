@@ -25,6 +25,18 @@
       visibility: visible;
     }
   }
+
+  &-selected {
+    color: $color-accent-primary;
+
+    & .file-icon {
+      background-color: $color-accent-primary;
+    }
+
+    &:hover .file-icon {
+      background-color: $color-accent-primary;
+    }
+  }
 }
 
 .file-icon {
