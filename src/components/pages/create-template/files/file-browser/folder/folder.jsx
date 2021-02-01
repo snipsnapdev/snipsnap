@@ -3,6 +3,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 import AddFileModal from 'components/pages/create-template/files/file-browser/add-file-modal';
 import AddFolderModal from 'components/pages/create-template/files/file-browser/add-folder-modal';
+import DeleteFolderModal from 'components/pages/create-template/files/file-browser/delete-folder-modal';
+import RenameFolderModal from 'components/pages/create-template/files/file-browser/rename-folder-modal';
 import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
 import Dropdown from 'components/shared/dropdown';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
@@ -56,15 +58,21 @@ const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFold
     };
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
 
+  const onRename = (newName) => {
+    // TODO
+  };
+
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
   const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
+  const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
+  const [isDeleteFolderModalOpen, setIsDeleteFolderModalOpen] = useState(false);
 
   const folderMenu = (
     <>
       <div onClick={() => setIsAddFileModalOpen(true)}>Add file</div>
       <div onClick={() => setIsAddFolderModalOpen(true)}>Add folder</div>
-      <div onClick={handleRenameFolder}>Rename</div>
-      <div onClick={handleDelete}>Delete</div>
+      <div onClick={() => setIsRenameFolderModalOpen(true)}>Rename</div>
+      <div onClick={() => setIsDeleteFolderModalOpen(true)}>Delete</div>
     </>
   );
 
@@ -108,6 +116,22 @@ const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFold
           isOpen={isAddFolderModalOpen}
           onClose={() => setIsAddFolderModalOpen(false)}
           onSave={(folderName) => onAddFolder(folderName, folder.id)}
+        />
+      )}
+      {isRenameFolderModalOpen && (
+        <RenameFolderModal
+          name={folder.data.name}
+          isOpen={isRenameFolderModalOpen}
+          onClose={() => setIsRenameFolderModalOpen(false)}
+          onSave={(newName) => onRename(folder.id, newName)}
+        />
+      )}
+      {isDeleteFolderModalOpen && (
+        <DeleteFolderModal
+          name={folder.data.name}
+          isOpen={isDeleteFolderModalOpen}
+          onClose={() => setIsDeleteFolderModalOpen(false)}
+          onSave={() => onDelete(folder.id)}
         />
       )}
       <div className={cx('collapsible', !isOpen && 'collapsible-hidden')}>
