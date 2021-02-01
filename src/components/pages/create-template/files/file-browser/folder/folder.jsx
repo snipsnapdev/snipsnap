@@ -13,14 +13,12 @@ import styles from './folder.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Folder = ({ folder, handleDrop, onDelete, onAddFile, level }) => {
+const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFolder, level }) => {
   const folderRef = useRef();
   const [isOpen, setIsOpen] = useState(true);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDelete = () => onDelete(folder.id);
-  const handleAddFile = () => {};
-  const handleAddFolder = () => {};
 
   const handleRenameFolder = () => {};
 
@@ -64,7 +62,7 @@ const Folder = ({ folder, handleDrop, onDelete, onAddFile, level }) => {
   const folderMenu = (
     <>
       <div onClick={() => setIsAddFileModalOpen(true)}>Add file</div>
-      <div onClick={handleAddFolder}>Add folder</div>
+      <div onClick={() => setIsAddFolderModalOpen(true)}>Add folder</div>
       <div onClick={handleRenameFolder}>Rename</div>
       <div onClick={handleDelete}>Delete</div>
     </>
@@ -105,6 +103,13 @@ const Folder = ({ folder, handleDrop, onDelete, onAddFile, level }) => {
           onSave={(fileName) => onAddFile(fileName, folder.id)}
         />
       )}
+      {isAddFolderModalOpen && (
+        <AddFolderModal
+          isOpen={isAddFolderModalOpen}
+          onClose={() => setIsAddFolderModalOpen(false)}
+          onSave={(folderName) => onAddFolder(folderName, folder.id)}
+        />
+      )}
       <div className={cx('collapsible', !isOpen && 'collapsible-hidden')}>
         {/* Call the <TreeRecursive /> component with the current item.childrens */}
         {folder.data.files && folder.data.files.length > 0 && (
@@ -116,6 +121,9 @@ const Folder = ({ folder, handleDrop, onDelete, onAddFile, level }) => {
             parentId={folder.id}
             level={level + 1}
             onItemDelete={onDelete}
+            onAddFile={onAddFile}
+            onAddFolder={onAddFolder}
+            onOpenFile={onOpenFile}
           />
         )}
       </div>

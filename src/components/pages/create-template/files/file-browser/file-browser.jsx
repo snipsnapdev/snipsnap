@@ -81,17 +81,25 @@ const FileBrowser = () => {
     }
   };
 
-  const handleAddFile = (fileName, folderId) => {
+  const handleAddFile = (fileName, parentFolderId) => {
     const fileData = {
       name: fileName,
       language: 'javascript',
       content: '',
     };
-    store.addFile(fileData, folderId);
+    store.addFile(fileData, parentFolderId);
   };
 
   const handleUploadFile = async (folderId, evt) => {
     // TODO
+  };
+
+  const handleAddFolder = (folderName, parentFolderId) => {
+    const folderData = {
+      name: folderName,
+      files: [],
+    };
+    store.addFolder(folderData, parentFolderId);
   };
 
   const handleDeleteFile = (fileId) => {
@@ -130,6 +138,7 @@ const FileBrowser = () => {
         parentId={null}
         level={0}
         onAddFile={handleAddFile}
+        onAddFolder={handleAddFolder}
         onItemDelete={handleDeleteFile}
         onOpenFile={(file) => store.openFile(file.id)}
       />

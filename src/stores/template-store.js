@@ -85,7 +85,7 @@ export default class TemplateStore {
     return this.data.files;
   }
 
-  addFile(data, folderId = null) {
+  addFile(data, parentFolderId = null) {
     console.log('TemplateStore.addFile', data);
     const file = {
       type: 'file',
@@ -94,12 +94,12 @@ export default class TemplateStore {
     };
 
     // no parent folder - add to root
-    if (!folderId) {
+    if (!parentFolderId) {
       this.data.files.push(file);
       sortFiles(this.data.files);
     } else {
       const newData = cloneDeep(this.data.files);
-      const folderPath = findFolderPathByKey(newData, folderId);
+      const folderPath = findFolderPathByKey(newData, parentFolderId);
       const lastFolder = folderPath[folderPath.length - 1];
       lastFolder.data.files.push(file);
       sortFiles(lastFolder.data.files);
@@ -110,15 +110,27 @@ export default class TemplateStore {
     return file;
   }
 
-  addFolder(data) {
+  addFolder(data, parentFolderId = null) {
     console.log('TemplateStore.addFolder', data);
     const folder = {
       type: 'folder',
       id: uuid(),
       data,
     };
-    this.data.files.push(folder);
-    sortFiles(this.data.files);
+
+    // no parent folder - add to root
+    if (!parentFolderId) {
+      this.data.files.push(folder);
+      sortFiles(this.data.files);
+    } else {
+      const newData = cloneDeep(this.data.files);
+      const folderPath = findFolderPathByKey(newData, parentFolderId);
+      const lastFolder = folderPath[folderPath.length - 1];
+      lastFolder.data.files.push(folder);
+      sortFiles(lastFolder.data.files);
+      this.data.files = newData;
+    }
+
     this.notifyUpdateListeners();
     return folder;
   }
