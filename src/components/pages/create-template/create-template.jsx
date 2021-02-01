@@ -48,17 +48,22 @@ const CreateTemplate = (props) => {
   const templateStore = React.useMemo(() => new TemplateStore(), []);
 
   // add mock data for testing
-  React.useEffect(() => {
-    const file1 = templateStore.addFile({ name: 'foo.js', content: 'const a = 10;' });
-    templateStore.addFile({ name: 'bar.ts', content: 'let a: number = 5;' });
-    const folder1 = templateStore.addFolder({ name: 'folder', files: [] });
-    templateStore.addFile({ name: 'test.css', content: '.text {color: red;}' }, folder1.id);
-    templateStore.addFile(
-      { name: 'test.html', content: '<h1 class="title">Test</h1>' },
-      folder1.id
-    );
-    templateStore.openFile(file1.id);
-  }, [templateStore]);
+  // React.useEffect(() => {
+  //   const file1 = templateStore.addFile({ name: 'foo.js', content: 'const a = 10;' });
+  //   templateStore.addFile({ name: 'bar.ts', content: 'let a: number = 5;' });
+  //   const folder1 = templateStore.addFolder({ name: 'folder', files: [] });
+  //   templateStore.addFile({ name: 'test.css', content: '.text {color: red;}' }, folder1.id);
+  //   templateStore.addFile(
+  //     { name: 'test.html', content: '<h1 class="title">Test</h1>' },
+  //     folder1.id
+  //   );
+  //   const folder2 = templateStore.addFolder({ name: 'inside', files: [] }, folder1.id);
+  //   templateStore.addFile(
+  //     { name: 'test.html', content: '<h1 class="title">Test</h1>' },
+  //     folder2.id
+  //   );
+  //   templateStore.openFile(file1.id);
+  // }, [templateStore]);
 
   return (
     <TemplateStoreContext.Provider value={templateStore}>

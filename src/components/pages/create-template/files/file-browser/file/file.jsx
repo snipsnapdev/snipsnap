@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import CloseSvg from 'icons/close.inline.svg';
 import { useTemplateStore } from 'stores/template-store';
 
-
 import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
@@ -37,7 +36,10 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
   return (
     <div
       ref={fileRef}
-      className={cx('wrapper', file.id === store.getOpenFile().id && 'wrapper-selected')}
+      className={cx(
+        'wrapper',
+        store.getOpenFile() && file.id === store.getOpenFile().id && 'wrapper-selected'
+      )}
       style={{ paddingLeft: 20 + 25 * level }}
       onClick={handleClick}
     >

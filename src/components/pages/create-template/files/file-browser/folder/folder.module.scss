@@ -63,10 +63,8 @@
 }
 
 .collapsible {
-  overflow: hidden;
-
   &-hidden {
-    height: 0;
+    display: none;
   }
 }
 

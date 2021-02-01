@@ -40,8 +40,9 @@ export default class TemplateStore {
     if (!this.openFileId) {
       return null;
     }
+
     const path = findFolderPathByKey(this.data.files, this.openFileId);
-    return path.map((item) => item.data.name).join('/');
+    return path ? path.map((item) => item.data.name).join('/') : null;
   }
 
   setOpenFileContent(content) {
@@ -136,6 +137,12 @@ export default class TemplateStore {
       parentFolder.data.files = parentFolder.data.files.filter((item) => item.id !== fileId);
       this.data.files = newData;
     }
+
+    if (fileId === this.openFile) {
+      this.openFile = null;
+      this.openFileId = null;
+    }
+
     this.notifyUpdateListeners();
   }
 
@@ -232,13 +239,12 @@ const removeIds = (item) => {
       type: 'file',
       data: item.data,
     };
-  } 
-    return {
-      type: 'folder',
-      data: {
-        ...item.data,
-        files: item.data.files.map(removeIds),
-      },
-    };
-  
+  }
+  return {
+    type: 'folder',
+    data: {
+      ...item.data,
+      files: item.data.files.map(removeIds),
+    },
+  };
 };
