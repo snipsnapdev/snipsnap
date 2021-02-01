@@ -85,8 +85,8 @@ const FileBrowser = () => {
     // TODO
   };
 
-  const handleDeleteFile = async (folderId, evt) => {
-    // TODO
+  const handleDeleteFile = (fileId) => {
+    store.deleteFile(fileId);
   };
 
   React.useEffect(() => {

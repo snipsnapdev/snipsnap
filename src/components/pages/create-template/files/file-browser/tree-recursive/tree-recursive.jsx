@@ -34,7 +34,7 @@ const TreeRecursive = ({
       return (
         <Folder
           key={`browser-${item.id}`}
-          folder={item.data}
+          folder={item}
           handleDrop={dropHandler}
           level={level}
           onDelete={onItemDelete}

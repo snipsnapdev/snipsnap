@@ -168,8 +168,6 @@ const filesData = [
 ];
 
 const Files = () => {
-  // const [files, setFiles] = useState(filesData);
-
   const store = useTemplateStore();
   const files = store.getFiles();
 
@@ -182,15 +180,10 @@ const Files = () => {
   };
 
   const addFolderHandler = (folderName) => {
-    const newFolder = {
-      type: 'folder',
-      data: {
-        name: folderName,
-        files: [],
-      },
-    };
-
-    setFiles([...files, newFolder]);
+    store.addFolder({
+      name: folderName,
+      files: [],
+    });
   };
 
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);

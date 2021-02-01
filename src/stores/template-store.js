@@ -1,5 +1,41 @@
+import { cloneDeep } from 'lodash';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
+
+/** Sort files: folders first, then alphabetically */
+const fileComparator = (file1, file2) => {
+  if (file1.type === 'file' && file2.type === 'folder') {
+    return 1;
+  }
+  if (file1.type === 'folder' && file2.type === 'file') {
+    return -1;
+  }
+  if (file1.data.name > file2.data.name) {
+    return 1;
+  }
+  return -1;
+};
+
+const sortFiles = (files) => {
+  files.sort(fileComparator);
+  files.filter((item) => item.type === 'folder').forEach((item) => sortFiles(item.data.files));
+};
+
+/** Find path to folder with id=folderId */
+const findFolderPathByKey = (data, folderId, path = []) => {
+  for (const item of data) {
+    if (item.id === folderId) {
+      return [...path, item];
+    }
+    if (item.data.files) {
+      const result = findFolderPathByKey(item.data.files, folderId, [...path, item]);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return null;
+};
 
 /** UI state for the currently opened template */
 export default class TemplateStore {
@@ -45,6 +81,10 @@ export default class TemplateStore {
     file.data.content = content;
   }
 
+  getFiles() {
+    return this.data.files;
+  }
+
   addFile(data) {
     console.log('TemplateStore.addFile', data);
     const file = {
@@ -53,12 +93,37 @@ export default class TemplateStore {
       data,
     };
     this.data.files.push(file);
+    sortFiles(this.data.files);
     this.notifyUpdateListeners();
     return file;
   }
 
-  getFiles() {
-    return this.data.files;
+  addFolder(data) {
+    console.log('TemplateStore.addFolder', data);
+    const folder = {
+      type: 'folder',
+      id: uuid(),
+      data,
+    };
+    this.data.files.push(folder);
+    sortFiles(this.data.files);
+    this.notifyUpdateListeners();
+    return folder;
+  }
+
+  deleteFile(fileId) {
+    const newData = cloneDeep(this.data.files);
+    const filePath = findFolderPathByKey(this.data.files, fileId);
+    // if file/folder in root directory
+    if (filePath.length === 1) {
+      this.data.files = newData.filter((item) => item.id !== fileId);
+      // if has parent folder
+    } else {
+      const parentFolder = filePath[filePath.length - 2];
+      parentFolder.data.files = parentFolder.data.files.filter((item) => item.id !== fileId);
+      this.data.files = newData;
+    }
+    this.notifyUpdateListeners();
   }
 
   // Notify update listeneres (e.g. to make React re-render components)
@@ -89,39 +154,4 @@ export const useTemplateStore = () => {
   }, []);
 
   return store;
-};
-
-// Find path to folder with id=folderId
-const findFolderPathByKey = (data, folderId, path = []) => {
-  for (const item of data) {
-    if (item.data.id === folderId) {
-      return [...path, item];
-    }
-    if (item.data.files) {
-      const result = findFolderPathByKey(item.data.files, folderId, [...path, item]);
-      if (result) {
-        return result;
-      }
-    }
-  }
-  return null;
-};
-
-// folders first
-const fileComparator = (file1, file2) => {
-  if (file1.type === 'file' && file2.type === 'folder') {
-    return 1;
-  }
-  if (file1.type === 'folder' && file2.type === 'file') {
-    return -1;
-  }
-  if (file1.data.name > file2.data.name) {
-    return 1;
-  }
-  return -1;
-};
-
-const sortFiles = (files) => {
-  files.sort(fileComparator);
-  files.filter((item) => item.type === 'folder').forEach((item) => sortFiles(item.data.files));
 };

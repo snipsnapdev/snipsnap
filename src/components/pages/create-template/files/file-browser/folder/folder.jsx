@@ -77,7 +77,7 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
               setIsOpen(!isOpen);
             }}
           >
-            <span className={cx('folder-name')}>{folder.name}</span>
+            <span className={cx('folder-name')}>{folder.data.name}</span>
             <ArrowSvg className={cx(isOpen ? 'icon-open' : 'icon-close')} />
           </button>
         </span>
@@ -95,9 +95,9 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
       </div>
       <div className={cx('collapsible', !isOpen && 'collapsible-hidden')}>
         {/* Call the <TreeRecursive /> component with the current item.childrens */}
-        {folder.files && folder.files.length > 0 && (
+        {folder.data.files && folder.data.files.length > 0 && (
           <TreeRecursive
-            data={folder.files}
+            data={folder.data.files}
             parentDragOverHandler={handleDragOver}
             parentDragLeaveHandler={handleDragLeave}
             dropHandler={handleDrop}
