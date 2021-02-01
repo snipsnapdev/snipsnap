@@ -39,10 +39,8 @@ const findFolderPathByKey = (data, folderId, path = []) => {
 
 /** Find file by id */
 const findFileById = (items, fileId) => {
-  console.log('findFileById', items, fileId);
   for (const item of items) {
     if (item.id === fileId) {
-      console.log('FOUND', item);
       return item;
     }
     if (item.data.files) {
@@ -155,8 +153,9 @@ export default class TemplateStore {
   }
 
   deleteFile(fileId) {
+    console.log('TemplateStore.deleteFile', fileId);
     const newData = cloneDeep(this.data.files);
-    const filePath = findFolderPathByKey(this.data.files, fileId);
+    const filePath = findFolderPathByKey(newData, fileId);
     // if file/folder in root directory
     if (filePath.length === 1) {
       this.data.files = newData.filter((item) => item.id !== fileId);

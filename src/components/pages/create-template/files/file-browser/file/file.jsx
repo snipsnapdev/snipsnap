@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import { useEffect, useRef } from 'react';
 
 import CloseSvg from 'icons/close.inline.svg';
 
@@ -8,9 +8,9 @@ import styles from './file.module.scss';
 const cx = classNames.bind(styles);
 
 const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
-  const fileRef = React.useRef();
+  const fileRef = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fileElem = fileRef.current;
     fileElem.addEventListener('dragover', onDragOver);
     fileElem.addEventListener('dragleave', onDragLeave);
@@ -27,6 +27,10 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
     onOpen(file);
   };
 
+  const handleDelete = () => {
+    onDelete(file.id);
+  };
+
   return (
     <div
       ref={fileRef}
@@ -36,7 +40,7 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
     >
       <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
       {file.data.name}
-      <button className={cx('button-delete')} onClick={(evt) => onDelete(file.id, evt)}>
+      <button className={cx('button-delete')} onClick={handleDelete}>
         <CloseSvg className={cx('icon')} />
       </button>
     </div>
