@@ -1,11 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import FileBrowser from 'components/file-browser';
 import Button from 'components/shared/button';
+import Dropdown from 'components/shared/dropdown';
+import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
 
 import styles from './create-template.module.scss';
@@ -40,6 +43,16 @@ const CreateTemplate = (props) => {
 
   const onSubmit = (data) => console.log(data);
 
+  const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
+  const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
+
+  const addMenu = (
+    <>
+      <div onClick={() => setIsAddFileModalOpen(true)}>Add File</div>
+      <div onClick={() => setIsAddFolderModalOpen(true)}>Add Folder</div>
+    </>
+  );
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('left-column')}>
@@ -54,6 +67,16 @@ const CreateTemplate = (props) => {
           <div className={cx('file-browser-wrapper')}>
             <div className={cx('file-browser-head')}>
               <h2 className={cx('file-browser-title')}>Files</h2>
+              <div className={cx('add-options')}>
+                <Dropdown
+                  menu={addMenu}
+                  className={cx('add-options-inner')}
+                  position="top-left"
+                  stopPropagation
+                >
+                  <IconButton icon="plus" className={cx('add-button')} />
+                </Dropdown>
+              </div>
             </div>
             <FileBrowser />
           </div>
