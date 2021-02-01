@@ -2,9 +2,8 @@ import classNames from 'classnames/bind';
 import { cloneDeep } from 'lodash';
 import React from 'react';
 
-import TreeRecursive from 'components/file-browser/tree-recursive';
+import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
 import useForceRender from 'hooks/use-force-render';
-
 
 import styles from './file-browser.module.scss';
 

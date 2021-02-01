@@ -1,7 +1,7 @@
 import React from 'react';
 
-import File from 'components/file-browser/file';
-import Folder from 'components/file-browser/folder';
+import File from 'components/pages/create-template/files/file-browser/file';
+import Folder from 'components/pages/create-template/files/file-browser/folder';
 
 import styles from './tree-recursive.module.scss';
 

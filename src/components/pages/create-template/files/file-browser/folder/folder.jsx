@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 
-import TreeRecursive from 'components/file-browser/tree-recursive';
+import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
 import Dropdown from 'components/shared/dropdown';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';

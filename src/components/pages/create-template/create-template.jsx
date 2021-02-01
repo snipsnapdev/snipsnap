@@ -5,16 +5,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import FileBrowser from 'components/file-browser';
-import AddFileModal from 'components/file-browser/add-file-modal';
-import AddFolderModal from 'components/file-browser/add-folder-modal';
 import Button from 'components/shared/button';
-import Dropdown from 'components/shared/dropdown';
-import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
 
-
 import styles from './create-template.module.scss';
+import Files from './files';
 import Prompts from './prompts';
 
 const Editor = dynamic(import('components/editor'), { ssr: false });
@@ -46,16 +41,6 @@ const CreateTemplate = (props) => {
 
   const onSubmit = (data) => console.log(data);
 
-  const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
-  const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
-
-  const addMenu = (
-    <>
-      <div onClick={() => setIsAddFileModalOpen(true)}>Add File</div>
-      <div onClick={() => setIsAddFolderModalOpen(true)}>Add Folder</div>
-    </>
-  );
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('left-column')}>
@@ -67,33 +52,8 @@ const CreateTemplate = (props) => {
           <div className={cx('prompts-wrapper')}>
             <Prompts control={control} register={register} errors={errors} />
           </div>
-          <div className={cx('file-browser-wrapper')}>
-            <div className={cx('file-browser-head')}>
-              <h2 className={cx('file-browser-title')}>Files</h2>
-              <div className={cx('add-options')}>
-                <Dropdown
-                  menu={addMenu}
-                  className={cx('add-options-inner')}
-                  position="top-left"
-                  stopPropagation
-                >
-                  <IconButton icon="plus" className={cx('add-button')} />
-                </Dropdown>
-              </div>
-              {isAddFileModalOpen && (
-                <AddFileModal
-                  isOpen={isAddFileModalOpen}
-                  onClose={() => setIsAddFileModalOpen(false)}
-                />
-              )}
-              {isAddFolderModalOpen && (
-                <AddFolderModal
-                  isOpen={isAddFolderModalOpen}
-                  onClose={() => setIsAddFolderModalOpen(false)}
-                />
-              )}
-            </div>
-            <FileBrowser />
+          <div className={cx('files-wrapper')}>
+            <Files />
           </div>
           <Button className={cx('create')} type="submit">
             Create
