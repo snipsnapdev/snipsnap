@@ -13,6 +13,7 @@ const TreeRecursive = ({
   parentId,
   onItemDelete,
   onOpenFile,
+  onAddFile,
   level,
 }) => (
   <div className={styles.tree}>
@@ -38,6 +39,7 @@ const TreeRecursive = ({
           handleDrop={dropHandler}
           level={level}
           onDelete={onItemDelete}
+          onAddFile={onAddFile}
         />
       );
     })}

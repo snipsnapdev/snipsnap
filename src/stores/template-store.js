@@ -85,15 +85,27 @@ export default class TemplateStore {
     return this.data.files;
   }
 
-  addFile(data) {
+  addFile(data, folderId = null) {
     console.log('TemplateStore.addFile', data);
     const file = {
       type: 'file',
       id: uuid(),
       data,
     };
-    this.data.files.push(file);
-    sortFiles(this.data.files);
+
+    // no parent folder - add to root
+    if (!folderId) {
+      this.data.files.push(file);
+      sortFiles(this.data.files);
+    } else {
+      const newData = cloneDeep(this.data.files);
+      const folderPath = findFolderPathByKey(newData, folderId);
+      const lastFolder = folderPath[folderPath.length - 1];
+      lastFolder.data.files.push(file);
+      sortFiles(lastFolder.data.files);
+      this.data.files = newData;
+    }
+
     this.notifyUpdateListeners();
     return file;
   }

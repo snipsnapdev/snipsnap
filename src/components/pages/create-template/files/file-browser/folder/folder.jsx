@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
+import AddFileModal from 'components/pages/create-template/files/file-browser/add-file-modal';
+import AddFolderModal from 'components/pages/create-template/files/file-browser/add-folder-modal';
 import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
 import Dropdown from 'components/shared/dropdown';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
@@ -11,10 +13,10 @@ import styles from './folder.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Folder = ({ folder, handleDrop, onDelete, level }) => {
-  const folderRef = React.useRef();
-  const [isOpen, setIsOpen] = React.useState(true);
-  const [isDragOver, setIsDragOver] = React.useState(false);
+const Folder = ({ folder, handleDrop, onDelete, onAddFile, level }) => {
+  const folderRef = useRef();
+  const [isOpen, setIsOpen] = useState(true);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDelete = () => onDelete(folder.id);
   const handleAddFile = () => {};
@@ -22,17 +24,17 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
 
   const handleRenameFolder = () => {};
 
-  const handleDragOver = React.useCallback((evt) => {
+  const handleDragOver = useCallback((evt) => {
     evt.preventDefault();
     evt.stopPropagation();
     setIsDragOver(true);
   }, []);
-  const handleDragLeave = React.useCallback((evt) => {
+  const handleDragLeave = useCallback((evt) => {
     evt.stopPropagation();
     setIsDragOver(false);
   }, []);
 
-  const handleFileDrop = React.useCallback((evt) => {
+  const handleFileDrop = useCallback((evt) => {
     evt.preventDefault();
     console.log('file drop to', folder.id);
     handleDrop(folder.id, evt);
@@ -40,7 +42,7 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const folderElem = folderRef.current;
 
     folderElem.addEventListener('dragover', handleDragOver);
@@ -56,9 +58,12 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
     };
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
 
+  const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
+  const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
+
   const folderMenu = (
     <>
-      <div onClick={handleAddFile}>Add file</div>
+      <div onClick={() => setIsAddFileModalOpen(true)}>Add file</div>
       <div onClick={handleAddFolder}>Add folder</div>
       <div onClick={handleRenameFolder}>Rename</div>
       <div onClick={handleDelete}>Delete</div>
@@ -93,6 +98,13 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
           </Dropdown>
         </div>
       </div>
+      {isAddFileModalOpen && (
+        <AddFileModal
+          isOpen={isAddFileModalOpen}
+          onClose={() => setIsAddFileModalOpen(false)}
+          onSave={(fileName) => onAddFile(fileName, folder.id)}
+        />
+      )}
       <div className={cx('collapsible', !isOpen && 'collapsible-hidden')}>
         {/* Call the <TreeRecursive /> component with the current item.childrens */}
         {folder.data.files && folder.data.files.length > 0 && (

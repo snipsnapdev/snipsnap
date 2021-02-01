@@ -81,7 +81,16 @@ const FileBrowser = () => {
     }
   };
 
-  const handleAddFile = async (folderId, evt) => {
+  const handleAddFile = (fileName, folderId) => {
+    const fileData = {
+      name: fileName,
+      language: 'javascript',
+      content: '',
+    };
+    store.addFile(fileData, folderId);
+  };
+
+  const handleUploadFile = async (folderId, evt) => {
     // TODO
   };
 
@@ -120,6 +129,7 @@ const FileBrowser = () => {
         dropHandler={handleAddFile}
         parentId={null}
         level={0}
+        onAddFile={handleAddFile}
         onItemDelete={handleDeleteFile}
         onOpenFile={(file) => store.openFile(file.id)}
       />
