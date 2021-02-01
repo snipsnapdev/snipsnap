@@ -6,10 +6,13 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import FileBrowser from 'components/file-browser';
+import AddFileModal from 'components/file-browser/add-file-modal';
+import AddFolderModal from 'components/file-browser/add-folder-modal';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
+
 
 import styles from './create-template.module.scss';
 import Prompts from './prompts';
@@ -77,6 +80,18 @@ const CreateTemplate = (props) => {
                   <IconButton icon="plus" className={cx('add-button')} />
                 </Dropdown>
               </div>
+              {isAddFileModalOpen && (
+                <AddFileModal
+                  isOpen={isAddFileModalOpen}
+                  onClose={() => setIsAddFileModalOpen(false)}
+                />
+              )}
+              {isAddFolderModalOpen && (
+                <AddFolderModal
+                  isOpen={isAddFolderModalOpen}
+                  onClose={() => setIsAddFolderModalOpen(false)}
+                />
+              )}
             </div>
             <FileBrowser />
           </div>
