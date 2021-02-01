@@ -42,7 +42,7 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
-  position: PropTypes.oneOf(['top-left', 'top-right']),
+  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right']),
 };
 
 Dropdown.defaultProps = {

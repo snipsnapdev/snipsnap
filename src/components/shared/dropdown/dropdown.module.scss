@@ -18,6 +18,11 @@
   right: 0;
 }
 
+.position-bottom-right {
+  right: 0;
+  bottom: 100%;
+}
+
 .opened {
   .menu {
     display: block;
