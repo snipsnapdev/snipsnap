@@ -102,6 +102,10 @@ const FileBrowser = () => {
     store.addFolder(folderData, parentFolderId);
   };
 
+  const handleRenameFolder = (newFolderName, folderId) => {
+    store.renameFolder(newFolderName, folderId);
+  };
+
   const handleDeleteFile = (fileId) => {
     store.deleteFile(fileId);
   };
@@ -139,6 +143,7 @@ const FileBrowser = () => {
         level={0}
         onAddFile={handleAddFile}
         onAddFolder={handleAddFolder}
+        onRenameFolder={handleRenameFolder}
         onItemDelete={handleDeleteFile}
         onOpenFile={(file) => store.openFile(file.id)}
       />

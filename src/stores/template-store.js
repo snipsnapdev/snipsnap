@@ -152,6 +152,26 @@ export default class TemplateStore {
     return folder;
   }
 
+  renameFolder(newName, folderId) {
+    console.log('TemplateStore.renameFolder', newName);
+    const newData = cloneDeep(this.data.files);
+    const filePath = findFolderPathByKey(newData, folderId);
+    // if file/folder in root directory
+    if (filePath.length === 1) {
+      this.data.files = newData.map((item) =>
+        item.id === folderId ? { ...item, data: { ...item.data, name: newName } } : item
+      );
+      // if has parent folder
+    } else {
+      const parentFolder = filePath[filePath.length - 2];
+      parentFolder.data.files = parentFolder.data.files.map((item) =>
+        item.id === folderId ? { ...item, data: { ...item.data, name: newName } } : item
+      );
+      this.data.files = newData;
+    }
+    this.notifyUpdateListeners();
+  }
+
   deleteFile(fileId) {
     console.log('TemplateStore.deleteFile', fileId);
     const newData = cloneDeep(this.data.files);

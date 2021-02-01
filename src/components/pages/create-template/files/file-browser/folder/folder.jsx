@@ -15,14 +15,19 @@ import styles from './folder.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFolder, level }) => {
+const Folder = ({
+  folder,
+  handleDrop,
+  onDelete,
+  onOpenFile,
+  onAddFile,
+  onAddFolder,
+  onRenameFolder,
+  level,
+}) => {
   const folderRef = useRef();
   const [isOpen, setIsOpen] = useState(true);
   const [isDragOver, setIsDragOver] = useState(false);
-
-  const handleDelete = () => onDelete(folder.id);
-
-  const handleRenameFolder = () => {};
 
   const handleDragOver = useCallback((evt) => {
     evt.preventDefault();
@@ -57,10 +62,6 @@ const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFold
       folderElem.removeEventListener('drop', handleFileDrop);
     };
   }, [handleDragLeave, handleDragOver, handleFileDrop]);
-
-  const onRename = (newName) => {
-    // TODO
-  };
 
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
   const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
@@ -123,7 +124,7 @@ const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFold
           name={folder.data.name}
           isOpen={isRenameFolderModalOpen}
           onClose={() => setIsRenameFolderModalOpen(false)}
-          onSave={(newName) => onRename(folder.id, newName)}
+          onSave={(newName) => onRenameFolder(newName, folder.id)}
         />
       )}
       {isDeleteFolderModalOpen && (
@@ -148,6 +149,7 @@ const Folder = ({ folder, handleDrop, onDelete, onOpenFile, onAddFile, onAddFold
             onAddFile={onAddFile}
             onAddFolder={onAddFolder}
             onOpenFile={onOpenFile}
+            onRenameFolder={onRenameFolder}
           />
         )}
       </div>
