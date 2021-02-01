@@ -1,19 +1,17 @@
 .folder {
   position: relative;
 
-  &::before {
-    position: absolute;
-    top: 20px;
-    left: 9px;
-    width: 1px;
-    height: calc(100% - 25px);
-    content: '';
-    background-color: #2e3038;
-  }
-
   &-dragover {
     background-color: $color-secondary;
   }
+}
+
+.folder-line {
+  position: absolute;
+  top: 20px;
+  width: 1px;
+  height: calc(100% - 25px);
+  background-color: #2e3038;
 }
 
 .wrapper {
@@ -66,7 +64,6 @@
 }
 
 .collapsible {
-  padding-left: 17px;
   overflow: hidden;
 
   &-hidden {

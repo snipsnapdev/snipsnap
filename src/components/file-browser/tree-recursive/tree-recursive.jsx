@@ -1,6 +1,8 @@
 import React from 'react';
+
 import File from 'components/file-browser/file';
 import Folder from 'components/file-browser/folder';
+
 import styles from './tree-recursive.module.scss';
 
 const TreeRecursive = ({
@@ -10,6 +12,7 @@ const TreeRecursive = ({
   dropHandler,
   parentId,
   onItemDelete,
+  level,
 }) => (
   <div className={styles.tree}>
     {data.map((item) => {
@@ -18,6 +21,7 @@ const TreeRecursive = ({
           <File
             key={`browser-${item.data.id}`}
             file={item.data}
+            level={level}
             onDragOver={parentDragOverHandler}
             onDragLeave={parentDragLeaveHandler}
             onDrop={(evt) => dropHandler(parentId, evt)}
@@ -30,6 +34,7 @@ const TreeRecursive = ({
           key={`browser-${item.data.id}`}
           folder={item.data}
           handleDrop={dropHandler}
+          level={level}
           onDelete={onItemDelete}
         />
       );

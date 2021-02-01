@@ -7,8 +7,10 @@ import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
 
-const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
+const File = ({ file, onDragOver, onDragLeave, onDelete, level }) => {
   const fileRef = React.useRef();
+
+  console.log('FILE', file.name, 'level: ', level);
 
   React.useEffect(() => {
     const fileElem = fileRef.current;
@@ -24,7 +26,8 @@ const File = ({ file, onDragOver, onDragLeave, onDelete }) => {
   }, [onDragLeave, onDragOver]);
 
   return (
-    <div ref={fileRef} className={styles.wrapper}>
+    <div ref={fileRef} className={styles.wrapper} style={{ paddingLeft: 20 + 25 * level }}>
+      <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
       {file.name}
       <button className={cx('button-delete')} onClick={() => onDelete(file.id)}>
         <CloseSvg className={cx('icon')} />

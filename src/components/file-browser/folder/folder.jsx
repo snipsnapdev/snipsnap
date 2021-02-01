@@ -11,10 +11,12 @@ import styles from './folder.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Folder = ({ folder, handleDrop, onDelete }) => {
+const Folder = ({ folder, handleDrop, onDelete, level }) => {
   const folderRef = React.useRef();
   const [isOpen, setIsOpen] = React.useState(true);
   const [isDragOver, setIsDragOver] = React.useState(false);
+
+  console.log('FOLDER', folder.name, 'level: ', level);
 
   const handleDelete = () => onDelete(folder.id);
   const handleAddFile = () => {};
@@ -67,8 +69,9 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
 
   return (
     <div ref={folderRef} className={cx('folder', isDragOver && 'folder-dragover')}>
+      <div className={cx('folder-line')} style={{ left: 19 + 25 * level }} />
       <div className={styles.wrapper}>
-        <span className={cx('folder-title')}>
+        <span className={cx('folder-title')} style={{ marginLeft: 10 + 25 * level }}>
           <FolderSvg className={cx('icon-folder')} />
           <button
             className={cx('button-collapse')}
@@ -100,6 +103,7 @@ const Folder = ({ folder, handleDrop, onDelete }) => {
             parentDragLeaveHandler={handleDragLeave}
             dropHandler={handleDrop}
             parentId={folder.id}
+            level={level + 1}
             onItemDelete={onDelete}
           />
         )}

@@ -1,8 +1,11 @@
-import React from 'react';
-import { cloneDeep } from 'lodash';
-import useForceRender from 'hooks/use-force-render';
-import TreeRecursive from 'components/file-browser/tree-recursive';
 import classNames from 'classnames/bind';
+import { cloneDeep } from 'lodash';
+import React from 'react';
+
+import TreeRecursive from 'components/file-browser/tree-recursive';
+import useForceRender from 'hooks/use-force-render';
+
+
 import styles from './file-browser.module.scss';
 
 const cx = classNames.bind(styles);
@@ -356,6 +359,7 @@ const FileBrowser = () => {
         parentDragLeaveHandler={handleDragLeave}
         dropHandler={handleAddFile}
         parentId={null}
+        level={0}
         onItemDelete={handleDeleteFile}
       />
     </div>
