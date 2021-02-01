@@ -89,6 +89,14 @@ export default class TemplateStore {
     return findFileById(this.data.files, this.openFileId);
   }
 
+  getOpenFilePath() {
+    if (!this.openFileId) {
+      return null;
+    }
+    const path = findFolderPathByKey(this.data.files, this.openFileId);
+    return path.map((item) => item.data.name).join('/');
+  }
+
   setOpenFileContent(content) {
     const file = this.getOpenFile();
     console.log('TemplateStore.setOpenFileContent', content, file);

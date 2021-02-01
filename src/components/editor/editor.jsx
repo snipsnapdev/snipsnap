@@ -46,9 +46,11 @@ const Editor = () => {
   const openFile = store.getOpenFile();
   console.log('Editor', openFile);
 
+  const filePath = store.getOpenFilePath() || 'undefined';
+
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('file-path')}>bullets/hello.js</div>
+      <div className={cx('file-path')}>{filePath}</div>
       <AceEditor
         value={openFile ? openFile.data.content : ''}
         mode={language}
