@@ -74,6 +74,7 @@
 .options {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   height: 12px;
   margin-left: auto;
   visibility: hidden;
@@ -84,11 +85,18 @@
   padding-right: 10px;
   padding-bottom: 7px;
   padding-left: 10px;
-  margin-right: -10px;
 
   &:hover {
     circle {
       fill: $color-tertiary;
     }
   }
+}
+
+.options-icon {
+  width: 12px;
+}
+
+.options-menu {
+  min-width: 100px;
 }

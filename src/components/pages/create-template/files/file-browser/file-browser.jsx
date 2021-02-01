@@ -9,161 +9,6 @@ import styles from './file-browser.module.scss';
 
 const cx = classNames.bind(styles);
 
-const filesData = [
-  {
-    type: 'folder',
-    data: {
-      name: 'yaml',
-      files: [
-        {
-          type: 'file',
-          data: {
-            name: 'yaml.js',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'api.jx',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-      ],
-    },
-  },
-  {
-    type: 'file',
-    data: {
-      name: 'index0.js',
-      language: 'javascript',
-      content: '// TODO',
-    },
-  },
-  {
-    type: 'folder',
-    data: {
-      name: 'component1',
-      files: [
-        {
-          type: 'folder',
-          data: {
-            name: 'yaml',
-            files: [
-              {
-                type: 'file',
-                data: {
-                  name: 'yaml.js',
-                  language: 'javascript',
-                  content: '// TODO',
-                },
-              },
-              {
-                type: 'file',
-                data: {
-                  name: 'api.jx',
-                  language: 'javascript',
-                  content: '// TODO',
-                },
-              },
-            ],
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'component1.module.css',
-            language: 'css',
-            content: '.container {width: 100%;}',
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'component1.jsx',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'index1.js',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-        {
-          type: 'folder',
-          data: {
-            name: 'component11',
-            files: [
-              {
-                type: 'file',
-                data: {
-                  name: 'index11.js',
-                  language: 'javascript',
-                  content: '// TODO',
-                },
-              },
-              {
-                type: 'file',
-                data: {
-                  name: 'component11.module.css',
-                  language: 'css',
-                  content: '.container {width: 100%;}',
-                },
-              },
-              {
-                type: 'file',
-                data: {
-                  name: 'component11.jsx',
-                  language: 'javascript',
-                  content: '// TODO',
-                },
-              },
-            ],
-          },
-        },
-      ],
-    },
-  },
-  {
-    type: 'folder',
-    data: {
-      name: 'component2',
-      files: [
-        {
-          type: 'file',
-          data: {
-            name: 'index2.js',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'component2.module.css',
-            language: 'css',
-            content: '.container {width: 100%;}',
-          },
-        },
-        {
-          type: 'file',
-          data: {
-            name: 'component.jsx',
-            language: 'javascript',
-            content: '// TODO',
-          },
-        },
-      ],
-    },
-  },
-];
-
 let id = 1;
 const addIdsToFiles = (file) => ({
   type: file.type,
@@ -209,7 +54,7 @@ const findFolderPathByKey = (data, folderId, path = []) => {
   return null;
 };
 
-const FileBrowser = () => {
+const FileBrowser = ({ files }) => {
   const dataRef = React.useRef([]);
 
   const forceRender = useForceRender();
@@ -219,7 +64,7 @@ const FileBrowser = () => {
   };
 
   React.useEffect(() => {
-    const filesWithIds = filesData.map(addIdsToFiles);
+    const filesWithIds = files.map(addIdsToFiles);
     sortFiles(filesWithIds);
     setData(filesWithIds);
     // eslint-disable-next-line react-hooks/exhaustive-deps

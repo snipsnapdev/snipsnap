@@ -88,6 +88,7 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
             menu={folderMenu}
             className={cx('options-inner')}
             position="top-right"
+            menuClassName={cx('options-menu')}
             stopPropagation
           >
             <DotsSvg className={cx('options-icon')} />
