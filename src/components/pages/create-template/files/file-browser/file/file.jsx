@@ -36,7 +36,7 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
     >
       <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
       {file.data.name}
-      <button className={cx('button-delete')} onClick={() => onDelete(file.id)}>
+      <button className={cx('button-delete')} onClick={(evt) => onDelete(file.id, evt)}>
         <CloseSvg className={cx('icon')} />
       </button>
     </div>

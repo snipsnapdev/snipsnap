@@ -102,7 +102,8 @@ const FileBrowser = () => {
     store.addFolder(folderData, parentFolderId);
   };
 
-  const handleDeleteFile = (fileId) => {
+  const handleDeleteFile = (fileId, evt) => {
+    evt.stopPropagation();
     store.deleteFile(fileId);
   };
 

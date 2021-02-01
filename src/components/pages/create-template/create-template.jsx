@@ -44,9 +44,12 @@ const CreateTemplate = (props) => {
 
   const templateStore = React.useMemo(() => new TemplateStore(), []);
 
+  // add mock data for testing
   React.useEffect(() => {
     const file1 = templateStore.addFile({ name: 'foo', content: 'const const' });
     templateStore.addFile({ name: 'bar', content: 'var var' });
+    const folder1 = templateStore.addFolder({ name: 'folder', files: [] });
+    templateStore.addFile({ name: 'test.js', content: 'let a = 5;' }, folder1.id);
     templateStore.openFile(file1.id);
   }, [templateStore]);
 

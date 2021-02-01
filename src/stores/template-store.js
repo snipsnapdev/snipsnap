@@ -37,6 +37,24 @@ const findFolderPathByKey = (data, folderId, path = []) => {
   return null;
 };
 
+/** Find file by id */
+const findFileById = (items, fileId) => {
+  console.log('findFileById', items, fileId);
+  for (const item of items) {
+    if (item.id === fileId) {
+      console.log('FOUND', item);
+      return item;
+    }
+    if (item.data.files) {
+      const result = findFileById(item.data.files, fileId);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return null;
+};
+
 /** UI state for the currently opened template */
 export default class TemplateStore {
   constructor() {
@@ -69,7 +87,8 @@ export default class TemplateStore {
     if (!this.openFileId) {
       return null;
     }
-    return this.data.files.find((f) => f.id === this.openFileId);
+    // return this.data.files.find((f) => f.id === this.openFileId);
+    return findFileById(this.data.files, this.openFileId);
   }
 
   setOpenFileContent(content) {
