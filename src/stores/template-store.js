@@ -131,6 +131,7 @@ export default class TemplateStore {
       this.data.files = newData;
     }
 
+    this.openFile(file.id);
     this.notifyUpdateListeners();
     return file;
   }
