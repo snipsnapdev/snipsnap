@@ -20,13 +20,12 @@ const schema = yup.object().shape({
 const cx = classNames.bind(styles);
 
 const AddFolderModal = (props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onSave } = props;
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = ({ name }) => {
-    // TODO: update context (?)
-    clearErrors();
+    onSave(name);
     onClose();
   };
 
@@ -47,11 +46,13 @@ const AddFolderModal = (props) => {
 AddFolderModal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 AddFolderModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
+  onSave: () => {},
 };
 
 export default AddFolderModal;

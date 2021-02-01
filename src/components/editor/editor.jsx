@@ -6,54 +6,59 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-html';
 import 'ace-builds/src-noconflict/mode-css';
-// import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/theme-monokai';
+
+import { useTemplateStore } from 'stores/template-store';
+
 import styles from './editor.module.scss';
 
 const cx = classNames.bind(styles);
 
-const LANGUAGES = ['javascript', 'html', 'css', 'json'];
-
-function onChange(newValue) {
-  console.log('change', newValue);
-}
+// from https://github.com/securingsincity/react-ace/blob/main/example/index.js
+const LANGUAGES = [
+  'javascript',
+  'java',
+  'python',
+  'xml',
+  'ruby',
+  'sass',
+  'markdown',
+  'mysql',
+  'json',
+  'html',
+  'handlebars',
+  'golang',
+  'csharp',
+  'elixir',
+  'typescript',
+  'css',
+];
 
 const Editor = () => {
-  const [code, setCode] = useState('');
+  const store = useTemplateStore();
   const [language, setLanguage] = useState('javascript');
   const [isClient, setIsClient] = useState('false');
+
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const openFile = store.getOpenFile();
+  console.log('Editor', openFile);
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>bullets/hello.js</div>
       <AceEditor
+        value={openFile ? openFile.data.content : ''}
         mode={language}
         theme="monokai"
         name="UNIQUE_ID_OF_DIV"
         editorProps={{ $blockScrolling: true }}
         width="100%"
         height="100%"
-        onChange={onChange}
+        onChange={(value) => store.setOpenFileContent(value)}
       />
-      {/* <div>
-        <button onClick={() => console.log(code)}>Print to console</button>
-      </div> */}
-      {/* <div style={{ display: 'flex', width: '800px', justifyContent: 'space-between' }}>
-        {LANGUAGES.map((lang, index) => (
-          <button
-            type="button"
-            key={`language-${index}`}
-            style={language === lang ? { backgroundColor: 'yellow' } : {}}
-            onClick={() => {
-              setLanguage(lang);
-            }}
-          >
-            {lang}
-          </button>
-        ))}
-      </div> */}
     </div>
   );
 };

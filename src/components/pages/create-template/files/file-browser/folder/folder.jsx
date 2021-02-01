@@ -16,8 +16,6 @@ const Folder = ({ folder, handleDrop, onDelete, level }) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const [isDragOver, setIsDragOver] = React.useState(false);
 
-  console.log('FOLDER', folder.name, 'level: ', level);
-
   const handleDelete = () => onDelete(folder.id);
   const handleAddFile = () => {};
   const handleAddFolder = () => {};

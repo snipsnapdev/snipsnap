@@ -7,10 +7,8 @@ import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
 
-const File = ({ file, onDragOver, onDragLeave, onDelete, level }) => {
+const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
   const fileRef = React.useRef();
-
-  console.log('FILE', file.name, 'level: ', level);
 
   React.useEffect(() => {
     const fileElem = fileRef.current;
@@ -25,10 +23,19 @@ const File = ({ file, onDragOver, onDragLeave, onDelete, level }) => {
     };
   }, [onDragLeave, onDragOver]);
 
+  const handleClick = () => {
+    onOpen(file);
+  };
+
   return (
-    <div ref={fileRef} className={styles.wrapper} style={{ paddingLeft: 20 + 25 * level }}>
+    <div
+      ref={fileRef}
+      className={styles.wrapper}
+      style={{ paddingLeft: 20 + 25 * level }}
+      onClick={handleClick}
+    >
       <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
-      {file.name}
+      {file.data.name}
       <button className={cx('button-delete')} onClick={() => onDelete(file.id)}>
         <CloseSvg className={cx('icon')} />
       </button>

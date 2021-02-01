@@ -1,19 +1,90 @@
 import classNames from 'classnames/bind';
+import { cloneDeep } from 'lodash';
 import React from 'react';
 
 import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
-import { useTemplateStore } from 'stores/template-store';
+import useForceRender from 'hooks/use-force-render';
 
 import styles from './file-browser.module.scss';
 
 const cx = classNames.bind(styles);
 
-const FileBrowser = () => {
-  const store = useTemplateStore();
-  const files = store.getFiles();
+let id = 1;
+const addIdsToFiles = (file) => ({
+  type: file.type,
+  data: {
+    ...file.data,
+    id: id++,
+    ...(file.data.files ? { files: file.data.files.map((ch) => addIdsToFiles(ch)) } : {}),
+  },
+});
 
-  console.log('RENDER: File browse', files);
+// folders first
+const fileComparator = (file1, file2) => {
+  if (file1.type === 'file' && file2.type === 'folder') {
+    return 1;
+  }
+  if (file1.type === 'folder' && file2.type === 'file') {
+    return -1;
+  }
+  if (file1.data.name > file2.data.name) {
+    return 1;
+  }
+  return -1;
+};
+
+const sortFiles = (files) => {
+  files.sort(fileComparator);
+  files.filter((item) => item.type === 'folder').forEach((item) => sortFiles(item.data.files));
+};
+
+// Find path to folder with id=folderId
+const findFolderPathByKey = (data, folderId, path = []) => {
+  for (const item of data) {
+    if (item.data.id === folderId) {
+      return [...path, item];
+    }
+    if (item.data.files) {
+      const result = findFolderPathByKey(item.data.files, folderId, [...path, item]);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return null;
+};
+
+const FileBrowser = ({ files }) => {
+  console.log('File browser RERENDER');
   const dataRef = React.useRef([]);
+
+  const forceRender = useForceRender();
+  const setData = (newData) => {
+    dataRef.current = newData;
+    forceRender();
+  };
+
+  React.useEffect(() => {
+    const filesWithIds = files.map(addIdsToFiles);
+    sortFiles(filesWithIds);
+    setData(filesWithIds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDeleteFile = (fileId) => {
+    const data = dataRef.current;
+    const newData = cloneDeep(data);
+    const filePath = findFolderPathByKey(newData, fileId);
+    // if file/folder in root directory
+    if (filePath.length === 1) {
+      setData(newData.filter((item) => item.data.id !== fileId));
+      // if has parent folder
+    } else {
+      const parentFolder = filePath[filePath.length - 2];
+      parentFolder.data.files = parentFolder.data.files.filter((item) => item.data.id !== fileId);
+      setData(newData);
+    }
+  };
 
   const treeRef = React.useRef();
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -82,11 +153,25 @@ const FileBrowser = () => {
   };
 
   const handleAddFile = async (folderId, evt) => {
-    // TODO
-  };
+    const data = dataRef.current;
 
-  const handleDeleteFile = async (folderId, evt) => {
-    // TODO
+    const newFile = await handleFileDrop(evt);
+
+    if (newFile) {
+      // no parent folder - add to root
+      if (!folderId) {
+        const newData = [...data, newFile];
+        sortFiles(newData);
+        setData(newData);
+      } else {
+        const newData = cloneDeep(data);
+        const folderPath = findFolderPathByKey(newData, folderId);
+        const lastFolder = folderPath[folderPath.length - 1];
+        lastFolder.data.files.push(newFile);
+        sortFiles(lastFolder.data.files);
+        setData(newData);
+      }
+    }
   };
 
   React.useEffect(() => {
@@ -114,14 +199,13 @@ const FileBrowser = () => {
   return (
     <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
       <TreeRecursive
-        data={files}
+        data={dataRef.current}
         parentDragOverHandler={handleDragOver}
         parentDragLeaveHandler={handleDragLeave}
         dropHandler={handleAddFile}
         parentId={null}
         level={0}
         onItemDelete={handleDeleteFile}
-        onOpenFile={(file) => store.openFile(file.id)}
       />
     </div>
   );

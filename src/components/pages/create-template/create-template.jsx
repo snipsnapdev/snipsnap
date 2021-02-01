@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
+import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
 
 import styles from './create-template.module.scss';
 import Files from './files';
@@ -40,29 +42,39 @@ const CreateTemplate = (props) => {
 
   const onSubmit = (data) => console.log(data);
 
+  const templateStore = React.useMemo(() => new TemplateStore(), []);
+
+  React.useEffect(() => {
+    const file1 = templateStore.addFile({ name: 'foo', content: 'const const' });
+    templateStore.addFile({ name: 'bar', content: 'var var' });
+    templateStore.openFile(file1.id);
+  }, [templateStore]);
+
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('left-column')}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1 className={cx('title')}>Create template</h1>
-          <div className={cx('main')}>
-            <Input label="Template name" name="name" register={register} errors={errors.name} />
-          </div>
-          <div className={cx('prompts-wrapper')}>
-            <Prompts control={control} register={register} errors={errors} />
-          </div>
-          <div className={cx('files-wrapper')}>
-            <Files />
-          </div>
-          <Button className={cx('create')} type="submit">
-            Create
-          </Button>
-        </form>
+    <TemplateStoreContext.Provider value={templateStore}>
+      <div className={cx('wrapper')}>
+        <div className={cx('left-column')}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1 className={cx('title')}>Create template</h1>
+            <div className={cx('main')}>
+              <Input label="Template name" name="name" register={register} errors={errors.name} />
+            </div>
+            <div className={cx('prompts-wrapper')}>
+              <Prompts control={control} register={register} errors={errors} />
+            </div>
+            <div className={cx('files-wrapper')}>
+              <Files />
+            </div>
+            <Button className={cx('create')} type="submit">
+              Create
+            </Button>
+          </form>
+        </div>
+        <div className={cx('right-column')}>
+          <Editor />
+        </div>
       </div>
-      <div className={cx('right-column')}>
-        <Editor />
-      </div>
-    </div>
+    </TemplateStoreContext.Provider>
   );
 };
 
