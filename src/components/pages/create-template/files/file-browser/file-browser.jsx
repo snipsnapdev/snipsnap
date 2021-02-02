@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { chain } from 'lodash';
 import React from 'react';
 
 import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
@@ -31,12 +32,18 @@ const FileBrowser = () => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    if (evt.dataTransfer.items) {
-      // Use DataTransferItemList interface to access the file(s) - might contain directories, but doesn't work in IE and Safari
-      for (let i = 0; i < evt.dataTransfer.items.length; i++) {
+    // Primarily trying to use DataTransfer.items if available. If not, then trying to use DataTransfer.files
+    // DataTransfer.items might contain directories and doesn't work in IE and Safari
+    const items = evt.dataTransfer.items || evt.dataTransfer.files;
+
+    if (!items || !items.length) return Promise.reject(new Error('No files are presented'));
+
+    return Promise.all(
+      chain(items)
         // If dropped items aren't files, reject them
-        if (evt.dataTransfer.items[i].kind === 'file') {
-          const file = evt.dataTransfer.items[i].getAsFile();
+        .filter((item) => item.kind === 'file')
+        .map((item) => {
+          const file = item.getAsFile();
 
           return new Promise((resolve) => {
             const reader = new window.FileReader();
@@ -50,32 +57,17 @@ const FileBrowser = () => {
             };
             reader.readAsText(file);
           });
-        }
-      }
-    } else {
-      // Use DataTransfer interface to access the file(s)
-      for (let i = 0; i < evt.dataTransfer.files.length; i++) {
-        const file = evt.dataTransfer.files[i];
-        return new Promise((resolve) => {
-          const reader = new window.FileReader();
-          reader.onload = () => {
-            const fileContent = reader.result;
-            const newFile = {
-              name: file.name,
-              content: fileContent,
-            };
-            resolve(newFile);
-          };
-          reader.readAsText(file);
-        });
-      }
-    }
+        })
+    );
   };
 
   const handleDropFile = async (folderId, evt) => {
-    const newFile = await handleFileDrop(evt);
-
-    store.addFile(newFile, folderId);
+    try {
+      const newFiles = await handleFileDrop(evt);
+      store.addFiles(newFiles, folderId);
+    } catch (error) {
+      console.log('Error while trying to add new files: ', error);
+    }
   };
 
   const handleAddFile = (fileName, parentFolderId) => {

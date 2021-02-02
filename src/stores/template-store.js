@@ -82,6 +82,10 @@ export default class TemplateStore {
     return file;
   }
 
+  addFiles(data, parentFolderId = null) {
+    return data.map((item) => this.addFile(item, parentFolderId));
+  }
+
   addFolder(data, parentFolderId = null) {
     const folder = {
       type: 'folder',
