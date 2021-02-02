@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { chain } from 'lodash';
+import { chain, compact, isEmpty, map } from 'lodash';
 import React from 'react';
 
 import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
@@ -38,33 +38,55 @@ const FileBrowser = () => {
 
     if (!items || !items.length) return Promise.reject(new Error('No files are presented'));
 
-    return Promise.all(
-      chain(items)
-        // If dropped items aren't files, reject them
-        .filter((item) => item.kind === 'file')
-        .map((item) => {
-          const file = item.getAsFile();
-
-          return new Promise((resolve) => {
+    async function handleFiles(item) {
+      if (item.isFile) {
+        return new Promise((resolve, reject) =>
+          item.file((file) => {
             const reader = new window.FileReader();
             reader.onload = () => {
               const fileContent = reader.result;
               const newFile = {
-                name: file.name,
+                name: item.name,
                 content: fileContent,
               };
               resolve(newFile);
             };
             reader.readAsText(file);
-          });
-        })
+          }, reject)
+        );
+      }
+
+      if (item.isDirectory) {
+        const reader = item.createReader();
+        const files = await new Promise((resolve, reject) =>
+          reader.readEntries((items) => resolve(Promise.all(map(items, handleFiles))), reject)
+        );
+
+        return {
+          name: item.name,
+          files,
+        };
+      }
+
+      return null;
+    }
+
+    return Promise.all(
+      chain(items)
+        // If dropped items aren't files, reject them
+        .filter((item) => item.kind === 'file')
+        .map((item) => item.webkitGetAsEntry())
+        .map(handleFiles)
     );
   };
 
   const handleDropFile = async (folderId, evt) => {
     try {
       const newFiles = await handleFileDrop(evt);
-      store.addFiles(newFiles, folderId);
+      // Return if newFiles is not an array or empty array or an array with undefined(s) and null(s)
+      if (!Array.isArray(newFiles) || isEmpty(compact(newFiles))) return;
+      store.addFoldersAndFiles(newFiles, folderId);
+      console.log(files);
     } catch (error) {
       console.log('Error while trying to add new files: ', error);
     }

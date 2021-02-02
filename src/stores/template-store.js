@@ -110,6 +110,22 @@ export default class TemplateStore {
     return folder;
   }
 
+  addFolders(data, parentFolderId = null) {
+    return data.map((item) => this.addFolder(item, parentFolderId));
+  }
+
+  addFoldersAndFiles(data, parentFolderId = null) {
+    return data.map((item) => {
+      // If item contains files, then it is a directory
+      if (item.files) {
+        const folder = this.addFolder({ name: item.name, files: [] }, parentFolderId);
+        this.addFoldersAndFiles(item.files, folder.id);
+        return folder;
+      }
+      return this.addFile(item, parentFolderId);
+    });
+  }
+
   renameFolder(newName, folderId) {
     const newData = cloneDeep(this.data.files);
     const filePath = findFolderPathByKey(newData, folderId);
