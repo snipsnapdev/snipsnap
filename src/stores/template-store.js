@@ -2,6 +2,8 @@ import { cloneDeep } from 'lodash';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 
+const systemFileNames = ['.DS_Store'];
+
 /** UI state for the currently opened template */
 export default class TemplateStore {
   constructor() {
@@ -58,6 +60,8 @@ export default class TemplateStore {
   }
 
   addFile(data, parentFolderId = null) {
+    if (systemFileNames.some((systemFileName) => data.name === systemFileName)) return;
+
     const file = {
       type: 'file',
       id: uuid(),
