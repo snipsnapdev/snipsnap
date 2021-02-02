@@ -86,7 +86,6 @@ const FileBrowser = () => {
       // Return if newFiles is not an array or empty array or an array with undefined(s) and null(s)
       if (!Array.isArray(newFiles) || isEmpty(compact(newFiles))) return;
       store.addFoldersAndFiles(newFiles, folderId);
-      console.log(files);
     } catch (error) {
       console.log('Error while trying to add new files: ', error);
     }
