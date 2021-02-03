@@ -15,6 +15,7 @@ const Dropdown = ({
   className: additionalClassName,
   position,
   stopPropagation,
+  menuClassName,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
 
@@ -35,13 +36,13 @@ const Dropdown = ({
       onClick={toggle}
     >
       {children}
-      <Menu className={cx('menu', `position-${position}`)}>{menu}</Menu>
+      <Menu className={cx('menu', `position-${position}`, menuClassName)}>{menu}</Menu>
     </div>
   );
 };
 
 Dropdown.propTypes = {
-  position: PropTypes.oneOf(['top-left', 'top-right']),
+  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right']),
 };
 
 Dropdown.defaultProps = {

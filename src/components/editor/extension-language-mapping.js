@@ -1,0 +1,15 @@
+export default {
+  js: 'JavaScript',
+  jsx: 'JavaScript',
+  ts: 'TypeScript',
+  tsx: 'TypeScript',
+  css: 'CSS',
+  sass: 'Sass',
+  scss: 'Scss',
+  less: 'LESS',
+  html: 'HTML',
+  yaml: 'YAML',
+  json: 'JSON',
+  py: 'Python',
+  java: 'JAVA',
+};

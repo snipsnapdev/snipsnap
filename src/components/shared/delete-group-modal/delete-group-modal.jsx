@@ -43,10 +43,6 @@ const DeleteGroupModal = (props) => {
     onClose();
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <ModalPortal>
       <Modal

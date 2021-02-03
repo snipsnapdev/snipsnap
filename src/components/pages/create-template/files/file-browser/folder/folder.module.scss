@@ -1,19 +1,17 @@
 .folder {
   position: relative;
 
-  &::before {
-    position: absolute;
-    top: 20px;
-    left: 9px;
-    width: 1px;
-    height: calc(100% - 25px);
-    content: '';
-    background-color: #2e3038;
-  }
-
   &-dragover {
     background-color: $color-secondary;
   }
+}
+
+.folder-line {
+  position: absolute;
+  top: 20px;
+  width: 1px;
+  height: calc(100% - 25px);
+  background-color: #2e3038;
 }
 
 .wrapper {
@@ -21,7 +19,6 @@
   justify-content: space-between;
   padding-top: 5px;
   padding-bottom: 5px;
-  cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
@@ -66,17 +63,15 @@
 }
 
 .collapsible {
-  padding-left: 17px;
-  overflow: hidden;
-
   &-hidden {
-    height: 0;
+    display: none;
   }
 }
 
 .options {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   height: 12px;
   margin-left: auto;
   visibility: hidden;
@@ -87,11 +82,18 @@
   padding-right: 10px;
   padding-bottom: 7px;
   padding-left: 10px;
-  margin-right: -10px;
 
   &:hover {
     circle {
       fill: $color-tertiary;
     }
   }
+}
+
+.options-icon {
+  width: 12px;
+}
+
+.options-menu {
+  min-width: 100px;
 }

@@ -42,10 +42,6 @@ const DeleteTemplateModal = (props) => {
     onClose();
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <ModalPortal>
       <Modal

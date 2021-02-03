@@ -26,3 +26,23 @@
   line-height: $line-height-sm;
   color: $color-additional-3;
 }
+
+.select {
+  align-self: flex-end;
+  min-width: 190px;
+  margin-top: 30px;
+}
+
+.select-current {
+  padding-top: 9px;
+  padding-right: 15px;
+  padding-bottom: 9px;
+  padding-left: 15px;
+  cursor: pointer;
+  background-color: $color-primary;
+}
+
+.select-options {
+  bottom: calc(100% + 20px);
+  min-width: 190px;
+}
