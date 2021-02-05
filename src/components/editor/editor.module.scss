@@ -10,12 +10,45 @@
       background: $color-primary;
     }
 
-    .ace_editor {
+    .ace-monokai .ace_gutter {
       background-color: $color-primary;
+    }
+
+    .ace-monokai .ace_selection {
+      background-color: #29292d;
+    }
+
+    .ace_editor {
+      position: relative;
+      background-color: $color-primary;
+
+      &::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        pointer-events: none;
+        content: '';
+        background: linear-gradient(180deg, rgba(28, 29, 34, 0) 0%, #1c1d22 100%);
+      }
+    }
+
+    .ace_editor.ace_autocomplete {
+      line-height: 36px;
     }
 
     .ace_gutter-cell {
       color: $color-additional-3;
+    }
+
+    .ace-monokai .ace_marker-layer .ace_active-line {
+      background: #202020;
+    }
+
+    .ace-monokai .ace_gutter-active-line {
+      background-color: #272727;
     }
   }
 }

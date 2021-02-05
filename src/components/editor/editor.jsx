@@ -72,7 +72,14 @@ const Editor = () => {
         editorProps={{ $blockScrolling: true }}
         width="100%"
         height="100%"
+        fontSize="14px"
+        style={{ lineHeight: '22px' }}
+        showPrintMargin={false}
         onChange={(value) => store.setOpenFileContent(value)}
+        onLoad={(editor) => {
+          editor.renderer.setPadding(22);
+          editor.renderer.setScrollMargin(22);
+        }}
       />
       <div className={cx('select')}>
         <Dropdown
