@@ -37,7 +37,7 @@ const Editor = () => {
   const currentLanguage = LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
 
   const [language, setLanguage] = useState(currentLanguage);
-  const [isClient, setIsClient] = useState('false');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);

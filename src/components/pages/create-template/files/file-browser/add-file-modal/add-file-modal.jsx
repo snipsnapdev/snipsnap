@@ -21,12 +21,10 @@ const cx = classNames.bind(styles);
 
 const AddFileModal = (props) => {
   const { isOpen, onClose, onSave } = props;
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = ({ name }) => {
-    // TODO: update context (?)
-    console.log('ON SUBMIT', name);
     onSave(name);
     onClose();
   };

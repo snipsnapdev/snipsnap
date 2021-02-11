@@ -23,7 +23,7 @@ const TreeRecursive = ({
       if (item.type === 'file') {
         return (
           <File
-            key={`browser-${item.id}`}
+            key={item.id}
             file={item}
             level={level}
             onDragOver={parentDragOverHandler}
@@ -36,7 +36,7 @@ const TreeRecursive = ({
       }
       return (
         <Folder
-          key={`browser-${item.id}`}
+          key={item.id}
           folder={item}
           level={level}
           onDelete={onItemDelete}
