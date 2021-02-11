@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { signOut, useSession } from 'next-auth/client';
+import { signOut } from 'next-auth/client';
 
 import Dropdown from 'components/shared/dropdown';
+import useSession from 'hooks/use-session';
 
 import Avatar from '../avatar';
 import Button from '../button';

@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import React from 'react';
 
 import Sidebar from 'components/shared/sidebar';
 

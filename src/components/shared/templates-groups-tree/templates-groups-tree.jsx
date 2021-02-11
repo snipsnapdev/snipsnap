@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
 import useSWR from 'swr';
 
 import { gql, gqlClient } from 'api/graphql';
+import { useToken, isExpired } from 'hooks/use-token';
 
 import TemplateGroupItem from './template-group-item';
 import styles from './templates-groups-tree.module.scss';
@@ -23,10 +23,16 @@ const query = gql`
 `;
 
 const TemplatesGroupsTree = () => {
-  const [{ token }] = useSession();
-  const client = gqlClient(token);
-  const fetcher = () => client.request(query);
-  const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
+  const { token } = useToken();
+
+  const fetcher = (key, token) => {
+    // if (isExpired(token)) return;
+    const client = gqlClient(token);
+    return client.request(query);
+  };
+
+  const { data } = useSWR(() => ['getOwnedTemplatesGroups', token], fetcher);
+
   const groups = data?.templates_groups || [];
   return (
     <div className={cx('wrapper')}>

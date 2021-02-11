@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
@@ -13,6 +12,7 @@ import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import TemplatesGroupsTree from 'components/shared/templates-groups-tree';
+import { useToken } from 'hooks/use-token';
 
 import styles from './templates-groups.module.scss';
 
@@ -35,7 +35,7 @@ const query = gql`
 `;
 
 const TemplatesGroups = () => {
-  const [{ token }] = useSession();
+  const { token } = useToken();
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });

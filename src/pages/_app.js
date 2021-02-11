@@ -1,13 +1,12 @@
 import '../styles/globals.scss';
 
-import { Provider } from 'next-auth/client';
+import AppContext from 'contexts/app-context';
 
 function Snipsnap({ Component, pageProps }) {
-  console.log(pageProps);
   return (
-    <Provider session={pageProps.session}>
+    <AppContext.Provider value={{ session: pageProps.session, token: pageProps.token }}>
       <Component {...pageProps} />
-    </Provider>
+    </AppContext.Provider>
   );
 }
 
