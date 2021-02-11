@@ -1,8 +1,28 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep , compact } from 'lodash';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 
+
 const systemFileNames = ['.DS_Store'];
+
+const createFile = (data) => {
+  if (systemFileNames.some((systemFileName) => data.name === systemFileName)) return;
+
+  return {
+    type: 'file',
+    id: uuid(),
+    data,
+  };
+};
+
+const createFolder = (data) => ({
+  type: 'folder',
+  id: uuid(),
+  data: {
+    ...data,
+    files: compact(data.files.map((item) => (item.files ? createFolder(item) : createFile(item)))),
+  },
+});
 
 /** UI state for the currently opened template */
 export default class TemplateStore {
@@ -62,11 +82,7 @@ export default class TemplateStore {
   addFile(data, parentFolderId = null) {
     if (systemFileNames.some((systemFileName) => data.name === systemFileName)) return;
 
-    const file = {
-      type: 'file',
-      id: uuid(),
-      data,
-    };
+    const file = createFile(data);
 
     // no parent folder - add to root
     if (!parentFolderId) {
@@ -91,11 +107,8 @@ export default class TemplateStore {
   }
 
   addFolder(data, parentFolderId = null) {
-    const folder = {
-      type: 'folder',
-      id: uuid(),
-      data,
-    };
+    // we could pass data with or without id
+    const folder = data.id !== undefined ? { ...data, type: 'folder' } : createFolder(data);
 
     // no parent folder - add to root
     if (!parentFolderId) {
@@ -114,18 +127,13 @@ export default class TemplateStore {
     return folder;
   }
 
-  addFolders(data, parentFolderId = null) {
-    return data.map((item) => this.addFolder(item, parentFolderId));
-  }
-
   addFoldersAndFiles(data, parentFolderId = null) {
     return data.map((item) => {
-      // If item contains files, then it is a directory
+      // it's a folder
       if (item.files) {
-        const folder = this.addFolder({ name: item.name, files: [] }, parentFolderId);
-        this.addFoldersAndFiles(item.files, folder.id);
-        return folder;
+        return this.addFolder(createFolder(item), parentFolderId);
       }
+      // it's a file
       return this.addFile(item, parentFolderId);
     });
   }
