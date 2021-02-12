@@ -53,8 +53,7 @@ const schema = yup.object().shape({
   prompts: yup
     .array()
     .of(yup.object().shape(promptsSchema))
-    .compact((v) => v.message === '' && v.variableName === '')
-    .required(),
+    .compact((v) => v.message === '' && v.variableName === ''),
 });
 
 const CreateTemplate = (props) => {
@@ -62,6 +61,10 @@ const CreateTemplate = (props) => {
   const { register, control, handleSubmit, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: '',
+      prompts: [],
+    },
   });
 
   const groups = useTemplateGroups();
@@ -70,18 +73,15 @@ const CreateTemplate = (props) => {
 
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = templateStore.formatFilesDataForApi();
-    console.log('Save template', name, prompts, filesForApi);
-
-    // @ TODO: find selected group id
-    const defaultGroupId = groups.find((group) => group.name === 'Default').id;
 
     try {
       setIsLoading(true);
       await gqlClient(token).request(query, {
         name,
-        prompts: JSON.stringify(prompts),
+        prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
         files: JSON.stringify(filesForApi),
-        templateGroupId: defaultGroupId,
+        // @TODO: change to selected group after group select is added
+        templateGroupId: groups[0].id,
       });
       setIsLoading(false);
       mutate('getOwnedTemplatesGroups');
