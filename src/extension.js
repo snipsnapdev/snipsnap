@@ -37,9 +37,8 @@ function activate(context) {
         `${vscode.workspace.rootPath}/${DEFAULT_TEMPLATES_FOLDER}`
       );
 
-      vscode.workspace.fs
-        .readDirectory(defaultTemplatesFolderURI)
-        .then((files) => {
+      vscode.workspace.fs.readDirectory(defaultTemplatesFolderURI).then(
+        (files) => {
           const folders = files.filter(
             (file) => file[1] === vscode.FileType.Directory
           );
@@ -52,13 +51,20 @@ function activate(context) {
           vscode.window
             .showQuickPick(folderNames, quickPickOptions)
             .then(async (templateName) => {
+              if (!templateName) return;
+
               const customFileName = await vscode.window.showInputBox({
                 prompt: "Enter file name",
-                placeHolder: templateName,
+                placeHolder: `Default file name is "${templateName}"`,
               });
 
+              // If user pressed ESC, then return
+              if (typeof customFileName === "undefined") return;
+
+              const fileNameToUse = customFileName || templateName;
+
               const newFolderURI = vscode.Uri.file(
-                `${folderURI.path}/${customFileName}`
+                `${folderURI.path}/${fileNameToUse}`
               );
               const templateURI = vscode.Uri.file(
                 `${defaultTemplatesFolderURI.path}/${templateName}`
@@ -67,7 +73,7 @@ function activate(context) {
               vscode.workspace.fs.readDirectory(templateURI).then((files) => {
                 const fileNames = files.map((file) => file[0]);
                 const processedFileNames = fileNames.map((fileName) =>
-                  fileName.replace("${fileName}", customFileName)
+                  fileName.replace("${fileName}", fileNameToUse)
                 );
 
                 processedFileNames.forEach((fileName, fileNameIndex) => {
@@ -82,7 +88,11 @@ function activate(context) {
                 });
               });
             });
-        });
+        },
+        (error) => {
+          vscode.window.showErrorMessage(error.message);
+        }
+      );
     }
   );
 
