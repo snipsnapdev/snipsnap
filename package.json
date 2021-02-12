@@ -1,68 +1,68 @@
 {
-	"name": "snipsnap-vscode-templator",
-	"displayName": "Snipsnap Templator",
-	"publisher": "pixel-point",
-	"description": "Generate custom templates on a whim",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.52.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"keywords": [
-		"react",
-		"generate",
-		"component",
-		"boilerplate"
-	],
-	"activationEvents": [
-		"onCommand:templator.runTemplator"
-	],
-	"main": "./src/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "templator.runTemplator",
-				"title": "Run Snipsnap Templator", 
-				"categoryu": "Snipsnap"
-			},
-			{
-				"command": "templator.helloWorld",
-				"title": "Get templator greeting",
-				"category": "Snipsnap"
-			}
-		],
-		"menus": {
-			"commandPalette": [
-				{
-					"command": "templator.runTemplator",
-					"when": "false"
-				}
-			],
-			"explorer/context": [
-				{
-					"when": "explorerResourceIsFolder",
-					"command": "templator.runTemplator",
-					"group": "snipsnap-templator"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.52.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.15.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.1.2",
-		"vscode-test": "^1.4.1"
-	}
+  "name": "snipsnap-vscode-templator",
+  "displayName": "Snipsnap Templator",
+  "publisher": "pixel-point",
+  "description": "Generate custom templates on a whim",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.52.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "react",
+    "generate",
+    "component",
+    "boilerplate"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "templator.runTemplator",
+        "title": "Run Snipsnap Templator",
+        "category": "Snipsnap"
+      },
+      {
+        "command": "templator.helloWorld",
+        "title": "Get templator greeting",
+        "category": "Snipsnap"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "templator.runTemplator",
+          "when": "false"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "templator.runTemplator",
+          "group": "1_modification"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.52.0",
+    "eslint": "^7.15.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.1.3",
+    "typescript": "^4.1.2",
+    "vscode-test": "^1.4.1"
+  }
 }
