@@ -24,7 +24,13 @@
 		"commands": [
 			{
 				"command": "templator.runTemplator",
-				"title": "Run Snipsnap Templator"
+				"title": "Run Snipsnap Templator", 
+				"categoryu": "Snipsnap"
+			},
+			{
+				"command": "templator.helloWorld",
+				"title": "Get templator greeting",
+				"category": "Snipsnap"
 			}
 		],
 		"menus": {

@@ -21,10 +21,14 @@ function activate(context) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from templator!');
+		vscode.window.showInformationMessage('Hello from templator!');
 	});
 
-	context.subscriptions.push(disposable);
+	let disposable1 = vscode.commands.registerCommand('templator.runTemplator', function() {
+		vscode.window.showInformationMessage('Running templator!')
+	} )
+
+	context.subscriptions.push(disposable, disposable1);
 }
 
 // this method is called when your extension is deactivated
