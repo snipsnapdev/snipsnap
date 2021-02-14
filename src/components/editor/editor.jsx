@@ -64,23 +64,25 @@ const Editor = () => {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>{filePath}</div>
-      <AceEditor
-        value={openFile ? openFile.data.content : ''}
-        mode={language.toLowerCase()}
-        theme="monokai"
-        name="UNIQUE_ID_OF_DIV"
-        editorProps={{ $blockScrolling: true }}
-        width="100%"
-        height="100%"
-        fontSize="14px"
-        style={{ lineHeight: '22px' }}
-        showPrintMargin={false}
-        onChange={(value) => store.setOpenFileContent(value)}
-        onLoad={(editor) => {
-          editor.renderer.setPadding(22);
-          editor.renderer.setScrollMargin(22);
-        }}
-      />
+      <div className={cx('editor-container')}>
+        <AceEditor
+          value={openFile ? openFile.data.content : ''}
+          mode={language.toLowerCase()}
+          theme="monokai"
+          name="UNIQUE_ID_OF_DIV"
+          editorProps={{ $blockScrolling: true }}
+          width="100%"
+          height="100%"
+          fontSize="14px"
+          style={{ lineHeight: '22px' }}
+          showPrintMargin={false}
+          onChange={(value) => store.setOpenFileContent(value)}
+          onLoad={(editor) => {
+            editor.renderer.setPadding(22);
+            editor.renderer.setScrollMargin(22);
+          }}
+        />
+      </div>
       <div className={cx('select')}>
         <Dropdown
           menu={languageOptions}
