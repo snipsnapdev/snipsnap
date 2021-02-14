@@ -4,10 +4,49 @@
   height: 100%;
   padding-top: 78px;
   padding-right: 40px;
+}
+
+.file-path {
+  margin-bottom: 5px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  color: $color-additional-3;
+}
+
+.editor-container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: $color-primary;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(180deg, rgba(28, 29, 34, 0) 0%, #1c1d22 100%);
+  }
 
   :global {
     .ace-tm .ace_gutter {
       background: $color-primary;
+    }
+
+    .ace-monokai .ace_gutter {
+      background-color: $color-primary;
+    }
+
+    .ace-monokai .ace_selection {
+      // adds padding for selection
+      margin-left: -10px;
+      background-color: #2f3038;
     }
 
     .ace_editor {
@@ -16,15 +55,17 @@
 
     .ace_gutter-cell {
       color: $color-additional-3;
+      border-radius: 3px;
+    }
+
+    .ace-monokai .ace_marker-layer .ace_active-line {
+      background: #232429;
+    }
+
+    .ace-monokai .ace_gutter-active-line {
+      background-color: #22242a;
     }
   }
-}
-
-.file-path {
-  margin-bottom: 5px;
-  font-size: $font-size-sm;
-  line-height: $line-height-sm;
-  color: $color-additional-3;
 }
 
 .select {
