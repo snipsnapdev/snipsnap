@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.2.0] - 16-02-21, One Patch Man
+
+- added support for deeply nested template structures
+
+Basic local flow is on track! :tada:
+
 ## [0.1.3] - 16-02-21, Beggar
 
 - added user-defined prompts

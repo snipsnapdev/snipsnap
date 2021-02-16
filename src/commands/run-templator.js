@@ -5,6 +5,7 @@ const {
   DEFAULT_TEMPLATE_FOLDER_NAME,
   DEFAULT_CONFIG_FILE_NAME,
 } = require("../_constants");
+const {getDirStructure, buildDirStructure} = require('../utils')
 
 const runTemplator = (folderURI) => {
   const defaultTemplatesFolderURI = vscode.Uri.file(
@@ -21,12 +22,6 @@ const runTemplator = (folderURI) => {
       const quickPickOptions = {
         placeHolder: "Please choose a template you want to use",
       };
-      // @TODO: this is the place where we should pick
-      // prompts file and iteratively ask user for every variable in it
-      // building a tag map that we will load up in Mustache during copy
-      // ==
-      // set variableName in case of dismissal,
-      // use getDefaultPromptMessage in case message is absent
       vscode.window
         .showQuickPick(folderNames, quickPickOptions)
         .then(async (templateName) => {
@@ -45,10 +40,6 @@ const runTemplator = (folderURI) => {
           });
 
           const newFolderName = newFolderNamePromptResult || templateName;
-
-          const newFolderURI = vscode.Uri.file(
-            `${folderURI.path}/${newFolderName}`
-          );
 
           const templateConfigDocument = await vscode.workspace.openTextDocument(
             templateConfigURI
@@ -71,23 +62,31 @@ const runTemplator = (folderURI) => {
 
           // @TODO: support nested structure
           // @TODO: omit prompts file
-          vscode.workspace.fs.readDirectory(templateURI).then((files) => {
-            const fileNames = files.map((file) => file[0]);
-            const processedFileNames = fileNames.map((fileName) =>
-              Mustache.render(fileName, promptResults)
-            );
+          // vscode.workspace.fs.readDirectory(templateURI).then((files) => {
+          //   const fileNames = files.map((file) => file[0]);
+          //   const processedFileNames = fileNames.map((fileName) =>
+          //     Mustache.render(fileName, promptResults)
+          //   );
 
-            processedFileNames.forEach((fileName, fileNameIndex) => {
-              const fileURI = vscode.Uri.file(
-                `${templateURI.path}/${fileNames[fileNameIndex]}`
-              );
-              const newFileURI = vscode.Uri.file(
-                `${newFolderURI.path}/${fileName}`
-              );
+          //   processedFileNames.forEach((fileName, fileNameIndex) => {
+          //     const fileURI = vscode.Uri.file(
+          //       `${templateURI.path}/${fileNames[fileNameIndex]}`
+          //     );
+          //     const newFileURI = vscode.Uri.file(
+          //       `${newFolderURI.path}/${fileName}`
+          //     );
 
-              vscode.workspace.fs.copy(fileURI, newFileURI);
-            });
-          });
+          //     vscode.workspace.fs.copy(fileURI, newFileURI);
+          //   });
+          // });
+            const structure = await getDirStructure({
+              path: newFolderName,
+              dirURI: templateURI,
+              onNameCopy: name => Mustache.render(name, promptResults),
+              onContentCopy: content => Mustache.render(content, promptResults)
+            })
+
+            buildDirStructure(folderURI.path, structure)
         });
     },
     (error) => {
