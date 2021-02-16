@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.1.2] - 16-02-21, Mustache power
+
+- added Mustache lib for handling prompts
+- reorganized extensions structure
+- some @TODO notes
+
 ## [0.1.1] - 12-02-21, Take care
 
 - added basic error handlers
