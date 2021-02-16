@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.1.3] - 16-02-21, Beggar
+
+- added user-defined prompts
+
 ## [0.1.2] - 16-02-21, Mustache power
 
 - added Mustache lib for handling prompts

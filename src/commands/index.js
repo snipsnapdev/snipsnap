@@ -1,5 +1,5 @@
-const runTemplator = require('./run-templator')
+const runTemplator = require("./run-templator");
 
 module.exports = {
-  runTemplator
-}
+  runTemplator,
+};

@@ -1,13 +1,15 @@
-const vscode = require('vscode');
-const { DEFAULT_TEMPLATES_FOLDER_PATH } = require('../_constants');
-const Mustache = require('mustache');
+const vscode = require("vscode");
+const Mustache = require("mustache");
+const {
+  DEFAULT_TEMPLATES_FOLDER_PATH,
+  DEFAULT_TEMPLATE_FOLDER_NAME,
+  DEFAULT_CONFIG_FILE_NAME,
+} = require("../_constants");
 
 const runTemplator = (folderURI) => {
-
   const defaultTemplatesFolderURI = vscode.Uri.file(
     DEFAULT_TEMPLATES_FOLDER_PATH
   );
-
 
   vscode.workspace.fs.readDirectory(defaultTemplatesFolderURI).then(
     (files) => {
@@ -22,7 +24,7 @@ const runTemplator = (folderURI) => {
       // @TODO: this is the place where we should pick
       // prompts file and iteratively ask user for every variable in it
       // building a tag map that we will load up in Mustache during copy
-      // == 
+      // ==
       // set variableName in case of dismissal,
       // use getDefaultPromptMessage in case message is absent
       vscode.window
@@ -30,32 +32,49 @@ const runTemplator = (folderURI) => {
         .then(async (templateName) => {
           if (!templateName) return;
 
-          const customFileName = await vscode.window.showInputBox({
-            prompt: "Enter file name",
-            placeHolder: `Default file name is "${templateName}"`,
+          const templateURI = vscode.Uri.file(
+            `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_TEMPLATE_FOLDER_NAME}`
+          );
+          const templateConfigURI = vscode.Uri.file(
+            `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_CONFIG_FILE_NAME}`
+          );
+
+          const newFolderNamePromptResult = await vscode.window.showInputBox({
+            prompt: "Enter folder name",
+            placeHolder: `Default folder name is "${templateName}"`,
           });
 
-          // If user pressed ESC, then return
-          if (typeof customFileName === "undefined") return;
-
-          const fileNameToUse = {
-            fileName: customFileName || templateName
-          }
+          const newFolderName = newFolderNamePromptResult || templateName;
 
           const newFolderURI = vscode.Uri.file(
-            `${folderURI.path}/${fileNameToUse.fileName}`
-            
+            `${folderURI.path}/${newFolderName}`
           );
-          const templateURI = vscode.Uri.file(
-            `${defaultTemplatesFolderURI.path}/${templateName}`
+
+          const templateConfigDocument = await vscode.workspace.openTextDocument(
+            templateConfigURI
           );
+          const templateConfigAsJSON = templateConfigDocument.getText();
+          const templateConfig = JSON.parse(templateConfigAsJSON);
+
+          const prompts = templateConfig.prompts;
+          const promptResults = {};
+
+          if (prompts && prompts.length > 0) {
+            for (let i = 0; i < prompts.length; i++) {
+              const promptResult = await vscode.window.showInputBox({
+                prompt: prompts[i].message,
+              });
+
+              promptResults[prompts[i].variableName] = promptResult;
+            }
+          }
 
           // @TODO: support nested structure
           // @TODO: omit prompts file
           vscode.workspace.fs.readDirectory(templateURI).then((files) => {
             const fileNames = files.map((file) => file[0]);
             const processedFileNames = fileNames.map((fileName) =>
-              Mustache.render(fileName, fileNameToUse)
+              Mustache.render(fileName, promptResults)
             );
 
             processedFileNames.forEach((fileName, fileNameIndex) => {
@@ -75,6 +94,6 @@ const runTemplator = (folderURI) => {
       vscode.window.showErrorMessage(error.message);
     }
   );
-}
+};
 
-module.exports = runTemplator
+module.exports = runTemplator;

@@ -1,5 +1,6 @@
-const getDefaultPromptMessage = variableName => `Enter value for ${variableName}`
+const getDefaultPromptMessage = (variableName) =>
+  `Enter value for ${variableName}`;
 
 module.exports = {
-  getDefaultPromptMessage
-}
+  getDefaultPromptMessage,
+};
