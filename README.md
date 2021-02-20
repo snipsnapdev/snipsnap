@@ -134,8 +134,8 @@ Code snippet example:
 
 ```body``` – is one or more lines of content, which will be joined as multiple lines upon insertion. Newlines and embedded tabs will be formatted according to the context in which the snippet is inserted. Must be array of strings.
 
-```scope``` - defines in which files the snippets will be available. Must be string with commaseparated language handlers. You could find them in VS Code Preferences -> User Snippets
+```scope``` - defines in which files the snippets will be available. Must be string with commaseparated language handlers. You could find them in VS Code Preferences -> User Snippets.
 
-```description``` - it's an optional field, but put there any information that could help you. Check examples of description for [lodash](https://github.com/snipsnapdev/snipsnap/blob/master/snippets/javascript/lodash/lodash.json) or [react-intersection-observer](https://github.com/snipsnapdev/snipsnap/blob/master/snippets/javascript/react-intersection-observer/react-intersection-observer.json)
+```description``` - it's an optional field, but put there any information that could help you. Check examples of description for [lodash](https://github.com/snipsnapdev/snipsnap/blob/master/snippets/javascript/lodash/lodash.json) or [react-intersection-observer](https://github.com/snipsnapdev/snipsnap/blob/master/snippets/javascript/react-intersection-observer/react-intersection-observer.json).
 
-<img width="300" src="https://user-images.githubusercontent.com/2697570/71843492-5241f900-30c4-11ea-9083-2781044d647a.png"/>
+<img width="500" src="https://user-images.githubusercontent.com/2697570/71843492-5241f900-30c4-11ea-9083-2781044d647a.png"/>
