@@ -3,7 +3,7 @@
   "displayName": "Snipsnap Templator",
   "publisher": "pixel-point",
   "description": "Generate custom templates on a whim",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "engines": {
     "vscode": "^1.52.0"
   },
