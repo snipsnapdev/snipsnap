@@ -6,6 +6,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.0] - 26-02-21, Monk
+
+BREAKING CHANGES:
+
+- templates folder changes from .vscode/snipsnap/templates to .vscode/snipsnap-templator
+- files now should lay right in the root of template folder, no need to create one more "template" folder inside template folder :smile:
+
 ## [0.2.0] - 16-02-21, One Patch Man
 
 - added support for deeply nested template structures

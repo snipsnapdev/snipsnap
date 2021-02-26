@@ -2,7 +2,6 @@ const vscode = require("vscode");
 const Mustache = require("mustache");
 const {
   DEFAULT_TEMPLATES_FOLDER_PATH,
-  DEFAULT_TEMPLATE_FOLDER_NAME,
   DEFAULT_CONFIG_FILE_NAME,
 } = require("../_constants");
 const { getDirStructure, buildDirStructure } = require("../utils");
@@ -28,18 +27,11 @@ const runTemplator = (folderURI) => {
           if (!templateName) return;
 
           const templateURI = vscode.Uri.file(
-            `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_TEMPLATE_FOLDER_NAME}`
+            `${defaultTemplatesFolderURI.path}/${templateName}`
           );
           const templateConfigURI = vscode.Uri.file(
             `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_CONFIG_FILE_NAME}`
           );
-
-          const newFolderNamePromptResult = await vscode.window.showInputBox({
-            prompt: "Enter folder name",
-            placeHolder: `Default folder name is "${templateName}"`,
-          });
-
-          const newFolderName = newFolderNamePromptResult || templateName;
 
           const templateConfigDocument = await vscode.workspace.openTextDocument(
             templateConfigURI
@@ -61,13 +53,15 @@ const runTemplator = (folderURI) => {
           }
 
           const structure = await getDirStructure({
-            path: newFolderName,
+            path: folderURI.path,
             dirURI: templateURI,
             onNameCopy: (name) => Mustache.render(name, promptResults),
             onContentCopy: (content) => Mustache.render(content, promptResults),
           });
 
-          buildDirStructure(folderURI.path, structure);
+          console.log(structure);
+
+          buildDirStructure(structure);
         },
         (error) => {
           vscode.window.showErrorMessage(error.message);
