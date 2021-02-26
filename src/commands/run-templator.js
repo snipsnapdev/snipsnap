@@ -59,8 +59,6 @@ const runTemplator = (folderURI) => {
             onContentCopy: (content) => Mustache.render(content, promptResults),
           });
 
-          console.log(structure);
-
           buildDirStructure(structure);
         },
         (error) => {
