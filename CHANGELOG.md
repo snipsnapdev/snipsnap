@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.1] - 01-03-21, The Renamer
+
+BREAKING CHANGES:
+
+- renamed `snipsnap-templator` folder to `templates`
+- renamed `.snipsnap-templator.config.json` to `.snipsnap.json`
+- renamed `Run Templator` to `Create from Template`
+- renamed extension to `Snipsnap Templates`
+- renamed `variableName` in `prompts` to `variable`
+
 ## [0.3.0] - 26-02-21, Monk
 
 BREAKING CHANGES:

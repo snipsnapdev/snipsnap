@@ -1,9 +1,9 @@
 {
-  "name": "snipsnap-vscode-templator",
-  "displayName": "Snipsnap Templator",
+  "name": "snipsnap-vscode-templates",
+  "displayName": "Snipsnap Templates",
   "publisher": "pixel-point",
   "description": "Generate custom templates on a whim",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "engines": {
     "vscode": "^1.52.0"
   },
@@ -23,22 +23,22 @@
   "contributes": {
     "commands": [
       {
-        "command": "templator.runTemplator",
-        "title": "Run Templator",
+        "command": "snipsnap-templates.runExtension",
+        "title": "Create from Template",
         "category": "Snipsnap"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "templator.runTemplator",
+          "command": "snipsnap-templates.runExtension",
           "when": "false"
         }
       ],
       "explorer/context": [
         {
           "when": "explorerResourceIsFolder",
-          "command": "templator.runTemplator",
+          "command": "snipsnap-templates.runExtension",
           "group": "1_modification"
         }
       ]

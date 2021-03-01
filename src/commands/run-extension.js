@@ -6,7 +6,7 @@ const {
 } = require("../_constants");
 const { getDirStructure, buildDirStructure } = require("../utils");
 
-const runTemplator = (folderURI) => {
+const runExtension = (folderURI) => {
   const defaultTemplatesFolderURI = vscode.Uri.file(
     DEFAULT_TEMPLATES_FOLDER_PATH
   );
@@ -48,7 +48,7 @@ const runTemplator = (folderURI) => {
                 prompt: prompts[i].message,
               });
 
-              promptResults[prompts[i].variableName] = promptResult;
+              promptResults[prompts[i].variable] = promptResult;
             }
           }
 
@@ -72,4 +72,4 @@ const runTemplator = (folderURI) => {
   );
 };
 
-module.exports = runTemplator;
+module.exports = runExtension;

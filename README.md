@@ -1,1 +1,1 @@
-# Snipsnap Templator
+# Snipsnap Templates

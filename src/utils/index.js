@@ -2,8 +2,7 @@ const vscode = require("vscode");
 const { TextEncoder } = require("util");
 const { DEFAULT_CONFIG_FILE_NAME } = require("../_constants");
 
-const getDefaultPromptMessage = (variableName) =>
-  `Enter value for ${variableName}`;
+const getDefaultPromptMessage = (variable) => `Enter value for ${variable}`;
 
 const getDirStructure = async ({ path, dirURI, onNameCopy, onContentCopy }) => {
   const dirFiles = await vscode.workspace.fs.readDirectory(dirURI);
