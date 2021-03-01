@@ -6,6 +6,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.2] - 01-03-21, Skipping picking
+
+- add skipping picking template if there is only one
+- add an error message if there are no templates found
+
 ## [0.3.1] - 01-03-21, The Renamer
 
 BREAKING CHANGES:
