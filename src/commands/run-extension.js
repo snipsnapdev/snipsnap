@@ -11,6 +11,45 @@ const runExtension = (folderURI) => {
     DEFAULT_TEMPLATES_FOLDER_PATH
   );
 
+  async function createFromTemplate(templateName) {
+    if (!templateName) return;
+
+    const templateURI = vscode.Uri.file(
+      `${defaultTemplatesFolderURI.path}/${templateName}`
+    );
+    const templateConfigURI = vscode.Uri.file(
+      `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_CONFIG_FILE_NAME}`
+    );
+
+    const templateConfigDocument = await vscode.workspace.openTextDocument(
+      templateConfigURI
+    );
+    const templateConfigAsJSON = templateConfigDocument.getText();
+    const templateConfig = JSON.parse(templateConfigAsJSON);
+
+    const prompts = templateConfig.prompts;
+    const promptResults = {};
+
+    if (prompts && prompts.length > 0) {
+      for (let i = 0; i < prompts.length; i++) {
+        const promptResult = await vscode.window.showInputBox({
+          prompt: prompts[i].message,
+        });
+
+        promptResults[prompts[i].variable] = promptResult;
+      }
+    }
+
+    const structure = await getDirStructure({
+      path: folderURI.path,
+      dirURI: templateURI,
+      onNameCopy: (name) => Mustache.render(name, promptResults),
+      onContentCopy: (content) => Mustache.render(content, promptResults),
+    });
+
+    buildDirStructure(structure);
+  }
+
   vscode.workspace.fs.readDirectory(defaultTemplatesFolderURI).then(
     (files) => {
       const folders = files.filter(
@@ -18,53 +57,23 @@ const runExtension = (folderURI) => {
       );
       const folderNames = folders.map((folder) => folder[0]);
 
-      const quickPickOptions = {
-        placeHolder: "Please choose a template you want to use",
-      };
+      if (folderNames.length === 0) {
+        vscode.window.showErrorMessage(
+          `You don't have any templates yet. Please create at least one template in order to use extension`
+        );
+      } else if (folderNames.length === 1) {
+        createFromTemplate(folderNames[0]);
+      } else {
+        const quickPickOptions = {
+          placeHolder: "Please choose a template you want to use",
+        };
 
-      vscode.window.showQuickPick(folderNames, quickPickOptions).then(
-        async (templateName) => {
-          if (!templateName) return;
-
-          const templateURI = vscode.Uri.file(
-            `${defaultTemplatesFolderURI.path}/${templateName}`
-          );
-          const templateConfigURI = vscode.Uri.file(
-            `${defaultTemplatesFolderURI.path}/${templateName}/${DEFAULT_CONFIG_FILE_NAME}`
-          );
-
-          const templateConfigDocument = await vscode.workspace.openTextDocument(
-            templateConfigURI
-          );
-          const templateConfigAsJSON = templateConfigDocument.getText();
-          const templateConfig = JSON.parse(templateConfigAsJSON);
-
-          const prompts = templateConfig.prompts;
-          const promptResults = {};
-
-          if (prompts && prompts.length > 0) {
-            for (let i = 0; i < prompts.length; i++) {
-              const promptResult = await vscode.window.showInputBox({
-                prompt: prompts[i].message,
-              });
-
-              promptResults[prompts[i].variable] = promptResult;
-            }
-          }
-
-          const structure = await getDirStructure({
-            path: folderURI.path,
-            dirURI: templateURI,
-            onNameCopy: (name) => Mustache.render(name, promptResults),
-            onContentCopy: (content) => Mustache.render(content, promptResults),
+        vscode.window
+          .showQuickPick(folderNames, quickPickOptions)
+          .then(createFromTemplate, (error) => {
+            vscode.window.showErrorMessage(error.message);
           });
-
-          buildDirStructure(structure);
-        },
-        (error) => {
-          vscode.window.showErrorMessage(error.message);
-        }
-      );
+      }
     },
     (error) => {
       vscode.window.showErrorMessage(error.message);
