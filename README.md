@@ -23,7 +23,7 @@
   - [ ] set up Conventional Changelog
   - [ ] set up repository in order to:
     - [ ] get at least one approve in order to merge Pull Request
-    - [ ] run checks (ESLint, Prettier, Jest) for every Pull Request in order to merge Pull Request
+    - [ ] run checks (ESLint, Prettier, Jest, Coverage) for every Pull Request in order to merge Pull Request
     - [ ] prevent ability to push to master branch
     - [ ] show difference in bundle size in Pull Request?
 - [ ] Update dependencies to latest versions?
