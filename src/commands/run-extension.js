@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const Mustache = require("mustache");
+const Handlebars = require("handlebars");
 const camelCase = require("lodash.camelcase");
 const snakeCase = require("lodash.snakecase");
 const kebabCase = require("lodash.kebabcase");
@@ -12,38 +12,29 @@ const {
 } = require("../_constants");
 const { getDirStructure, buildDirStructure } = require("../utils");
 
-const stringFunctions = {
-  toCamelCase: function () {
-    return function (text, render) {
-      return camelCase(render(text));
-    };
-  },
-  toSnakeCase: function () {
-    return function (text, render) {
-      return snakeCase(render(text));
-    };
-  },
-  toKebabCase: function () {
-    return function (text, render) {
-      return kebabCase(render(text));
-    };
-  },
-  toUpperCase: function () {
-    return function (text, render) {
-      return upperCase(render(text));
-    };
-  },
-  toLowerCase: function () {
-    return function (text, render) {
-      return lowerCase(render(text));
-    };
-  },
-  toPascalCase: function () {
-    return function (text, render) {
-      return startCase(camelCase(render(text))).replace(/ /g, "");
-    };
-  },
-};
+Handlebars.registerHelper("toCamelCase", function (string) {
+  return camelCase(string);
+});
+
+Handlebars.registerHelper("toSnakeCase", function (string) {
+  return snakeCase(string);
+});
+
+Handlebars.registerHelper("toKebabCase", function (string) {
+  return kebabCase(string);
+});
+
+Handlebars.registerHelper("toUpperCase", function (string) {
+  return upperCase(string);
+});
+
+Handlebars.registerHelper("toLowerCase", function (string) {
+  return lowerCase(string);
+});
+
+Handlebars.registerHelper("toPascalCase", function (string) {
+  return startCase(camelCase(string)).replace(/ /g, "");
+});
 
 const runExtension = (folderURI) => {
   const defaultTemplatesFolderURI = vscode.Uri.file(
@@ -79,16 +70,11 @@ const runExtension = (folderURI) => {
       }
     }
 
-    const contentView = {
-      ...promptResults,
-      ...stringFunctions,
-    };
-
     const structure = await getDirStructure({
       path: folderURI.path,
       dirURI: templateURI,
-      onNameCopy: (name) => Mustache.render(name, promptResults),
-      onContentCopy: (content) => Mustache.render(content, contentView),
+      onNameCopy: (name) => Handlebars.compile(name)(promptResults),
+      onContentCopy: (content) => Handlebars.compile(content)(promptResults),
     });
 
     buildDirStructure(structure);
