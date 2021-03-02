@@ -1,6 +1,6 @@
 const vscode = require("vscode");
 const { TextEncoder } = require("util");
-const { DEFAULT_CONFIG_FILE_NAME } = require("../_constants");
+const { DEFAULT_TEMPLATE_IGNORE_FILES } = require("../_constants");
 
 const getDefaultPromptMessage = (variable) => `Enter value for ${variable}`;
 
@@ -9,7 +9,7 @@ const getDirStructure = async ({ path, dirURI, onNameCopy, onContentCopy }) => {
 
   return Promise.all(
     dirFiles
-      .filter(([fileName]) => fileName !== DEFAULT_CONFIG_FILE_NAME)
+      .filter(([fileName]) => !DEFAULT_TEMPLATE_IGNORE_FILES.includes(fileName))
       .map(async ([fileName, fileType]) => {
         if (fileType === vscode.FileType.Directory) {
           return {
