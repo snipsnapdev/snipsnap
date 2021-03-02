@@ -1,10 +1,14 @@
 # Change Log
 
-All notable changes to the "templator" extension will be documented in this file.
+All notable changes to the "Snipsnap Templates" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+
+## [0.3.3] - 02-03-21, Mustache power 2.0
+
+- add string functions for template system: `toCamelCase`, `toSnakeCase`, `toKebabCase`, `toUpperCase`, `toLowerCase`, `toPascalCase`
 
 ## [0.3.2] - 01-03-21, Skipping picking
 

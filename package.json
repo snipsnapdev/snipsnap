@@ -3,7 +3,7 @@
   "displayName": "Snipsnap Templates",
   "publisher": "pixel-point",
   "description": "Generate custom templates on a whim",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "engines": {
     "vscode": "^1.52.0"
   },
@@ -61,6 +61,12 @@
     "vscode-test": "^1.4.1"
   },
   "dependencies": {
+    "lodash.camelcase": "^4.3.0",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.lowercase": "^4.3.0",
+    "lodash.snakecase": "^4.1.1",
+    "lodash.startcase": "^4.4.0",
+    "lodash.uppercase": "^4.3.0",
     "mustache": "^4.1.0"
   }
 }
