@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.4] - 02-03-21, Ignore machine
+
+- add .DS_Store to ignore files
+
 ## [0.3.3] - 02-03-21, Mustache power 2.0
 
 - add string functions for template system: `toCamelCase`, `toSnakeCase`, `toKebabCase`, `toUpperCase`, `toLowerCase`, `toPascalCase`
