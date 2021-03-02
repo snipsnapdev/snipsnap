@@ -8,7 +8,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.3.5] - 02-03-21, Goodbye Mustache, Welcome Handlebars
 
-- move from Mustache to Handlebars
+- migrate from Mustache to Handlebars
 
 ## [0.3.4] - 02-03-21, Ignore machine
 
