@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.5] - 02-03-21, Goodbye Mustache, Welcome Handlebars
+
+- move from Mustache to Handlebars
+
 ## [0.3.4] - 02-03-21, Ignore machine
 
 - add .DS_Store to ignore files
