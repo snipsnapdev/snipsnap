@@ -53,9 +53,7 @@ function fetchRemoteTemplates(token) {
     }
   `;
 
-  return gqlClient(token)
-    .request(getTemplates)
-    .catch((error) => console.log(error));
+  return gqlClient(token).request(getTemplates);
 }
 
 async function runExtension(folderURI) {
