@@ -6,11 +6,16 @@ const kebabCase = require("lodash.kebabcase");
 const upperCase = require("lodash.uppercase");
 const lowerCase = require("lodash.lowercase");
 const startCase = require("lodash.startcase");
+const { gqlClient, gql } = require("../api");
 const {
   DEFAULT_TEMPLATES_FOLDER_PATH,
   DEFAULT_CONFIG_FILE_NAME,
 } = require("../_constants");
-const { getDirStructure, buildDirStructure } = require("../utils");
+const {
+  getLocalDirStructure,
+  getRemoteDirStructure,
+  buildDirStructure,
+} = require("../utils");
 
 Handlebars.registerHelper("toCamelCase", function (string) {
   return camelCase(string);
@@ -36,12 +41,46 @@ Handlebars.registerHelper("toPascalCase", function (string) {
   return startCase(camelCase(string)).replace(/ /g, "");
 });
 
-const runExtension = (folderURI) => {
+function fetchRemoteTemplates(token) {
+  const getTemplates = gql`
+    query {
+      templates {
+        id
+        name
+        prompts
+        files
+      }
+    }
+  `;
+
+  return gqlClient(token)
+    .request(getTemplates)
+    .catch((error) => console.log(error));
+}
+
+async function runExtension(folderURI) {
   const defaultTemplatesFolderURI = vscode.Uri.file(
     DEFAULT_TEMPLATES_FOLDER_PATH
   );
 
-  async function createFromTemplate(templateName) {
+  const token = vscode.workspace
+    .getConfiguration("snipsnap-templates")
+    .get("token");
+
+  let remoteTemplates = [];
+
+  if (token) {
+    try {
+      const { templates } = await fetchRemoteTemplates(token);
+      remoteTemplates = templates;
+    } catch (error) {
+      vscode.window.showErrorMessage(error);
+    }
+  }
+
+  const remoteTemplateNames = remoteTemplates.map(({ name }) => name);
+
+  async function createFromLocalTemplate(templateName) {
     if (!templateName) return;
 
     const templateURI = vscode.Uri.file(
@@ -70,7 +109,7 @@ const runExtension = (folderURI) => {
       }
     }
 
-    const structure = await getDirStructure({
+    const structure = await getLocalDirStructure({
       path: folderURI.path,
       dirURI: templateURI,
       onNameCopy: (name) => Handlebars.compile(name)(promptResults),
@@ -80,12 +119,53 @@ const runExtension = (folderURI) => {
     buildDirStructure(structure);
   }
 
+  async function createFromRemoteTemplate(templateName) {
+    const { prompts, files } = remoteTemplates.find(
+      ({ name }) => name === templateName
+    );
+
+    const promptResults = {};
+
+    if (prompts && prompts.length > 0) {
+      for (let i = 0; i < prompts.length; i++) {
+        const promptResult = await vscode.window.showInputBox({
+          prompt: prompts[i].message,
+        });
+
+        promptResults[prompts[i].variable] = promptResult;
+      }
+    }
+
+    const structure = await getRemoteDirStructure({
+      path: folderURI.path,
+      files,
+      onNameCopy: (name) => Handlebars.compile(name)(promptResults),
+      onContentCopy: (content) => Handlebars.compile(content)(promptResults),
+    });
+
+    buildDirStructure(structure);
+  }
+
   vscode.workspace.fs.readDirectory(defaultTemplatesFolderURI).then(
     (files) => {
-      const folders = files.filter(
+      const localTemplates = files.filter(
         (file) => file[1] === vscode.FileType.Directory
       );
-      const folderNames = folders.map((folder) => folder[0]);
+      const localTemplateNames = localTemplates.map((template) => template[0]);
+
+      const folderNames = [...localTemplateNames, ...remoteTemplateNames];
+
+      function createFromTemplate(templateName) {
+        const isLocalTemplate = localTemplateNames.find(
+          (localTemplateName) => localTemplateName === templateName
+        );
+
+        if (isLocalTemplate) {
+          createFromLocalTemplate(templateName);
+        } else {
+          createFromRemoteTemplate(templateName);
+        }
+      }
 
       if (folderNames.length === 0) {
         vscode.window.showErrorMessage(
@@ -109,6 +189,6 @@ const runExtension = (folderURI) => {
       vscode.window.showErrorMessage(error.message);
     }
   );
-};
+}
 
 module.exports = runExtension;

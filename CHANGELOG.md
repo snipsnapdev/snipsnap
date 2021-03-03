@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.3.6] - 03-03-21, Backendy
+
+- integrate with the backend
+
 ## [0.3.5] - 02-03-21, Goodbye Mustache, Welcome Handlebars
 
 - migrate from Mustache to Handlebars

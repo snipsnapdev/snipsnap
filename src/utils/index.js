@@ -4,7 +4,12 @@ const { DEFAULT_TEMPLATE_IGNORE_FILES } = require("../_constants");
 
 const getDefaultPromptMessage = (variable) => `Enter value for ${variable}`;
 
-const getDirStructure = async ({ path, dirURI, onNameCopy, onContentCopy }) => {
+const getLocalDirStructure = async ({
+  path,
+  dirURI,
+  onNameCopy,
+  onContentCopy,
+}) => {
   const dirFiles = await vscode.workspace.fs.readDirectory(dirURI);
 
   return Promise.all(
@@ -15,7 +20,7 @@ const getDirStructure = async ({ path, dirURI, onNameCopy, onContentCopy }) => {
           return {
             filePath: onNameCopy(`${path}/${fileName}`),
             fileType,
-            fileContent: await getDirStructure({
+            fileContent: await getLocalDirStructure({
               path: onNameCopy(`${path}/${fileName}`),
               dirURI: vscode.Uri.file(`${dirURI.path}/${fileName}`),
               onNameCopy,
@@ -32,6 +37,41 @@ const getDirStructure = async ({ path, dirURI, onNameCopy, onContentCopy }) => {
           fileName: onNameCopy(fileName),
           fileType,
           fileContent: onContentCopy(fileContent.getText()),
+        };
+      })
+  );
+};
+
+const getRemoteDirStructure = async ({
+  path,
+  files,
+  onNameCopy,
+  onContentCopy,
+}) => {
+  return Promise.all(
+    files
+      .filter(
+        ({ data: { name } }) => !DEFAULT_TEMPLATE_IGNORE_FILES.includes(name)
+      )
+      .map(async ({ type, data: { name, content, files } }) => {
+        if (type === "folder") {
+          return {
+            filePath: onNameCopy(`${path}/${name}`),
+            fileType: vscode.FileType.Directory,
+            fileContent: await getRemoteDirStructure({
+              path: onNameCopy(`${path}/${name}`),
+              files,
+              onNameCopy,
+              onContentCopy,
+            }),
+          };
+        }
+
+        return {
+          filePath: onNameCopy(path),
+          fileName: onNameCopy(name),
+          fileType: vscode.FileType.File,
+          fileContent: onContentCopy(content),
         };
       })
   );
@@ -56,6 +96,7 @@ const buildDirStructure = async (structure) => {
 
 module.exports = {
   getDefaultPromptMessage,
-  getDirStructure,
+  getLocalDirStructure,
+  getRemoteDirStructure,
   buildDirStructure,
 };
