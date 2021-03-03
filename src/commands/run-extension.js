@@ -72,7 +72,7 @@ async function runExtension(folderURI) {
       const { templates } = await fetchRemoteTemplates(token);
       remoteTemplates = templates;
     } catch (error) {
-      vscode.window.showErrorMessage(error);
+      vscode.window.showErrorMessage(error.message);
     }
   }
 
