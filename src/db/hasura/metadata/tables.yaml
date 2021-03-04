@@ -1,5 +1,8 @@
 - table:
     schema: public
+    name: api_keys
+- table:
+    schema: public
     name: templates
   select_permissions:
   - role: user

@@ -2,10 +2,20 @@ import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
+import { adminGQLClient, gql } from 'api/graphql';
 import Adapter from 'db/prisma/prisma-next-auth-adapter';
+import jwt from 'utils/jwt';
 
 // Change it to default prisma adapter once it's fixed
 // https://github.com/nextauthjs/next-auth/issues/683
+
+const createAPIKey = gql`
+  mutation createAPIKey($apiKey: String!, $userId: uuid!) {
+    insert_api_keys_one(object: { api_key: $apiKey, user_id: $userId }) {
+      api_key
+    }
+  }
+`;
 
 const prisma = new PrismaClient();
 const options = {
@@ -27,6 +37,16 @@ const options = {
     async session(session, user) {
       session.user.id = user.userId;
       return session;
+    },
+  },
+  events: {
+    async createUser({ user: { userId } }) {
+      const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+      const token = jwt.encode(userId, ONE_YEAR_IN_SECONDS);
+
+      adminGQLClient()
+        .request(createAPIKey, { apiKey: token, userId })
+        .catch((error) => console.log(error));
     },
   },
 };
