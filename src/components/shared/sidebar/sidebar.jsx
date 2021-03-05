@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   const userMenu = (
     <>
-      <a href="/" onClick={() => signOut()}>
+      <a href="/" onClick={signOut}>
         Log Out
       </a>
     </>
