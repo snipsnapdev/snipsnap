@@ -18,7 +18,7 @@ export default function Login() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('card')}>
-        <p className={cx('description')}>Welcom to</p>
+        <p className={cx('description')}>Welcome to</p>
         <h1 className={cx('title')}>Snipsnap - Scaffold</h1>
         <Button
           className={cx('button')}
