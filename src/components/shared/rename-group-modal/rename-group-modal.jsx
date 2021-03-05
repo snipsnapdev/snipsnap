@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
@@ -36,7 +36,6 @@ const query = gql`
 
 const RenameGroupModal = (props) => {
   const { id, name, isOpen, onClose } = props;
-  const [{ token }] = useSession();
 
   const { register, handleSubmit, clearErrors, errors } = useForm({
     defaultValues: { newName: name },
@@ -45,10 +44,11 @@ const RenameGroupModal = (props) => {
 
   const [loading, setLoading] = useState(false);
 
+  const gqlClient = useGqlClient();
   const onSubmit = async ({ newName }) => {
     try {
       setLoading(true);
-      await gqlClient(token).request(query, { id, newName });
+      await gqlClient.request(query, { id, newName });
       setLoading(false);
       mutate('getOwnedTemplatesGroups');
     } catch (err) {

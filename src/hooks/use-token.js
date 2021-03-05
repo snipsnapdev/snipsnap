@@ -10,7 +10,7 @@ const isExpired = (token) => {
   return isExpired;
 };
 
-const fetcher = async () => {
+const fetchToken = async () => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/token`);
   const { token } = await result.json();
   return token;
@@ -19,11 +19,11 @@ const fetcher = async () => {
 const useToken = () => {
   const { token, setToken } = useContext(AppContext);
 
-  const { data } = useSWR(() => (isExpired(token) ? 'token' : null), fetcher, {
+  const { data } = useSWR(() => (isExpired(token) ? 'token' : null), fetchToken, {
     initialData: token,
   });
 
-  return { token: data };
+  return { token: data, setToken };
 };
 
-export { useToken, isExpired };
+export { useToken, isExpired, fetchToken };
