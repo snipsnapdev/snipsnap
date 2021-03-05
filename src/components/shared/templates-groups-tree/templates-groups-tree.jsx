@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import useSWR from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
-import { useToken, isExpired, fetchToken } from 'hooks/use-token';
 
 import TemplateGroupItem from './template-group-item';
 import styles from './templates-groups-tree.module.scss';
@@ -23,15 +22,9 @@ const query = gql`
 `;
 
 const TemplatesGroupsTree = () => {
-  const { token } = useToken();
-
   const gqlClient = useGqlClient();
 
-  const fetcher = (key, token) => 
-    // if (isExpired(token)) return;
-     gqlClient.request(query)
-  ;
-
+  const fetcher = () => gqlClient.request(query);
   const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
 
   const groups = data?.templates_groups || [];

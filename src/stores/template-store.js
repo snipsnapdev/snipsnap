@@ -7,7 +7,9 @@ const systemFileNames = ['.DS_Store'];
 /** UI state for the currently opened template */
 export default class TemplateStore {
   constructor() {
-    window.templateStore = this;
+    if (typeof window !== 'undefined') {
+      window.templateStore = this;
+    }
 
     this.openFileId = null;
 

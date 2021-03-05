@@ -1,5 +1,4 @@
 import { gql, GraphQLClient } from 'graphql-request';
-import React from 'react';
 
 import { fetchToken, isExpired, useToken } from 'hooks/use-token';
 
@@ -14,7 +13,7 @@ const getQlClient = () => {
   return client;
 };
 
-export const useGqlClient = () => {
+const useGqlClient = () => {
   const { token, setToken } = useToken();
 
   const client = getQlClient();
@@ -33,19 +32,6 @@ export const useGqlClient = () => {
   return client;
 };
 
-const gqlClient = (token) => {
-  const client = new GraphQLClient(endpoint, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const originalRequest = client.request;
-  client.request = async (...args) => originalRequest(...args);
-
-  return client;
-};
-
 const adminGQLClient = () =>
   new GraphQLClient(endpoint, {
     headers: {
@@ -53,4 +39,4 @@ const adminGQLClient = () =>
     },
   });
 
-export { gqlClient, adminGQLClient, gql };
+export { useGqlClient, adminGQLClient, gql };

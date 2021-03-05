@@ -1,10 +1,9 @@
-import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 
 import CreateTemplate from 'components/pages/create-template';
-// import Layout from 'components/shared/layout';
-// import withAuth from 'components/shared/with-auth';
+import Layout from 'components/shared/layout';
 import generatePageTitle from 'utils/generate-page-title';
+import withAuth from 'utils/with-auth';
 
 const CreateTemplatePage = () => (
   <Layout>
@@ -16,10 +15,8 @@ const CreateTemplatePage = () => (
 );
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  return {
-    props: { session },
-  };
+  const data = await withAuth(context);
+  return data;
 }
 
-export default withAuth(CreateTemplatePage);
+export default CreateTemplatePage;

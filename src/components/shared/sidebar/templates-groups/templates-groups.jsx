@@ -5,14 +5,13 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import TemplatesGroupsTree from 'components/shared/templates-groups-tree';
-import { useToken } from 'hooks/use-token';
 
 import styles from './templates-groups.module.scss';
 
@@ -35,16 +34,16 @@ const query = gql`
 `;
 
 const TemplatesGroups = () => {
-  const { token } = useToken();
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const gqlClient = useGqlClient();
   const onSubmit = async ({ name }) => {
     try {
       setLoading(true);
-      await gqlClient(token).request(query, { name });
+      await gqlClient.request(query, { name });
       setLoading(false);
       setIsModalOpen(false);
       mutate('getOwnedTemplatesGroups');
