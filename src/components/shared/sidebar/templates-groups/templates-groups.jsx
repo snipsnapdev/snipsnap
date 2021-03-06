@@ -1,12 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
@@ -35,16 +34,17 @@ const query = gql`
 `;
 
 const TemplatesGroups = () => {
-  const [{ token }] = useSession();
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const gqlClient = useGqlClient();
+
   const onSubmit = async ({ name }) => {
     try {
       setLoading(true);
-      await gqlClient(token).request(query, { name });
+      await gqlClient.request(query, { name });
       setLoading(false);
       setIsModalOpen(false);
       mutate('getOwnedTemplatesGroups');
@@ -58,7 +58,7 @@ const TemplatesGroups = () => {
   return (
     <div className={cx('templates')}>
       <h2>
-        Templates groups
+        Templates
         <IconButton
           icon="plus"
           className={cx('group-create-button')}

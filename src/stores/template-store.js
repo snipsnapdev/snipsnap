@@ -1,7 +1,6 @@
-import { cloneDeep , compact } from 'lodash';
+import { cloneDeep, compact } from 'lodash';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-
 
 const systemFileNames = ['.DS_Store'];
 
@@ -27,7 +26,9 @@ const createFolder = (data) => ({
 /** UI state for the currently opened template */
 export default class TemplateStore {
   constructor() {
-    window.templateStore = this;
+    if (typeof window !== 'undefined') {
+      window.templateStore = this;
+    }
 
     this.openFileId = null;
 

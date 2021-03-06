@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { mutate } from 'swr';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
@@ -24,14 +23,14 @@ const query = gql`
 
 const DeleteTemplateModal = (props) => {
   const { id, name, isOpen, onClose } = props;
-  const [{ token }] = useSession();
 
   const [loading, setLoading] = useState(false);
+  const gqlClient = useGqlClient();
 
   const handleDelete = async () => {
     try {
       setLoading(true);
-      await gqlClient(token).request(query, { id });
+      await gqlClient.request(query, { id });
       setLoading(false);
       mutate('getOwnedTemplatesGroups');
     } catch (err) {

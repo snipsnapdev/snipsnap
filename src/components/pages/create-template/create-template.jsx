@@ -7,10 +7,10 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
-import { useTemplateGroups } from 'contexts/template-groups-provider';
+// import { useTemplateGroups } from 'contexts/template-groups-provider';
 import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
 
 import styles from './create-template.module.scss';
@@ -31,7 +31,7 @@ const query = gql`
     $name: String!
     $prompts: jsonb!
     $files: jsonb!
-    $templateGroupId: uuid!
+    $templateGroupId: uuid
   ) {
     insert_templates_one(
       object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
@@ -57,7 +57,7 @@ const schema = yup.object().shape({
 });
 
 const CreateTemplate = (props) => {
-  const [{ token }] = useSession();
+  const gqlClient = useGqlClient();
   const { register, control, handleSubmit, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
@@ -67,7 +67,7 @@ const CreateTemplate = (props) => {
     },
   });
 
-  const groups = useTemplateGroups();
+  // const groups = useTemplateGroups();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -76,12 +76,12 @@ const CreateTemplate = (props) => {
 
     try {
       setIsLoading(true);
-      await gqlClient(token).request(query, {
+      await gqlClient.request(query, {
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
         files: JSON.stringify(filesForApi),
         // @TODO: change to selected group after group select is added
-        templateGroupId: groups[0].id,
+        // templateGroupId: groups[0].id,
       });
       setIsLoading(false);
       mutate('getOwnedTemplatesGroups');

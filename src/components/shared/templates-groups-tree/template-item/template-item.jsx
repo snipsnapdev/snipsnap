@@ -9,11 +9,10 @@ import styles from './template-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const TemplateItem = ({ name, templateId }) => {
+const TemplateItem = ({ name, templateId, nested }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx('wrapper', { nested })}>
       <TemplateSvg className={cx('icon')} />
       <span className={cx('name')}>{name}</span>
       <div className={cx('delete-icon')} onClick={() => setIsDeleteModalOpen(true)}>
@@ -29,6 +28,10 @@ const TemplateItem = ({ name, templateId }) => {
       )}
     </div>
   );
+};
+
+TemplateItem.defaultProps = {
+  nested: false,
 };
 
 export default TemplateItem;

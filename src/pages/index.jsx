@@ -1,10 +1,9 @@
-import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 
 import Home from 'components/pages/home';
 import Layout from 'components/shared/layout';
-import withAuth from 'components/shared/with-auth';
 import generatePageTitle from 'utils/generate-page-title';
+import withAuth from 'utils/with-auth';
 
 const HomePage = () => (
   <Layout>
@@ -16,10 +15,8 @@ const HomePage = () => (
 );
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  return {
-    props: { session },
-  };
+  const data = await withAuth(context);
+  return data;
 }
 
-export default withAuth(HomePage);
+export default HomePage;

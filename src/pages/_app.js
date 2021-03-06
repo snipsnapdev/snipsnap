@@ -1,17 +1,16 @@
 import '../styles/globals.scss';
+import React from 'react';
 
-import { Provider } from 'next-auth/client';
+import AppContext from 'contexts/app-context';
 
-import TemplateGroupsProvider from 'contexts/template-groups-provider';
+// import TemplateGroupsProvider from 'contexts/template-groups-provider';
 
 function Snipsnap({ Component, pageProps }) {
-  console.log(pageProps);
+  const [token, setToken] = React.useState(pageProps.token);
   return (
-    <Provider session={pageProps.session}>
-      <TemplateGroupsProvider>
-        <Component {...pageProps} />
-      </TemplateGroupsProvider>
-    </Provider>
+    <AppContext.Provider value={{ session: pageProps.session, token, setToken }}>
+      <Component {...pageProps} />
+    </AppContext.Provider>
   );
 }
 

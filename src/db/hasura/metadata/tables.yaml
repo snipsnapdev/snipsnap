@@ -1,5 +1,8 @@
 - table:
     schema: public
+    name: api_keys
+- table:
+    schema: public
     name: templates
   insert_permissions:
   - role: user
@@ -98,6 +101,9 @@
       filter:
         user_id:
           _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: users
 - table:
     schema: public
     name: users_templates_groups
