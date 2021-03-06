@@ -21,7 +21,7 @@ const cx = classNames.bind(styles);
 
 const AddFolderModal = (props) => {
   const { isOpen, onClose, onSave } = props;
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = ({ name }) => {

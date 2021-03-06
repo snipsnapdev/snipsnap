@@ -4,6 +4,20 @@
 - table:
     schema: public
     name: templates
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        owner_id:
+          _eq: X-Hasura-User-Id
+      set:
+        owner_id: x-hasura-User-Id
+      columns:
+      - files
+      - name
+      - prompts
+      - template_group_id
+      backend_only: false
   select_permissions:
   - role: user
     permission:
@@ -19,6 +33,18 @@
       filter:
         owner_id:
           _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - files
+      - name
+      - prompts
+      - template_group_id
+      filter:
+        owner_id:
+          _eq: X-Hasura-User-Id
+      check: null
   delete_permissions:
   - role: user
     permission:

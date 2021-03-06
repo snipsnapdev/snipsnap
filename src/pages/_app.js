@@ -3,6 +3,8 @@ import React from 'react';
 
 import AppContext from 'contexts/app-context';
 
+// import TemplateGroupsProvider from 'contexts/template-groups-provider';
+
 function Snipsnap({ Component, pageProps }) {
   const [token, setToken] = React.useState(pageProps.token);
   return (

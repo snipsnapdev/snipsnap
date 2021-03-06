@@ -1,12 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
+// import { useTemplateGroups } from 'contexts/template-groups-provider';
 import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
 
 import styles from './create-template.module.scss';
@@ -22,6 +26,25 @@ const promptsSchema = {
   variableName: yup.string().required('Variable name is required'),
 };
 
+const query = gql`
+  mutation createTemplate(
+    $name: String!
+    $prompts: jsonb!
+    $files: jsonb!
+    $templateGroupId: uuid
+  ) {
+    insert_templates_one(
+      object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
+    ) {
+      name
+      owner_id
+      files
+      prompts
+      id
+    }
+  }
+`;
+
 const schema = yup.object().shape({
   name: yup
     .string()
@@ -30,19 +53,43 @@ const schema = yup.object().shape({
   prompts: yup
     .array()
     .of(yup.object().shape(promptsSchema))
-    .compact((v) => v.message === '' && v.variableName === '')
-    .required(),
+    .compact((v) => v.message === '' && v.variableName === ''),
 });
 
 const CreateTemplate = (props) => {
-  const { register, control, handleSubmit, errors } = useForm({
+  const gqlClient = useGqlClient();
+  const { register, control, handleSubmit, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: '',
+      prompts: [],
+    },
   });
 
-  const onSubmit = ({ name, prompts }) => {
+  // const groups = useTemplateGroups();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async ({ name, prompts }) => {
     const filesForApi = templateStore.formatFilesDataForApi();
-    console.log('Save template', name, prompts, filesForApi);
+
+    try {
+      setIsLoading(true);
+      await gqlClient.request(query, {
+        name,
+        prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
+        files: JSON.stringify(filesForApi),
+        // @TODO: change to selected group after group select is added
+        // templateGroupId: groups[0].id,
+      });
+      setIsLoading(false);
+      mutate('getOwnedTemplatesGroups');
+    } catch (err) {
+      setIsLoading(false);
+      console.log(err);
+    }
+    clearErrors();
   };
 
   const templateStore = React.useMemo(() => new TemplateStore(), []);
@@ -80,7 +127,7 @@ const CreateTemplate = (props) => {
             <div className={cx('files-wrapper')}>
               <Files />
             </div>
-            <Button className={cx('create')} type="submit">
+            <Button className={cx('create')} type="submit" loading={isLoading}>
               Create
             </Button>
           </form>
