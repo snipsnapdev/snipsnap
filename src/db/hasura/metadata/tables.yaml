@@ -77,4 +77,7 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: users
+- table:
+    schema: public
     name: users_templates_groups

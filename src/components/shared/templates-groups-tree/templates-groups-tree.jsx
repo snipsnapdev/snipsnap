@@ -9,7 +9,11 @@ import styles from './templates-groups-tree.module.scss';
 const cx = classNames.bind(styles);
 
 const query = gql`
-  query getOwnedTemplatesGroups {
+  query getTemplates {
+    templates {
+      id
+      name
+    }
     templates_groups {
       id
       name

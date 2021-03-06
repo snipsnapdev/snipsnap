@@ -40,6 +40,7 @@ const TemplatesGroups = () => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const gqlClient = useGqlClient();
+
   const onSubmit = async ({ name }) => {
     try {
       setLoading(true);
@@ -57,7 +58,7 @@ const TemplatesGroups = () => {
   return (
     <div className={cx('templates')}>
       <h2>
-        Templates groups
+        Templates
         <IconButton
           icon="plus"
           className={cx('group-create-button')}
