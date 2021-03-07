@@ -32,7 +32,7 @@ const DeleteTemplateModal = (props) => {
       setLoading(true);
       await gqlClient.request(query, { id });
       setLoading(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);

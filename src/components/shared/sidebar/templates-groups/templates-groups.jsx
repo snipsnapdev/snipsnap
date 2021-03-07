@@ -25,9 +25,9 @@ const cx = classNames.bind(styles);
 
 const query = gql`
   mutation createTemplatesGroup($name: String!) {
-    insert_templates_groups_one(object: { name: $name }) {
+    insert_template_groups_one(object: { name: $name }) {
       name
-      user_id
+      owner_id
       id
     }
   }
@@ -47,7 +47,7 @@ const TemplatesGroups = () => {
       await gqlClient.request(query, { name });
       setLoading(false);
       setIsModalOpen(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);

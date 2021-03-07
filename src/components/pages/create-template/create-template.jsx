@@ -84,7 +84,7 @@ const CreateTemplate = (props) => {
         // templateGroupId: groups[0].id,
       });
       setIsLoading(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setIsLoading(false);
       console.log(err);

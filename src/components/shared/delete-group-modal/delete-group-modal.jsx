@@ -14,9 +14,9 @@ const cx = classNames.bind(styles);
 
 const query = gql`
   mutation deleteTemplateGroup($id: uuid!) {
-    delete_templates_groups_by_pk(id: $id) {
+    delete_template_groups_by_pk(id: $id) {
       name
-      user_id
+      owner_id
       id
     }
   }
@@ -34,7 +34,7 @@ const DeleteGroupModal = (props) => {
       setLoading(true);
       await gqlClient.request(query, { id });
       setLoading(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);

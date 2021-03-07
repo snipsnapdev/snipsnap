@@ -15,7 +15,7 @@ const query = gql`
       id
       name
     }
-    templates_groups {
+    template_groups {
       id
       name
       templates {
@@ -30,9 +30,9 @@ const TemplatesGroupsTree = () => {
   const gqlClient = useGqlClient();
 
   const fetcher = () => gqlClient.request(query);
-  const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
+  const { data } = useSWR('getOwnedTemplateGroups', fetcher);
   const templates = data?.templates || [];
-  const groups = data?.templates_groups || [];
+  const groups = data?.template_groups || [];
   return (
     <div className={cx('wrapper')}>
       {templates.map((template) => (
