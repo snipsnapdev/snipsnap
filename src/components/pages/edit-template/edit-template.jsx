@@ -51,6 +51,7 @@ const EditTemplate = ({ templateId }) => {
 
   const handleSave = async ({ name, prompts, files, templateGroupId }) =>
     gqlClient.request(editTemplateQuery, {
+      templateId,
       name,
       prompts,
       files,
