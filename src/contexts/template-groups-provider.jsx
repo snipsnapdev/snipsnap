@@ -9,8 +9,8 @@ export const TemplateGroupsContext = React.createContext(null);
 export const useTemplateGroups = () => useContext(TemplateGroupsContext);
 
 const query = gql`
-  query getOwnedTemplatesGroups {
-    templates_groups {
+  query getOwnedTemplateGroups {
+    template_groups {
       id
       name
       templates {
@@ -25,8 +25,8 @@ export default function TemplateGroupsProvider({ children }) {
   const [{ token }] = useSession();
   const client = gqlClient(token);
   const fetcher = () => client.request(query);
-  const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
-  const groups = data?.templates_groups || [];
+  const { data } = useSWR('getOwnedTemplateGroups', fetcher);
+  const groups = data?.template_groups || [];
 
   return <TemplateGroupsContext.Provider value={groups}>{children}</TemplateGroupsContext.Provider>;
 }

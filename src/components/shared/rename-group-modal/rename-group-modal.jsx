@@ -25,9 +25,9 @@ const cx = classNames.bind(styles);
 
 const query = gql`
   mutation renameTemplateGroup($id: uuid!, $newName: String!) {
-    update_templates_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
+    update_template_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
       name
-      user_id
+      owner_id
       id
     }
   }
@@ -49,7 +49,7 @@ const RenameGroupModal = (props) => {
       setLoading(true);
       await gqlClient.request(query, { id, newName });
       setLoading(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);
