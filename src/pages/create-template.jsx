@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
+import CreateTemplate from 'components/pages/create-template';
 import Layout from 'components/shared/layout';
-import TemplateForm from 'components/shared/template-form';
 import generatePageTitle from 'utils/generate-page-title';
 import withAuth from 'utils/with-auth';
 
@@ -10,7 +10,7 @@ const CreateTemplatePage = () => (
     <Head>
       <title>{generatePageTitle('Create Template')}</title>
     </Head>
-    <TemplateForm />
+    <CreateTemplate />
   </Layout>
 );
 
