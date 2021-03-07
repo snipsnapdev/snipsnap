@@ -2,9 +2,6 @@ import jwt from 'utils/jwt';
 
 const { JWT_API_MAX_AGE } = process.env;
 
-const generateToken = (session) => {
-  const token = jwt.encode(session.user.id, 60 * 60);
-  return token;
-};
+const generateToken = (session) => jwt.encode(session.user.id, JWT_API_MAX_AGE);
 
 export default generateToken;

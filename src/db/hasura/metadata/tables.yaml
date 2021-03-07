@@ -1,6 +1,12 @@
 - table:
     schema: public
+    name: accounts
+- table:
+    schema: public
     name: api_keys
+- table:
+    schema: public
+    name: sessions
 - table:
     schema: public
     name: shared_template_groups
@@ -176,3 +182,6 @@
 - table:
     schema: public
     name: users
+- table:
+    schema: public
+    name: verification_requests
