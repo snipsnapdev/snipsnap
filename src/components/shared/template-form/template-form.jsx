@@ -1,32 +1,44 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/client';
+import { typeFromAST } from 'graphql';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
 
-import styles from './create-template.module.scss';
 import Files from './files';
 import Prompts from './prompts';
+import styles from './template-form.module.scss';
 
 const Editor = dynamic(import('components/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
+
+const findTemplateById = (templateId, groups) => {
+  let template = null;
+  for (const group of groups) {
+    template = group.templates.find((item) => item.id === templateId);
+    if (typeof template !== 'undefined') {
+      return template;
+    }
+  }
+
+  return template;
+};
 
 const promptsSchema = {
   message: yup.string().required('Message is required'),
   variableName: yup.string().required('Variable name is required'),
 };
 
-const query = gql`
+const createTemplateQuery = gql`
   mutation createTemplate(
     $name: String!
     $prompts: jsonb!
@@ -35,6 +47,27 @@ const query = gql`
   ) {
     insert_templates_one(
       object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
+    ) {
+      name
+      owner_id
+      files
+      prompts
+      id
+    }
+  }
+`;
+
+const updateTemplateQuery = gql`
+  mutation updateTemplate(
+    $templateId: uuid!
+    $name: String!
+    $prompts: jsonb!
+    $files: jsonb!
+    $templateGroupId: uuid!
+  ) {
+    update_templates_by_pk(
+      pk_columns: { id: $templateId }
+      _set: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
     ) {
       name
       owner_id
@@ -56,18 +89,42 @@ const schema = yup.object().shape({
     .compact((v) => v.message === '' && v.variableName === ''),
 });
 
-const CreateTemplate = (props) => {
-  const [{ token }] = useSession();
-  const { register, control, handleSubmit, clearErrors, errors } = useForm({
+const defaultTemplateValues = {
+  name: '',
+  prompts: [],
+  files: [],
+};
+
+const TemplateForm = ({ templateId = null }) => {
+  console.log('CT rerender', templateId);
+  const groups = useTemplateGroups();
+
+  console.log('GROUPS', groups);
+
+  const { register, control, handleSubmit, reset, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
-    defaultValues: {
-      name: '',
-      prompts: [],
-    },
+    defaultValues: defaultTemplateValues,
   });
 
-  const groups = useTemplateGroups();
+  const isCreatingNewTemplate = !templateId;
+
+  useEffect(() => {
+    const template = !templateId ? null : findTemplateById(templateId, groups);
+    console.log('FOUND', template);
+    const templateData = !templateId
+      ? defaultTemplateValues
+      : {
+          name: template?.name || '',
+          prompts: template?.prompts ? JSON.parse(template.prompts) : [],
+          files: template?.files ? JSON.parse(template.files) : [],
+        };
+
+    console.log('reset to', templateData);
+    reset(templateData);
+  }, [templateId, reset, groups]);
+
+  const gqlClient = useGqlClient();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -76,13 +133,25 @@ const CreateTemplate = (props) => {
 
     try {
       setIsLoading(true);
-      await gqlClient(token).request(query, {
-        name,
-        prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
-        files: JSON.stringify(filesForApi),
-        // @TODO: change to selected group after group select is added
-        templateGroupId: groups[0].id,
-      });
+
+      if (isCreatingNewTemplate) {
+        await gqlClient.request(createTemplateQuery, {
+          name,
+          prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
+          files: JSON.stringify(filesForApi),
+          // @TODO: change to selected group after group select is added
+          templateGroupId: groups[0].id,
+        });
+      } else {
+        await gqlClient.request(updateTemplateQuery, {
+          templateId,
+          name,
+          prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
+          files: JSON.stringify(filesForApi),
+          // @TODO: change to selected group after group select is added
+          templateGroupId: groups[0].id,
+        });
+      }
       setIsLoading(false);
       mutate('getOwnedTemplatesGroups');
     } catch (err) {
@@ -92,7 +161,20 @@ const CreateTemplate = (props) => {
     clearErrors();
   };
 
-  const templateStore = React.useMemo(() => new TemplateStore(), []);
+  // FIND FILES FOR CURRENT TEMPLATE (TODO: update to local state)
+  const template = !templateId ? null : findTemplateById(templateId, groups);
+  console.log('FOUND', template);
+  const templateData = !templateId
+    ? defaultTemplateValues
+    : {
+        name: template?.name || '',
+        prompts: template?.prompts ? JSON.parse(template.prompts) : [],
+        files: template?.files ? JSON.parse(template.files) : [],
+      };
+
+  const templateStore = React.useMemo(() => new TemplateStore(templateData.files), [
+    templateData.files,
+  ]);
 
   // add mock data for testing
   // React.useEffect(() => {
@@ -117,7 +199,9 @@ const CreateTemplate = (props) => {
       <div className={cx('wrapper')}>
         <div className={cx('left-column')}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={cx('title')}>Create template</h1>
+            <h1 className={cx('title')}>
+              {isCreatingNewTemplate ? 'Create template' : 'Edit template'}
+            </h1>
             <div className={cx('main')}>
               <Input label="Template name" name="name" register={register} errors={errors.name} />
             </div>
@@ -128,7 +212,7 @@ const CreateTemplate = (props) => {
               <Files />
             </div>
             <Button className={cx('create')} type="submit" loading={isLoading}>
-              Create
+              {isCreatingNewTemplate ? 'Create' : 'Save'}
             </Button>
           </form>
         </div>
@@ -140,4 +224,4 @@ const CreateTemplate = (props) => {
   );
 };
 
-export default CreateTemplate;
+export default TemplateForm;

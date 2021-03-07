@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-import AddFileModal from 'components/pages/create-template/files/file-browser/add-file-modal';
-import AddFolderModal from 'components/pages/create-template/files/file-browser/add-folder-modal';
-import DeleteFolderModal from 'components/pages/create-template/files/file-browser/delete-folder-modal';
-import RenameFolderModal from 'components/pages/create-template/files/file-browser/rename-folder-modal';
-import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
 import Dropdown from 'components/shared/dropdown';
+import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
+import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
+import DeleteFolderModal from 'components/shared/template-form/files/file-browser/delete-folder-modal';
+import RenameFolderModal from 'components/shared/template-form/files/file-browser/rename-folder-modal';
+import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
 import FolderSvg from 'icons/folder.inline.svg';

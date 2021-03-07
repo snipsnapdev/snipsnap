@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/client';
 import React, { useContext } from 'react';
 import useSWR from 'swr';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 
 export const TemplateGroupsContext = React.createContext(null);
 
@@ -16,17 +16,19 @@ const query = gql`
       templates {
         name
         id
+        prompts
+        files
       }
     }
   }
 `;
 
 export default function TemplateGroupsProvider({ children }) {
-  const [{ token }] = useSession();
-  const client = gqlClient(token);
-  const fetcher = () => client.request(query);
+  const gqlClient = useGqlClient();
+  const fetcher = () => gqlClient.request(query);
   const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
   const groups = data?.templates_groups || [];
+  console.log('groups data', data);
 
   return <TemplateGroupsContext.Provider value={groups}>{children}</TemplateGroupsContext.Provider>;
 }

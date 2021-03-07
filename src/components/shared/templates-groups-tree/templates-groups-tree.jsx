@@ -1,33 +1,15 @@
 import classNames from 'classnames/bind';
-import useSWR from 'swr';
 
-import { gql, useGqlClient } from 'api/graphql';
+import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import TemplateGroupItem from './template-group-item';
 import styles from './templates-groups-tree.module.scss';
 
 const cx = classNames.bind(styles);
 
-const query = gql`
-  query getOwnedTemplatesGroups {
-    templates_groups {
-      id
-      name
-      templates {
-        name
-        id
-      }
-    }
-  }
-`;
-
 const TemplatesGroupsTree = () => {
-  const gqlClient = useGqlClient();
+  const groups = useTemplateGroups();
 
-  const fetcher = () => gqlClient.request(query);
-  const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
-
-  const groups = data?.templates_groups || [];
   return (
     <div className={cx('wrapper')}>
       {groups.map((group) => (

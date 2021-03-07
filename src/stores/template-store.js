@@ -25,7 +25,7 @@ const createFolder = (data) => ({
 
 /** UI state for the currently opened template */
 export default class TemplateStore {
-  constructor() {
+  constructor(files = []) {
     if (typeof window !== 'undefined') {
       window.templateStore = this;
     }
@@ -33,8 +33,7 @@ export default class TemplateStore {
     this.openFileId = null;
 
     this.data = {
-      files: [],
-      name: '',
+      files: files.map(addIds),
     };
 
     this.updateCallbacks = [];
@@ -42,7 +41,6 @@ export default class TemplateStore {
 
   initWithEmpty() {
     this.data = {
-      name: '',
       files: [],
     };
   }
@@ -183,6 +181,10 @@ export default class TemplateStore {
     return this.data.files.map(removeIds);
   }
 
+  formatFilesDataFromApi() {
+    return this.data.files.map(addIds);
+  }
+
   // Notify update listeneres (e.g. to make React re-render components)
   addUpdateCallback(cb) {
     this.updateCallbacks.push(cb);
@@ -278,6 +280,25 @@ const removeIds = (item) => {
     data: {
       ...item.data,
       files: item.data.files.map(removeIds),
+    },
+  };
+};
+
+/** Traverse file tree, add ids */
+const addIds = (item) => {
+  if (item.type === 'file') {
+    return {
+      type: 'file',
+      id: uuid(),
+      data: item.data,
+    };
+  }
+  return {
+    type: 'folder',
+    id: uuid(),
+    data: {
+      ...item.data,
+      files: item.data.files.map(addIds),
     },
   };
 };
