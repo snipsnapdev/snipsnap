@@ -20,15 +20,18 @@ const options = {
   pages: {
     signIn: '/login',
   },
+
   providers: [
     Providers.GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
+
   session: {
     maxAge: 90 * 24 * 60 * 60, // 90 days
   },
+
   adapter: Adapters.TypeORM.Adapter(
     // The first argument should be a database connection string or TypeORM config object
     DATABASE_URL,
@@ -39,17 +42,18 @@ const options = {
       },
     }
   ),
+
   callbacks: {
     async session(session, user) {
       session.user.id = user.userId;
       return session;
     },
   },
-  events: {
-    async createUser({ user: { userId } }) {
-      const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
-      const token = jwt.encode(userId, ONE_YEAR_IN_SECONDS);
 
+  events: {
+    async createUser({ userId }) {
+      const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+      const token = jwt.encode(userId, ONE_YEAR_IN_SECONDS, 'api');
       adminGQLClient()
         .request(createAPIKey, { apiKey: token, userId })
         .catch((error) => console.log(error));
