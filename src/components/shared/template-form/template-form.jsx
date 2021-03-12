@@ -81,7 +81,7 @@ const TemplateForm = ({
       await onSave(newTemplateData);
 
       setIsLoading(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setIsLoading(false);
       console.log(err);
