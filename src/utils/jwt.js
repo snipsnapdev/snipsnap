@@ -5,12 +5,12 @@ const { JWT_SECRET } = process.env;
 const ENCRYPTION_ALGORITHM = 'HS512';
 
 // Don't use on the client side
-const encode = (userId, expires) => {
+const encode = (userId, expires, role = 'user') => {
   const tokenContent = {
     'https://hasura.io/jwt/claims': {
-      'x-hasura-allowed-roles': ['user'],
-      'x-hasura-default-role': 'user',
-      'x-hasura-role': 'user',
+      'x-hasura-allowed-roles': [role],
+      'x-hasura-default-role': role,
+      'x-hasura-role': role,
       'x-hasura-user-id': userId,
     },
   };

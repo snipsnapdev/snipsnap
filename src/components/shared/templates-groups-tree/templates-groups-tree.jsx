@@ -3,15 +3,19 @@ import classNames from 'classnames/bind';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import TemplateGroupItem from './template-group-item';
+import TemplateItem from './template-item';
 import styles from './templates-groups-tree.module.scss';
 
 const cx = classNames.bind(styles);
 
 const TemplatesGroupsTree = () => {
-  const groups = useTemplateGroups();
+  const { groups, templates } = useTemplateGroups();
 
   return (
     <div className={cx('wrapper')}>
+      {templates.map((template) => (
+        <TemplateItem key={template.id} name={template.name} templateId={template.id} />
+      ))}
       {groups.map((group) => (
         <TemplateGroupItem
           key={group.id}

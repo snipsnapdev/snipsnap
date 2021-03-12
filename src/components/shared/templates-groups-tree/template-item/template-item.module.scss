@@ -4,7 +4,7 @@
   padding-top: 7px;
   padding-right: 10px;
   padding-bottom: 7px;
-  padding-left: 35px;
+  padding-left: 10px;
   cursor: pointer;
 
   &:hover {
@@ -55,4 +55,8 @@
       }
     }
   }
+}
+
+.nested {
+  padding-left: 35px;
 }

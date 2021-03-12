@@ -62,7 +62,7 @@ const TemplateForm = ({
     initialValues.files,
   ]);
 
-  const groups = useTemplateGroups();
+  const { groups } = useTemplateGroups();
 
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = templateStore.formatFilesDataForApi();

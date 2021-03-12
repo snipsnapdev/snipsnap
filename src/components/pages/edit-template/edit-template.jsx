@@ -36,7 +36,7 @@ const findTemplateById = (templateId, groups) => {
 };
 
 const EditTemplate = ({ templateId }) => {
-  const groups = useTemplateGroups();
+  const { groups } = useTemplateGroups();
 
   const template = findTemplateById(templateId, groups);
   console.log('FOUND', template);

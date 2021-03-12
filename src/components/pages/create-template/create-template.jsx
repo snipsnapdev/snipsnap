@@ -6,7 +6,7 @@ const createTemplateQuery = gql`
     $name: String!
     $prompts: jsonb!
     $files: jsonb!
-    $templateGroupId: uuid!
+    $templateGroupId: uuid
   ) {
     insert_templates_one(
       object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }

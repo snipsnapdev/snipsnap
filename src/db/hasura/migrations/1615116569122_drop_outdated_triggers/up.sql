@@ -1,0 +1,4 @@
+DROP TRIGGER IF EXISTS create_new_templates_group on templates_groups;
+DROP FUNCTION insert_data_from_templates_groups_to_users_templates_groups;
+DROP TRIGGER IF EXISTS create_new_user ON users;
+DROP FUNCTION create_default_templates_group;

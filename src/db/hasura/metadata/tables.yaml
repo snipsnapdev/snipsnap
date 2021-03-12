@@ -1,9 +1,90 @@
 - table:
     schema: public
+    name: accounts
+- table:
+    schema: public
     name: api_keys
 - table:
     schema: public
+    name: sessions
+- table:
+    schema: public
+    name: shared_template_groups
+- table:
+    schema: public
+    name: shared_templates
+- table:
+    schema: public
+    name: template_groups
+  array_relationships:
+  - name: shared_template_groups
+    using:
+      foreign_key_constraint_on:
+        column: template_group_id
+        table:
+          schema: public
+          name: shared_template_groups
+  - name: templates
+    using:
+      foreign_key_constraint_on:
+        column: template_group_id
+        table:
+          schema: public
+          name: templates
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        owner_id:
+          _eq: X-Hasura-User-Id
+      set:
+        owner_id: x-hasura-User-Id
+      columns:
+      - id
+      - name
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - id
+      - name
+      - updated_at
+      - owner_id
+      filter:
+        _or:
+        - owner_id:
+            _eq: X-Hasura-User-Id
+        - shared_template_groups:
+            shared_to_user_id:
+              _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - name
+      filter:
+        owner_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        owner_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: templates
+  array_relationships:
+  - name: shared_to
+    using:
+      foreign_key_constraint_on:
+        column: template_id
+        table:
+          schema: public
+          name: shared_templates
   insert_permissions:
   - role: user
     permission:
@@ -31,8 +112,12 @@
       - created_at
       - updated_at
       filter:
-        owner_id:
-          _eq: X-Hasura-User-Id
+        _or:
+        - owner_id:
+            _eq: X-Hasura-User-Id
+        - shared_to:
+            shared_to_user_id:
+              _eq: X-Hasura-User-Id
   update_permissions:
   - role: user
     permission:
@@ -53,54 +138,50 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: templates_groups
-  array_relationships:
-  - name: templates
+    name: user_available_template_groups
+  object_relationships:
+  - name: template_group
     using:
-      foreign_key_constraint_on:
-        column: template_group_id
-        table:
-          schema: public
-          name: templates
-  insert_permissions:
-  - role: user
-    permission:
-      check:
-        user_id:
-          _eq: X-Hasura-User-Id
-      set:
-        user_id: x-hasura-User-Id
-      columns:
-      - id
-      - name
-      backend_only: false
+      foreign_key_constraint_on: template_group_id
+  - name: user
+    using:
+      foreign_key_constraint_on: available_for_user_id
   select_permissions:
   - role: user
     permission:
       columns:
-      - created_at
       - id
-      - name
+      - template_group_id
+      - available_for_user_id
+      - created_at
       - updated_at
-      - user_id
       filter:
-        user_id:
-          _eq: X-Hasura-User-Id
-  update_permissions:
-  - role: user
-    permission:
-      columns:
-      - name
-      filter:
-        user_id:
-          _eq: X-Hasura-User-Id
-      check: null
-  delete_permissions:
-  - role: user
-    permission:
-      filter:
-        user_id:
+        available_for_user_id:
           _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: users_templates_groups
+    name: user_available_templates
+  object_relationships:
+  - name: template
+    using:
+      foreign_key_constraint_on: template_id
+  - name: user
+    using:
+      foreign_key_constraint_on: available_for_user_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - available_for_user_id
+      - created_at
+      - template_id
+      - updated_at
+      filter:
+        available_for_user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: users
+- table:
+    schema: public
+    name: verification_requests

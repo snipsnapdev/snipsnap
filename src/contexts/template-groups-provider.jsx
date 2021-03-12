@@ -1,4 +1,3 @@
-import { useSession } from 'next-auth/client';
 import React, { useContext } from 'react';
 import useSWR from 'swr';
 
@@ -9,8 +8,12 @@ export const TemplateGroupsContext = React.createContext(null);
 export const useTemplateGroups = () => useContext(TemplateGroupsContext);
 
 const query = gql`
-  query getOwnedTemplatesGroups {
-    templates_groups {
+  query getOwnedTemplateGroups {
+    templates(where: { template_group_id: { _is_null: true } }) {
+      id
+      name
+    }
+    template_groups {
       id
       name
       templates {
@@ -26,9 +29,14 @@ const query = gql`
 export default function TemplateGroupsProvider({ children }) {
   const gqlClient = useGqlClient();
   const fetcher = () => gqlClient.request(query);
-  const { data } = useSWR('getOwnedTemplatesGroups', fetcher);
-  const groups = data?.templates_groups || [];
+  const { data } = useSWR('getOwnedTemplateGroups', fetcher);
+  const groups = data?.template_groups || [];
+  const templates = data?.templates || [];
   console.log('groups data', data);
 
-  return <TemplateGroupsContext.Provider value={groups}>{children}</TemplateGroupsContext.Provider>;
+  return (
+    <TemplateGroupsContext.Provider value={{ groups, templates }}>
+      {children}
+    </TemplateGroupsContext.Provider>
+  );
 }

@@ -53,7 +53,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
       <div className={cx('templates')}>
         {templates.length > 0 &&
           templates.map((template) => (
-            <TemplateItem key={template.id} name={template.name} templateId={template.id} />
+            <TemplateItem key={template.id} name={template.name} templateId={template.id} nested />
           ))}
       </div>
       {isDeleteModalOpen && (

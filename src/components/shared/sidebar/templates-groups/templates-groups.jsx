@@ -25,9 +25,9 @@ const cx = classNames.bind(styles);
 
 const query = gql`
   mutation createTemplatesGroup($name: String!) {
-    insert_templates_groups_one(object: { name: $name }) {
+    insert_template_groups_one(object: { name: $name }) {
       name
-      user_id
+      owner_id
       id
     }
   }
@@ -40,13 +40,14 @@ const TemplatesGroups = () => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const gqlClient = useGqlClient();
+
   const onSubmit = async ({ name }) => {
     try {
       setLoading(true);
       await gqlClient.request(query, { name });
       setLoading(false);
       setIsModalOpen(false);
-      mutate('getOwnedTemplatesGroups');
+      mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -57,7 +58,7 @@ const TemplatesGroups = () => {
   return (
     <div className={cx('templates')}>
       <h2>
-        Templates groups
+        Templates
         <IconButton
           icon="plus"
           className={cx('group-create-button')}
