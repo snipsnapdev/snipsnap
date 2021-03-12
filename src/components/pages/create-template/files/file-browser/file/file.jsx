@@ -8,7 +8,7 @@ import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
 
-const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
+const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, onDragStart, level }) => {
   const fileRef = useRef();
   const store = useTemplateStore();
 
@@ -25,12 +25,20 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
     };
   }, [onDragLeave, onDragOver]);
 
-  const handleClick = () => {
+  const handleClick = (evt) => {
+    evt.stopPropagation();
     onOpen(file);
   };
 
   const handleDelete = () => {
     onDelete(file.id);
+  };
+
+  const handleDragStart = (evt) => {
+    onOpen(null);
+    evt.preventDefault();
+    evt.stopPropagation();
+    onDragStart(file);
   };
 
   return (
@@ -40,8 +48,10 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, level }) => {
         'wrapper',
         store.getOpenFile() && file.id === store.getOpenFile().id && 'wrapper-selected'
       )}
+      draggable="true"
       style={{ paddingLeft: 20 + 25 * level }}
       onClick={handleClick}
+      onDrag={handleDragStart}
     >
       <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
       {file.data.name}

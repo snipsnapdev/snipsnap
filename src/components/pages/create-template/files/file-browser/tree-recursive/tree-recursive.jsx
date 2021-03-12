@@ -16,6 +16,7 @@ const TreeRecursive = ({
   onAddFile,
   onAddFolder,
   onRenameFolder,
+  onDragStart,
   level,
 }) => (
   <div className={styles.tree}>
@@ -31,6 +32,7 @@ const TreeRecursive = ({
             onDrop={(evt) => onDropFile(parentId, evt)}
             onDelete={onItemDelete}
             onOpen={onOpenFile}
+            onDragStart={onDragStart}
           />
         );
       }
@@ -45,6 +47,7 @@ const TreeRecursive = ({
           onAddFolder={onAddFolder}
           onOpenFile={onOpenFile}
           onRenameFolder={onRenameFolder}
+          onDragStart={onDragStart}
         />
       );
     })}
