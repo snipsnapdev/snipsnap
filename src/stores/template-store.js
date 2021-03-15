@@ -46,6 +46,7 @@ export default class TemplateStore {
   }
 
   openFile(fileId) {
+    console.log('store open file', fileId);
     this.openFileId = fileId;
     this.notifyUpdateListeners();
   }

@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import { cloneDeep } from 'lodash';
 import dynamic from 'next/dynamic';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -53,7 +54,7 @@ const TemplateForm = ({
   });
 
   useEffect(() => {
-    reset(initialValues);
+    reset(cloneDeep(initialValues));
   }, [initialValues, reset]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -101,7 +102,12 @@ const TemplateForm = ({
               <Input label="Template name" name="name" register={register} errors={errors.name} />
             </div>
             <div className={cx('prompts-wrapper')}>
-              <Prompts control={control} register={register} errors={errors} />
+              <Prompts
+                control={control}
+                register={register}
+                errors={errors}
+                showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
+              />
             </div>
             <div className={cx('files-wrapper')}>
               <Files />

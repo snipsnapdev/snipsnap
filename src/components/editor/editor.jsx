@@ -29,6 +29,7 @@ const Editor = () => {
   const store = useTemplateStore();
 
   const openFile = store.getOpenFile();
+  console.log('editor render', openFile ? openFile.data.name : 'no file');
 
   const filePath = store.getOpenFilePath() || 'undefined';
 
