@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
 
@@ -23,13 +25,26 @@ const createTemplateQuery = gql`
 const CreateTemplate = () => {
   const gqlClient = useGqlClient();
 
-  const handleSave = async ({ name, prompts, files, templateGroupId }) =>
-    gqlClient.request(createTemplateQuery, {
+  const router = useRouter();
+
+  const handleSave = async ({ name, prompts, files, templateGroupId }) => {
+    const res = await gqlClient.request(createTemplateQuery, {
       name,
       prompts,
       files,
       templateGroupId,
     });
+
+    try {
+      const templateId = res?.insert_templates_one?.id || null;
+
+      if (templateId) {
+        router.push(`/template/${templateId}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return <TemplateForm isCreatingNewTemplate onSave={handleSave} />;
 };
 
