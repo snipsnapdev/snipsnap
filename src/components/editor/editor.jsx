@@ -26,10 +26,9 @@ const DEFAULT_LANGUAGE = 'JavaScript';
 
 const Editor = () => {
   const LANGUAGES = Object.values(LANGUAGE_MAPPING);
-  const store = useTemplateStore();
+  const store = useTemplateStore('editor');
 
   const openFile = store.getOpenFile();
-  console.log('editor render', openFile ? openFile.data.name : 'no file');
 
   const filePath = store.getOpenFilePath() || 'undefined';
 

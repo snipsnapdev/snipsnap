@@ -41,7 +41,6 @@ const Folder = ({
 
   const handleFileDrop = useCallback((evt) => {
     evt.preventDefault();
-    console.log('file drop to', folder.id);
     onDropFile(folder.id, evt);
     setIsDragOver(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

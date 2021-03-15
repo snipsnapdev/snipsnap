@@ -46,7 +46,6 @@ export default class TemplateStore {
   }
 
   openFile(fileId) {
-    console.log('store open file', fileId);
     this.openFileId = fileId;
     this.notifyUpdateListeners();
   }
@@ -205,9 +204,11 @@ export const TemplateStoreContext = React.createContext(null);
 export const useTemplateStore = () => {
   const store = React.useContext(TemplateStoreContext);
   const [renderKey, setRenderKey] = React.useState({});
-  const updateCallback = () => setRenderKey({});
 
   React.useEffect(() => {
+    const updateCallback = () => {
+      setRenderKey({});
+    };
     store.addUpdateCallback(updateCallback);
     return () => store.removeUpdateCallback(updateCallback);
     // eslint-disable-next-line react-hooks/exhaustive-deps

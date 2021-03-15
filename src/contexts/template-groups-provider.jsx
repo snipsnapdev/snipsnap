@@ -32,7 +32,6 @@ export default function TemplateGroupsProvider({ children }) {
   const { data } = useSWR('getOwnedTemplateGroups', fetcher);
   const groups = data?.template_groups || [];
   const templates = data?.templates || [];
-  console.log('groups data', data);
 
   return (
     <TemplateGroupsContext.Provider value={{ groups, templates }}>

@@ -62,7 +62,7 @@ const EditTemplate = ({ templateId }) => {
     return <></>;
   }
 
-  return <TemplateForm initialValues={templateData} onSave={handleSave} />;
+  return <TemplateForm key={templateId} initialValues={templateData} onSave={handleSave} />;
 };
 
 export default EditTemplate;
