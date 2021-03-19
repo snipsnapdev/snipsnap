@@ -24,6 +24,7 @@ const Folder = ({
   onAddFolder,
   onRenameFolder,
   onDragStart,
+  onDragEnd,
   level,
 }) => {
   const folderRef = useRef();
@@ -90,6 +91,7 @@ const Folder = ({
       className={cx('folder', isDragOver && 'folder-dragover')}
       draggable="true"
       onDrag={handleDragStart}
+      onDragEnd={onDragEnd}
     >
       <div className={cx('folder-line')} style={{ left: 19 + 25 * level }} />
       <div className={styles.wrapper}>
@@ -163,6 +165,7 @@ const Folder = ({
             onOpenFile={onOpenFile}
             onRenameFolder={onRenameFolder}
             onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
           />
         )}
       </div>

@@ -18,10 +18,14 @@ const FileBrowser = () => {
 
   const draggedItemRef = React.useRef(null);
 
-  // TODO: clear state when drag ends
   /** Handles dragging elements within the tree */
   const handleDragStart = (item) => {
     draggedItemRef.current = item;
+  };
+
+  const handleDragEnd = () => {
+    console.log('STOP DRAG');
+    draggedItemRef.current = null;
   };
 
   const handleDragOver = React.useCallback((evt) => {
@@ -91,7 +95,7 @@ const FileBrowser = () => {
   const handleDropFile = async (folderId, evt) => {
     if (draggedItemRef.current) {
       store.dragAndDrop(draggedItemRef.current, folderId);
-      draggedItemRef.current = null;
+      handleDragEnd();
       return;
     }
 
@@ -167,6 +171,7 @@ const FileBrowser = () => {
         onItemDelete={handleDeleteFile}
         onOpenFile={(file) => (file ? store.openFile(file.id) : store.openFile(null))}
         onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
       />
     </div>
   );

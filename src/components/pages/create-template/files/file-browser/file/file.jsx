@@ -8,7 +8,16 @@ import styles from './file.module.scss';
 
 const cx = classNames.bind(styles);
 
-const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, onDragStart, level }) => {
+const File = ({
+  file,
+  onOpen,
+  onDragOver,
+  onDragLeave,
+  onDelete,
+  onDragStart,
+  onDragEnd,
+  level,
+}) => {
   const fileRef = useRef();
   const store = useTemplateStore();
 
@@ -52,6 +61,7 @@ const File = ({ file, onOpen, onDragOver, onDragLeave, onDelete, onDragStart, le
       style={{ paddingLeft: 20 + 25 * level }}
       onClick={handleClick}
       onDrag={handleDragStart}
+      onDragEnd={onDragEnd}
     >
       <div className={cx('file-icon')} style={{ left: 8 + 25 * level }} />
       {file.data.name}
