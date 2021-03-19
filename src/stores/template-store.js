@@ -101,10 +101,6 @@ export default class TemplateStore {
     return file;
   }
 
-  addFiles(data, parentFolderId = null) {
-    return data.map((item) => this.addFile(item, parentFolderId));
-  }
-
   addFolder(data, parentFolderId = null) {
     // we could pass data with or without id
     const folder = data.id !== undefined ? { ...data, type: 'folder' } : createFolder(data);
@@ -135,6 +131,44 @@ export default class TemplateStore {
       // it's a file
       return this.addFile(item, parentFolderId);
     });
+  }
+
+  // moving items within the tree
+  moveFile(file, parentFolderId = null) {
+    // no parent folder - add to root
+    if (!parentFolderId) {
+      this.data.files.push(file);
+      sortFiles(this.data.files);
+    } else {
+      const newData = cloneDeep(this.data.files);
+      const folderPath = findFolderPathByKey(newData, parentFolderId);
+      const lastFolder = folderPath[folderPath.length - 1];
+      lastFolder.data.files.push(file);
+      sortFiles(lastFolder.data.files);
+      this.data.files = newData;
+    }
+
+    this.openFile(file.id);
+    this.notifyUpdateListeners();
+    return file;
+  }
+
+  moveFolder(folder, parentFolderId = null) {
+    // no parent folder - add to root
+    if (!parentFolderId) {
+      this.data.files.push(folder);
+      sortFiles(this.data.files);
+    } else {
+      const newData = cloneDeep(this.data.files);
+      const folderPath = findFolderPathByKey(newData, parentFolderId);
+      const lastFolder = folderPath[folderPath.length - 1];
+      lastFolder.data.files.push(folder);
+      sortFiles(lastFolder.data.files);
+      this.data.files = newData;
+    }
+
+    this.notifyUpdateListeners();
+    return folder;
   }
 
   renameFolder(newName, folderId) {
@@ -175,6 +209,18 @@ export default class TemplateStore {
     }
 
     this.notifyUpdateListeners();
+  }
+
+  dragAndDrop(draggedItem, newFolderId = null) {
+    // close open file
+    this.openFile(null);
+
+    this.deleteFile(draggedItem.id);
+
+    if (draggedItem.type === 'folder') {
+      return this.moveFolder(draggedItem, newFolderId);
+    }
+    return this.moveFile(draggedItem, newFolderId);
   }
 
   formatFilesDataForApi() {
@@ -245,6 +291,22 @@ const findFolderPathByKey = (data, folderId, path = []) => {
     }
     if (item.data.files) {
       const result = findFolderPathByKey(item.data.files, folderId, [...path, item]);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return null;
+};
+
+/** Find path to parent of item width id=itemId */
+const findParentFolderPathByKey = (data, itemId, path = []) => {
+  for (const item of data) {
+    if (item.id === itemId) {
+      return path;
+    }
+    if (item.data.files) {
+      const result = findParentFolderPathByKey(item.data.files, itemId, [...path, item]);
       if (result) {
         return result;
       }
