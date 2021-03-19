@@ -23,6 +23,8 @@ const Folder = ({
   onAddFile,
   onAddFolder,
   onRenameFolder,
+  onDragStart,
+  onDragEnd,
   level,
 }) => {
   const folderRef = useRef();
@@ -41,11 +43,17 @@ const Folder = ({
 
   const handleFileDrop = useCallback((evt) => {
     evt.preventDefault();
-    console.log('file drop to', folder.id);
+    evt.stopPropagation();
     onDropFile(folder.id, evt);
     setIsDragOver(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleDragStart = (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    onDragStart(folder);
+  };
 
   useEffect(() => {
     const folderElem = folderRef.current;
@@ -78,7 +86,13 @@ const Folder = ({
   );
 
   return (
-    <div ref={folderRef} className={cx('folder', isDragOver && 'folder-dragover')}>
+    <div
+      ref={folderRef}
+      className={cx('folder', isDragOver && 'folder-dragover')}
+      draggable="true"
+      onDrag={handleDragStart}
+      onDragEnd={onDragEnd}
+    >
       <div className={cx('folder-line')} style={{ left: 19 + 25 * level }} />
       <div className={styles.wrapper}>
         <span className={cx('folder-title')} style={{ marginLeft: 10 + 25 * level }}>
@@ -150,6 +164,8 @@ const Folder = ({
             onAddFolder={onAddFolder}
             onOpenFile={onOpenFile}
             onRenameFolder={onRenameFolder}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
           />
         )}
       </div>
