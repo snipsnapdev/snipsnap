@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { chain, compact, isEmpty, map } from 'lodash';
 import React from 'react';
 
-import TreeRecursive from 'components/pages/create-template/files/file-browser/tree-recursive';
+import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import { useTemplateStore } from 'stores/template-store';
 
 import styles from './file-browser.module.scss';

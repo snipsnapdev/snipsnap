@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
-import FileBrowser from 'components/pages/create-template/files/file-browser';
-import AddFileModal from 'components/pages/create-template/files/file-browser/add-file-modal';
-import AddFolderModal from 'components/pages/create-template/files/file-browser/add-folder-modal';
 import Dropdown from 'components/shared/dropdown';
 import IconButton from 'components/shared/icon-button';
+import FileBrowser from 'components/shared/template-form/files/file-browser';
+import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
+import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
 import { useTemplateStore } from 'stores/template-store';
 
 import styles from './files.module.scss';

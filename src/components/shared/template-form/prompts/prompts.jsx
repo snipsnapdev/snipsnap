@@ -43,13 +43,21 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
     </span>
   </li>
 ));
-const Prompts = ({ title, tooltip, buttonText, control, errors, register }) => {
+const Prompts = ({
+  title,
+  tooltip,
+  buttonText,
+  showPrompts = false,
+  control,
+  errors,
+  register,
+}) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
   });
 
-  const [visibilityPrompts, setVisibilityPrompts] = useState(false);
+  const [visibilityPrompts, setVisibilityPrompts] = useState(showPrompts);
 
   const addItem = () => {
     append({ message: '', variableName: '' });

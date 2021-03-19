@@ -1,8 +1,7 @@
-import { useSession } from 'next-auth/client';
 import React, { useContext } from 'react';
 import useSWR from 'swr';
 
-import { gql, gqlClient } from 'api/graphql';
+import { gql, useGqlClient } from 'api/graphql';
 
 export const TemplateGroupsContext = React.createContext(null);
 
@@ -10,23 +9,42 @@ export const useTemplateGroups = () => useContext(TemplateGroupsContext);
 
 const query = gql`
   query getOwnedTemplateGroups {
-    template_groups {
-      id
-      name
-      templates {
-        name
+    user_available_template_groups {
+      template_group {
         id
+        name
+        owner_id
+        templates {
+          id
+          files
+          name
+          prompts
+          owner_id
+        }
+      }
+    }
+    user_available_templates(where: { template: { template_group_id: { _is_null: true } } }) {
+      template {
+        id
+        name
+        prompts
+        files
+        owner_id
       }
     }
   }
 `;
 
 export default function TemplateGroupsProvider({ children }) {
-  const [{ token }] = useSession();
-  const client = gqlClient(token);
-  const fetcher = () => client.request(query);
+  const gqlClient = useGqlClient();
+  const fetcher = () => gqlClient.request(query);
   const { data } = useSWR('getOwnedTemplateGroups', fetcher);
-  const groups = data?.template_groups || [];
+  const groups = (data?.user_available_template_groups || []).map((item) => item.template_group);
+  const templates = (data?.user_available_templates || []).map((item) => item.template);
 
-  return <TemplateGroupsContext.Provider value={groups}>{children}</TemplateGroupsContext.Provider>;
+  return (
+    <TemplateGroupsContext.Provider value={{ groups, templates }}>
+      {children}
+    </TemplateGroupsContext.Provider>
+  );
 }

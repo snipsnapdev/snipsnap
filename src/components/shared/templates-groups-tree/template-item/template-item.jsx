@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import DeleteTemplateModal from 'components/shared/delete-template-modal';
@@ -14,7 +15,9 @@ const TemplateItem = ({ name, templateId, nested }) => {
   return (
     <div className={cx('wrapper', { nested })}>
       <TemplateSvg className={cx('icon')} />
-      <span className={cx('name')}>{name}</span>
+      <Link href={`/template/${templateId}`}>
+        <span className={cx('name')}>{name}</span>
+      </Link>
       <div className={cx('delete-icon')} onClick={() => setIsDeleteModalOpen(true)}>
         <CloseSvg />
       </div>

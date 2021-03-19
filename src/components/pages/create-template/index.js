@@ -1,3 +1,1 @@
-import CreateTemplate from './create-template';
-
-export default CreateTemplate;
+export { default } from './create-template.jsx';

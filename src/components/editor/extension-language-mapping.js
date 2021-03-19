@@ -5,7 +5,7 @@ export default {
   tsx: 'TypeScript',
   css: 'CSS',
   sass: 'Sass',
-  scss: 'Scss',
+  scss: 'Sass',
   less: 'LESS',
   html: 'HTML',
   yaml: 'YAML',
