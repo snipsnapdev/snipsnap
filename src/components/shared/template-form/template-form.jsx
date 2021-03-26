@@ -9,8 +9,9 @@ import * as yup from 'yup';
 
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
-import { FilesContext, filesReducer, formatFilesDataForApi } from 'contexts/files-provider';
+import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+import { formatFilesDataForApi } from 'utils/files-provider-helpers';
 
 import Files from './files';
 import Prompts from './prompts';

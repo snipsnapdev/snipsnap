@@ -1,7 +1,7 @@
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
-import { formatFilesDataFromApi } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+import { formatFilesDataFromApi } from 'utils/files-provider-helpers';
 
 const editTemplateQuery = gql`
   mutation updateTemplate(

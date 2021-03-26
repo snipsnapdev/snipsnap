@@ -15,7 +15,8 @@ import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 import Dropdown from 'components/shared/dropdown';
-import { useFiles, findFileById, getFilePath } from 'contexts/files-provider';
+import { useFiles } from 'contexts/files-provider';
+import { findFileById, getFilePath } from 'utils/files-provider-helpers';
 
 import styles from './editor.module.scss';
 import LANGUAGE_MAPPING from './extension-language-mapping';
