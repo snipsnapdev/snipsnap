@@ -13,22 +13,30 @@ export const filesReducer = (state, action) => {
     case 'addItem':
       return {
         ...state,
-        files: addFolderOrFile(state.files, action.data, action.parentFolderId),
+        ...addFolderOrFile({
+          files: state.files,
+          data: action.data,
+          parentFolderId: action.parentFolderId,
+        }),
       };
     case 'moveItem':
       return {
         ...state,
-        files: moveItem(state.files, action.item, action.newFolderId),
+        ...moveItem({ files: state.files, item: action.item, newFolderId: action.newFolderId }),
       };
     case 'renameFolder':
       return {
         ...state,
-        files: renameFolder(state.files, action.folderId, action.newName),
+        ...renameFolder({ files: state.files, folderId: action.folderId, newName: action.newName }),
       };
     case 'deleteItem':
       return {
         ...state,
-        files: deleteItem(state.files, action.itemId),
+        ...deleteItem({
+          files: state.files,
+          itemId: action.itemId,
+          isFileOpen: action.itemId === state.openFileId,
+        }),
       };
     case 'openFile':
       return { ...state, openFileId: action.fileId };
@@ -90,10 +98,7 @@ const addFile = (files, fileData, parentFolderId = null) => {
     sortFiles(lastFolder.data.files);
   }
 
-  // TODO: open just added file
-  // this.openFile(file.id);
-
-  return newFiles;
+  return { newFiles, newFileId: file.id };
 };
 
 /** Add folder and its content to folder with id=parentFolderId or to the root */
@@ -118,12 +123,14 @@ const addFolder = (files, folderData, parentFolderId = null) => {
   return newFiles;
 };
 
-const addFolderOrFile = (files, itemData, parentFolderId = null) => {
-  if (itemData.files) {
-    return addFolder(files, createFolder(itemData), parentFolderId);
+const addFolderOrFile = ({ files, data, parentFolderId = null }) => {
+  if (data.files) {
+    return { files: addFolder(files, createFolder(data), parentFolderId) };
   }
   // it's a file
-  return addFile(files, itemData, parentFolderId);
+  const { newFiles, newFileId } = addFile(files, data, parentFolderId);
+
+  return { files: newFiles, openFileId: newFileId };
 };
 
 /** Sort files: folders first, then alphabetically */
@@ -200,7 +207,7 @@ const findParentFolderPathByKey = (data, itemId, path = []) => {
 };
 
 /** changes folder name */
-const renameFolder = (files, folderId, newName) => {
+const renameFolder = ({ files, folderId, newName }) => {
   let newData = cloneDeep(files);
   const filePath = findFolderPathByKey(newData, folderId);
   // if file/folder in root directory
@@ -215,10 +222,10 @@ const renameFolder = (files, folderId, newName) => {
       item.id === folderId ? { ...item, data: { ...item.data, name: newName } } : item
     );
   }
-  return newData;
+  return { files: newData };
 };
 
-const deleteItem = (files, itemId) => {
+const deleteItem = ({ files, itemId, isFileOpen = false }) => {
   let newData = cloneDeep(files);
   const filePath = findFolderPathByKey(newData, itemId);
   // if file/folder in root directory
@@ -230,11 +237,14 @@ const deleteItem = (files, itemId) => {
     parentFolder.data.files = parentFolder.data.files.filter((item) => item.id !== itemId);
   }
 
-  // TODO: if deleted file was opened, set opened file to null
-  return newData;
+  // if deleted file was opened, set opened file to null
+  if (isFileOpen) {
+    return { files: newData, openFileId: null };
+  }
+  return { files: newData };
 };
 
-const moveItem = (files, item, newFolderId = null) => {
+const moveItem = ({ files, item, newFolderId = null }) => {
   // remove item from old parent folder
   const newFiles = deleteItem(files, item.id);
 
@@ -249,7 +259,7 @@ const moveItem = (files, item, newFolderId = null) => {
     sortFiles(lastFolder.data.files);
   }
 
-  return newFiles;
+  return { files: newFiles };
 };
 
 /** Traverse file tree, remove ids */
