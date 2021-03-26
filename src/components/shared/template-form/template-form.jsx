@@ -9,10 +9,8 @@ import * as yup from 'yup';
 
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
-import { FilesContext, filesReducer } from 'contexts/files-provider';
+import { FilesContext, filesReducer, formatFilesDataForApi } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
-
 
 import Files from './files';
 import Prompts from './prompts';
@@ -61,14 +59,15 @@ const TemplateForm = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const templateStore = React.useMemo(() => new TemplateStore(initialValues.files), [
-    initialValues.files,
-  ]);
-
   const { groups } = useTemplateGroups();
 
+  const [filesState, dispatch] = useReducer(filesReducer, {
+    files: initialValues.files,
+    openFileId: null,
+  });
+
   const onSubmit = async ({ name, prompts }) => {
-    const filesForApi = templateStore.formatFilesDataForApi();
+    const filesForApi = formatFilesDataForApi(filesState.files);
 
     try {
       setIsLoading(true);
@@ -92,11 +91,6 @@ const TemplateForm = ({
     clearErrors();
   };
 
-  const [filesState, dispatch] = useReducer(filesReducer, {
-    files: initialValues.files,
-    openFileId: null,
-  });
-
   return (
     <FilesContext.Provider
       value={{
@@ -104,37 +98,35 @@ const TemplateForm = ({
         filesDispatch: dispatch,
       }}
     >
-      <TemplateStoreContext.Provider value={templateStore}>
-        <div className={cx('wrapper')}>
-          <div className={cx('left-column')}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <h1 className={cx('title')}>
-                {isCreatingNewTemplate ? 'Create template' : 'Edit template'}
-              </h1>
-              <div className={cx('main')}>
-                <Input label="Template name" name="name" register={register} errors={errors.name} />
-              </div>
-              <div className={cx('prompts-wrapper')}>
-                <Prompts
-                  control={control}
-                  register={register}
-                  errors={errors}
-                  showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
-                />
-              </div>
-              <div className={cx('files-wrapper')}>
-                <Files />
-              </div>
-              <Button className={cx('create')} type="submit" loading={isLoading}>
-                {isCreatingNewTemplate ? 'Create' : 'Save'}
-              </Button>
-            </form>
-          </div>
-          <div className={cx('right-column')}>
-            <Editor />
-          </div>
+      <div className={cx('wrapper')}>
+        <div className={cx('left-column')}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1 className={cx('title')}>
+              {isCreatingNewTemplate ? 'Create template' : 'Edit template'}
+            </h1>
+            <div className={cx('main')}>
+              <Input label="Template name" name="name" register={register} errors={errors.name} />
+            </div>
+            <div className={cx('prompts-wrapper')}>
+              <Prompts
+                control={control}
+                register={register}
+                errors={errors}
+                showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
+              />
+            </div>
+            <div className={cx('files-wrapper')}>
+              <Files />
+            </div>
+            <Button className={cx('create')} type="submit" loading={isLoading}>
+              {isCreatingNewTemplate ? 'Create' : 'Save'}
+            </Button>
+          </form>
         </div>
-      </TemplateStoreContext.Provider>
+        <div className={cx('right-column')}>
+          <Editor />
+        </div>
+      </div>
     </FilesContext.Provider>
   );
 };

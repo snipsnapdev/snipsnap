@@ -15,7 +15,7 @@ import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 import Dropdown from 'components/shared/dropdown';
-import { useTemplateStore } from 'stores/template-store';
+import { useFiles, findFileById, getFilePath } from 'contexts/files-provider';
 
 import styles from './editor.module.scss';
 import LANGUAGE_MAPPING from './extension-language-mapping';
@@ -26,11 +26,13 @@ const DEFAULT_LANGUAGE = 'JavaScript';
 
 const Editor = () => {
   const LANGUAGES = Object.values(LANGUAGE_MAPPING);
-  const store = useTemplateStore('editor');
 
-  const openFile = store.getOpenFile();
-
-  const filePath = store.getOpenFilePath() || 'undefined';
+  const {
+    state: { files, openFileId },
+    filesDispatch,
+  } = useFiles();
+  const openFile = findFileById(files, openFileId);
+  const filePath = getFilePath(files, openFileId);
 
   const currentFileName = openFile ? openFile.data.name.split('.') : null;
   const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
@@ -61,6 +63,12 @@ const Editor = () => {
     </>
   );
 
+  const handleFileContentChange = (value) =>
+    filesDispatch({
+      type: 'changeOpenFileContent',
+      value,
+    });
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>{filePath}</div>
@@ -76,7 +84,7 @@ const Editor = () => {
           fontSize="14px"
           style={{ lineHeight: '22px' }}
           showPrintMargin={false}
-          onChange={(value) => store.setOpenFileContent(value)}
+          onChange={handleFileContentChange}
           onLoad={(editor) => {
             editor.renderer.setPadding(22);
             editor.renderer.setScrollMargin(22);

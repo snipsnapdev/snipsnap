@@ -1,4 +1,4 @@
-import { clone, cloneDeep, compact } from 'lodash';
+import { cloneDeep, compact } from 'lodash';
 import React, { useContext, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -32,6 +32,9 @@ export const filesReducer = (state, action) => {
       };
     case 'openFile':
       return { ...state, openFileId: action.fileId };
+    case 'changeOpenFileContent': {
+      return { ...state, files: changeFileContent(state.files, state.openFileId, action.value) };
+    }
     default:
       return state;
   }
@@ -55,6 +58,18 @@ const FilesProvider = ({ children }) => {
 export default FilesProvider;
 
 // move to helpers later:
+
+/** Update content of file with id=fileId */
+const changeFileContent = (files, fileId, newValue) => {
+  const newFiles = cloneDeep(files);
+  const file = findFileById(newFiles, fileId);
+  file.data.content = newValue;
+
+  console.log('changed file', file);
+  console.log('changed FILES', newFiles);
+
+  return newFiles;
+};
 
 /** Add file to folder with id=parentFolderId or to the root */
 const addFile = (files, fileData, parentFolderId = null) => {
@@ -273,6 +288,30 @@ const addIds = (item) => {
   };
 };
 
-const formatFilesDataForApi = (data) => data.map(removeIds);
+export const formatFilesDataForApi = (data) => data.map(removeIds);
 
 const formatFilesDataFromApi = (data) => data.map(addIds);
+
+export const findFileById = (files, fileId) => {
+  for (const item of files) {
+    if (item.id === fileId) {
+      return item;
+    }
+    if (item.data.files) {
+      const result = findFileById(item.data.files, fileId);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return null;
+};
+
+export const getFilePath = (files, fileId) => {
+  if (!fileId) {
+    return null;
+  }
+
+  const path = findFolderPathByKey(files, fileId);
+  return path ? path.map((item) => item.data.name).join('/') : null;
+};
