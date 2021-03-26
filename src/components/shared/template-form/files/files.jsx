@@ -6,28 +6,36 @@ import IconButton from 'components/shared/icon-button';
 import FileBrowser from 'components/shared/template-form/files/file-browser';
 import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
-import { useTemplateStore } from 'stores/template-store';
+import { useFiles } from 'contexts/files-provider';
 
 import styles from './files.module.scss';
 
 const cx = classNames.bind(styles);
 
 const Files = () => {
-  const store = useTemplateStore();
-  const files = store.getFiles();
+  const {
+    state: { files },
+    filesDispatch,
+  } = useFiles();
 
   const addFileHandler = (fileName) => {
-    store.addFile({
-      name: fileName,
-      language: 'javascript',
-      content: '',
+    filesDispatch({
+      type: 'addItem',
+      data: {
+        name: fileName,
+        language: 'javascript',
+        content: '',
+      },
     });
   };
 
   const addFolderHandler = (folderName) => {
-    store.addFolder({
-      name: folderName,
-      files: [],
+    filesDispatch({
+      type: 'addItem',
+      data: {
+        name: folderName,
+        files: [],
+      },
     });
   };
 
@@ -71,7 +79,7 @@ const Files = () => {
         )}
       </div>
 
-      <FileBrowser files={files} />
+      <FileBrowser />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef } from 'react';
 
+import { useFiles } from 'contexts/files-provider';
 import CloseSvg from 'icons/close.inline.svg';
-import { useTemplateStore } from 'stores/template-store';
 
 import styles from './file.module.scss';
 
@@ -19,7 +19,10 @@ const File = ({
   level,
 }) => {
   const fileRef = useRef();
-  const store = useTemplateStore();
+
+  const {
+    state: { openFileId },
+  } = useFiles();
 
   useEffect(() => {
     const fileElem = fileRef.current;
@@ -53,10 +56,7 @@ const File = ({
   return (
     <div
       ref={fileRef}
-      className={cx(
-        'wrapper',
-        store.getOpenFile() && file.id === store.getOpenFile().id && 'wrapper-selected'
-      )}
+      className={cx('wrapper', file.id === openFileId && 'wrapper-selected')}
       draggable="true"
       style={{ paddingLeft: 20 + 25 * level }}
       onClick={handleClick}
