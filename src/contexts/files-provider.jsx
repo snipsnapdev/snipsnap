@@ -73,9 +73,6 @@ const changeFileContent = (files, fileId, newValue) => {
   const file = findFileById(newFiles, fileId);
   file.data.content = newValue;
 
-  console.log('changed file', file);
-  console.log('changed FILES', newFiles);
-
   return newFiles;
 };
 
@@ -83,7 +80,6 @@ const changeFileContent = (files, fileId, newValue) => {
 const addFile = (files, fileData, parentFolderId = null) => {
   if (systemFileNames.some((systemFileName) => fileData.name === systemFileName)) return;
 
-  console.log('addFile', files);
   const newFiles = cloneDeep(files);
   const file = createFile(fileData);
 
@@ -246,7 +242,7 @@ const deleteItem = ({ files, itemId, isFileOpen = false }) => {
 
 const moveItem = ({ files, item, newFolderId = null }) => {
   // remove item from old parent folder
-  const newFiles = deleteItem(files, item.id);
+  const newFiles = deleteItem({ files, itemId: item.id }).files;
 
   // add it to new parent folder
   if (!newFolderId) {
@@ -300,7 +296,7 @@ const addIds = (item) => {
 
 export const formatFilesDataForApi = (data) => data.map(removeIds);
 
-const formatFilesDataFromApi = (data) => data.map(addIds);
+export const formatFilesDataFromApi = (data) => data.map(addIds);
 
 export const findFileById = (files, fileId) => {
   for (const item of files) {

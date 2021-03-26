@@ -1,5 +1,6 @@
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
+import { formatFilesDataFromApi } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 const editTemplateQuery = gql`
@@ -43,7 +44,7 @@ const EditTemplate = ({ templateId }) => {
   const templateData = {
     name: template?.name || '',
     prompts: template?.prompts ? JSON.parse(template.prompts) : [],
-    files: template?.files ? JSON.parse(template.files) : [],
+    files: template?.files ? formatFilesDataFromApi(JSON.parse(template.files)) : [],
   };
 
   const gqlClient = useGqlClient();
