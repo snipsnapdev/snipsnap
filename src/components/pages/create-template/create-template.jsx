@@ -32,7 +32,7 @@ const CreateTemplate = () => {
       name,
       prompts,
       files,
-      templateGroupId,
+      // templateGroupId,
     });
 
     try {
