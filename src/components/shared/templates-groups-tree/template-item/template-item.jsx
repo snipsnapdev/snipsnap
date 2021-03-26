@@ -13,23 +13,23 @@ const cx = classNames.bind(styles);
 const TemplateItem = ({ name, templateId, nested }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   return (
-    <div className={cx('wrapper', { nested })}>
-      <TemplateSvg className={cx('icon')} />
-      <Link href={`/template/${templateId}`}>
+    <Link href={`/template/${templateId}`}>
+      <div className={cx('wrapper', { nested })}>
+        <TemplateSvg className={cx('icon')} />
         <span className={cx('name')}>{name}</span>
-      </Link>
-      <div className={cx('delete-icon')} onClick={() => setIsDeleteModalOpen(true)}>
-        <CloseSvg />
+        <div className={cx('delete-icon')} onClick={() => setIsDeleteModalOpen(true)}>
+          <CloseSvg />
+        </div>
+        {isDeleteModalOpen && (
+          <DeleteTemplateModal
+            id={templateId}
+            name={name}
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+          />
+        )}
       </div>
-      {isDeleteModalOpen && (
-        <DeleteTemplateModal
-          id={templateId}
-          name={name}
-          isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
-        />
-      )}
-    </div>
+    </Link>
   );
 };
 
