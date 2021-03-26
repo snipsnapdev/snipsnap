@@ -17,16 +17,14 @@ import 'ace-builds/src-noconflict/theme-monokai';
 import Dropdown from 'components/shared/dropdown';
 import { useFiles } from 'contexts/files-provider';
 import { findFileById, getFilePath } from 'utils/files-provider-helpers';
+import { EXTENSION_LANGUAGE_MAPPING, DEFAULT_LANGUAGE } from 'utils/language';
 
 import styles from './editor.module.scss';
-import LANGUAGE_MAPPING from './extension-language-mapping';
 
 const cx = classNames.bind(styles);
 
-const DEFAULT_LANGUAGE = 'JavaScript';
-
 const Editor = () => {
-  const LANGUAGES = Object.values(LANGUAGE_MAPPING);
+  const LANGUAGES = Object.values(EXTENSION_LANGUAGE_MAPPING);
 
   const {
     state: { files, openFileId },
@@ -37,7 +35,7 @@ const Editor = () => {
 
   const currentFileName = openFile ? openFile.data.name.split('.') : null;
   const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-  const currentLanguage = LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+  const currentLanguage = EXTENSION_LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
 
   const [language, setLanguage] = useState(currentLanguage);
   const [isClient, setIsClient] = useState(false);
@@ -49,7 +47,7 @@ const Editor = () => {
   useEffect(() => {
     const currentFileName = openFile ? openFile.data.name.split('.') : null;
     const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-    const currentLanguage = LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+    const currentLanguage = EXTENSION_LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
 
     setLanguage(currentLanguage);
   }, [openFile]);

@@ -7,23 +7,21 @@ import FileBrowser from 'components/shared/template-form/files/file-browser';
 import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
 import { useFiles } from 'contexts/files-provider';
+import { getLanguageByFilename } from 'utils/language';
 
 import styles from './files.module.scss';
 
 const cx = classNames.bind(styles);
 
 const Files = () => {
-  const {
-    state: { files },
-    filesDispatch,
-  } = useFiles();
+  const { filesDispatch } = useFiles();
 
   const addFileHandler = (fileName) => {
     filesDispatch({
       type: 'addItem',
       data: {
         name: fileName,
-        language: 'javascript',
+        language: getLanguageByFilename(fileName),
         content: '',
       },
     });

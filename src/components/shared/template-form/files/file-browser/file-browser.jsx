@@ -4,6 +4,7 @@ import React from 'react';
 
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import { useFiles } from 'contexts/files-provider';
+import { getLanguageByFilename } from 'utils/language';
 
 import styles from './file-browser.module.scss';
 
@@ -61,6 +62,7 @@ const FileBrowser = () => {
               const newFile = {
                 name: item.name,
                 content: fileContent,
+                language: getLanguageByFilename(item.name),
               };
               resolve(newFile);
             };
@@ -127,7 +129,7 @@ const FileBrowser = () => {
       type: 'addItem',
       data: {
         name: fileName,
-        language: 'javascript',
+        language: getLanguageByFilename(fileName),
         content: '',
       },
       parentFolderId,
