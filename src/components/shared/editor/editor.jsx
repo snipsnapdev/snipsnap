@@ -12,12 +12,14 @@ import 'ace-builds/src-noconflict/mode-less';
 import 'ace-builds/src-noconflict/mode-yaml';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
+import 'ace-builds/src-noconflict/mode-plain_text';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 import Dropdown from 'components/shared/dropdown';
 import { useFiles } from 'contexts/files-provider';
 import { findFileById, getFilePath } from 'utils/files-provider-helpers';
-import { EXTENSION_LANGUAGE_MAPPING, DEFAULT_LANGUAGE } from 'utils/language';
+import { EXTENSION_LANGUAGE_MAPPING, DEFAULT_LANGUAGE , getLanguageByFilename } from 'utils/language';
+
 
 import styles from './editor.module.scss';
 
@@ -33,9 +35,12 @@ const Editor = () => {
   const openFile = findFileById(files, openFileId);
   const filePath = getFilePath(files, openFileId);
 
-  const currentFileName = openFile ? openFile.data.name.split('.') : null;
-  const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-  const currentLanguage = EXTENSION_LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+  let currentLanguage = DEFAULT_LANGUAGE;
+  if (openFile) {
+    currentLanguage = openFile.data.language
+      ? openFile.data.language
+      : getLanguageByFilename(openFile.data.name);
+  }
 
   const [language, setLanguage] = useState(currentLanguage);
   const [isClient, setIsClient] = useState(false);
@@ -45,17 +50,30 @@ const Editor = () => {
   }, []);
 
   useEffect(() => {
-    const currentFileName = openFile ? openFile.data.name.split('.') : null;
-    const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-    const currentLanguage = EXTENSION_LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+    let currentLanguage = DEFAULT_LANGUAGE;
+    if (openFile) {
+      currentLanguage = openFile.data.language
+        ? openFile.data.language
+        : getLanguageByFilename(openFile.data.name);
+    }
 
     setLanguage(currentLanguage);
   }, [openFile]);
 
+  const handleLanguageChange = (newLanguage) => {
+    if (openFile) {
+      filesDispatch({
+        type: 'changeOpenFileLanguage',
+        newLanguage,
+      });
+    }
+    setLanguage(newLanguage);
+  };
+
   const languageOptions = (
     <>
       {LANGUAGES.map((item, i) => (
-        <div key={`${item}-${i}`} onClick={() => setLanguage(item)}>
+        <div key={`${item}-${i}`} onClick={handleLanguageChange}>
           {item}
         </div>
       ))}

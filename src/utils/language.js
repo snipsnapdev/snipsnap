@@ -1,4 +1,4 @@
-export const DEFAULT_LANGUAGE = 'JavaScript';
+export const DEFAULT_LANGUAGE = 'Plain_Text';
 
 export const EXTENSION_LANGUAGE_MAPPING = {
   js: 'JavaScript',
@@ -14,6 +14,7 @@ export const EXTENSION_LANGUAGE_MAPPING = {
   json: 'JSON',
   py: 'Python',
   java: 'JAVA',
+  text: 'Plain_Text',
 };
 
 export const getLanguageByExtension = (extension) =>

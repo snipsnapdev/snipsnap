@@ -6,6 +6,7 @@ import {
   renameFolder,
   deleteItem,
   changeFileContent,
+  changeFileLanguage,
 } from 'utils/files-provider-helpers';
 
 export const FilesContext = React.createContext(null);
@@ -46,6 +47,12 @@ export const filesReducer = (state, action) => {
       return { ...state, openFileId: action.fileId };
     case 'changeOpenFileContent': {
       return { ...state, files: changeFileContent(state.files, state.openFileId, action.value) };
+    }
+    case 'changeOpenFileLanguage': {
+      return {
+        ...state,
+        files: changeFileLanguage(state.files, state.openFileId, action.newLanguage),
+      };
     }
     default:
       return state;

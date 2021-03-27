@@ -12,6 +12,15 @@ export const changeFileContent = (files, fileId, newValue) => {
   return newFiles;
 };
 
+/** Update language of file with id=fileId */
+export const changeFileLanguage = (files, fileId, newLanguage) => {
+  const newFiles = cloneDeep(files);
+  const file = findFileById(newFiles, fileId);
+  file.data.language = newLanguage;
+
+  return newFiles;
+};
+
 /** Add file to folder with id=parentFolderId or to the root */
 const addFile = (files, fileData, parentFolderId = null) => {
   if (systemFileNames.some((systemFileName) => fileData.name === systemFileName)) return;
