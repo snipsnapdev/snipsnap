@@ -28,6 +28,10 @@
     .options {
       visibility: visible;
     }
+
+    & .icon-folder {
+      color: $color-tertiary;
+    }
   }
 }
 
@@ -54,6 +58,7 @@
 
 .icon-folder {
   margin-right: 7px;
+  color: $color-additional-3;
 }
 
 .arrow {
