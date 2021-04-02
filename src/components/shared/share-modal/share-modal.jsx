@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
@@ -22,11 +22,17 @@ const schema = yup.object().shape({
 
 const cx = classNames.bind(styles);
 
-const query = gql`
-  mutation renameTemplateGroup($id: uuid!, $newName: String!) {
-    update_template_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
-      name
-      owner_id
+const getUsersTemplateGroupSharedTo = gql`
+  query MyQuery($groupId: uuid!) {
+    shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
+      shared_to_user_id
+    }
+  }
+`;
+
+const getUsersTemplateSharedTo = gql`
+  query MyQuery($templateId: uuid!) {
+    shared_templates(where: { template_id: { _eq: $templateId } }) {
       id
     }
   }
@@ -35,6 +41,16 @@ const query = gql`
 const getUsersByEmailQuery = gql`
   query MyQuery($email: String!) {
     users(where: { email: { _eq: $email } }) {
+      name
+      user_id
+      email
+    }
+  }
+`;
+
+const getUsersByIdsQuery = gql`
+  query MyQuery($ids: [uuid!]!) {
+    users(where: { user_id: { _in: $ids } }) {
       name
       user_id
       email
@@ -69,8 +85,24 @@ const shareTemplateQuery = gql`
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
+  const [session] = useSession();
+  const {
+    user: { id: currentUserId },
+  } = session;
+
   const { groups, templates } = useTemplateGroups();
 
+  const { register, handleSubmit, reset, errors } = useForm({
+    defaultValues: { email: '' },
+    resolver: yupResolver(schema),
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const gqlClient = useGqlClient();
+
+  /* get shared item (if it's a template, search in both groups
+  and templates without a group */
   let sharedItem = null;
 
   if (type === 'group') {
@@ -84,19 +116,23 @@ const ShareModal = (props) => {
     });
   }
 
-  const { register, handleSubmit, reset, errors } = useForm({
-    defaultValues: { email: '' },
-    resolver: yupResolver(schema),
-  });
+  // get all users to whom the item is already shared
+  const getUsersSharedTo = async () => {
+    try {
+      const userIdsSharedTo = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+        groupId: id,
+      });
+      const ids = userIdsSharedTo.shared_template_groups.map((item) => item.shared_to_user_id);
+      const { users } = await gqlClient.request(getUsersByIdsQuery, { ids });
+      return users;
+    } catch (error) {
+      return [];
+    }
+  };
 
-  const [session] = useSession();
-  const {
-    user: { id: currentUserId },
-  } = session;
+  const { data: usersSharedTo } = useSWR(`getSharedTo-${id}`, getUsersSharedTo);
+  console.log('FISH', usersSharedTo);
 
-  const [loading, setLoading] = useState(false);
-
-  const gqlClient = useGqlClient();
   const onSubmit = async ({ email }) => {
     try {
       setLoading(true);
@@ -133,8 +169,6 @@ const ShareModal = (props) => {
       setLoading(false);
       console.log(err);
     }
-
-    // onClose();
   };
 
   if (!isOpen) {
@@ -157,6 +191,11 @@ const ShareModal = (props) => {
             </Button>
           </div>
         </form>
+        <div className={cx('users')}>
+          {usersSharedTo.map((user) => (
+            <div>{user.name}</div>
+          ))}
+        </div>
       </Modal>
     </ModalPortal>
   );
