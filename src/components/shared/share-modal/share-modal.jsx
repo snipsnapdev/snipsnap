@@ -33,7 +33,7 @@ const getUsersTemplateGroupSharedTo = gql`
 const getUsersTemplateSharedTo = gql`
   query MyQuery($templateId: uuid!) {
     shared_templates(where: { template_id: { _eq: $templateId } }) {
-      id
+      shared_to_user_id
     }
   }
 `;
@@ -73,7 +73,7 @@ const shareTemplateGroupQuery = gql`
 `;
 
 const shareTemplateQuery = gql`
-  mutation shareTemplateGroup($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
+  mutation shareTemplate($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
     insert_shared_templates_one(
       object: { template_id: $templateId, shared_to_user_id: $userTo, shared_by_user_id: $userBy }
     ) {
@@ -148,7 +148,6 @@ const ShareModal = (props) => {
   const onSubmit = async ({ email }) => {
     try {
       setLoading(true);
-
       // get user id by email
       const { users } = await gqlClient.request(getUsersByEmailQuery, { email });
       const userShareTo = users[0];
@@ -172,6 +171,14 @@ const ShareModal = (props) => {
             })
           )
         );
+      }
+
+      if (type === 'template') {
+        await gqlClient.request(shareTemplateQuery, {
+          templateId: id,
+          userTo: userShareTo.user_id,
+          userBy: currentUserId,
+        });
       }
 
       setLoading(false);
