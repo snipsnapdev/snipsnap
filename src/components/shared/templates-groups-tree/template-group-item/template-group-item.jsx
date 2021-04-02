@@ -2,10 +2,10 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useState } from 'react';
 
-
 import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
 import RenameGroupModal from 'components/shared/rename-group-modal';
+import ShareModal from 'components/shared/share-modal';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
 import GroupSvg from 'icons/group.inline.svg';
@@ -75,6 +75,14 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           name={name}
           isOpen={isRenameModalOpen}
           onClose={() => setIsRenameModalOpen(false)}
+        />
+      )}
+      {isShareModalOpen && (
+        <ShareModal
+          id={groupId}
+          type="group"
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
         />
       )}
     </div>

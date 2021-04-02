@@ -9,7 +9,7 @@ const Input = (props) => {
   const { className: additionalClassName, register, label, type, errors, ...otherProps } = props;
   return (
     <label className={cx('group', additionalClassName)}>
-      <div className={cx('label')}>{label}</div>
+      {label && <div className={cx('label')}>{label}</div>}
       <div>
         <input className={cx('input')} type={type} ref={register()} {...otherProps} />
         {errors && <div className={cx('error')}>{errors.message}</div>}
