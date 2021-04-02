@@ -10,9 +10,73 @@
 - table:
     schema: public
     name: shared_template_groups
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
+      columns: []
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns: []
+      filter:
+        _or:
+        - shared_by_user_id:
+            _eq: X-Hasura-User-Id
+        - shared_to_user_id:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns: []
+      filter:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: shared_templates
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
+      columns: []
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns: []
+      filter:
+        _or:
+        - shared_by_user_id:
+            _eq: X-Hasura-User-Id
+        - shared_to_user_id:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns: []
+      filter:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        shared_by_user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: template_groups
