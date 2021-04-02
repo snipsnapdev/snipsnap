@@ -119,19 +119,31 @@ const ShareModal = (props) => {
   // get all users to whom the item is already shared
   const getUsersSharedTo = async () => {
     try {
-      const userIdsSharedTo = await gqlClient.request(getUsersTemplateGroupSharedTo, {
-        groupId: id,
-      });
-      const ids = userIdsSharedTo.shared_template_groups.map((item) => item.shared_to_user_id);
+      let userIdsSharedTo;
+      let ids;
+
+      if (type === 'group') {
+        userIdsSharedTo = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+          groupId: id,
+        });
+        ids = userIdsSharedTo.shared_template_groups.map((item) => item.shared_to_user_id);
+      } else {
+        userIdsSharedTo = await gqlClient.request(getUsersTemplateSharedTo, {
+          templateId: id,
+        });
+        ids = userIdsSharedTo.shared_templates.map((item) => item.shared_to_user_id);
+      }
+
       const { users } = await gqlClient.request(getUsersByIdsQuery, { ids });
       return users;
     } catch (error) {
+      console.log('error', error);
       return [];
     }
   };
 
-  const { data: usersSharedTo } = useSWR(`getSharedTo-${id}`, getUsersSharedTo);
-  console.log('FISH', usersSharedTo);
+  const { data } = useSWR(`getSharedTo-${id}`, getUsersSharedTo);
+  const usersSharedTo = data || [];
 
   const onSubmit = async ({ email }) => {
     try {
@@ -164,7 +176,8 @@ const ShareModal = (props) => {
 
       setLoading(false);
       reset();
-      mutate('getOwnedTemplateGroups');
+      // update list of users with whom the item is shared
+      mutate(`getSharedTo-${id}`);
     } catch (err) {
       setLoading(false);
       console.log(err);
