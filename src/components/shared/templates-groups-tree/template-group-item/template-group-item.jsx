@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import { useState } from 'react';
+
 
 import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
@@ -19,9 +21,12 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const groupMenu = (
     <>
+      <Link href={`/create-template?groupId=${groupId}`}>Create template</Link>
+      <div onClick={() => setIsShareModalOpen(true)}>Share</div>
       <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
       <div onClick={() => setIsDeleteModalOpen(true)}>Delete</div>
     </>

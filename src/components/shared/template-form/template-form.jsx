@@ -37,17 +37,7 @@ const schema = yup.object().shape({
     .compact((v) => v.message === '' && v.variableName === ''),
 });
 
-const defaultTemplateValues = {
-  name: '',
-  prompts: [],
-  files: [],
-};
-
-const TemplateForm = ({
-  initialValues = defaultTemplateValues,
-  isCreatingNewTemplate = false,
-  onSave,
-}) => {
+const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
   const { register, control, handleSubmit, reset, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
@@ -81,8 +71,7 @@ const TemplateForm = ({
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
         files: JSON.stringify(filesForApi),
-        // @TODO: change to selected group after group select is added
-        templateGroupId: group.id,
+        ...(group ? { templateGroupId: group.id } : {}),
       };
 
       await onSave(newTemplateData);
