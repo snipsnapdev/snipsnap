@@ -16,7 +16,7 @@
       }
     }
 
-    .delete-icon {
+    .options {
       visibility: visible;
     }
   }
@@ -33,30 +33,28 @@
   // white-space: nowrap;
 }
 
-.delete-icon {
-  display: flex;
-  align-items: center;
-  width: 8px;
-  height: 8px;
-  margin-left: auto;
-  cursor: pointer;
-  visibility: hidden;
-
-  svg {
-    path {
-      stroke: $color-additional-3;
-    }
-  }
-
-  &:hover {
-    svg {
-      path {
-        stroke: $color-tertiary;
-      }
-    }
-  }
-}
-
 .nested {
   padding-left: 35px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  margin-left: auto;
+  visibility: hidden;
+}
+
+.options-inner {
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-right: -10px;
+
+  &:hover {
+    circle {
+      fill: $color-tertiary;
+    }
+  }
 }
