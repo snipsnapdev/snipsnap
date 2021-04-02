@@ -206,7 +206,7 @@ const ShareModal = (props) => {
         </form>
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (
-            <div>{user.name}</div>
+            <div key={`${id}-${user.name}`}>{user.name}</div>
           ))}
         </div>
       </Modal>
