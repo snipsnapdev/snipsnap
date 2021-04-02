@@ -3,15 +3,18 @@ import { chain, compact, isEmpty, map } from 'lodash';
 import React from 'react';
 
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
-import { useTemplateStore } from 'stores/template-store';
+import { useFiles } from 'contexts/files-provider';
+import { getLanguageByFilename } from 'utils/language';
 
 import styles from './file-browser.module.scss';
 
 const cx = classNames.bind(styles);
 
 const FileBrowser = () => {
-  const store = useTemplateStore();
-  const files = store.getFiles();
+  const {
+    state: { files },
+    filesDispatch,
+  } = useFiles();
 
   const treeRef = React.useRef();
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -24,7 +27,6 @@ const FileBrowser = () => {
   };
 
   const handleDragEnd = () => {
-    console.log('STOP DRAG');
     draggedItemRef.current = null;
   };
 
@@ -60,6 +62,7 @@ const FileBrowser = () => {
               const newFile = {
                 name: item.name,
                 content: fileContent,
+                language: getLanguageByFilename(item.name),
               };
               resolve(newFile);
             };
@@ -93,8 +96,13 @@ const FileBrowser = () => {
   };
 
   const handleDropFile = async (folderId, evt) => {
+    // dragged folder or file within the tree
     if (draggedItemRef.current) {
-      store.dragAndDrop(draggedItemRef.current, folderId);
+      filesDispatch({
+        type: 'moveItem',
+        item: draggedItemRef.current,
+        newFolderId: folderId,
+      });
       handleDragEnd();
       return;
     }
@@ -103,35 +111,55 @@ const FileBrowser = () => {
       const newFiles = await handleFileDrop(evt);
       // Return if newFiles is not an array or empty array or an array with undefined(s) and null(s)
       if (!Array.isArray(newFiles) || isEmpty(compact(newFiles))) return;
-      store.addFoldersAndFiles(newFiles, folderId);
+
+      newFiles.forEach((file) =>
+        filesDispatch({
+          type: 'addItem',
+          data: file,
+          parentFolderId: folderId,
+        })
+      );
     } catch (error) {
       console.log('Error while trying to add new files: ', error);
     }
   };
 
   const handleAddFile = (fileName, parentFolderId) => {
-    const fileData = {
-      name: fileName,
-      language: 'javascript',
-      content: '',
-    };
-    store.addFile(fileData, parentFolderId);
+    filesDispatch({
+      type: 'addItem',
+      data: {
+        name: fileName,
+        language: getLanguageByFilename(fileName),
+        content: '',
+      },
+      parentFolderId,
+    });
   };
 
   const handleAddFolder = (folderName, parentFolderId) => {
-    const folderData = {
-      name: folderName,
-      files: [],
-    };
-    store.addFolder(folderData, parentFolderId);
+    filesDispatch({
+      type: 'addItem',
+      data: {
+        name: folderName,
+        files: [],
+      },
+      parentFolderId,
+    });
   };
 
-  const handleRenameFolder = (newFolderName, folderId) => {
-    store.renameFolder(newFolderName, folderId);
+  const handleRenameFolder = (newName, folderId) => {
+    filesDispatch({
+      type: 'renameFolder',
+      folderId,
+      newName,
+    });
   };
 
-  const handleDeleteFile = (fileId) => {
-    store.deleteFile(fileId);
+  const handleDeleteItem = (itemId) => {
+    filesDispatch({
+      type: 'deleteItem',
+      itemId,
+    });
   };
 
   React.useEffect(() => {
@@ -156,6 +184,12 @@ const FileBrowser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleDragOver, handleDragLeave]);
 
+  const handleOpenFile = (file) =>
+    filesDispatch({
+      type: 'openFile',
+      fileId: file ? file.id : null,
+    });
+
   return (
     <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
       <TreeRecursive
@@ -168,8 +202,8 @@ const FileBrowser = () => {
         onAddFolder={handleAddFolder}
         onDropFile={handleDropFile}
         onRenameFolder={handleRenameFolder}
-        onItemDelete={handleDeleteFile}
-        onOpenFile={(file) => (file ? store.openFile(file.id) : store.openFile(null))}
+        onItemDelete={handleDeleteItem}
+        onOpenFile={handleOpenFile}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       />

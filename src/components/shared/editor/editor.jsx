@@ -12,29 +12,35 @@ import 'ace-builds/src-noconflict/mode-less';
 import 'ace-builds/src-noconflict/mode-yaml';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
+import 'ace-builds/src-noconflict/mode-plain_text';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 import Dropdown from 'components/shared/dropdown';
-import { useTemplateStore } from 'stores/template-store';
+import { useFiles } from 'contexts/files-provider';
+import { findFileById, getFilePath } from 'utils/files-provider-helpers';
+import { EXTENSION_LANGUAGE_MAPPING, DEFAULT_LANGUAGE , getLanguageByFilename } from 'utils/language';
+
 
 import styles from './editor.module.scss';
-import LANGUAGE_MAPPING from './extension-language-mapping';
 
 const cx = classNames.bind(styles);
 
-const DEFAULT_LANGUAGE = 'JavaScript';
-
 const Editor = () => {
-  const LANGUAGES = Object.values(LANGUAGE_MAPPING);
-  const store = useTemplateStore('editor');
+  const LANGUAGES = Object.values(EXTENSION_LANGUAGE_MAPPING);
 
-  const openFile = store.getOpenFile();
+  const {
+    state: { files, openFileId },
+    filesDispatch,
+  } = useFiles();
+  const openFile = findFileById(files, openFileId);
+  const filePath = getFilePath(files, openFileId);
 
-  const filePath = store.getOpenFilePath() || 'undefined';
-
-  const currentFileName = openFile ? openFile.data.name.split('.') : null;
-  const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-  const currentLanguage = LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+  let currentLanguage = DEFAULT_LANGUAGE;
+  if (openFile) {
+    currentLanguage = openFile.data.language
+      ? openFile.data.language
+      : getLanguageByFilename(openFile.data.name);
+  }
 
   const [language, setLanguage] = useState(currentLanguage);
   const [isClient, setIsClient] = useState(false);
@@ -44,22 +50,41 @@ const Editor = () => {
   }, []);
 
   useEffect(() => {
-    const currentFileName = openFile ? openFile.data.name.split('.') : null;
-    const currentExtension = openFile ? currentFileName[currentFileName.length - 1] : null;
-    const currentLanguage = LANGUAGE_MAPPING[currentExtension] ?? DEFAULT_LANGUAGE;
+    let currentLanguage = DEFAULT_LANGUAGE;
+    if (openFile) {
+      currentLanguage = openFile.data.language
+        ? openFile.data.language
+        : getLanguageByFilename(openFile.data.name);
+    }
 
     setLanguage(currentLanguage);
   }, [openFile]);
 
+  const handleLanguageChange = (newLanguage) => {
+    if (openFile) {
+      filesDispatch({
+        type: 'changeOpenFileLanguage',
+        newLanguage,
+      });
+    }
+    setLanguage(newLanguage);
+  };
+
   const languageOptions = (
     <>
       {LANGUAGES.map((item, i) => (
-        <div key={`${item}-${i}`} onClick={() => setLanguage(item)}>
+        <div key={`${item}-${i}`} onClick={handleLanguageChange}>
           {item}
         </div>
       ))}
     </>
   );
+
+  const handleFileContentChange = (value) =>
+    filesDispatch({
+      type: 'changeOpenFileContent',
+      value,
+    });
 
   return (
     <div className={cx('wrapper')}>
@@ -76,7 +101,7 @@ const Editor = () => {
           fontSize="14px"
           style={{ lineHeight: '22px' }}
           showPrintMargin={false}
-          onChange={(value) => store.setOpenFileContent(value)}
+          onChange={handleFileContentChange}
           onLoad={(editor) => {
             editor.renderer.setPadding(22);
             editor.renderer.setScrollMargin(22);

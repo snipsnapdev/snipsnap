@@ -2,21 +2,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { cloneDeep } from 'lodash';
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
+import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import TemplateStore, { TemplateStoreContext } from 'stores/template-store';
+import { formatFilesDataForApi } from 'utils/files-provider-helpers';
 
 import Files from './files';
 import Prompts from './prompts';
 import styles from './template-form.module.scss';
 
-const Editor = dynamic(import('components/editor'), { ssr: false });
+const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
 
@@ -59,14 +60,15 @@ const TemplateForm = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const templateStore = React.useMemo(() => new TemplateStore(initialValues.files), [
-    initialValues.files,
-  ]);
-
   const { groups } = useTemplateGroups();
 
+  const [filesState, dispatch] = useReducer(filesReducer, {
+    files: initialValues.files,
+    openFileId: null,
+  });
+
   const onSubmit = async ({ name, prompts }) => {
-    const filesForApi = templateStore.formatFilesDataForApi();
+    const filesForApi = formatFilesDataForApi(filesState.files);
 
     try {
       setIsLoading(true);
@@ -91,7 +93,12 @@ const TemplateForm = ({
   };
 
   return (
-    <TemplateStoreContext.Provider value={templateStore}>
+    <FilesContext.Provider
+      value={{
+        state: filesState,
+        filesDispatch: dispatch,
+      }}
+    >
       <div className={cx('wrapper')}>
         <div className={cx('left-column')}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -121,7 +128,7 @@ const TemplateForm = ({
           <Editor />
         </div>
       </div>
-    </TemplateStoreContext.Provider>
+    </FilesContext.Provider>
   );
 };
 

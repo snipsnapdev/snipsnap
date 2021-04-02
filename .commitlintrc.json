@@ -14,8 +14,7 @@
         "pages",
         "styles",
         "templates",
-        "utils",
-        "stores"
+        "utils"
       ]
     ]
   }

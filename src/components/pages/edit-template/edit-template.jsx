@@ -1,6 +1,7 @@
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+import { formatFilesDataFromApi } from 'utils/files-provider-helpers';
 
 const editTemplateQuery = gql`
   mutation updateTemplate(
@@ -8,7 +9,7 @@ const editTemplateQuery = gql`
     $name: String!
     $prompts: jsonb!
     $files: jsonb!
-    $templateGroupId: uuid!
+    $templateGroupId: uuid
   ) {
     update_templates_by_pk(
       pk_columns: { id: $templateId }
@@ -23,7 +24,7 @@ const editTemplateQuery = gql`
   }
 `;
 
-const findTemplateById = (templateId, groups) => {
+const findTemplateById = (templateId, groups, templates) => {
   let template = null;
   for (const group of groups) {
     template = group.templates.find((item) => item.id === templateId);
@@ -32,18 +33,24 @@ const findTemplateById = (templateId, groups) => {
     }
   }
 
+  template = templates.find((t) => t.id === templateId);
   return template;
 };
 
 const EditTemplate = ({ templateId }) => {
-  const { groups } = useTemplateGroups();
+  const { groups, templates } = useTemplateGroups();
 
-  const template = findTemplateById(templateId, groups);
+  const template = findTemplateById(templateId, groups, templates);
+
+  const groupId =
+    (template &&
+      groups.find((group) => group.templates.map((t) => t.id).includes(template.id))?.id) ||
+    null;
 
   const templateData = {
     name: template?.name || '',
     prompts: template?.prompts ? JSON.parse(template.prompts) : [],
-    files: template?.files ? JSON.parse(template.files) : [],
+    files: template?.files ? formatFilesDataFromApi(JSON.parse(template.files)) : [],
   };
 
   const gqlClient = useGqlClient();
@@ -54,7 +61,7 @@ const EditTemplate = ({ templateId }) => {
       name,
       prompts,
       files,
-      templateGroupId,
+      ...(groupId ? { templateGroupId: groupId } : {}),
     });
 
   if (!template) {
