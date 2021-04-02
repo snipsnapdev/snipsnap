@@ -54,13 +54,17 @@ const TemplateForm = ({
     defaultValues: initialValues,
   });
 
+  const { groups } = useTemplateGroups();
+
+  const [group, setGroup] = useState(
+    groups.find((group) => group.id === initialValues.groupId) || null
+  );
+
   useEffect(() => {
     reset(cloneDeep(initialValues));
   }, [initialValues, reset]);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const { groups } = useTemplateGroups();
 
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
@@ -78,7 +82,7 @@ const TemplateForm = ({
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
         files: JSON.stringify(filesForApi),
         // @TODO: change to selected group after group select is added
-        templateGroupId: groups[0].id,
+        templateGroupId: group.id,
       };
 
       await onSave(newTemplateData);
@@ -117,7 +121,7 @@ const TemplateForm = ({
               />
             </div>
             <div className={cx('files-wrapper')}>
-              <Files />
+              <Files group={group} onGroupChange={setGroup} />
             </div>
             <Button className={cx('create')} type="submit" loading={isLoading}>
               {isCreatingNewTemplate ? 'Create' : 'Save'}

@@ -1,6 +1,7 @@
 .file-browser-head {
   display: flex;
   align-items: center;
+  width: 100%;
   margin-bottom: 15px;
 }
 
@@ -10,4 +11,8 @@
 
 .add-options-inner {
   width: 100px;
+}
+
+.group-options {
+  margin-left: auto;
 }
