@@ -21,10 +21,11 @@ const Input = (props) => {
 Input.defaultProps = {
   type: 'text',
   error: null,
+  label: '',
 };
 
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   type: PropTypes.string,
   error: PropTypes.string,
 };
