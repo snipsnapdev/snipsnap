@@ -13,6 +13,7 @@ import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+import useSession from 'hooks/use-session';
 
 import styles from './share-modal.module.scss';
 
@@ -27,6 +28,30 @@ const query = gql`
     update_template_groups_by_pk(_set: { name: $newName }, pk_columns: { id: $id }) {
       name
       owner_id
+      id
+    }
+  }
+`;
+
+const getUsersByEmailQuery = gql`
+  query MyQuery($email: String!) {
+    users(where: { email: { _eq: $email } }) {
+      name
+      user_id
+      email
+    }
+  }
+`;
+
+const shareTemplateGroupQuery = gql`
+  mutation shareTemplateGroup($groupId: uuid!, $userTo: uuid!, $userBy: uuid!) {
+    insert_shared_template_groups_one(
+      object: {
+        template_group_id: $groupId
+        shared_to_user_id: $userTo
+        shared_by_user_id: $userBy
+      }
+    ) {
       id
     }
   }
@@ -55,19 +80,33 @@ const ShareModal = (props) => {
     resolver: yupResolver(schema),
   });
 
+  const [session] = useSession();
+  const {
+    user: { id: currentUserId },
+  } = session;
+
   const [loading, setLoading] = useState(false);
 
   const gqlClient = useGqlClient();
   const onSubmit = async ({ email }) => {
     try {
       setLoading(true);
-      console.log('inviting', email);
-      // TODO:
-      // get user id by email
-      // share template group with user
-      // share all templates within the group with user
 
-      //   await gqlClient.request(query, { id, newName });
+      // get user id by email
+      const { users } = await gqlClient.request(getUsersByEmailQuery, { email });
+      const userShareTo = users[0];
+
+      if (type === 'group') {
+        // share template group with user
+        await gqlClient.request(shareTemplateGroupQuery, {
+          groupId: id,
+          userTo: userShareTo.user_id,
+          userBy: currentUserId,
+        });
+
+        // share all templates within the group with user
+      }
+
       setLoading(false);
       mutate('getOwnedTemplateGroups');
     } catch (err) {
