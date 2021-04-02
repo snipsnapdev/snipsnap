@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Menu from 'components/shared/dropdown/menu';
 import useOutsideClick from 'hooks/use-outside-click';
+import IconDown from 'icons/arrow-down.inline.svg';
 
 import styles from './dropdown.module.scss';
 
@@ -16,6 +17,7 @@ const Dropdown = ({
   position,
   stopPropagation,
   menuClassName,
+  showIcon,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
 
@@ -36,6 +38,11 @@ const Dropdown = ({
       onClick={toggle}
     >
       {children}
+      {showIcon && (
+        <div className={cx('icon', isOpened && 'up')}>
+          <IconDown />
+        </div>
+      )}
       <Menu className={cx('menu', `position-${position}`, menuClassName)}>{menu}</Menu>
     </div>
   );
@@ -43,10 +50,12 @@ const Dropdown = ({
 
 Dropdown.propTypes = {
   position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right']),
+  showIcon: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   position: 'top-left',
+  showIcon: false,
 };
 
 export default Dropdown;

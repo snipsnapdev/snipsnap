@@ -53,6 +53,12 @@
 
   color: $color-tertiary;
 
+  & svg {
+    width: 10px;
+    height: 6px;
+    color: $color-additional-3;
+  }
+
   & span {
     margin-right: 5px;
   }
