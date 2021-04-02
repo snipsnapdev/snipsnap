@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-
 import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
@@ -57,6 +56,16 @@ const shareTemplateGroupQuery = gql`
   }
 `;
 
+const shareTemplateQuery = gql`
+  mutation shareTemplateGroup($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
+    insert_shared_templates_one(
+      object: { template_id: $templateId, shared_to_user_id: $userTo, shared_by_user_id: $userBy }
+    ) {
+      id
+    }
+  }
+`;
+
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
@@ -75,7 +84,7 @@ const ShareModal = (props) => {
     });
   }
 
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, reset, errors } = useForm({
     defaultValues: { email: '' },
     resolver: yupResolver(schema),
   });
@@ -105,9 +114,20 @@ const ShareModal = (props) => {
         });
 
         // share all templates within the group with user
+        const templateIdsInGroup = sharedItem.templates.map((t) => t.id);
+        await Promise.all(
+          templateIdsInGroup.map((id) =>
+            gqlClient.request(shareTemplateQuery, {
+              templateId: id,
+              userTo: userShareTo.user_id,
+              userBy: currentUserId,
+            })
+          )
+        );
       }
 
       setLoading(false);
+      reset();
       mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);

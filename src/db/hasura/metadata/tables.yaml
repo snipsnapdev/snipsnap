@@ -16,12 +16,24 @@
       check:
         shared_by_user_id:
           _eq: X-Hasura-User-Id
-      columns: []
+      columns:
+      - created_at
+      - id
+      - shared_by_user_id
+      - shared_to_user_id
+      - template_group_id
+      - updated_at
       backend_only: false
   select_permissions:
   - role: user
     permission:
-      columns: []
+      columns:
+      - created_at
+      - updated_at
+      - id
+      - shared_by_user_id
+      - shared_to_user_id
+      - template_group_id
       filter:
         _or:
         - shared_by_user_id:
@@ -31,7 +43,11 @@
   update_permissions:
   - role: user
     permission:
-      columns: []
+      columns:
+      - id
+      - shared_to_user_id
+      - template_group_id
+      - updated_at
       filter:
         shared_by_user_id:
           _eq: X-Hasura-User-Id
@@ -51,12 +67,24 @@
       check:
         shared_by_user_id:
           _eq: X-Hasura-User-Id
-      columns: []
+      columns:
+      - id
+      - template_id
+      - shared_to_user_id
+      - shared_by_user_id
+      - created_at
+      - updated_at
       backend_only: false
   select_permissions:
   - role: user
     permission:
-      columns: []
+      columns:
+      - created_at
+      - updated_at
+      - id
+      - shared_by_user_id
+      - shared_to_user_id
+      - template_id
       filter:
         _or:
         - shared_by_user_id:
@@ -66,7 +94,12 @@
   update_permissions:
   - role: user
     permission:
-      columns: []
+      columns:
+      - created_at
+      - id
+      - shared_to_user_id
+      - template_id
+      - updated_at
       filter:
         shared_by_user_id:
           _eq: X-Hasura-User-Id
@@ -246,6 +279,19 @@
 - table:
     schema: public
     name: users
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - name
+      - email
+      - email_verified
+      - image
+      - created_at
+      - updated_at
+      - user_id
+      filter: {}
 - table:
     schema: public
     name: verification_requests
