@@ -13,6 +13,7 @@ import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import useSession from 'hooks/use-session';
+import CloseSvg from 'icons/close.inline.svg';
 
 import styles from './share-modal.module.scss';
 
@@ -78,6 +79,39 @@ const shareTemplateQuery = gql`
       object: { template_id: $templateId, shared_to_user_id: $userTo, shared_by_user_id: $userBy }
     ) {
       id
+    }
+  }
+`;
+
+// unsharing
+const unshareTemplateGroupQuery = gql`
+  mutation unshareTemplateGroup($groupId: uuid!, $userTo: uuid!, $userBy: uuid!) {
+    delete_shared_template_groups(
+      where: {
+        template_group_id: { _eq: $groupId }
+        shared_to_user_id: { _eq: $userTo }
+        shared_by_user_id: { _eq: $userBy }
+      }
+    ) {
+      returning {
+        shared_to_user_id
+      }
+    }
+  }
+`;
+
+const unshareTemplateQuery = gql`
+  mutation shareTemplate($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
+    delete_shared_templates(
+      where: {
+        template_id: { _eq: $templateId }
+        shared_to_user_id: { _eq: $userTo }
+        shared_by_user_id: { _eq: $userBy }
+      }
+    ) {
+      returning {
+        shared_to_user_id
+      }
     }
   }
 `;
@@ -198,6 +232,27 @@ const ShareModal = (props) => {
     return null;
   }
 
+  const handleUnshare = async (toUserId) => {
+    try {
+      if (type === 'group') {
+        await gqlClient.request(unshareTemplateGroupQuery, {
+          groupId: id,
+          userTo: toUserId,
+          userBy: currentUserId,
+        });
+      } else {
+        await gqlClient.request(unshareTemplateQuery, {
+          templateId: id,
+          userTo: toUserId,
+          userBy: currentUserId,
+        });
+      }
+      mutate(`getSharedTo-${id}`);
+    } catch (err) {
+      console.log('err');
+    }
+  };
+
   return (
     <ModalPortal>
       <Modal title={`Share ${sharedItem.name} ${type}`} isOpen={isOpen} onRequestClose={onClose}>
@@ -221,7 +276,12 @@ const ShareModal = (props) => {
         </form>
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (
-            <div key={`${id}-${user.name}`}>{user.name}</div>
+            <div key={`${id}-${user.name}`} className={cx('user')}>
+              <span>{user.name}</span>
+              <button className={cx('unshare')} onClick={() => handleUnshare(user.user_id)}>
+                <CloseSvg className={cx('icon')} />
+              </button>
+            </div>
           ))}
         </div>
       </Modal>

@@ -14,3 +14,42 @@
   width: 100%;
   margin-top: 30px;
 }
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &:hover {
+    .unshare {
+      visibility: visible;
+    }
+  }
+}
+
+.unshare {
+  @include reset-button;
+
+  display: flex;
+  align-items: center;
+  width: 18px;
+  height: 8px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 5px;
+  visibility: hidden;
+
+  svg {
+    path {
+      stroke: $color-additional-3;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-tertiary;
+      }
+    }
+  }
+}
