@@ -92,7 +92,7 @@ const ShareModal = (props) => {
 
   const { groups, templates } = useTemplateGroups();
 
-  const { register, handleSubmit, reset, errors } = useForm({
+  const { register, handleSubmit, reset, errors, setError } = useForm({
     defaultValues: { email: '' },
     resolver: yupResolver(schema),
   });
@@ -151,7 +151,11 @@ const ShareModal = (props) => {
       // get user id by email
       const { users } = await gqlClient.request(getUsersByEmailQuery, { email });
       const userShareTo = users[0];
-
+      if (typeof userShareTo === 'undefined') {
+        setError('email', { type: 'manual', message: 'No users found with this email' });
+        setLoading(false);
+        return;
+      }
       if (type === 'group') {
         // share template group with user
         await gqlClient.request(shareTemplateGroupQuery, {
@@ -187,7 +191,6 @@ const ShareModal = (props) => {
       mutate(`getSharedTo-${id}`);
     } catch (err) {
       setLoading(false);
-      console.log(err);
     }
   };
 
@@ -198,7 +201,7 @@ const ShareModal = (props) => {
   return (
     <ModalPortal>
       <Modal title={`Share ${sharedItem.name} ${type}`} isOpen={isOpen} onRequestClose={onClose}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <div className={cx('top')}>
             <Input
               placeholder="Invite someone..."
@@ -206,7 +209,12 @@ const ShareModal = (props) => {
               register={register}
               errors={errors.email}
             />
-            <Button className={cx('send-button')} type="submit" loading={loading}>
+            <Button
+              className={cx('send-button')}
+              type="submit"
+              loading={loading}
+              onClick={handleSubmit(onSubmit)}
+            >
               Send invite
             </Button>
           </div>
