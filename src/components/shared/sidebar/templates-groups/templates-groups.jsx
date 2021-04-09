@@ -58,7 +58,7 @@ const TemplatesGroups = () => {
   return (
     <div className={cx('templates')}>
       <h2>
-        Templates
+        Template groups
         <IconButton
           icon="plus"
           className={cx('group-create-button')}

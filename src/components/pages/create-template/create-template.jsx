@@ -22,17 +22,25 @@ const createTemplateQuery = gql`
   }
 `;
 
+const defaultTemplateValues = {
+  name: '',
+  prompts: [],
+  files: [],
+};
+
 const CreateTemplate = () => {
   const gqlClient = useGqlClient();
 
   const router = useRouter();
+
+  const { groupId } = router.query;
 
   const handleSave = async ({ name, prompts, files, templateGroupId }) => {
     const res = await gqlClient.request(createTemplateQuery, {
       name,
       prompts,
       files,
-      // templateGroupId,
+      ...(templateGroupId ? { templateGroupId } : {}),
     });
 
     try {
@@ -45,7 +53,13 @@ const CreateTemplate = () => {
       console.error(error);
     }
   };
-  return <TemplateForm isCreatingNewTemplate onSave={handleSave} />;
+  return (
+    <TemplateForm
+      initialValues={{ ...defaultTemplateValues, groupId }}
+      isCreatingNewTemplate
+      onSave={handleSave}
+    />
+  );
 };
 
 export default CreateTemplate;

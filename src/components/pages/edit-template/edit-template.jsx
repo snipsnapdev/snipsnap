@@ -51,6 +51,7 @@ const EditTemplate = ({ templateId }) => {
     name: template?.name || '',
     prompts: template?.prompts ? JSON.parse(template.prompts) : [],
     files: template?.files ? formatFilesDataFromApi(JSON.parse(template.files)) : [],
+    groupId,
   };
 
   const gqlClient = useGqlClient();
@@ -61,7 +62,7 @@ const EditTemplate = ({ templateId }) => {
       name,
       prompts,
       files,
-      ...(groupId ? { templateGroupId: groupId } : {}),
+      ...(templateGroupId ? { templateGroupId } : {}),
     });
 
   if (!template) {

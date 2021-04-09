@@ -28,12 +28,24 @@
     .options {
       visibility: visible;
     }
+
+    & .icon-folder {
+      color: $color-tertiary;
+    }
   }
 }
 
 .folder-title {
+  @include reset-button;
+
   display: flex;
+  flex-grow: 1;
   align-items: center;
+  color: $color-tertiary;
+
+  & span {
+    margin-right: 5px;
+  }
 }
 
 .folder-name {
@@ -46,20 +58,17 @@
 
 .icon-folder {
   margin-right: 7px;
+  color: $color-additional-3;
 }
 
-.button-collapse {
-  @include reset-button;
+.arrow {
+  width: 10px;
+  height: 6px;
+  color: $color-additional-3;
 
-  color: $color-tertiary;
-
-  & span {
-    margin-right: 5px;
+  &.open {
+    transform: rotateX(180deg);
   }
-}
-
-.icon-open {
-  transform: rotateX(180deg);
 }
 
 .collapsible {
@@ -74,6 +83,7 @@
   justify-content: flex-end;
   height: 12px;
   margin-left: auto;
+  cursor: pointer;
   visibility: hidden;
 }
 

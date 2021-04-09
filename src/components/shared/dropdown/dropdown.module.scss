@@ -2,6 +2,22 @@
   position: relative;
 }
 
+.icon {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  color: $color-tertiary;
+
+  &.up {
+    transform: rotate(180deg);
+  }
+
+  & svg {
+    width: 10px;
+    height: 6px;
+  }
+}
+
 .menu {
   position: absolute;
   z-index: 1;

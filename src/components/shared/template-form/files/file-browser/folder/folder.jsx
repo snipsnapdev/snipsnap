@@ -95,18 +95,17 @@ const Folder = ({
     >
       <div className={cx('folder-line')} style={{ left: 19 + 25 * level }} />
       <div className={styles.wrapper}>
-        <span className={cx('folder-title')} style={{ marginLeft: 10 + 25 * level }}>
+        <button
+          className={cx('folder-title')}
+          style={{ paddingLeft: 10 + 25 * level }}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
           <FolderSvg className={cx('icon-folder')} />
-          <button
-            className={cx('button-collapse')}
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-          >
-            <span className={cx('folder-name')}>{folder.data.name}</span>
-            <ArrowSvg className={cx(isOpen ? 'icon-open' : 'icon-close')} />
-          </button>
-        </span>
+          <span className={cx('folder-name')}>{folder.data.name}</span>
+          <ArrowSvg className={cx('arrow', isOpen && 'open')} />
+        </button>
         <div className={cx('options')}>
           <Dropdown
             menu={folderMenu}

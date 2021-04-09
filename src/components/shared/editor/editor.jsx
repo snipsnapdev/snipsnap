@@ -18,8 +18,11 @@ import 'ace-builds/src-noconflict/theme-monokai';
 import Dropdown from 'components/shared/dropdown';
 import { useFiles } from 'contexts/files-provider';
 import { findFileById, getFilePath } from 'utils/files-provider-helpers';
-import { EXTENSION_LANGUAGE_MAPPING, DEFAULT_LANGUAGE , getLanguageByFilename } from 'utils/language';
-
+import {
+  EXTENSION_LANGUAGE_MAPPING,
+  DEFAULT_LANGUAGE,
+  getLanguageByFilename,
+} from 'utils/language';
 
 import styles from './editor.module.scss';
 
@@ -115,6 +118,7 @@ const Editor = () => {
           position="bottom-right"
           menuClassName={cx('select-options')}
           stopPropagation
+          showIcon
         >
           <div className={cx('select-current')}>{language}</div>
         </Dropdown>

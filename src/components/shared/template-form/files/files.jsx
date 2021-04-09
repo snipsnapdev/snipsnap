@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
@@ -7,13 +8,15 @@ import FileBrowser from 'components/shared/template-form/files/file-browser';
 import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
 import { useFiles } from 'contexts/files-provider';
+import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { getLanguageByFilename } from 'utils/language';
 
 import styles from './files.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Files = () => {
+const Files = ({ group, onGroupChange }) => {
+  const { groups } = useTemplateGroups();
   const { filesDispatch } = useFiles();
 
   const addFileHandler = (fileName) => {
@@ -47,6 +50,12 @@ const Files = () => {
     </>
   );
 
+  const groupOptions = groups.map((group) => (
+    <div key={group.id} onClick={() => onGroupChange(group)}>
+      {group.name}
+    </div>
+  ));
+
   return (
     <>
       <div className={cx('file-browser-head')}>
@@ -59,6 +68,17 @@ const Files = () => {
             stopPropagation
           >
             <IconButton icon="plus" className={cx('add-button')} />
+          </Dropdown>
+        </div>
+        <div className={cx('group-options')}>
+          <Dropdown
+            menu={groupOptions}
+            className={cx('add-options-inner')}
+            position="bottom-right"
+            stopPropagation
+            showIcon
+          >
+            <span>{group ? group.name : 'select group'}</span>
           </Dropdown>
         </div>
         {isAddFileModalOpen && (
@@ -80,6 +100,18 @@ const Files = () => {
       <FileBrowser />
     </>
   );
+};
+
+Files.propTypes = {
+  group: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  onGroupChange: PropTypes.func.isRequired,
+};
+
+Files.defaultProps = {
+  group: null,
 };
 
 export default Files;
