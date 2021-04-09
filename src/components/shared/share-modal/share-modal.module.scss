@@ -17,39 +17,39 @@
 
 .user {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  margin-bottom: 15px;
 
   &:hover {
     .unshare {
-      visibility: visible;
+      display: flex;
+    }
+
+    .status {
+      display: none;
     }
   }
+}
+
+.name {
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.status {
+  display: flex;
 }
 
 .unshare {
   @include reset-button;
 
-  display: flex;
+  display: none;
   align-items: center;
-  width: 18px;
-  height: 8px;
-  padding-right: 5px;
-  padding-left: 5px;
   margin-right: 5px;
-  visibility: hidden;
-
-  svg {
-    path {
-      stroke: $color-additional-3;
-    }
-  }
-
-  &:hover {
-    svg {
-      path {
-        stroke: $color-tertiary;
-      }
-    }
-  }
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  line-height: $line-height-sm;
+  color: $color-tertiary;
 }

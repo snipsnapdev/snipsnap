@@ -7,13 +7,13 @@ import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
+import Avatar from 'components/shared/avatar';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import useSession from 'hooks/use-session';
-import CloseSvg from 'icons/close.inline.svg';
 
 import styles from './share-modal.module.scss';
 
@@ -277,9 +277,11 @@ const ShareModal = (props) => {
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (
             <div key={`${id}-${user.name}`} className={cx('user')}>
-              <span>{user.name}</span>
+              <Avatar userName={user.name} avatar={user.image} />
+              <span className={cx('name')}>{user.name}</span>
+              <span className={cx('status')}>invited</span>
               <button className={cx('unshare')} onClick={() => handleUnshare(user.user_id)}>
-                <CloseSvg className={cx('icon')} />
+                uninvite
               </button>
             </div>
           ))}
