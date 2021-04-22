@@ -6,14 +6,15 @@ import styles from './avatar.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Avatar = ({ userName, avatar, className: additionalClassName }) => {
-  const avatarSymbol = userName.slice(0, 1);
+const Avatar = ({ className: additionalClassName, userName, avatar }) => {
+  const symbol = userName?.slice(0, 1);
+
   return (
-    <div className={cx('avatar-wrapper', additionalClassName)}>
+    <div className={cx('wrapper', additionalClassName)}>
       {avatar ? (
         <Image src={avatar} width={30} height={30} />
       ) : (
-        <div className={cx('avatar')}>{avatarSymbol}</div>
+        <div className={cx('symbol')}>{symbol}</div>
       )}
     </div>
   );
@@ -21,14 +22,13 @@ const Avatar = ({ userName, avatar, className: additionalClassName }) => {
 
 Avatar.propTypes = {
   className: PropTypes.string,
-  size: PropTypes.oneOf(['md']),
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
   avatar: PropTypes.string,
 };
 
 Avatar.defaultProps = {
-  size: 'md',
   className: null,
+  userName: null,
   avatar: null,
 };
 

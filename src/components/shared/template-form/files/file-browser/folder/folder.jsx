@@ -98,7 +98,8 @@ const Folder = ({
         <button
           className={cx('folder-title')}
           style={{ paddingLeft: 10 + 25 * level }}
-          onClick={() => {
+          onClick={(event) => {
+            event.preventDefault();
             setIsOpen(!isOpen);
           }}
         >

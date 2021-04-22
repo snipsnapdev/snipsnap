@@ -1,17 +1,35 @@
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   src:
-    url('/fonts/montserrat-v15-latin-500.woff2') format('woff2'),
-    url('/fonts/montserrat-v15-latin-500.woff') format('woff');
+    url('/fonts/inter-v3-latin-700.woff2') format('woff2'),
+    url('/fonts/inter-v3-latin-700.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   src:
-    url('/fonts/montserrat-v15-latin-600.woff2') format('woff2'),
-    url('/fonts/montserrat-v15-latin-600.woff') format('woff');
+    url('/fonts/inter-v3-latin-600.woff2') format('woff2'),
+    url('/fonts/inter-v3-latin-600.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url('/fonts/inter-v3-latin-500.woff2') format('woff2'),
+    url('/fonts/inter-v3-latin-500.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url('/fonts/inter-v3-latin-regular.woff2') format('woff2'),
+    url('/fonts/inter-v3-latin-regular.woff') format('woff');
 }

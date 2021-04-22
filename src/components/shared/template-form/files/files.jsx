@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
 import IconButton from 'components/shared/icon-button';
@@ -8,15 +8,13 @@ import FileBrowser from 'components/shared/template-form/files/file-browser';
 import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
 import { useFiles } from 'contexts/files-provider';
-import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { getLanguageByFilename } from 'utils/language';
 
 import styles from './files.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Files = ({ group, onGroupChange }) => {
-  const { groups } = useTemplateGroups();
+const Files = () => {
   const { filesDispatch } = useFiles();
 
   const addFileHandler = (fileName) => {
@@ -50,12 +48,6 @@ const Files = ({ group, onGroupChange }) => {
     </>
   );
 
-  const groupOptions = groups.map((group) => (
-    <div key={group.id} onClick={() => onGroupChange(group)}>
-      {group.name}
-    </div>
-  ));
-
   return (
     <>
       <div className={cx('file-browser-head')}>
@@ -67,18 +59,7 @@ const Files = ({ group, onGroupChange }) => {
             position="top-left"
             stopPropagation
           >
-            <IconButton icon="plus" className={cx('add-button')} />
-          </Dropdown>
-        </div>
-        <div className={cx('group-options')}>
-          <Dropdown
-            menu={groupOptions}
-            className={cx('add-options-inner')}
-            position="bottom-right"
-            stopPropagation
-            showIcon
-          >
-            <span>{group ? group.name : 'select group'}</span>
+            <IconButton className={cx('add-button')} size="sm" icon="plus" iconSize={8} />
           </Dropdown>
         </div>
         {isAddFileModalOpen && (
@@ -100,18 +81,6 @@ const Files = ({ group, onGroupChange }) => {
       <FileBrowser />
     </>
   );
-};
-
-Files.propTypes = {
-  group: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-  }),
-  onGroupChange: PropTypes.func.isRequired,
-};
-
-Files.defaultProps = {
-  group: null,
 };
 
 export default Files;

@@ -6,9 +6,8 @@ import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
 import RenameGroupModal from 'components/shared/rename-group-modal';
 import ShareModal from 'components/shared/share-modal';
-import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsSvg from 'icons/dots-menu.inline.svg';
-import GroupSvg from 'icons/group.inline.svg';
+import TriangleSvg from 'icons/triangle.inline.svg';
 
 import TemplateItem from '../template-item';
 
@@ -28,7 +27,9 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
       <Link href={`/create-template?groupId=${groupId}`}>Create template</Link>
       <div onClick={() => setIsShareModalOpen(true)}>Share</div>
       <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
-      <div onClick={() => setIsDeleteModalOpen(true)}>Delete</div>
+      <div style={{ color: '#FF6666' }} onClick={() => setIsDeleteModalOpen(true)}>
+        Delete
+      </div>
     </>
   );
 
@@ -40,13 +41,13 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
     <div className={cx('container', { expanded: isExpanded })}>
       <div className={cx('group-wrapper')} onClick={handleExpand}>
         <div className={cx('icon-wrapper')}>
-          <GroupSvg className={cx('icon')} />
+          <TriangleSvg className={cx('icon', isExpanded && 'expanded')} />
         </div>
         <span className={cx('name')}>{name}</span>
-        {templates.length > 0 && <ArrowSvg className={cx('arrow')} />}
         <div className={cx('options')}>
           <Dropdown
             menu={groupMenu}
+            menuClassName={cx('menu')}
             className={cx('options-inner')}
             position="top-right"
             stopPropagation
@@ -55,12 +56,18 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           </Dropdown>
         </div>
       </div>
-      <div className={cx('templates')}>
-        {templates.length > 0 &&
-          templates.map((template) => (
-            <TemplateItem key={template.id} name={template.name} templateId={template.id} nested />
+      {templates?.length > 0 && (
+        <div className={cx('templates')}>
+          {templates.map((template) => (
+            <TemplateItem
+              key={template.id}
+              name={template.name}
+              templateId={template.id}
+              favourite={template.favourite || false}
+            />
           ))}
-      </div>
+        </div>
+      )}
       {isDeleteModalOpen && (
         <DeleteGroupModal
           id={groupId}

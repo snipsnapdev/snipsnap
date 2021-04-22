@@ -1,14 +1,13 @@
-.avatar-wrapper {
+.wrapper {
   position: relative;
   width: 30px;
   height: 30px;
   overflow: hidden;
-  // margin-right: 10px;
-  background-color: $color-quaternary;
+  background-color: $color-dark-grey;
   border-radius: 50%;
 }
 
-.avatar {
+.symbol {
   position: absolute;
   top: 50%;
   left: 50%;

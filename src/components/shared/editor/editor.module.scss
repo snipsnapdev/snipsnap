@@ -2,15 +2,13 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-top: 78px;
-  padding-right: 40px;
 }
 
 .file-path {
   margin-bottom: 5px;
-  font-size: $font-size-sm;
-  line-height: $line-height-sm;
-  color: $color-additional-3;
+  font-size: $font-size-xs;
+  line-height: $line-height-xs;
+  color: $color-grey;
 }
 
 .editor-container {
@@ -20,7 +18,8 @@
   width: 100%;
   padding-right: 10px;
   padding-left: 10px;
-  background-color: $color-primary;
+  margin-bottom: 30px;
+  background-color: $color-primary-black;
 
   &::after {
     position: absolute;
@@ -36,11 +35,11 @@
 
   :global {
     .ace-tm .ace_gutter {
-      background: $color-primary;
+      background: $color-primary-black;
     }
 
     .ace-monokai .ace_gutter {
-      background-color: $color-primary;
+      background-color: $color-primary-black;
     }
 
     .ace-monokai .ace_selection {
@@ -50,40 +49,39 @@
     }
 
     .ace_editor {
-      background-color: $color-primary;
+      background-color: $color-primary-black;
     }
 
     .ace_gutter-cell {
-      color: $color-additional-3;
+      color: $color-secondary-black;
       border-radius: 3px;
     }
 
     .ace-monokai .ace_marker-layer .ace_active-line {
-      background: #232429;
+      background: $color-secondary-black;
     }
 
     .ace-monokai .ace_gutter-active-line {
-      background-color: #22242a;
+      background-color: $color-secondary-black;
     }
   }
 }
 
 .select {
-  align-self: flex-end;
-  min-width: 190px;
-  margin-top: 30px;
-}
-
-.select-current {
-  padding-top: 9px;
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 40px;
   padding-right: 15px;
-  padding-bottom: 9px;
   padding-left: 15px;
-  cursor: pointer;
-  background-color: $color-primary;
+  margin-left: auto;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  background: $color-dark-grey;
+  border: 1px solid $color-middle-grey;
+  border-radius: 4px;
 }
 
-.select-options {
-  bottom: calc(100% + 20px);
-  min-width: 190px;
+.select-menu {
+  width: 100%;
 }

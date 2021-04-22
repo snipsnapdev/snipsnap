@@ -1,0 +1,102 @@
+.wrapper {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    .name {
+      color: $color-white;
+    }
+
+    .options {
+      visibility: visible;
+    }
+
+    .star {
+      visibility: hidden;
+    }
+  }
+
+  &.active {
+    .inner {
+      position: relative;
+      background-color: $color-dark-grey;
+      border-radius: 2px;
+
+      .name {
+        color: $color-white;
+      }
+
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        width: 6px;
+        height: 6px;
+        content: '';
+        background-color: $color-accent-secondary;
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 30px;
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.name {
+  position: relative;
+  max-width: 200px;
+  overflow: hidden;
+  font-size: $font-size-md;
+  font-weight: $font-weight-sm;
+  line-height: $line-height-md;
+  color: $color-light-grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color $transition-base;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  margin-left: auto;
+  visibility: hidden;
+}
+
+.options-inner {
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-right: -10px;
+
+  &:hover {
+    circle {
+      fill: $color-white;
+    }
+  }
+}
+
+.star {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 13px;
+  transform: translateY(-50%);
+}

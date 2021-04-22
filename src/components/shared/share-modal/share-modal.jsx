@@ -191,7 +191,7 @@ const ShareModal = (props) => {
         return;
       }
       if (type === 'group') {
-        // share template group with user
+        // share group with user
         await gqlClient.request(shareTemplateGroupQuery, {
           groupId: id,
           userTo: userShareTo.user_id,

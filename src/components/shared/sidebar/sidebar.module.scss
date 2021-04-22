@@ -1,43 +1,61 @@
 .wrapper {
   position: fixed;
-  width: 240px;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
   height: 100%;
-  overflow: auto;
-  background-color: $color-primary;
-}
-
-.user-wrapper {
   padding-top: 20px;
   padding-right: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   padding-left: 20px;
-  font-size: 14px;
-  border-bottom: 1px solid $color-additional-1;
+  overflow: auto;
+  background-color: $color-secondary-black;
+  border-right: 1px solid $color-dark-grey;
 }
 
-.user-info {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.templates {
+  margin-bottom: 40px;
+}
+
+.templates-title {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: $color-grey;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.footer-item {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 14px;
   cursor: pointer;
-}
 
-.avatar {
-  margin-right: 10px;
-}
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-.button {
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  line-height: inherit;
-  color: $color-tertiary;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: $color-accent-primary;
-  border-radius: 5px;
+  span {
+    margin-left: 10px;
+  }
 }

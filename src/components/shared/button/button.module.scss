@@ -4,10 +4,11 @@
   justify-content: center;
   width: 100%;
   font-family: $font-family;
+  font-size: $font-size-xs;
   line-height: 1;
-  color: $color-tertiary;
+  color: $color-white;
   text-decoration: none;
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
   cursor: pointer;
   border: none;
   border-radius: 5px;
@@ -76,12 +77,12 @@
     &-md {
       padding-top: 12px;
       padding-bottom: 12px;
-      font-size: $font-size-sm;
+      font-size: $font-size-xs;
       font-weight: 600;
       text-transform: uppercase;
 
       .icon-wrapper {
-        height: $font-size-sm;
+        height: $font-size-xs;
       }
     }
 
@@ -109,19 +110,20 @@
 
     &-secondary {
       background-color: transparent;
-      border: 1px solid $color-additional-2;
+      border: 1px solid $color-grey;
 
       @include hover {
-        border: 1px solid $color-tertiary;
+        border: 1px solid $color-white;
       }
     }
 
     &-tertiary {
       background-color: transparent;
-      border: 1px dashed $color-additional-2;
+      border: 1px dashed $color-middle-grey;
 
       @include hover {
-        border: 1px solid $color-tertiary;
+        background-color: $color-dark-grey;
+        border: 1px dashed $color-grey;
       }
     }
   }
@@ -143,7 +145,7 @@
         width: 1px;
         height: 8px;
         content: '';
-        background-color: $color-tertiary;
+        background-color: $color-white;
         transform: translate(-50%, -50%);
       }
 

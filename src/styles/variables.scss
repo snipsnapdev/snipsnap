@@ -1,29 +1,36 @@
-$color-primary: #1c1d22;
-$color-secondary: #23242a;
-$color-tertiary: #fff;
-$color-quaternary: #2e3038;
+$color-primary-black: #17181c;
+$color-secondary-black: #242528;
+$color-dark-grey: #303236;
+$color-middle-grey: #494a50;
+$color-grey: #94969e;
+$color-light-grey: #d7d7db;
+$color-white: #fff;
 
-$color-accent-primary: #73f;
-$color-accent-secondary: #661aff;
+$color-accent-primary: #35f;
+$color-accent-primary-hover: #35f;
+$color-accent-secondary: #ffe666;
 
-$color-additional-1: #22232a;
-$color-additional-2: #393b46;
-$color-additional-3: #5c5f70;
-$color-additional-4: #272830;
-$color-additional-5: #151519;
-$color-additional-6: #22242a;
-$color-additional-7: #2e3038;
-$color-additional-8: #292b32;
+$color-accent-tertiary: #6cf;
 
-$font-family: 'Montserrat', -apple-system, helvetica neue, sans-serif;
+$font-family: 'Inter', -apple-system, helvetica neue, sans-serif;
 
-$font-size-sm: 12px;
-$line-height-sm: 15.6px;
+$font-size-xs: 12px;
+$line-height-xs: 15.6px;
+
+$font-size-sm: 13px;
+$line-height-sm: 16.9px;
 
 $font-size-md: 14px;
 $line-height-md: 18.2px;
 
 $font-size-lg: 20px;
 $line-height-lg: 26px;
+
+$letter-spacing-sm: 0.02em;
+
+$font-weight-sm: 400;
+$font-weight-md: 500;
+$font-weight-lg: 600;
+$font-weight-xl: 700;
 
 $transition-base: 0.2s;

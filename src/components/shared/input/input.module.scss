@@ -5,22 +5,24 @@
 .label {
   display: block;
   margin-bottom: 5px;
-  font-size: $font-size-sm;
-  line-height: $line-height-sm;
-  color: $color-additional-3;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  line-height: $line-height-xs;
+  color: $color-grey;
 }
 
 .input {
   width: 100%;
   padding: 8px 15px;
-  font-size: $font-size-md;
-  line-height: $line-height-md;
-  color: $color-tertiary;
-  background: $color-primary;
-  border: 1px solid $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-lg;
+  line-height: $line-height-sm;
+  color: $color-white;
+  background: $color-primary-black;
+  border: 1px solid $color-middle-grey;
 
   &:focus {
-    border-color: $color-accent-primary;
+    border-color: $color-accent-tertiary;
   }
 }
 

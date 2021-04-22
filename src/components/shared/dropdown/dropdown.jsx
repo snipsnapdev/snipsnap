@@ -49,7 +49,7 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
-  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right']),
+  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right', 'bottom-left']),
   showIcon: PropTypes.bool,
 };
 

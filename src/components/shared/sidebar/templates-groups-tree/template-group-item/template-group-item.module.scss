@@ -1,26 +1,15 @@
 .group-wrapper {
   display: flex;
   align-items: center;
-  padding-top: 7px;
+  height: 40px;
   padding-right: 10px;
-  padding-bottom: 7px;
   padding-left: 10px;
+  margin-right: -10px;
+  margin-left: -10px;
   cursor: pointer;
   user-select: none;
 
   &:hover {
-    background: $color-additional-6;
-
-    .icon {
-      path {
-        fill: $color-tertiary;
-      }
-
-      rect {
-        stroke: $color-tertiary;
-      }
-    }
-
     .options {
       visibility: visible;
     }
@@ -30,8 +19,14 @@
 .icon-wrapper {
   display: flex;
   align-items: center;
-  height: 12px;
-  margin-right: 8px;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  color: $color-grey;
+}
+
+.icon.expanded {
+  transform: rotate(90deg);
 }
 
 .options {
@@ -51,7 +46,7 @@
 
   &:hover {
     circle {
-      fill: $color-tertiary;
+      fill: $color-white;
     }
   }
 }
@@ -60,38 +55,26 @@
   max-width: 140px;
   margin-right: 5px;
   overflow: hidden;
+  font-size: $font-size-md;
+  font-weight: $font-weight-lg;
+  line-height: $line-height-md;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .templates {
-  position: relative;
   display: none;
 }
 
-.arrow {
-  width: 10px;
-  height: 6px;
-  color: $color-additional-3;
-  transform: rotate(-90deg);
-}
-
 .expanded {
-  .templates {
-    display: block;
-
-    &::after {
-      position: absolute;
-      top: -7px;
-      bottom: 0;
-      left: 19px;
-      width: 1px;
-      content: '';
-      background-color: $color-additional-7;
+  &:last-child {
+    .templates {
+      margin-bottom: 0;
     }
   }
 
-  .arrow {
-    transform: rotate(0deg);
+  .templates {
+    display: block;
+    margin-bottom: 10px;
   }
 }

@@ -14,7 +14,7 @@
   position: relative;
   z-index: 11;
   width: 400px;
-  background: $color-additional-6;
+  background: $color-secondary-black;
   border-radius: 5px;
 }
 
@@ -31,7 +31,7 @@
   padding-right: 30px;
   padding-bottom: 15px;
   padding-left: 30px;
-  border-bottom: 1px solid $color-additional-8;
+  border-bottom: 1px solid $color-secondary-black;
 }
 
 .body {
@@ -47,14 +47,14 @@
 
   svg {
     path {
-      stroke: $color-additional-3;
+      stroke: $color-grey;
     }
   }
 
   &:hover {
     svg {
       path {
-        stroke: $color-tertiary;
+        stroke: $color-white;
       }
     }
   }

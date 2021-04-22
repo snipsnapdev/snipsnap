@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
@@ -7,13 +8,13 @@ import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
-import IconButton from 'components/shared/icon-button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
-import TemplatesGroupsTree from 'components/shared/templates-groups-tree';
 
-import styles from './templates-groups.module.scss';
+import styles from './create-template-group-modal.module.scss';
+
+const cx = classNames.bind(styles);
 
 const schema = yup.object().shape({
   name: yup
@@ -21,7 +22,6 @@ const schema = yup.object().shape({
     .required('Name is required')
     .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
 });
-const cx = classNames.bind(styles);
 
 const query = gql`
   mutation createTemplatesGroup($name: String!) {
@@ -33,12 +33,11 @@ const query = gql`
   }
 `;
 
-const TemplatesGroups = () => {
+const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
   const { register, handleSubmit, clearErrors, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const gqlClient = useGqlClient();
 
   const onSubmit = async ({ name }) => {
@@ -46,44 +45,39 @@ const TemplatesGroups = () => {
       setLoading(true);
       await gqlClient.request(query, { name });
       setLoading(false);
-      setIsModalOpen(false);
+      onClose();
       mutate('getOwnedTemplateGroups');
-    } catch (err) {
+    } catch (error) {
       setLoading(false);
-      console.log(err);
+      console.log(error);
     }
+
     clearErrors();
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className={cx('templates')}>
-      <h2>
-        Template groups
-        <IconButton
-          icon="plus"
-          className={cx('group-create-button')}
-          onClick={() => setIsModalOpen(true)}
-        />
-        {isModalOpen && (
-          <ModalPortal>
-            <Modal
-              title="Add group"
-              isOpen={isModalOpen}
-              onRequestClose={() => setIsModalOpen(false)}
-            >
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Name" name="name" register={register} errors={errors.name} />
-                <Button className={cx('add-group-button')} type="submit" loading={loading}>
-                  Add group
-                </Button>
-              </form>
-            </Modal>
-          </ModalPortal>
-        )}
-      </h2>
-      <TemplatesGroupsTree />
-    </div>
+    <ModalPortal>
+      <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input label="Name" name="name" register={register} errors={errors.name} />
+          <Button className={cx('button')} type="submit" loading={loading}>
+            Add group
+          </Button>
+        </form>
+      </Modal>
+    </ModalPortal>
   );
 };
 
-export default TemplatesGroups;
+CreateTemplateGroupModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+};
+
+CreateTemplateGroupModal.defaultProps = {
+  isOpen: false,
+};
+
+export default CreateTemplateGroupModal;

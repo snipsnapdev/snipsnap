@@ -6,19 +6,19 @@
   padding-top: 7px;
   padding-bottom: 7px;
   font-family: $font-family;
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
   font-weight: 500;
-  line-height: $line-height-sm;
-  color: $color-tertiary;
+  line-height: $line-height-xs;
+  color: $color-white;
   cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
-    background-color: $color-additional-1;
+    background-color: $color-secondary-black;
     border-radius: 3px;
 
     & .file-icon {
-      background-color: $color-tertiary;
+      background-color: $color-white;
     }
 
     & .button-delete {
@@ -65,14 +65,14 @@
 
   svg {
     path {
-      stroke: $color-additional-3;
+      stroke: $color-grey;
     }
   }
 
   &:hover {
     svg {
       path {
-        stroke: $color-tertiary;
+        stroke: $color-white;
       }
     }
   }

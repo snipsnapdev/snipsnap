@@ -1,7 +1,8 @@
 .main {
   flex-grow: 1;
   min-height: 100vh;
-  padding-left: 240px;
+  // 280px is sidebar's width
+  padding-left: 280px;
 }
 
 .wrapper {

@@ -4,15 +4,17 @@
 
 .icon {
   position: absolute;
-  top: 7px;
+  top: 50%;
   right: 10px;
-  color: $color-tertiary;
+  color: $color-white;
+  transform: translateY(-50%);
 
   &.up {
-    transform: rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
   }
 
-  & svg {
+  svg {
+    display: block;
     width: 10px;
     height: 6px;
   }
@@ -20,23 +22,33 @@
 
 .menu {
   position: absolute;
-  z-index: 1;
+  z-index: 9;
   display: none;
+  white-space: nowrap;
 }
 
 .position-top-left {
-  top: 100%;
+  bottom: -5px;
   left: 0;
+  transform: translateY(100%);
 }
 
 .position-top-right {
-  top: 100%;
   right: 0;
+  bottom: -5px;
+  transform: translateY(100%);
 }
 
 .position-bottom-right {
+  top: -5px;
   right: 0;
-  bottom: 100%;
+  transform: translateY(-100%);
+}
+
+.position-bottom-left {
+  top: -5px;
+  left: 0;
+  transform: translateY(-100%);
 }
 
 .opened {

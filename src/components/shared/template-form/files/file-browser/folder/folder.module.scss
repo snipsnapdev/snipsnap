@@ -2,7 +2,7 @@
   position: relative;
 
   &-dragover {
-    background-color: $color-secondary;
+    background-color: $color-secondary-black;
   }
 }
 
@@ -22,7 +22,7 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: $color-additional-1;
+    background-color: $color-secondary-black;
     border-radius: 3px;
 
     .options {
@@ -30,7 +30,7 @@
     }
 
     & .icon-folder {
-      color: $color-tertiary;
+      color: $color-white;
     }
   }
 }
@@ -41,7 +41,7 @@
   display: flex;
   flex-grow: 1;
   align-items: center;
-  color: $color-tertiary;
+  color: $color-white;
 
   & span {
     margin-right: 5px;
@@ -50,21 +50,21 @@
 
 .folder-name {
   font-family: $font-family;
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
   font-weight: 500;
-  line-height: $line-height-sm;
-  color: $color-tertiary;
+  line-height: $line-height-xs;
+  color: $color-white;
 }
 
 .icon-folder {
   margin-right: 7px;
-  color: $color-additional-3;
+  color: $color-grey;
 }
 
 .arrow {
   width: 10px;
   height: 6px;
-  color: $color-additional-3;
+  color: $color-grey;
 
   &.open {
     transform: rotateX(180deg);
@@ -95,7 +95,7 @@
 
   &:hover {
     circle {
-      fill: $color-tertiary;
+      fill: $color-white;
     }
   }
 }

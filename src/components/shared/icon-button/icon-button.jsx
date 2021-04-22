@@ -10,31 +10,40 @@ const ICONS = {
   plus: PlusSvg,
 };
 
-const IconButton = (props) => {
-  const { className: additionalClassName, theme, size, icon, ...otherProps } = props;
+const IconButton = ({
+  className: additionalClassName,
+  size,
+  icon,
+  iconSize,
+  theme,
+  ...otherProps
+}) => {
   const Icon = ICONS[icon];
+
   return (
     <button
-      type="button"
       className={cx('wrapper', `size-${size}`, `theme-${theme}`, additionalClassName)}
+      type="button"
       {...otherProps}
     >
-      <Icon />
+      <Icon width={iconSize} />
     </button>
   );
 };
 
 IconButton.propTypes = {
   className: PropTypes.string,
-  theme: PropTypes.oneOf(['primary', 'secondary']),
-  size: PropTypes.oneOf(['sm']),
+  size: PropTypes.oneOf(['sm', 'md']),
   icon: PropTypes.oneOf(['plus']).isRequired,
+  iconSize: PropTypes.number,
+  theme: PropTypes.oneOf(['primary']),
 };
 
 IconButton.defaultProps = {
   className: null,
+  size: 'md',
   theme: 'primary',
-  size: 'sm',
+  iconSize: null,
 };
 
 export default IconButton;

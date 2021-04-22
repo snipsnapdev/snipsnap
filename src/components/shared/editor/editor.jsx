@@ -76,7 +76,7 @@ const Editor = () => {
   const languageOptions = (
     <>
       {LANGUAGES.map((item, i) => (
-        <div key={`${item}-${i}`} onClick={handleLanguageChange}>
+        <div key={`${item}-${i}`} onClick={() => handleLanguageChange(item)}>
           {item}
         </div>
       ))}
@@ -111,18 +111,16 @@ const Editor = () => {
           }}
         />
       </div>
-      <div className={cx('select')}>
-        <Dropdown
-          menu={languageOptions}
-          className={cx('select-inner')}
-          position="bottom-right"
-          menuClassName={cx('select-options')}
-          stopPropagation
-          showIcon
-        >
-          <div className={cx('select-current')}>{language}</div>
-        </Dropdown>
-      </div>
+      <Dropdown
+        menu={languageOptions}
+        className={cx('select')}
+        position="bottom-right"
+        menuClassName={cx('select-menu')}
+        stopPropagation
+        showIcon
+      >
+        {language}
+      </Dropdown>
     </div>
   );
 };

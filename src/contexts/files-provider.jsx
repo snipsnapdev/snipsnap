@@ -9,6 +9,11 @@ import {
   changeFileLanguage,
 } from 'utils/files-provider-helpers';
 
+const initialState = {
+  openFileId: null,
+  files: [],
+};
+
 export const FilesContext = React.createContext(null);
 
 export const useFiles = () => useContext(FilesContext);
@@ -54,16 +59,18 @@ export const filesReducer = (state, action) => {
         files: changeFileLanguage(state.files, state.openFileId, action.newLanguage),
       };
     }
+    case 'reset': {
+      return {
+        ...state,
+        ...action.data,
+      };
+    }
     default:
       return state;
   }
 };
 
 const FilesProvider = ({ children }) => {
-  const initialState = {
-    openFileId: null,
-    files: [],
-  };
   const [filesState, dispatch] = useReducer(filesReducer, initialState);
   return (
     <FilesContext.Provider

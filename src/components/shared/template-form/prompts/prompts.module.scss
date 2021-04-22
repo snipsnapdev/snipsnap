@@ -10,7 +10,7 @@
   height: 20px;
   padding: 0 !important;
   margin-left: 10px;
-  background-color: $color-primary;
+  background-color: $color-primary-black;
   border-radius: 3px;
 
   span {
@@ -45,13 +45,13 @@
   position: relative;
   padding: 15px;
   margin-bottom: 15px;
-  border: 1px solid $color-quaternary;
+  border: 1px solid $color-middle-grey;
   border-radius: 5px;
 
   &-input {
     margin-bottom: 15px;
 
-    &:last-child {
+    &:last-of-type {
       margin-bottom: 0;
     }
   }
@@ -65,14 +65,14 @@
 
     svg {
       path {
-        stroke: $color-additional-3;
+        stroke: $color-grey;
       }
     }
 
     &:hover {
       svg {
         path {
-          stroke: $color-tertiary;
+          stroke: $color-white;
         }
       }
     }

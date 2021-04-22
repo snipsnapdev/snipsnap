@@ -271,11 +271,21 @@
       columns:
       - available_for_user_id
       - created_at
+      - favourite
       - template_id
       - updated_at
       filter:
         available_for_user_id:
           _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - favourite
+      filter:
+        available_for_user_id:
+          _eq: X-Hasura-User-Id
+      check: null
 - table:
     schema: public
     name: users

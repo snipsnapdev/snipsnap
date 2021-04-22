@@ -2,12 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { cloneDeep } from 'lodash';
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect, useReducer } from 'react';
+import { useRouter } from 'next/router';
+import { useState, useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
 import Button from 'components/shared/button';
+import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
@@ -43,6 +45,8 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     resolver: yupResolver(schema),
     defaultValues: initialValues,
   });
+
+  const { back } = useRouter();
 
   const { groups } = useTemplateGroups();
 
@@ -85,6 +89,33 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     clearErrors();
   };
 
+  const handleCancelButtonClick = () => {
+    if (isCreatingNewTemplate) {
+      back();
+    } else {
+      reset();
+      setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
+      dispatch({
+        type: 'reset',
+        data: {
+          files: initialValues.files,
+          openFileId: null,
+        },
+      });
+    }
+  };
+
+  const groupOptions = (
+    <>
+      {groups.map((group) => (
+        <div key={group.id} onClick={() => setGroup(group)}>
+          {group.name}
+        </div>
+      ))}
+      <div onClick={() => setGroup(null)}>No group</div>
+    </>
+  );
+
   return (
     <FilesContext.Provider
       value={{
@@ -93,32 +124,62 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       }}
     >
       <div className={cx('wrapper')}>
-        <div className={cx('left-column')}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={cx('title')}>
-              {isCreatingNewTemplate ? 'Create template' : 'Edit template'}
-            </h1>
-            <div className={cx('main')}>
-              <Input label="Template name" name="name" register={register} errors={errors.name} />
-            </div>
-            <div className={cx('prompts-wrapper')}>
-              <Prompts
-                control={control}
-                register={register}
-                errors={errors}
-                showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
-              />
-            </div>
-            <div className={cx('files-wrapper')}>
-              <Files group={group} onGroupChange={setGroup} />
-            </div>
-            <Button className={cx('create')} type="submit" loading={isLoading}>
-              {isCreatingNewTemplate ? 'Create' : 'Save'}
-            </Button>
-          </form>
-        </div>
-        <div className={cx('right-column')}>
-          <Editor />
+        <h1 className={cx('title')}>
+          {isCreatingNewTemplate ? (
+            'Create template'
+          ) : (
+            <>
+              Edit template <span>"{initialValues.name}"</span>
+            </>
+          )}
+        </h1>
+        <div className={cx('inner')}>
+          <div className={cx('left-column')}>
+            <form className={cx('form')}>
+              <div className={cx('main')}>
+                <Input label="Template name" name="name" register={register} errors={errors.name} />
+              </div>
+
+              <div className={cx('group-label')}>Group</div>
+              <Dropdown
+                menu={groupOptions}
+                className={cx('group-select')}
+                menuClassName={cx('group-select-menu')}
+                position="top-right"
+                stopPropagation
+                showIcon
+              >
+                <span>{group ? group.name : 'Select group'}</span>
+              </Dropdown>
+              <div className={cx('prompts-wrapper')}>
+                <Prompts
+                  control={control}
+                  register={register}
+                  errors={errors}
+                  showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
+                />
+              </div>
+              <div className={cx('files-wrapper')}>
+                <Files />
+              </div>
+              <div className={cx('buttons-wrapper')}>
+                <Button
+                  className={cx('create')}
+                  type="submit"
+                  loading={isLoading}
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  {isCreatingNewTemplate ? 'Create template' : 'Save changes'}
+                </Button>
+                <button className={cx('cancel')} type="button" onClick={handleCancelButtonClick}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className={cx('right-column')}>
+            <Editor />
+          </div>
         </div>
       </div>
     </FilesContext.Provider>
