@@ -13,7 +13,6 @@ import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import useSession from 'hooks/use-session';
 
 import styles from './share-modal.module.scss';
 
@@ -39,16 +38,6 @@ const getUsersTemplateSharedTo = gql`
   }
 `;
 
-const getUsersByEmailQuery = gql`
-  query MyQuery($email: String!) {
-    users(where: { email: { _eq: $email } }) {
-      name
-      user_id
-      email
-    }
-  }
-`;
-
 const getUsersByIdsQuery = gql`
   query MyQuery($ids: [uuid!]!) {
     users(where: { user_id: { _in: $ids } }) {
@@ -60,13 +49,9 @@ const getUsersByIdsQuery = gql`
 `;
 
 const shareTemplateGroupQuery = gql`
-  mutation shareTemplateGroup($groupId: uuid!, $userTo: uuid!, $userBy: uuid!) {
-    insert_shared_template_groups_one(
-      object: {
-        template_group_id: $groupId
-        shared_to_user_id: $userTo
-        shared_by_user_id: $userBy
-      }
+  mutation shareTemplateGroup($groupId: String!, $shareToUserEmail: String!) {
+    share_template_group(
+      object: { template_group_id: $groupId, share_to_user_email: $shareToUserEmail }
     ) {
       id
     }
@@ -74,10 +59,8 @@ const shareTemplateGroupQuery = gql`
 `;
 
 const shareTemplateQuery = gql`
-  mutation shareTemplate($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
-    insert_shared_templates_one(
-      object: { template_id: $templateId, shared_to_user_id: $userTo, shared_by_user_id: $userBy }
-    ) {
+  mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
+    share_template(object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }) {
       id
     }
   }
@@ -85,33 +68,19 @@ const shareTemplateQuery = gql`
 
 // unsharing
 const unshareTemplateGroupQuery = gql`
-  mutation unshareTemplateGroup($groupId: uuid!, $userTo: uuid!, $userBy: uuid!) {
-    delete_shared_template_groups(
-      where: {
-        template_group_id: { _eq: $groupId }
-        shared_to_user_id: { _eq: $userTo }
-        shared_by_user_id: { _eq: $userBy }
-      }
+  mutation unshareTemplateGroup($groupId: String!, $shareToUserEmail: String!) {
+    unshare_template_group(
+      object: { template_group_id: $groupId, share_to_user_email: $shareToUserEmail }
     ) {
-      returning {
-        shared_to_user_id
-      }
+      shared_to_user_id
     }
   }
 `;
 
 const unshareTemplateQuery = gql`
-  mutation shareTemplate($templateId: uuid!, $userTo: uuid!, $userBy: uuid!) {
-    delete_shared_templates(
-      where: {
-        template_id: { _eq: $templateId }
-        shared_to_user_id: { _eq: $userTo }
-        shared_by_user_id: { _eq: $userBy }
-      }
-    ) {
-      returning {
-        shared_to_user_id
-      }
+  mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
+    unshare_template(object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }) {
+      shared_to_user_id
     }
   }
 `;
@@ -119,14 +88,9 @@ const unshareTemplateQuery = gql`
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
-  const [session] = useSession();
-  const {
-    user: { id: currentUserId },
-  } = session;
-
   const { groups, templates } = useTemplateGroups();
 
-  const { register, handleSubmit, reset, errors, setError } = useForm({
+  const { register, handleSubmit, reset, errors } = useForm({
     defaultValues: { email: '' },
     resolver: yupResolver(schema),
   });
@@ -179,23 +143,17 @@ const ShareModal = (props) => {
   const { data } = useSWR(`getSharedTo-${id}`, getUsersSharedTo);
   const usersSharedTo = data || [];
 
-  const onSubmit = async ({ email }) => {
+  const onSubmit = async ({ email: shareToUserEmail }) => {
+    console.log(shareToUserEmail);
+
     try {
       setLoading(true);
-      // get user id by email
-      const { users } = await gqlClient.request(getUsersByEmailQuery, { email });
-      const userShareTo = users[0];
-      if (typeof userShareTo === 'undefined') {
-        setError('email', { type: 'manual', message: 'No users found with this email' });
-        setLoading(false);
-        return;
-      }
+
       if (type === 'group') {
         // share group with user
         await gqlClient.request(shareTemplateGroupQuery, {
           groupId: id,
-          userTo: userShareTo.user_id,
-          userBy: currentUserId,
+          shareToUserEmail,
         });
 
         // share all templates within the group with user
@@ -204,18 +162,20 @@ const ShareModal = (props) => {
           templateIdsInGroup.map((id) =>
             gqlClient.request(shareTemplateQuery, {
               templateId: id,
-              userTo: userShareTo.user_id,
-              userBy: currentUserId,
+              shareToUserEmail,
             })
           )
         );
       }
 
       if (type === 'template') {
+        console.log('inside???', {
+          templateId: id,
+          shareToUserEmail,
+        });
         await gqlClient.request(shareTemplateQuery, {
           templateId: id,
-          userTo: userShareTo.user_id,
-          userBy: currentUserId,
+          shareToUserEmail,
         });
       }
 
@@ -232,19 +192,17 @@ const ShareModal = (props) => {
     return null;
   }
 
-  const handleUnshare = async (toUserId) => {
+  const handleUnshare = async (shareToUserEmail) => {
     try {
       if (type === 'group') {
         await gqlClient.request(unshareTemplateGroupQuery, {
           groupId: id,
-          userTo: toUserId,
-          userBy: currentUserId,
+          shareToUserEmail,
         });
       } else {
         await gqlClient.request(unshareTemplateQuery, {
           templateId: id,
-          userTo: toUserId,
-          userBy: currentUserId,
+          shareToUserEmail,
         });
       }
       mutate(`getSharedTo-${id}`);
@@ -280,7 +238,7 @@ const ShareModal = (props) => {
               <Avatar userName={user.name} avatar={user.image} />
               <span className={cx('name')}>{user.name}</span>
               <span className={cx('status')}>invited</span>
-              <button className={cx('unshare')} onClick={() => handleUnshare(user.user_id)}>
+              <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
                 uninvite
               </button>
             </div>

@@ -6,18 +6,19 @@ import TemplateForm from 'components/shared/template-form';
 const createTemplateQuery = gql`
   mutation createTemplate(
     $name: String!
-    $prompts: jsonb!
-    $files: jsonb!
-    $templateGroupId: uuid
+    $prompts: String
+    $files: String!
+    $templateGroupId: String
   ) {
-    insert_templates_one(
+    insert_template(
       object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
     ) {
-      name
-      owner_id
-      files
-      prompts
       id
+      name
+      prompts
+      files
+      template_group_id
+      owner_id
     }
   }
 `;

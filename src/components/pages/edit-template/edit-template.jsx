@@ -5,21 +5,27 @@ import { formatFilesDataFromApi } from 'utils/files-provider-helpers';
 
 const editTemplateQuery = gql`
   mutation updateTemplate(
-    $templateId: uuid!
-    $name: String!
-    $prompts: jsonb!
-    $files: jsonb!
-    $templateGroupId: uuid
+    $id: String!
+    $name: String
+    $prompts: String
+    $files: String
+    $templateGroupId: String
   ) {
-    update_templates_by_pk(
-      pk_columns: { id: $templateId }
-      _set: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
+    update_template(
+      object: {
+        id: $id
+        name: $name
+        prompts: $prompts
+        files: $files
+        template_group_id: $templateGroupId
+      }
     ) {
-      name
-      owner_id
-      files
-      prompts
       id
+      name
+      prompts
+      files
+      template_group_id
+      owner_id
     }
   }
 `;
@@ -58,7 +64,7 @@ const EditTemplate = ({ templateId }) => {
 
   const handleSave = async ({ name, prompts, files, templateGroupId }) =>
     gqlClient.request(editTemplateQuery, {
-      templateId,
+      id: templateId,
       name,
       prompts,
       files,
