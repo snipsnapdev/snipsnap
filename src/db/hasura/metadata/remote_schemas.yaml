@@ -1,18 +1,4 @@
 - name: graphql-server
   definition:
-    url: http://192.168.1.252:4000/
+    url_from_env: REMOTE_SCHEMA_URL
     timeout_seconds: 60
-  permissions:
-  - role: user
-    definition:
-      schema: |-
-        schema  { query: Query mutation: Mutation }
-        type Query { hello: String }
-        type Mutation { insert_template(object: InsertTemplateInput ): Template update_template(object: UpdateTemplateInput ): Template share_template(object: ShareTemplateInput ): SharedTemplate unshare_template(object: ShareTemplateInput ): SharedTemplate share_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup unshare_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup }
-        type Template { id: String name: String prompts: String files: String template_group_id: String owner_id: String created_at: String updated_at: String }
-        type SharedTemplate { id: String template_id: String shared_by_user_id: String shared_to_user_id: String created_at: String updated_at: String }
-        type SharedTemplateGroup { id: String template_group_id: String shared_by_user_id: String shared_to_user_id: String created_at: String updated_at: String }
-        input InsertTemplateInput {name: String!  prompts: String  files: String!  template_group_id: String  }
-        input UpdateTemplateInput {id: String!  name: String  prompts: String  files: String  template_group_id: String  }
-        input ShareTemplateInput {template_id: String!  share_to_user_email: String!  }
-        input ShareTemplateGroupInput {template_group_id: String!  share_to_user_email: String!  }
