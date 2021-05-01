@@ -14,12 +14,7 @@ const DeleteFolderModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal
-        title={`Delete ${name} folder?`}
-        isOpen={isOpen}
-        showCloseButton={false}
-        onRequestClose={onClose}
-      >
+      <Modal title={`Delete ${name} folder?`} isOpen={isOpen} onRequestClose={onClose}>
         <div className={cx('actions')}>
           <Button className={cx('cancel-button')} theme="secondary" onClick={onClose}>
             Cancel

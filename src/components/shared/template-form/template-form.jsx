@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
+import Button from 'components/shared/new-button';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { formatFilesDataForApi } from 'utils/files-provider-helpers';
@@ -163,17 +163,12 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Files />
               </div>
               <div className={cx('buttons-wrapper')}>
-                <Button
-                  className={cx('create')}
-                  type="submit"
-                  loading={isLoading}
-                  onClick={handleSubmit(onSubmit)}
-                >
+                <Button type="submit" isLoading={isLoading} onClick={handleSubmit(onSubmit)}>
                   {isCreatingNewTemplate ? 'Create template' : 'Save changes'}
                 </Button>
-                <button className={cx('cancel')} type="button" onClick={handleCancelButtonClick}>
+                <Button type="button" themeType="button-link" onClick={handleCancelButtonClick}>
                   Cancel
-                </button>
+                </Button>
               </div>
             </form>
           </div>

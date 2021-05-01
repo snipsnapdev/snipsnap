@@ -8,7 +8,7 @@ import DeleteFolderModal from 'components/shared/template-form/files/file-browse
 import RenameFolderModal from 'components/shared/template-form/files/file-browser/rename-folder-modal';
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
-import DotsSvg from 'icons/dots-menu.inline.svg';
+import DotsIcon from 'icons/dots.inline.svg';
 import FolderSvg from 'icons/folder.inline.svg';
 
 import styles from './folder.module.scss';
@@ -115,7 +115,7 @@ const Folder = ({
             menuClassName={cx('options-menu')}
             stopPropagation
           >
-            <DotsSvg className={cx('options-icon')} />
+            <DotsIcon className={cx('options-icon')} />
           </Dropdown>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
 import { signOut } from 'next-auth/client';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
 import IconButton from 'components/shared/icon-button';
 import useSession from 'hooks/use-session';
+import HomeIcon from 'icons/home.inline.svg';
 import MarketplaceIcon from 'icons/marketplace.inline.svg';
 
 import Avatar from '../avatar';
@@ -18,15 +20,15 @@ const cx = classNames.bind(styles);
 
 const userMenu = (
   <>
-    <button type="button" onClick={signOut}>
-      Log Out
+    <button style={{ color: '#FF6666' }} type="button" onClick={signOut}>
+      Logout
     </button>
   </>
 );
 
 const Sidebar = () => {
   const [session] = useSession();
-  const router = useRouter();
+  const { push, asPath } = useRouter();
 
   const [isCreateTemplateGroupModalOpen, setIsCreateTemplateGroupModalOpen] = useState(false);
 
@@ -34,8 +36,7 @@ const Sidebar = () => {
     user: { name: userName, image: avatar },
   } = session;
 
-  const handleCreateTemplateButtonClick = () => router.push('/create-template');
-  const handleMarketplaceButtonClick = () => router.push('/marketplace');
+  const handleCreateTemplateButtonClick = () => push('/create-template');
 
   const createButtonMenu = (
     <>
@@ -46,6 +47,9 @@ const Sidebar = () => {
 
   const handleCreateTemplateGroupModalClose = () => setIsCreateTemplateGroupModalOpen(false);
 
+  const isHomeLinkActive = asPath === '/';
+  const isMarketplaceLinkActive = asPath === '/marketplace';
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
@@ -54,30 +58,33 @@ const Sidebar = () => {
           menu={createButtonMenu}
           className={cx('options-inner')}
           menuClassName={cx('menu')}
-          position="top-right"
+          position="top-left"
           stopPropagation
         >
-          <IconButton icon="plus" size="md" iconSize={10} />
+          <IconButton icon={{ name: 'plus', size: 10 }} />
         </Dropdown>
       </div>
 
-      <div className={cx('templates')}>
-        <h3 className={cx('templates-title')}>My templates</h3>
-        <TemplatesGroupsTree onlyOwned />
+      <div className={cx('navigation')}>
+        <Link href="/">
+          <a className={cx('navigation-item', { active: isHomeLinkActive })}>
+            <HomeIcon className={cx('navigation-item-icon')} />
+            <span>Home</span>
+          </a>
+        </Link>
+        <Link href="/marketplace">
+          <a className={cx('navigation-item', { active: isMarketplaceLinkActive })}>
+            <MarketplaceIcon className={cx('navigation-item-icon')} />
+            <span>Marketplace</span>
+          </a>
+        </Link>
       </div>
 
-      <div className={cx('templates')}>
-        <h3 className={cx('templates-title')}>Shared with me templates</h3>
-        <TemplatesGroupsTree onlyShared />
-      </div>
+      <TemplatesGroupsTree />
 
       <div className={cx('footer')}>
-        <div className={cx('footer-item')} onClick={handleMarketplaceButtonClick}>
-          <MarketplaceIcon />
-          <span>Marketplace</span>
-        </div>
         <Dropdown className={cx('footer-item')} menu={userMenu} position="bottom-left">
-          <Avatar avatar={avatar} />
+          <Avatar avatar={avatar} userName={userName} />
           <span>{userName}</span>
         </Dropdown>
       </div>

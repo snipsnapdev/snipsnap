@@ -1,52 +1,64 @@
+import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import TemplateGroupItem from './template-group-item';
 import TemplateItem from './template-item';
+import styles from './templates-groups-tree.module.scss';
 
-const TemplatesGroupsTree = ({ className, onlyOwned, onlyShared }) => {
-  const {
-    groups,
-    templates,
-    ownedGroups,
-    ownedTemplates,
-    sharedGroups,
-    sharedTemplates,
-  } = useTemplateGroups();
+const cx = classNames.bind(styles);
 
-  const groupsToRender = [];
-  const templatesToRender = [];
+const TemplatesGroupsTree = () => {
+  const { ownedGroups, ownedTemplates, sharedGroups, sharedTemplates } = useTemplateGroups();
 
-  if (onlyOwned) {
-    groupsToRender.push(...ownedGroups);
-    templatesToRender.push(...ownedTemplates);
-  } else if (onlyShared) {
-    groupsToRender.push(...sharedGroups);
-    templatesToRender.push(...sharedTemplates);
-  } else {
-    groupsToRender.push(...groups);
-    templatesToRender.push(...templates);
-  }
+  const renderOwned = ownedGroups.length > 0 || ownedTemplates.length > 0;
+  const renderShared = sharedGroups.length > 0 || sharedTemplates.length > 0;
 
   return (
-    <div className={className}>
-      {groupsToRender.map((group) => (
-        <TemplateGroupItem
-          key={group.id}
-          name={group.name}
-          groupId={group.id}
-          templates={group.templates}
-        />
-      ))}
-      {templatesToRender.map((template) => (
-        <TemplateItem
-          key={template.id}
-          name={template.name}
-          templateId={template.id}
-          favourite={template.favourite || false}
-        />
-      ))}
+    <div className={cx('wrapper')}>
+      {renderOwned && (
+        <div className={cx('section')}>
+          <h3 className={cx('subtitle')}>My templates</h3>
+          {ownedGroups.map((group) => (
+            <TemplateGroupItem
+              key={group.id}
+              name={group.name}
+              groupId={group.id}
+              templates={group.templates}
+            />
+          ))}
+          {ownedTemplates.map((template) => (
+            <TemplateItem
+              key={template.id}
+              name={template.name}
+              templateId={template.id}
+              favourite={template.favourite || false}
+            />
+          ))}
+        </div>
+      )}
+      {renderShared && (
+        <div className={cx('section')}>
+          <h3 className={cx('subtitle')}>Shared with me templates</h3>
+          {sharedGroups.map((group) => (
+            <TemplateGroupItem
+              key={group.id}
+              name={group.name}
+              groupId={group.id}
+              templates={group.templates}
+            />
+          ))}
+          {sharedTemplates.map((template) => (
+            <TemplateItem
+              key={template.id}
+              name={template.name}
+              templateId={template.id}
+              favourite={template.favourite || false}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

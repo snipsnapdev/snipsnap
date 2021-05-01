@@ -57,11 +57,13 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  console.log(errors?.name?.message);
+
   return (
     <ModalPortal>
       <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="Name" name="name" register={register} errors={errors.name} />
+          <Input label="Name" name="name" register={register} error={errors?.name?.message} />
           <Button className={cx('button')} type="submit" loading={loading}>
             Add group
           </Button>

@@ -28,25 +28,25 @@
 }
 
 .position-top-left {
-  bottom: -5px;
+  bottom: -10px;
   left: 0;
   transform: translateY(100%);
 }
 
 .position-top-right {
   right: 0;
-  bottom: -5px;
+  bottom: -10px;
   transform: translateY(100%);
 }
 
 .position-bottom-right {
-  top: -5px;
+  top: -10px;
   right: 0;
   transform: translateY(-100%);
 }
 
 .position-bottom-left {
-  top: -5px;
+  top: -10px;
   left: 0;
   transform: translateY(-100%);
 }

@@ -10,40 +10,26 @@ const ICONS = {
   plus: PlusSvg,
 };
 
-const IconButton = ({
-  className: additionalClassName,
-  size,
-  icon,
-  iconSize,
-  theme,
-  ...otherProps
-}) => {
-  const Icon = ICONS[icon];
+const IconButton = ({ className: additionalClassName, icon, ...otherProps }) => {
+  const Icon = ICONS[icon.name];
 
   return (
-    <button
-      className={cx('wrapper', `size-${size}`, `theme-${theme}`, additionalClassName)}
-      type="button"
-      {...otherProps}
-    >
-      <Icon width={iconSize} />
+    <button className={cx('wrapper', additionalClassName)} type="button" {...otherProps}>
+      <Icon className={cx('icon')} width={icon.size} />
     </button>
   );
 };
 
 IconButton.propTypes = {
   className: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'md']),
-  icon: PropTypes.oneOf(['plus']).isRequired,
-  iconSize: PropTypes.number,
-  theme: PropTypes.oneOf(['primary']),
+  icon: PropTypes.shape({
+    name: PropTypes.oneOf(['plus']).isRequired,
+    size: PropTypes.number,
+  }).isRequired,
 };
 
 IconButton.defaultProps = {
   className: null,
-  size: 'md',
-  theme: 'primary',
-  iconSize: null,
 };
 
 export default IconButton;

@@ -13,7 +13,6 @@
   margin-bottom: 45px;
 
   span {
-    font-weight: 400;
     color: $color-light-grey;
   }
 }
@@ -76,29 +75,12 @@
   display: flex;
   align-items: center;
   margin-top: auto;
-}
 
-.create {
-  align-items: center;
-  width: initial;
-  height: 40px;
-  padding-right: 20px;
-  padding-left: 20px;
-}
+  > * {
+    margin-right: 30px;
 
-.cancel {
-  margin-left: 30px;
-  font-size: $font-size-xs;
-  font-weight: 700;
-  line-height: $line-height-xs;
-  color: $color-grey;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-sm;
-  background-color: transparent;
-  border: none;
-  transition: color $transition-base;
-
-  &:hover {
-    color: $color-white;
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

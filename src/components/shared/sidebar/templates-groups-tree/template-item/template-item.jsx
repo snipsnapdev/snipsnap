@@ -9,7 +9,7 @@ import DeleteTemplateModal from 'components/shared/delete-template-modal';
 import Dropdown from 'components/shared/dropdown';
 import ShareModal from 'components/shared/share-modal';
 import useSession from 'hooks/use-session';
-import DotsSvg from 'icons/dots-menu.inline.svg';
+import DotsIcon from 'icons/dots.inline.svg';
 import StarIcon from 'icons/star.inline.svg';
 
 import styles from './template-item.module.scss';
@@ -69,17 +69,15 @@ const TemplateItem = ({ name, templateId, favourite = false }) => {
       <div className={cx('wrapper', { active: isActive })}>
         <div className={cx('inner')}>
           <span className={cx('name')}>{name}</span>
-          <div className={cx('options')}>
-            <Dropdown
-              menu={templateMenu}
-              className={cx('options-inner')}
-              menuClassName={cx('menu')}
-              position="top-right"
-              stopPropagation
-            >
-              <DotsSvg className={cx('options-icon')} />
-            </Dropdown>
-          </div>
+          <Dropdown
+            menu={templateMenu}
+            className={cx('options')}
+            menuClassName={cx('menu')}
+            position="top-right"
+            stopPropagation
+          >
+            <DotsIcon className={cx('options-icon')} />
+          </Dropdown>
           {favourite && <StarIcon className={cx('star')} />}
           {isDeleteModalOpen && (
             <DeleteTemplateModal

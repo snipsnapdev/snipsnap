@@ -1,5 +1,4 @@
 .menu {
-  min-width: 130px;
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: $color-dark-grey;
@@ -8,16 +7,17 @@
   box-shadow: 0 0 10px rgba(23, 24, 28, 0.75);
 
   > * {
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding-top: 7px;
-    padding-right: 10px;
-    padding-bottom: 7px;
+    height: 30px;
+    padding-right: 20px;
     padding-left: 10px;
     font-family: $font-family;
     font-size: $font-size-xs;
     line-height: $line-height-xs;
     color: $color-white;
+    text-align: left;
     text-decoration: none;
     cursor: pointer;
     background-color: transparent;

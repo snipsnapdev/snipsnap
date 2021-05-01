@@ -6,8 +6,8 @@ import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
 import RenameGroupModal from 'components/shared/rename-group-modal';
 import ShareModal from 'components/shared/share-modal';
-import DotsSvg from 'icons/dots-menu.inline.svg';
-import TriangleSvg from 'icons/triangle.inline.svg';
+import ArrowIcon from 'icons/arrow.inline.svg';
+import DotsIcon from 'icons/dots.inline.svg';
 
 import TemplateItem from '../template-item';
 
@@ -41,33 +41,40 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
     <div className={cx('container', { expanded: isExpanded })}>
       <div className={cx('group-wrapper')} onClick={handleExpand}>
         <div className={cx('icon-wrapper')}>
-          <TriangleSvg className={cx('icon', isExpanded && 'expanded')} />
+          <ArrowIcon className={cx('icon', isExpanded && 'expanded')} />
         </div>
         <span className={cx('name')}>{name}</span>
-        <div className={cx('options')}>
-          <Dropdown
-            menu={groupMenu}
-            menuClassName={cx('menu')}
-            className={cx('options-inner')}
-            position="top-right"
-            stopPropagation
-          >
-            <DotsSvg className={cx('options-icon')} />
-          </Dropdown>
-        </div>
+        <Dropdown
+          menu={groupMenu}
+          menuClassName={cx('menu')}
+          className={cx('options')}
+          position="top-right"
+          stopPropagation
+        >
+          <DotsIcon className={cx('options-icon')} />
+        </Dropdown>
       </div>
-      {templates?.length > 0 && (
-        <div className={cx('templates')}>
-          {templates.map((template) => (
-            <TemplateItem
-              key={template.id}
-              name={template.name}
-              templateId={template.id}
-              favourite={template.favourite || false}
-            />
-          ))}
-        </div>
-      )}
+      <div className={cx('templates')}>
+        {templates?.length > 0 ? (
+          <>
+            {templates.map((template) => (
+              <TemplateItem
+                key={template.id}
+                name={template.name}
+                templateId={template.id}
+                favourite={template.favourite || false}
+              />
+            ))}
+          </>
+        ) : (
+          <p className={cx('no-templates-text')}>
+            You don’t have any templates in this group.{' '}
+            <Link href="/create-template">
+              <a>Create first.</a>
+            </Link>
+          </p>
+        )}
+      </div>
       {isDeleteModalOpen && (
         <DeleteGroupModal
           id={groupId}

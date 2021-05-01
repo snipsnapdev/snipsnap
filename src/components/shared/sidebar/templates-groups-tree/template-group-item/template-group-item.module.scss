@@ -1,17 +1,23 @@
 .group-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   height: 40px;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-right: -10px;
-  margin-left: -10px;
+  padding-right: 25px;
+  padding-left: 20px;
+  margin-right: -20px;
+  margin-left: -20px;
   cursor: pointer;
   user-select: none;
 
   &:hover {
+    .name {
+      color: $color-white;
+    }
+
     .options {
       visibility: visible;
+      opacity: 1;
     }
   }
 }
@@ -25,30 +31,42 @@
   color: $color-grey;
 }
 
-.icon.expanded {
-  transform: rotate(90deg);
+.icon {
+  transition: $transition-base transform;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
 }
 
 .options {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  z-index: 1;
   display: flex;
   align-items: center;
-  height: 12px;
-  margin-left: auto;
+  justify-content: center;
+  width: 20px;
+  height: 30px;
   visibility: hidden;
-}
-
-.options-inner {
-  padding-top: 7px;
-  padding-right: 10px;
-  padding-bottom: 7px;
-  padding-left: 10px;
-  margin-right: -10px;
+  border-radius: 2px;
+  opacity: 0;
+  transition:
+    background-color $transition-base,
+    opacity $transition-base,
+    visibility $transition-base;
+  transform: translateY(-50%);
 
   &:hover {
-    circle {
-      fill: $color-white;
-    }
+    background-color: $color-dark-grey;
   }
+}
+
+.options-icon {
+  display: block;
+  width: 3px;
+  fill: $color-grey;
 }
 
 .name {
@@ -56,17 +74,24 @@
   margin-right: 5px;
   overflow: hidden;
   font-size: $font-size-md;
-  font-weight: $font-weight-lg;
   line-height: $line-height-md;
+  color: $color-light-grey;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color $transition-base;
 }
 
 .templates {
   display: none;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: -20px;
+  margin-left: -20px;
 }
 
 .expanded {
+  position: relative;
+
   &:last-child {
     .templates {
       margin-bottom: 0;
@@ -75,6 +100,27 @@
 
   .templates {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
+
+  &::after {
+    position: absolute;
+    top: 27px;
+    bottom: 5px;
+    left: 4px;
+    width: 1px;
+    content: '';
+    background-color: $color-middle-grey;
+  }
+}
+
+.no-templates-text {
+  padding-top: 80px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  color: $color-grey;
+
+  @include with-link;
 }

@@ -1,3 +1,13 @@
 .wrapper {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+}
+
+.left {
+  padding-top: 25px;
+  padding-right: 60px;
 }

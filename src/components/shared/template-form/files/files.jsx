@@ -59,7 +59,7 @@ const Files = () => {
             position="top-left"
             stopPropagation
           >
-            <IconButton className={cx('add-button')} size="sm" icon="plus" iconSize={8} />
+            <IconButton className={cx('add-button')} icon={{ name: 'plus', size: 10 }} />
           </Dropdown>
         </div>
         {isAddFileModalOpen && (

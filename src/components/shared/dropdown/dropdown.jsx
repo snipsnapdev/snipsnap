@@ -18,12 +18,14 @@ const Dropdown = ({
   stopPropagation,
   menuClassName,
   showIcon,
+  onClick,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const toggle = (e) => {
     setIsOpened(!isOpened);
     stopPropagation && e.stopPropagation();
+    onClick && onClick();
   };
 
   const handleClickOutside = () => {

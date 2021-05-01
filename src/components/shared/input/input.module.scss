@@ -1,31 +1,49 @@
-.group {
+.wrapper {
   display: block;
 }
 
 .label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: $font-size-xs;
-  font-weight: 500;
   line-height: $line-height-xs;
   color: $color-grey;
 }
 
+.input-wrapper {
+  position: relative;
+}
+
 .input {
   width: 100%;
-  padding: 8px 15px;
+  height: 40px;
+  padding-right: 15px;
+  padding-left: 15px;
   font-size: $font-size-sm;
   font-weight: $font-weight-lg;
+  font-weight: 400;
   line-height: $line-height-sm;
   color: $color-white;
   background: $color-primary-black;
   border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+  transition: border-color $transition-base;
 
   &:focus {
     border-color: $color-accent-tertiary;
   }
+
+  &.invalid {
+    border-color: $color-red;
+  }
 }
 
 .error {
-  margin-top: 5px;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  font-size: 11px;
+  color: $color-red;
+  transform: translateY(100%);
 }

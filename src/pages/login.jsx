@@ -6,7 +6,7 @@ import generatePageTitle from 'utils/generate-page-title';
 const LoginPage = () => (
   <>
     <Head>
-      <title>{generatePageTitle('Create Template')}</title>
+      <title>{generatePageTitle('Login')}</title>
     </Head>
     <Login />
   </>

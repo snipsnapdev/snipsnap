@@ -8,24 +8,18 @@ import styles from './modal.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Modal = ({ title, children, isOpen, onRequestClose, showCloseButton = true }) => {
+const Modal = ({ title, children, isOpen, onRequestClose }) => {
   const { register } = useOutsideClick(onRequestClose, isOpen);
   return (
     <div className={cx('wrapper', { open: isOpen })}>
       <div className={cx('content-wrapper')}>
         <div className={cx('content')} ref={register}>
-          {showCloseButton && (
-            <div className={cx('close')} onClick={onRequestClose}>
-              <CloseSvg />
-            </div>
-          )}
-          <div className={cx('header')}>
-            <h2>{title}</h2>
-          </div>
+          <h2 className={cx('title')}>{title}</h2>
           <div className={cx('body')}>{children}</div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Modal;

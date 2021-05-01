@@ -1,0 +1,25 @@
+.wrapper {
+  padding-top: 55px;
+  padding-right: 30px;
+  padding-bottom: 55px;
+  padding-left: 30px;
+}
+
+.header {
+  margin-bottom: 45px;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.description {
+  max-width: 550px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: $color-light-grey;
+}

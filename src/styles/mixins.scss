@@ -14,3 +14,26 @@
   border: none;
   outline: none;
 }
+
+@mixin link {
+  padding: 0;
+  font-family: $font-family;
+  font-weight: 500;
+  line-height: 1;
+  color: $color-link;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $color-link-hover;
+  }
+}
+
+@mixin with-link {
+  a {
+    @include link;
+  }
+}

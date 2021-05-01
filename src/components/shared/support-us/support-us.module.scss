@@ -1,0 +1,17 @@
+.wrapper {
+  min-height: 200px;
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  margin-bottom: 30px;
+  background-color: $color-secondary-black;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+}
+
+.text {
+  margin-bottom: 20px;
+  font-size: $font-size-lg;
+  line-height: 1.4;
+}

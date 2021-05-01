@@ -6,28 +6,33 @@ import styles from './input.module.scss';
 const cx = classNames.bind(styles);
 
 const Input = (props) => {
-  const { className: additionalClassName, register, label, type, errors, ...otherProps } = props;
+  const { className: additionalClassName, register, label, type, error, ...otherProps } = props;
   return (
-    <label className={cx('group', additionalClassName)}>
+    <label className={cx('wrapper', additionalClassName)}>
       {label && <div className={cx('label')}>{label}</div>}
-      <div>
-        <input className={cx('input')} type={type} ref={register()} {...otherProps} />
-        {errors && <div className={cx('error')}>{errors.message}</div>}
+      <div className={cx('input-wrapper')}>
+        <input
+          className={cx('input', { invalid: error })}
+          type={type}
+          ref={register?.()}
+          {...otherProps}
+        />
+        {error && <div className={cx('error')}>{error}</div>}
       </div>
     </label>
   );
-};
-
-Input.defaultProps = {
-  type: 'text',
-  error: null,
-  label: '',
 };
 
 Input.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
   error: PropTypes.string,
+};
+
+Input.defaultProps = {
+  type: 'text',
+  error: null,
+  label: null,
 };
 
 export default Input;
