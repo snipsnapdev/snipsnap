@@ -40,7 +40,7 @@ const schema = yup.object().shape({
 });
 
 const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
-  const { register, control, handleSubmit, reset, clearErrors, errors } = useForm({
+  const { register, control, handleSubmit, setValue, reset, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
     defaultValues: initialValues,
@@ -54,17 +54,28 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     groups.find((group) => group.id === initialValues.groupId) || null
   );
 
-  useEffect(() => {
-    reset(cloneDeep(initialValues));
-    setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
-  }, [initialValues, reset, groups]);
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
     openFileId: null,
   });
+
+  useEffect(() => {
+    // handle initial values change
+    setValue('name', initialValues.name);
+    setValue('prompts', initialValues.prompts);
+    setValue('files', initialValues.files);
+    setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
+    dispatch({
+      type: 'reset',
+      data: {
+        files: initialValues.files,
+        openFileId: null,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
 
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = formatFilesDataForApi(filesState.files);
