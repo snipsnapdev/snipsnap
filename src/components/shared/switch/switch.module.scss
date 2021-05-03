@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 30px;
+  //padding-right: 20px;
+  padding-bottom: 30px;
+  //padding-left: 20px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-light-grey;
+}
+
+.label {
+  margin-left: 10px;
+}
+
+.switch-button {
+  position: relative;
+  width: 47px;
+  height: 26px;
+  cursor: pointer;
+  background-color: $color-primary-black;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  transition: background-color $transition-base;
+
+  @include no-highlight-on-tap;
+
+  &::after {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    content: '';
+    background-color: $color-grey;
+    border-radius: 100%;
+    transition: all $transition-base;
+  }
+
+  &.checked {
+    background-color: $color-accent-primary;
+
+    &::after {
+      left: 53%;
+      background-color: $color-white;
+    }
+  }
+
+  &:hover {
+    .border-gradient {
+      opacity: 0;
+    }
+  }
+}

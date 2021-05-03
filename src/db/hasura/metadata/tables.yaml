@@ -192,6 +192,7 @@
         owner_id: x-hasura-User-Id
       columns:
       - files
+      - is_public
       - name
       - prompts
       - template_group_id
@@ -200,13 +201,14 @@
   - role: user
     permission:
       columns:
-      - id
-      - name
-      - prompts
-      - files
-      - owner_id
-      - template_group_id
       - created_at
+      - files
+      - id
+      - is_public
+      - name
+      - owner_id
+      - prompts
+      - template_group_id
       - updated_at
       filter:
         _or:
@@ -220,6 +222,7 @@
     permission:
       columns:
       - files
+      - is_public
       - name
       - prompts
       - template_group_id

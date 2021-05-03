@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
@@ -12,6 +12,7 @@ import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
+import Switch from 'components/shared/switch';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import styles from './share-modal.module.scss';
@@ -85,6 +86,33 @@ const unshareTemplateQuery = gql`
   }
 `;
 
+// share to all
+const shareTemplateGroupToAllQuery = gql`
+  mutation shareTemplateGroup($groupId: String!) {
+    share_template_group_public(object: { template_group_id: $groupId }) {
+      id
+    }
+  }
+`;
+
+const shareTemplateToAllQuery = gql`
+  mutation shareTemplate($templateId: String!) {
+    share_template_public(object: { template_id: $templateId }) {
+      id
+    }
+  }
+`;
+
+// get public status
+const getTemplatePublicStatusQuery = gql`
+  query MyQuery($templateId: uuid!) {
+    templates(where: { id: { _eq: $templateId } }) {
+      id
+      is_public
+    }
+  }
+`;
+
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
@@ -98,6 +126,24 @@ const ShareModal = (props) => {
   const [loading, setLoading] = useState(false);
 
   const gqlClient = useGqlClient();
+
+  const [isPublic, setIsPublic] = useState(false);
+
+  useEffect(() => {
+    const checkPublic = async () => {
+      const res = await gqlClient.request(getTemplatePublicStatusQuery, {
+        templateId: id,
+      });
+      console.log('public res', res.templates[0].is_public);
+
+      if (type !== 'group') {
+        setIsPublic(res.templates[0].is_public);
+      }
+    };
+
+    checkPublic();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, type]);
 
   /* get shared item (if it's a template, search in both groups
   and templates without a group */
@@ -211,6 +257,12 @@ const ShareModal = (props) => {
     }
   };
 
+  const handlePublicSwitch = () => {
+    // TODO
+    console.log('switch');
+    setIsPublic(!isPublic);
+  };
+
   return (
     <ModalPortal>
       <Modal title={`Share ${sharedItem.name} ${type}`} isOpen={isOpen} onRequestClose={onClose}>
@@ -232,6 +284,9 @@ const ShareModal = (props) => {
             </Button>
           </div>
         </form>
+        {type === 'template' && (
+          <Switch isChecked={isPublic} label="Public availability" onChange={handlePublicSwitch} />
+        )}
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (
             <div key={`${id}-${user.name}`} className={cx('user')}>
