@@ -56,7 +56,8 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
   useEffect(() => {
     reset(cloneDeep(initialValues));
-  }, [initialValues, reset]);
+    setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
+  }, [initialValues, reset, groups]);
 
   const [isLoading, setIsLoading] = useState(false);
 

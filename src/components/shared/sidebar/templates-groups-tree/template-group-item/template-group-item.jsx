@@ -69,7 +69,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
         ) : (
           <p className={cx('no-templates-text')}>
             You don’t have any templates in this group.{' '}
-            <Link href="/create-template">
+            <Link href={`/create-template?groupId=${groupId}`}>
               <a>Create first.</a>
             </Link>
           </p>
