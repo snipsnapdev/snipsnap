@@ -15,6 +15,7 @@
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding-top: 5px;
@@ -27,6 +28,7 @@
 
     .options {
       visibility: visible;
+      opacity: 1;
     }
 
     & .icon-folder {
@@ -78,20 +80,23 @@
 }
 
 .options {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 12px;
-  margin-left: auto;
-  cursor: pointer;
-  visibility: hidden;
-}
-
-.options-inner {
   padding-top: 7px;
   padding-right: 10px;
   padding-bottom: 7px;
   padding-left: 10px;
+  margin-left: auto;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-50%);
 
   &:hover {
     circle {

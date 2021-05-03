@@ -107,17 +107,15 @@ const Folder = ({
           <span className={cx('folder-name')}>{folder.data.name}</span>
           <ArrowSvg className={cx('arrow', isOpen && 'open')} />
         </button>
-        <div className={cx('options')}>
-          <Dropdown
-            menu={folderMenu}
-            className={cx('options-inner')}
-            position="top-right"
-            menuClassName={cx('options-menu')}
-            stopPropagation
-          >
-            <DotsIcon className={cx('options-icon')} />
-          </Dropdown>
-        </div>
+        <Dropdown
+          menu={folderMenu}
+          className={cx('options')}
+          position="top-right"
+          menuClassName={cx('options-menu')}
+          stopPropagation
+        >
+          <DotsIcon className={cx('options-icon')} />
+        </Dropdown>
       </div>
       {isAddFileModalOpen && (
         <AddFileModal

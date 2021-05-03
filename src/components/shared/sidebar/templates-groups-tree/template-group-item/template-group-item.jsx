@@ -44,13 +44,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           <ArrowIcon className={cx('icon', isExpanded && 'expanded')} />
         </div>
         <span className={cx('name')}>{name}</span>
-        <Dropdown
-          menu={groupMenu}
-          menuClassName={cx('menu')}
-          className={cx('options')}
-          position="top-right"
-          stopPropagation
-        >
+        <Dropdown menu={groupMenu} className={cx('options')} position="top-right" stopPropagation>
           <DotsIcon className={cx('options-icon')} />
         </Dropdown>
       </div>
