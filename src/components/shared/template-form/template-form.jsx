@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { cloneDeep } from 'lodash';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useReducer } from 'react';

@@ -8,10 +8,10 @@ import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
-import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
+import Button from 'components/shared/new-button';
 import Switch from 'components/shared/switch';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
@@ -87,18 +87,20 @@ const unshareTemplateQuery = gql`
 `;
 
 // share to all
-const shareTemplateGroupToAllQuery = gql`
-  mutation shareTemplateGroup($groupId: String!) {
-    share_template_group_public(object: { template_group_id: $groupId }) {
-      id
-    }
-  }
-`;
+// const shareTemplateToAllQuery = gql`
+//   mutation shareTemplate($templateId: String!, $isPublic: Boolean!) {
+//     update_template(object: { id: $templateId, is_public: $isPublic }) {
+//       id
+//       is_public
+//     }
+//   }
+// `;
 
 const shareTemplateToAllQuery = gql`
-  mutation shareTemplate($templateId: String!) {
-    share_template_public(object: { template_id: $templateId }) {
+  mutation shareTemplate($templateId: uuid!, $isPublic: Boolean!) {
+    update_templates_by_pk(pk_columns: { id: $templateId }, _set: { is_public: $isPublic }) {
       id
+      is_public
     }
   }
 `;
@@ -127,23 +129,37 @@ const ShareModal = (props) => {
 
   const gqlClient = useGqlClient();
 
-  const [isPublic, setIsPublic] = useState(false);
+  // const [isPublic, setIsPublic] = useState(false);
 
-  useEffect(() => {
-    const checkPublic = async () => {
-      const res = await gqlClient.request(getTemplatePublicStatusQuery, {
-        templateId: id,
-      });
-      console.log('public res', res.templates[0].is_public);
+  const checkPublic = async () => {
+    if (type === 'group') {
+      return false;
+    }
+    const res = await gqlClient.request(getTemplatePublicStatusQuery, {
+      templateId: id,
+    });
+    return res.templates[0].is_public;
+  };
 
-      if (type !== 'group') {
-        setIsPublic(res.templates[0].is_public);
-      }
-    };
+  const { data: isPublic } = useSWR(`isPublic-${id}`, checkPublic);
 
-    checkPublic();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, type]);
+  console.log('isPublic', isPublic);
+
+  // useEffect(() => {
+  //   const checkPublic = async () => {
+  //     const res = await gqlClient.request(getTemplatePublicStatusQuery, {
+  //       templateId: id,
+  //     });
+  //     console.log('public res', res.templates[0].is_public);
+
+  //     if (type !== 'group') {
+  //       setIsPublic(res.templates[0].is_public);
+  //     }
+  //   };
+
+  //   checkPublic();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [id, type]);
 
   /* get shared item (if it's a template, search in both groups
   and templates without a group */
@@ -257,10 +273,12 @@ const ShareModal = (props) => {
     }
   };
 
-  const handlePublicSwitch = () => {
-    // TODO
-    console.log('switch');
-    setIsPublic(!isPublic);
+  const handlePublicSwitch = async () => {
+    await gqlClient.request(shareTemplateToAllQuery, {
+      templateId: id,
+      isPublic: !isPublic,
+    });
+    mutate(`isPublic-${id}`);
   };
 
   return (
@@ -269,7 +287,7 @@ const ShareModal = (props) => {
         <form>
           <div className={cx('top')}>
             <Input
-              placeholder="Invite someone..."
+              label="Email for invitation"
               name="email"
               register={register}
               errors={errors.email}
@@ -285,7 +303,12 @@ const ShareModal = (props) => {
           </div>
         </form>
         {type === 'template' && (
-          <Switch isChecked={isPublic} label="Public availability" onChange={handlePublicSwitch} />
+          <Switch
+            isChecked={isPublic}
+            label="Public availability"
+            className={cx('switch')}
+            onChange={handlePublicSwitch}
+          />
         )}
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (

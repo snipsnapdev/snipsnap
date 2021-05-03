@@ -1,11 +1,15 @@
 .top {
   display: flex;
+  margin-bottom: 30px;
 }
 
 .send-button {
-  align-self: flex-start;
-  width: 113px;
+  align-self: flex-end;
   margin-left: 15px;
+}
+
+.switch {
+  margin-bottom: 30px;
 }
 
 .users {

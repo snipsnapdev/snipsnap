@@ -5,22 +5,27 @@ import styles from './switch.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Switch = ({ isChecked, onChange, label }) => (
-  <div className={cx('wrapper')}>
+const Switch = ({ className, isChecked, onChange, label }) => (
+  <div className={cx('wrapper', className)}>
     <button
       className={cx('switch-button', {
         checked: isChecked,
       })}
       onClick={onChange}
-     />
+    />
     <span className={cx('label')}>{label}</span>
   </div>
 );
 
 Switch.propTypes = {
+  className: PropTypes.string,
   isChecked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+};
+
+Switch.defaultProps = {
+  className: '',
 };
 
 export default Switch;
