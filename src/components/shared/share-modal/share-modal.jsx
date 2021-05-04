@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
@@ -26,7 +26,12 @@ const cx = classNames.bind(styles);
 const getUsersTemplateGroupSharedTo = gql`
   query MyQuery($groupId: uuid!) {
     shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
-      shared_to_user_id
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
     }
   }
 `;
@@ -35,17 +40,12 @@ const getUsersTemplateSharedTo = gql`
   query MyQuery($templateId: uuid!) {
     shared_templates(where: { template_id: { _eq: $templateId } }) {
       shared_to_user_id
-    }
-  }
-`;
-
-const getUsersByIdsQuery = gql`
-  query MyQuery($ids: [uuid!]!) {
-    users(where: { user_id: { _in: $ids } }) {
-      name
-      user_id
-      email
-      image
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
     }
   }
 `;
@@ -86,16 +86,6 @@ const unshareTemplateQuery = gql`
     }
   }
 `;
-
-// share to all
-// const shareTemplateToAllQuery = gql`
-//   mutation shareTemplate($templateId: String!, $isPublic: Boolean!) {
-//     update_template(object: { id: $templateId, is_public: $isPublic }) {
-//       id
-//       is_public
-//     }
-//   }
-// `;
 
 const shareTemplateToAllQuery = gql`
   mutation shareTemplate($templateId: uuid!, $isPublic: Boolean!) {
@@ -162,22 +152,19 @@ const ShareModal = (props) => {
   // get all users to whom the item is already shared
   const getUsersSharedTo = async () => {
     try {
-      let userIdsSharedTo;
-      let ids;
+      let users;
 
       if (type === 'group') {
-        userIdsSharedTo = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+        const res = await gqlClient.request(getUsersTemplateGroupSharedTo, {
           groupId: id,
         });
-        ids = userIdsSharedTo.shared_template_groups.map((item) => item.shared_to_user_id);
+        users = res?.shared_template_groups.map((item) => item.shared_to_user) || [];
       } else {
-        userIdsSharedTo = await gqlClient.request(getUsersTemplateSharedTo, {
+        const res = await gqlClient.request(getUsersTemplateSharedTo, {
           templateId: id,
         });
-        ids = userIdsSharedTo.shared_templates.map((item) => item.shared_to_user_id);
+        users = res?.shared_templates.map((item) => item.shared_to_user) || [];
       }
-
-      const { users } = await gqlClient.request(getUsersByIdsQuery, { ids });
       return users;
     } catch (error) {
       console.log('error', error);
@@ -214,10 +201,6 @@ const ShareModal = (props) => {
       }
 
       if (type === 'template') {
-        console.log('inside???', {
-          templateId: id,
-          shareToUserEmail,
-        });
         await gqlClient.request(shareTemplateQuery, {
           templateId: id,
           shareToUserEmail,

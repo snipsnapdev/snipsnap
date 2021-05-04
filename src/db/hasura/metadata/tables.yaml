@@ -10,6 +10,13 @@
 - table:
     schema: public
     name: shared_template_groups
+  object_relationships:
+  - name: shared_by_user
+    using:
+      foreign_key_constraint_on: shared_by_user_id
+  - name: shared_to_user
+    using:
+      foreign_key_constraint_on: shared_to_user_id
   insert_permissions:
   - role: user
     permission:
@@ -61,6 +68,25 @@
 - table:
     schema: public
     name: shared_templates
+  object_relationships:
+  - name: shared_by_user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        insertion_order: null
+        column_mapping:
+          shared_by_user_id: user_id
+  - name: shared_to_user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        insertion_order: null
+        column_mapping:
+          shared_to_user_id: user_id
   insert_permissions:
   - role: user
     permission:
