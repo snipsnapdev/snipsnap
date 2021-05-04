@@ -1,5 +1,8 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import useSWR from 'swr';
+
+import { gql, useGqlClient } from 'api/graphql';
 
 import Items from './items';
 import styles from './marketplace.module.scss';
@@ -7,8 +10,30 @@ import Search from './search';
 
 const cx = classNames.bind(styles);
 
+const getMarketplaceItems = gql`
+  query getAvailableTemplates {
+    templates(where: { is_public: { _eq: true } }) {
+      id
+      name
+      files
+      prompts
+      owner {
+        id
+        name
+        image
+      }
+    }
+  }
+`;
+
 const Marketplace = () => {
   const [searchText, setSearchText] = useState('');
+
+  const gqlClient = useGqlClient();
+  const fetcher = () => gqlClient.request(getMarketplaceItems);
+  const { data } = useSWR('getMarketplaceTemplates', fetcher);
+
+  const availableTemplates = data?.templates || [];
 
   return (
     <div className={cx('wrapper')}>
@@ -20,7 +45,7 @@ const Marketplace = () => {
         </p>
       </div>
       <Search value={searchText} onChange={setSearchText} />
-      <Items searchText={searchText} />
+      <Items searchText={searchText} items={availableTemplates} />
     </div>
   );
 };

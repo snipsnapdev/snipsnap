@@ -8,258 +8,35 @@ import styles from './items.module.scss';
 
 const cx = classNames.bind(styles);
 
-const mockItems = [
-  {
-    id: 0,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 1,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 2,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 3,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 4,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 5,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 6,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 7,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 8,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 9,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 10,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 11,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 12,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 13,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 14,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 15,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 16,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 17,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 18,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 19,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 20,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 21,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-  {
-    id: 22,
-    name: 'Kubernetes',
-    isCloned: false,
-    user: {
-      name: 'Max Gorodov',
-      image: 'https://avatars.githubusercontent.com/u/20713191?v=4',
-    },
-  },
-  {
-    id: 23,
-    name: 'Create React Component',
-    isCloned: true,
-    user: {
-      name: 'Alex Barashkov',
-      image: 'https://avatars.githubusercontent.com/u/2697570?v=4',
-    },
-  },
-];
-
-const Items = ({ searchText }) => {
+const Items = ({ searchText, items }) => {
   const filteredItems = searchText
-    ? mockItems.filter(({ name, user }) => {
+    ? items.filter(({ name, owner }) => {
         const searchWords = searchText.toLowerCase().trim().split(' ');
         return searchWords.every(
           (searchWord) =>
             name.toLowerCase().includes(searchWord.trim()) ||
-            user.name.toLowerCase().includes(searchWord.trim())
+            owner.name.toLowerCase().includes(searchWord.trim())
         );
       })
-    : mockItems;
+    : items;
 
   return (
     <div className={cx('wrapper')}>
-      {filteredItems.map(({ id, name, isCloned, user }) => (
+      {filteredItems.map(({ id, name, owner }) => (
         <div className={cx('item')} key={id}>
           <h3 className={cx('item-name')}>{name}</h3>
           <div className={cx('item-footer')}>
             <div className={cx('item-author')}>
               <Avatar
                 className={cx('item-author-avatar')}
-                avatar={user.image}
-                userName={user.name}
+                avatar={owner.image}
+                userName={owner.name}
               />
-              <span>{user.name}</span>
+              <span>{owner.name}</span>
             </div>
-            {isCloned ? (
-              <span className={cx('item-cloned')}>Cloned</span>
-            ) : (
-              <Button themeType="link" size="md">
-                Clone
-              </Button>
-            )}
+            <Button themeType="link" size="md">
+              Clone
+            </Button>
           </div>
         </div>
       ))}
@@ -269,10 +46,21 @@ const Items = ({ searchText }) => {
 
 Items.propTypes = {
   searchText: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      owner: {
+        name: PropTypes.string,
+        image: PropTypes.string,
+      },
+    })
+  ),
 };
 
 Items.defaultProps = {
   searchText: '',
+  items: [],
 };
 
 export default Items;
