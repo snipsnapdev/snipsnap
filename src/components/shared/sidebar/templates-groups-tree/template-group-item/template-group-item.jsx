@@ -22,16 +22,26 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const groupMenu = (
-    <>
-      <Link href={`/create-template?groupId=${groupId}`}>Create template</Link>
-      <div onClick={() => setIsShareModalOpen(true)}>Share</div>
-      <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
-      <div style={{ color: '#FF6666' }} onClick={() => setIsDeleteModalOpen(true)}>
-        Delete
-      </div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Create template',
+      tagName: 'Link',
+      href: `/create-template?groupId=${groupId}`,
+    },
+    {
+      text: 'Share',
+      onClick: () => setIsShareModalOpen(true),
+    },
+    {
+      text: 'Rename',
+      onClick: () => setIsRenameModalOpen(true),
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteModalOpen(true),
+      theme: 'danger',
+    },
+  ];
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -44,7 +54,12 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
           <ArrowIcon className={cx('icon', isExpanded && 'expanded')} />
         </div>
         <span className={cx('name')}>{name}</span>
-        <Dropdown menu={groupMenu} className={cx('options')} position="top-right" stopPropagation>
+        <Dropdown
+          menuItems={menuItems}
+          className={cx('options')}
+          position="top-right"
+          stopPropagation
+        >
           <DotsIcon className={cx('options-icon')} />
         </Dropdown>
       </div>

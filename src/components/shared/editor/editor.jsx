@@ -73,15 +73,10 @@ const Editor = () => {
     setLanguage(newLanguage);
   };
 
-  const languageOptions = (
-    <>
-      {LANGUAGES.map((item, i) => (
-        <div key={`${item}-${i}`} onClick={() => handleLanguageChange(item)}>
-          {item}
-        </div>
-      ))}
-    </>
-  );
+  const languageItems = LANGUAGES.map((language) => ({
+    text: language,
+    onClick: () => handleLanguageChange(language),
+  }));
 
   const handleFileContentChange = (value) =>
     filesDispatch({
@@ -112,7 +107,7 @@ const Editor = () => {
         />
       </div>
       <Dropdown
-        menu={languageOptions}
+        menuItems={languageItems}
         className={cx('select')}
         position="bottom-right"
         menuClassName={cx('select-menu')}

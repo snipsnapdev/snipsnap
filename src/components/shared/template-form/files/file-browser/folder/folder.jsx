@@ -76,14 +76,25 @@ const Folder = ({
   const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
   const [isDeleteFolderModalOpen, setIsDeleteFolderModalOpen] = useState(false);
 
-  const folderMenu = (
-    <>
-      <div onClick={() => setIsAddFileModalOpen(true)}>Add file</div>
-      <div onClick={() => setIsAddFolderModalOpen(true)}>Add folder</div>
-      <div onClick={() => setIsRenameFolderModalOpen(true)}>Rename</div>
-      <div onClick={() => setIsDeleteFolderModalOpen(true)}>Delete</div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Add file',
+      onClick: () => setIsAddFileModalOpen(true),
+    },
+    {
+      text: 'Add folder',
+      onClick: () => setIsAddFolderModalOpen(true),
+    },
+    {
+      text: 'Rename',
+      onClick: () => setIsRenameFolderModalOpen(true),
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteFolderModalOpen(true),
+      theme: 'danger',
+    },
+  ];
 
   return (
     <div
@@ -108,7 +119,7 @@ const Folder = ({
           <ArrowSvg className={cx('arrow', isOpen && 'open')} />
         </button>
         <Dropdown
-          menu={folderMenu}
+          menuItems={menuItems}
           className={cx('options')}
           position="top-right"
           menuClassName={cx('options-menu')}

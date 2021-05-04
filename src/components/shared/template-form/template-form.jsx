@@ -116,16 +116,16 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     }
   };
 
-  const groupOptions = (
-    <>
-      {groups.map((group) => (
-        <div key={group.id} onClick={() => setGroup(group)}>
-          {group.name}
-        </div>
-      ))}
-      <div onClick={() => setGroup(null)}>No group</div>
-    </>
-  );
+  const groupOptions = [
+    ...groups.map((item) => ({
+      text: item.name,
+      onClick: () => setGroup(item),
+    })),
+    {
+      text: 'No group',
+      onClick: () => setGroup(null),
+    },
+  ];
 
   return (
     <FilesContext.Provider
@@ -153,7 +153,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
               <div className={cx('group-label')}>Group</div>
               <Dropdown
-                menu={groupOptions}
+                menuItems={groupOptions}
                 className={cx('group-select')}
                 menuClassName={cx('group-select-menu')}
                 position="top-right"
