@@ -42,13 +42,9 @@
 .item-author {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 }
 
 .item-author-avatar {
   margin-right: 10px;
-}
-
-.item-cloned {
-  font-weight: 500;
-  color: $color-grey;
 }
