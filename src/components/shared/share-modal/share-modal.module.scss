@@ -3,6 +3,10 @@
   margin-bottom: 30px;
 }
 
+.input {
+  flex-grow: 1;
+}
+
 .send-button {
   align-self: flex-end;
   margin-left: 15px;
@@ -13,47 +17,70 @@
 }
 
 .users {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
+  padding-top: 30px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: -30px;
+    left: -30px;
+    width: calc(100% + 30px * 2);
+    height: 1px;
+    content: '';
+    background-color: $color-dark-grey;
+  }
 }
 
 .user {
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 15px;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
 
   &:hover {
     .unshare {
-      display: flex;
-    }
-
-    .status {
-      display: none;
+      visibility: visible;
+      opacity: 1;
     }
   }
 }
 
 .name {
-  margin-right: auto;
   margin-left: 10px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-white;
 }
 
-.status {
-  display: flex;
+.email {
+  margin-right: auto;
+  margin-left: 5px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-grey;
 }
 
 .unshare {
   @include reset-button;
 
-  display: none;
+  display: flex;
   align-items: center;
-  margin-right: 5px;
-  font-family: $font-family;
-  font-size: $font-size-xs;
-  font-weight: 500;
-  line-height: $line-height-xs;
-  color: $color-white;
+  padding: 5px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-grey;
+  visibility: hidden;
+  opacity: 0;
+  transition: color $transition-base, opacity $transition-base;
+
+  @include hover {
+    color: $color-white;
+  }
 }

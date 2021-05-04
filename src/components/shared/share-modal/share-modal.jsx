@@ -45,6 +45,7 @@ const getUsersByIdsQuery = gql`
       name
       user_id
       email
+      image
     }
   }
 `;
@@ -142,24 +143,6 @@ const ShareModal = (props) => {
   };
 
   const { data: isPublic } = useSWR(`isPublic-${id}`, checkPublic);
-
-  console.log('isPublic', isPublic);
-
-  // useEffect(() => {
-  //   const checkPublic = async () => {
-  //     const res = await gqlClient.request(getTemplatePublicStatusQuery, {
-  //       templateId: id,
-  //     });
-  //     console.log('public res', res.templates[0].is_public);
-
-  //     if (type !== 'group') {
-  //       setIsPublic(res.templates[0].is_public);
-  //     }
-  //   };
-
-  //   checkPublic();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id, type]);
 
   /* get shared item (if it's a template, search in both groups
   and templates without a group */
@@ -283,7 +266,7 @@ const ShareModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal title={`Share ${sharedItem.name} ${type}`} isOpen={isOpen} onRequestClose={onClose}>
+      <Modal title={`Share "${sharedItem.name}" ${type}`} isOpen={isOpen} onRequestClose={onClose}>
         <form>
           <div className={cx('top')}>
             <Input
@@ -291,6 +274,7 @@ const ShareModal = (props) => {
               name="email"
               register={register}
               errors={errors.email}
+              className={cx('input')}
             />
             <Button
               className={cx('send-button')}
@@ -315,7 +299,7 @@ const ShareModal = (props) => {
             <div key={`${id}-${user.name}`} className={cx('user')}>
               <Avatar userName={user.name} avatar={user.image} />
               <span className={cx('name')}>{user.name}</span>
-              <span className={cx('status')}>invited</span>
+              <span className={cx('email')}>({user.email})</span>
               <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
                 uninvite
               </button>
