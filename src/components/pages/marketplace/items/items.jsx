@@ -1,12 +1,27 @@
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { mutate } from 'swr';
 
+import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
 import Button from 'components/shared/new-button';
 
 import styles from './items.module.scss';
 
 const cx = classNames.bind(styles);
+
+const cloneTemplateQuery = gql`
+  mutation createTemplate($name: String!, $prompts: String, $files: String!) {
+    insert_template(object: { name: $name, files: $files, prompts: $prompts }) {
+      id
+      name
+      prompts
+      files
+      owner_id
+    }
+  }
+`;
 
 const Items = ({ searchText, items }) => {
   const filteredItems = searchText
@@ -20,9 +35,33 @@ const Items = ({ searchText, items }) => {
       })
     : items;
 
+  const router = useRouter();
+
+  const gqlClient = useGqlClient();
+
+  const handleClone = async ({ name, prompts, files }) => {
+    const res = await gqlClient.request(cloneTemplateQuery, {
+      name,
+      prompts,
+      files,
+    });
+
+    mutate('getOwnedTemplateGroups');
+
+    try {
+      const templateId = res?.insert_template?.id || null;
+
+      if (templateId) {
+        router.push(`/template/${templateId}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={cx('wrapper')}>
-      {filteredItems.map(({ id, name, owner }) => (
+      {filteredItems.map(({ id, name, prompts, files, owner }) => (
         <div className={cx('item')} key={id}>
           <h3 className={cx('item-name')}>{name}</h3>
           <div className={cx('item-footer')}>
@@ -34,7 +73,11 @@ const Items = ({ searchText, items }) => {
               />
               <span>{owner.name}</span>
             </div>
-            <Button themeType="link" size="md">
+            <Button
+              themeType="link"
+              size="md"
+              onClick={() => handleClone({ name, prompts, files })}
+            >
               Clone
             </Button>
           </div>
@@ -50,6 +93,8 @@ Items.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
+      prompts: PropTypes.string,
+      files: PropTypes.string,
       owner: {
         name: PropTypes.string,
         image: PropTypes.string,
