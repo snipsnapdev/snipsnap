@@ -16,7 +16,9 @@ const schema = yup.object().shape({
   newName: yup
     .string()
     .required('Name is required')
-    .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
+    .matches(/^[a-zA-Z]+(-[a-zA-Z]+)*$/, {
+      message: "Name should contain only A-Za-z letters, space or '-'",
+    }),
 });
 
 const cx = classNames.bind(styles);
