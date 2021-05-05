@@ -45,7 +45,7 @@ Button.propTypes = {
   className: PropTypes.string,
   tag: PropTypes.oneOf(['button', 'a']),
   themeType: PropTypes.oneOf(['button', 'button-link', 'link']),
-  themeColor: PropTypes.oneOf(['default', 'white', 'red']),
+  themeColor: PropTypes.oneOf(['default', 'white', 'red', 'custom']),
   size: PropTypes.oneOf(['default', 'md']),
   isLoading: PropTypes.bool,
   children: PropTypes.node.isRequired,

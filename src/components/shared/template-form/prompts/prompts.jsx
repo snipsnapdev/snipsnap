@@ -75,7 +75,7 @@ const Prompts = ({ tooltip, control, errors, register }) => {
         </ul>
       </div>
 
-      <Button type="button" themeColor="grey" className={cx('add-button')} onClick={addItem}>
+      <Button type="button" themeColor="custom" className={cx('add-button')} onClick={addItem}>
         Add Prompt
       </Button>
     </div>
