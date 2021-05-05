@@ -89,6 +89,7 @@ const Editor = () => {
       <div className={cx('file-path')}>{filePath}</div>
       <div className={cx('editor-container')}>
         <AceEditor
+          readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
           mode={language.toLowerCase()}
           theme="monokai"
