@@ -75,7 +75,7 @@ const RenameGroupModal = (props) => {
             error={errors.name?.message}
           />
           <div className={cx('actions')}>
-            <Button className={cx('rename-group-button')} type="submit" loading={loading}>
+            <Button className={cx('rename-group-button')} type="submit" isLoading={loading}>
               Save
             </Button>
             <Button themeType="button-link" onClick={onClose}>

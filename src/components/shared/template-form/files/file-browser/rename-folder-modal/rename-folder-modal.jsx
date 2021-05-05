@@ -49,7 +49,7 @@ const RenameFolderModal = (props) => {
             error={errors.newName?.message}
           />
           <div className={cx('actions')}>
-            <Button type="submit" loading={loading}>
+            <Button type="submit" isLoading={loading}>
               Save
             </Button>
             <Button themeType="button-link" onClick={onClose}>

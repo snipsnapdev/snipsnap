@@ -63,7 +63,7 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input label="Name" name="name" register={register} error={errors.name?.message} />
           <div className={cx('actions')}>
-            <Button type="submit" loading={loading}>
+            <Button type="submit" isLoading={loading}>
               Add group
             </Button>
             <Button themeType="button-link" onClick={onClose}>

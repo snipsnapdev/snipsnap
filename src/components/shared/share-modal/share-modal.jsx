@@ -260,7 +260,7 @@ const ShareModal = (props) => {
             <Button
               className={cx('send-button')}
               type="submit"
-              loading={loading}
+              isLoading={loading}
               onClick={handleSubmit(onSubmit)}
             >
               Send invite
