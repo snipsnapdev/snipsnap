@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
-import Button from 'components/shared/new-button';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { formatFilesDataForApi } from 'utils/files-provider-helpers';

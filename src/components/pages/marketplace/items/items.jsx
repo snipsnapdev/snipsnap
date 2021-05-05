@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
-import Button from 'components/shared/new-button';
+import Button from 'components/shared/button';
 
 import styles from './items.module.scss';
 

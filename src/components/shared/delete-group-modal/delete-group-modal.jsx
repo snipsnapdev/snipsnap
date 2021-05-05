@@ -47,11 +47,11 @@ const DeleteGroupModal = (props) => {
     <ModalPortal>
       <Modal title={`Delete ${name} group?`} isOpen={isOpen} onRequestClose={onClose}>
         <div className={cx('actions')}>
-          <Button className={cx('cancel-button')} theme="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button className={cx('delete-button')} loading={loading} onClick={handleDelete}>
+          <Button themeColor="red" loading={loading} onClick={handleDelete}>
             Delete
+          </Button>
+          <Button themeType="button-link" onClick={onClose}>
+            Cancel
           </Button>
         </div>
       </Modal>

@@ -34,9 +34,12 @@ const AddFolderModal = (props) => {
       <Modal title="Add folder" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input label="Folder name" name="name" register={register} errors={errors.name} />
-          <Button className={cx('add-folder-button')} type="submit">
-            Add folder
-          </Button>
+          <div className={cx('actions')}>
+            <Button type="submit">Add folder</Button>
+            <Button themeType="button-link" onClick={onClose}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </Modal>
     </ModalPortal>

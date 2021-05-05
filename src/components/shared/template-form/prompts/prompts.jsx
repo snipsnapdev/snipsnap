@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
+import Button from 'components/shared/button';
 import Input from 'components/shared/input';
-import Button from 'components/shared/new-button';
 import Tooltip from 'components/shared/tooltip';
 import ArrowRightSvg from 'icons/arrow-right.inline.svg';
 import CloseSvg from 'icons/close.inline.svg';

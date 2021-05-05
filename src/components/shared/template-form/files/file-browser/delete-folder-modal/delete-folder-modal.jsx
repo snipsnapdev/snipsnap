@@ -16,11 +16,11 @@ const DeleteFolderModal = (props) => {
     <ModalPortal>
       <Modal title={`Delete ${name} folder?`} isOpen={isOpen} onRequestClose={onClose}>
         <div className={cx('actions')}>
-          <Button className={cx('cancel-button')} theme="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button className={cx('delete-button')} onClick={onSave}>
+          <Button themeColor="red" onClick={onSave}>
             Delete
+          </Button>
+          <Button themeType="button-link" onClick={onClose}>
+            Cancel
           </Button>
         </div>
       </Modal>

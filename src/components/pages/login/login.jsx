@@ -3,7 +3,7 @@ import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Button from 'components/shared/new-button';
+import Button from 'components/shared/button';
 import SupportUs from 'components/shared/support-us';
 import UseCases from 'components/shared/use-cases';
 

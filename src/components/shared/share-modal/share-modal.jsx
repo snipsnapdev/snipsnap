@@ -8,10 +8,10 @@ import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
+import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
-import Button from 'components/shared/new-button';
 import Switch from 'components/shared/switch';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
