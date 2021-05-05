@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useFieldArray } from 'react-hook-form';
 
-import Button from 'components/shared/button';
 import Input from 'components/shared/input';
+import Button from 'components/shared/new-button';
 import Tooltip from 'components/shared/tooltip';
 import ArrowRightSvg from 'icons/arrow-right.inline.svg';
 import CloseSvg from 'icons/close.inline.svg';
@@ -13,7 +13,6 @@ import styles from './prompts.module.scss';
 
 const cx = classNames.bind(styles);
 
-// TODO move to a separate component
 const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
   <li className={cx('item')} key={item.id}>
     <Input
@@ -43,52 +42,25 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
     </span>
   </li>
 ));
-const Prompts = ({
-  title,
-  tooltip,
-  buttonText,
-  showPrompts = false,
-  control,
-  errors,
-  register,
-}) => {
+const Prompts = ({ tooltip, control, errors, register }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
   });
 
-  const [visibilityPrompts, setVisibilityPrompts] = useState(showPrompts);
-
   const addItem = () => {
     append({ message: '', variableName: '' });
-    setVisibilityPrompts(true);
   };
-
-  const handleVisibilityPrompts = () => setVisibilityPrompts(!visibilityPrompts);
-
-  useEffect(() => {
-    if (fields.length === 0) {
-      setVisibilityPrompts(false);
-    }
-  }, [fields]);
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
-        <h2>{title}</h2>
-        <Button
-          className={cx('button-disclosure', { active: visibilityPrompts })}
-          theme="secondary"
-          disabled={!fields.length > 0}
-          onClick={handleVisibilityPrompts}
-        >
-          <ArrowRightSvg />
-        </Button>
+        <h2>Prompts</h2>
         <Tooltip className={cx('tooltip')} position="bottom">
           {tooltip}
         </Tooltip>
       </div>
-      <div className={cx('items-wrapper', { active: visibilityPrompts })}>
+      <div className={cx('items-wrapper')}>
         <ul>
           {fields.map((item, index) => (
             <Prompt
@@ -103,15 +75,14 @@ const Prompts = ({
         </ul>
       </div>
 
-      <Button type="button" theme="tertiary" onClick={addItem}>
-        {buttonText}
+      <Button type="button" themeColor="grey" className={cx('add-button')} onClick={addItem}>
+        Add Prompt
       </Button>
     </div>
   );
 };
 
 Prompts.defaultProps = {
-  title: 'Prompts',
   tooltip: `
           <p>
             Prompts represent list of questions that will be asked during template execution from
@@ -121,13 +92,10 @@ Prompts.defaultProps = {
             Answers you can use as variables inside templates or filenames by using % myVariable %
           </p>
   `,
-  buttonText: '+ Add prompt',
 };
 
 Prompts.propTypes = {
-  title: PropTypes.string,
   tooltip: PropTypes.string,
-  buttonText: PropTypes.string,
 };
 
 export default Prompts;
