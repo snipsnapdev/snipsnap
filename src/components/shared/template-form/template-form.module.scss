@@ -10,11 +10,11 @@
 }
 
 .title {
-  margin-bottom: 45px;
-
-  span {
-    color: $color-light-grey;
-  }
+  margin-bottom: 30px;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+  color: $color-white;
 }
 
 .main {
