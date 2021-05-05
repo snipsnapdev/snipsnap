@@ -176,8 +176,6 @@ const ShareModal = (props) => {
   const usersSharedTo = data || [];
 
   const onSubmit = async ({ email: shareToUserEmail }) => {
-    console.log(shareToUserEmail);
-
     try {
       setLoading(true);
 

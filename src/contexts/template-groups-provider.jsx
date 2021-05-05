@@ -40,7 +40,7 @@ export default function TemplateGroupsProvider({ children }) {
   const gqlClient = useGqlClient();
 
   const fetcher = () => gqlClient.request(query);
-  const { data } = useSWR('getOwnedTemplateGroups', fetcher);
+  const { data } = useSWR('getOwnedTemplateGroups', fetcher, { revalidateOnFocus: false });
 
   // Session can be undefined
   const { user } = session || {};

@@ -73,7 +73,7 @@ const Editor = () => {
     setLanguage(newLanguage);
   };
 
-  const languageItems = LANGUAGES.map((language) => ({
+  const languageItems = [...new Set(LANGUAGES)].map((language) => ({
     text: language,
     onClick: () => handleLanguageChange(language),
   }));
