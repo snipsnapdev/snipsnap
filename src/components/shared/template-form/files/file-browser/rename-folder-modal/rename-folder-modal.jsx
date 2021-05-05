@@ -40,7 +40,12 @@ const RenameFolderModal = (props) => {
     <ModalPortal>
       <Modal title="Rename folder" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="New folder name" name="newName" register={register} errors={errors.name} />
+          <Input
+            label="New folder name"
+            name="newName"
+            register={register}
+            error={errors.newName?.message}
+          />
           <div className={cx('actions')}>
             <Button type="submit" loading={loading}>
               Save

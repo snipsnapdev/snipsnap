@@ -66,7 +66,12 @@ const RenameGroupModal = (props) => {
     <ModalPortal>
       <Modal title="Rename group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="New group name" name="newName" register={register} errors={errors.name} />
+          <Input
+            label="New group name"
+            name="newName"
+            register={register}
+            error={errors.name?.message}
+          />
           <div className={cx('actions')}>
             <Button className={cx('rename-group-button')} type="submit" loading={loading}>
               Save

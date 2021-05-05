@@ -34,7 +34,7 @@ const query = gql`
 `;
 
 const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
@@ -51,19 +51,15 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
       setLoading(false);
       console.log(error);
     }
-
-    clearErrors();
   };
 
   if (!isOpen) return null;
-
-  console.log(errors?.name?.message);
 
   return (
     <ModalPortal>
       <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="Name" name="name" register={register} error={errors?.name?.message} />
+          <Input label="Name" name="name" register={register} error={errors.name?.message} />
           <div className={cx('actions')}>
             <Button type="submit" loading={loading}>
               Add group

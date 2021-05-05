@@ -33,7 +33,7 @@ const AddFileModal = (props) => {
     <ModalPortal>
       <Modal title="Add file" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="File name" name="name" register={register} errors={errors.name} />
+          <Input label="File name" name="name" register={register} error={errors.name?.message} />
           <div className={cx('actions')}>
             <Button type="submit">Add file</Button>
             <Button themeType="button-link" onClick={onClose}>
