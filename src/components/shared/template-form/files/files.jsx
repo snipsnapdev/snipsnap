@@ -54,8 +54,8 @@ const Files = () => {
 
   return (
     <>
-      <div className={cx('file-browser-head')}>
-        <h2 className={cx('file-browser-title')}>Files</h2>
+      <div className={cx('head')}>
+        <h2 className={cx('title')}>Files</h2>
         <div className={cx('add-options')}>
           <Dropdown
             menuItems={menuItems}

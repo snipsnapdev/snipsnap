@@ -55,7 +55,7 @@ const Prompts = ({ tooltip, control, errors, register }) => {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
-        <h2>Prompts</h2>
+        <h2 className={cx('title')}>Prompts</h2>
         <Tooltip className={cx('tooltip')} position="bottom">
           {tooltip}
         </Tooltip>

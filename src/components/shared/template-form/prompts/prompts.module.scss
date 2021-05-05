@@ -4,6 +4,12 @@
   margin-bottom: 15px;
 }
 
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+}
+
 .button-disclosure {
   align-items: center;
   width: 20px;

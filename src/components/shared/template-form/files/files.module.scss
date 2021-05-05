@@ -1,8 +1,14 @@
-.file-browser-head {
+.head {
   display: flex;
   align-items: center;
   width: 100%;
   margin-bottom: 15px;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
 }
 
 .add-button {
