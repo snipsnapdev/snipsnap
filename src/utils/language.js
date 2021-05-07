@@ -1,20 +1,20 @@
-export const DEFAULT_LANGUAGE = 'Plain_Text';
+export const DEFAULT_LANGUAGE = 'Plain Text';
 
 export const EXTENSION_LANGUAGE_MAPPING = {
-  js: 'JavaScript',
-  jsx: 'JavaScript',
-  ts: 'TypeScript',
-  tsx: 'TypeScript',
-  css: 'CSS',
-  sass: 'Sass',
-  scss: 'Sass',
+  text: 'Plain Text',
+  py: 'Python',
+  java: 'Java',
+  json: 'JSON',
   less: 'LESS',
   html: 'HTML',
   yaml: 'YAML',
-  json: 'JSON',
-  py: 'Python',
-  java: 'JAVA',
-  text: 'Plain_Text',
+  css: 'CSS',
+  sass: 'SCSS',
+  scss: 'SCSS',
+  ts: 'TypeScript',
+  tsx: 'TypeScript',
+  js: 'JavaScript',
+  jsx: 'JavaScript',
 };
 
 export const getLanguageByExtension = (extension) =>
