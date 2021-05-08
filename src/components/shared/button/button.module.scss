@@ -14,8 +14,6 @@
   outline: none;
 
   &.loading {
-    cursor: wait;
-
     .content {
       visibility: hidden;
       opacity: 0;
