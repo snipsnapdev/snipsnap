@@ -37,7 +37,7 @@ const options = {
     DATABASE_URL,
     // The second argument can be used to pass custom models and schemas
     {
-      models: {
+      customModels: {
         User: UserModel,
       },
     }
