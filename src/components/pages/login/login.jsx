@@ -108,6 +108,22 @@ export default function Login() {
             ))}
           </ul>
         </div>
+        <ul className={cx('links-wrapper', 'tablet')}>
+          <li>
+            <Link href="/">
+              <Button tag="a" themeType="link" size="md">
+                Guides
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link href="/">
+              <Button tag="a" themeType="link" size="md">
+                Install VS Code Extension
+              </Button>
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
