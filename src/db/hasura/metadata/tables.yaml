@@ -10,13 +10,6 @@
 - table:
     schema: public
     name: shared_template_groups
-  object_relationships:
-  - name: shared_by_user
-    using:
-      foreign_key_constraint_on: shared_by_user_id
-  - name: shared_to_user
-    using:
-      foreign_key_constraint_on: shared_to_user_id
   insert_permissions:
   - role: user
     permission:
@@ -68,25 +61,6 @@
 - table:
     schema: public
     name: shared_templates
-  object_relationships:
-  - name: shared_by_user
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: users
-        insertion_order: null
-        column_mapping:
-          shared_by_user_id: user_id
-  - name: shared_to_user
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: users
-        insertion_order: null
-        column_mapping:
-          shared_to_user_id: user_id
   insert_permissions:
   - role: user
     permission:
@@ -200,10 +174,6 @@
 - table:
     schema: public
     name: templates
-  object_relationships:
-  - name: owner
-    using:
-      foreign_key_constraint_on: owner_id
   array_relationships:
   - name: shared_to
     using:
@@ -222,7 +192,6 @@
         owner_id: x-hasura-User-Id
       columns:
       - files
-      - is_public
       - name
       - prompts
       - template_group_id
@@ -231,14 +200,13 @@
   - role: user
     permission:
       columns:
-      - created_at
-      - files
       - id
-      - is_public
       - name
-      - owner_id
       - prompts
+      - files
+      - owner_id
       - template_group_id
+      - created_at
       - updated_at
       filter:
         _or:
@@ -247,14 +215,11 @@
         - shared_to:
             shared_to_user_id:
               _eq: X-Hasura-User-Id
-        - is_public:
-            _eq: true
   update_permissions:
   - role: user
     permission:
       columns:
       - files
-      - is_public
       - name
       - prompts
       - template_group_id
