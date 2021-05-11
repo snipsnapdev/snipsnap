@@ -14,8 +14,13 @@ const VideoPlayer = ({ videoSrc, className: additionalClassName }) => (
   </div>
 );
 
-VideoPlayer.propTypes = {};
+VideoPlayer.propTypes = {
+  videoSrc: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
 
-VideoPlayer.defaultProps = {};
+VideoPlayer.defaultProps = {
+  className: null,
+};
 
 export default VideoPlayer;
