@@ -4,7 +4,7 @@
   column-gap: 60px;
   align-items: center;
   max-width: 1470px;
-  min-height: 100vh;
+  height: 100vh;
   padding-top: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
@@ -12,9 +12,14 @@
   margin-right: auto;
   margin-left: auto;
 
+  @media screen and (max-width: 1279px) {
+    column-gap: 30px;
+  }
+
   @media screen and (max-width: 1023px) {
     grid-template-columns: 1fr;
     row-gap: 60px;
+    height: auto;
   }
 }
 
@@ -43,7 +48,7 @@
 }
 
 .button {
-  margin-bottom: 75px;
+  margin-bottom: 60px;
 }
 
 .subtitle {
@@ -147,18 +152,6 @@
 
     &:last-child {
       margin-right: 0;
-    }
-  }
-
-  &.tablet {
-    display: none;
-  }
-
-  @media screen and (max-width: 1023px) {
-    display: none;
-
-    &.tablet {
-      display: flex;
     }
   }
 }
