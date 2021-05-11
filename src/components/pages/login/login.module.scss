@@ -60,6 +60,7 @@
 
 .features {
   display: flex;
+  margin-bottom: 60px;
 
   @media screen and (max-width: 575px) {
     display: block;
@@ -145,7 +146,6 @@
 .links-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 60px;
 
   li {
     margin-right: 30px;
