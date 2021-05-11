@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
@@ -55,8 +56,6 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     groups.find((group) => group.id === initialValues.groupId) || null
   );
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
     openFileId: null,
@@ -82,8 +81,6 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     const filesForApi = formatFilesDataForApi(filesState.files);
 
     try {
-      setIsLoading(true);
-
       const newTemplateData = {
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
@@ -93,13 +90,15 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
       await onSave(newTemplateData);
 
-      setIsLoading(false);
       mutate('getOwnedTemplateGroups');
     } catch (err) {
-      setIsLoading(false);
-      console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
+      throw new Error(err);
     }
     clearErrors();
+  };
+
+  const handleError = (err) => {
+    console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
   };
 
   const handleCancelButtonClick = () => {
@@ -170,9 +169,13 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Files />
               </div>
               <div className={cx('buttons-wrapper')}>
-                <Button type="submit" isLoading={isLoading} onClick={handleSubmit(onSubmit)}>
-                  {isCreatingNewTemplate ? 'Create template' : 'Save changes'}
-                </Button>
+                <AsyncButton
+                  type="submit"
+                  text={isCreatingNewTemplate ? 'Create template' : 'Save changes'}
+                  successText="Saved"
+                  onClick={handleSubmit(onSubmit)}
+                  onError={handleError}
+                />
                 <Button type="button" themeType="button-link" onClick={handleCancelButtonClick}>
                   Cancel
                 </Button>

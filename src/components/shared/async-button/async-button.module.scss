@@ -66,13 +66,12 @@
         }
 
         &_success {
-          height: 40px;
           color: $color-green;
           background-color: transparent;
           border: 1px solid $color-green;
 
           & .success-icon {
-            margin-right: 7px;
+            margin-right: 9px;
           }
         }
       }
