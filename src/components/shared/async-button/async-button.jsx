@@ -5,7 +5,7 @@ import Button from 'components/shared/button';
 
 const SUCCESS_TIMEOUT_SECONDS = 2;
 
-const AsyncButton = ({ type, text, successText, onClick, onError }) => {
+const AsyncButton = ({ type, text, successText, className, onClick, onError }) => {
   const [color, setColor] = useState('default');
   const [loading, setIsLoading] = useState(false);
 
@@ -17,15 +17,18 @@ const AsyncButton = ({ type, text, successText, onClick, onError }) => {
     if (typeof window === 'undefined' || typeof buttonRef.current === 'undefined') {
       return;
     }
-    setCurrentWidth(buttonRef.current.getBoundingClientRect().width);
-  }, []);
+    if (color === 'default') {
+      setCurrentWidth(buttonRef.current.getBoundingClientRect().width);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [buttonRef.current]);
 
   return (
     <Button
       ref={buttonRef}
+      className={className}
       type={type}
       themeColor={color}
-      width={currentWidth}
       isLoading={loading}
       onClick={async () => {
         setIsLoading(true);
@@ -40,6 +43,7 @@ const AsyncButton = ({ type, text, successText, onClick, onError }) => {
           setColor('default');
         }
       }}
+      {...(color === 'success' ? { width: currentWidth } : {})}
     >
       {color === 'success' ? successText : text}
     </Button>
@@ -50,6 +54,7 @@ AsyncButton.propTypes = {
   type: PropTypes.oneOf(['button', 'submit']),
   text: PropTypes.string.isRequired,
   successText: PropTypes.string,
+  className: PropTypes.string,
   onClick: PropTypes.func,
   onError: PropTypes.func,
 };
@@ -57,6 +62,7 @@ AsyncButton.propTypes = {
 AsyncButton.defaultProps = {
   type: 'button',
   successText: 'success',
+  className: undefined,
   onClick: undefined,
   onError: undefined,
 };

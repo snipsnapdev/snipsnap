@@ -1,14 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
+import AsyncButton from 'components/shared/async-button';
 import Avatar from 'components/shared/avatar';
-import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
@@ -116,8 +115,6 @@ const ShareModal = (props) => {
     resolver: yupResolver(schema),
   });
 
-  const [loading, setLoading] = useState(false);
-
   const gqlClient = useGqlClient();
 
   // const [isPublic, setIsPublic] = useState(false);
@@ -177,8 +174,6 @@ const ShareModal = (props) => {
 
   const onSubmit = async ({ email: shareToUserEmail }) => {
     try {
-      setLoading(true);
-
       if (type === 'group') {
         // share group with user
         await gqlClient.request(shareTemplateGroupQuery, {
@@ -205,13 +200,16 @@ const ShareModal = (props) => {
         });
       }
 
-      setLoading(false);
       reset();
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
     } catch (err) {
-      setLoading(false);
+      throw new Error(err);
     }
+  };
+
+  const handleError = (error) => {
+    console.error('Sharing failed', error);
   };
 
   if (!isOpen) {
@@ -257,14 +255,14 @@ const ShareModal = (props) => {
               errors={errors.email}
               className={cx('input')}
             />
-            <Button
+            <AsyncButton
               className={cx('send-button')}
               type="submit"
-              isLoading={loading}
+              text="Send invite"
+              successText="sent"
               onClick={handleSubmit(onSubmit)}
-            >
-              Send invite
-            </Button>
+              onError={handleError}
+            />
           </div>
         </form>
         {type === 'template' && (
