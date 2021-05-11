@@ -3,15 +3,33 @@ import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import { useState } from 'react';
 
+import VideoPlayer from 'components/pages/login/video-player';
 import Button from 'components/shared/new-button';
 import SupportUs from 'components/shared/support-us';
-import UseCases from 'components/shared/use-cases';
 
 import GithubLogo from './images/github.inline.svg';
 import Logo from './images/logo.inline.svg';
 import styles from './login.module.scss';
 
 const cx = classNames.bind(styles);
+
+const useCases = [
+  { title: 'Kubernetes', url: '/' },
+  { title: 'Docker', url: '/' },
+  { title: 'React', url: '/' },
+  { title: 'Angular', url: '/' },
+  { title: 'Vue', url: '/' },
+  { title: 'Kubernetes', url: '/' },
+  { title: 'Docker', url: '/' },
+  { title: 'React', url: '/' },
+  { title: 'Angular', url: '/' },
+  { title: 'Vue', url: '/' },
+  { title: 'Kubernetes', url: '/' },
+  { title: 'Docker', url: '/' },
+  { title: 'React', url: '/' },
+  { title: 'Angular', url: '/' },
+  { title: 'Vue', url: '/' },
+];
 
 const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -71,7 +89,22 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <UseCases />
+        <VideoPlayer
+          videoSrc="https://wp.upscope.com/wp-content/uploads/2021/04/feature-2.mp4"
+          className={cx('video')}
+        />
+        <h2 className={cx('subtitle')}>Use cases</h2>
+        <ul className={cx('use-cases')}>
+          {useCases.map(({ title, url }, index) => (
+            <li key={index}>
+              <Link href={url}>
+                <Button tag="a" themeType="link" size="md">
+                  With {title}
+                </Button>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

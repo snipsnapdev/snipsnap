@@ -86,6 +86,19 @@
   }
 }
 
+.video {
+  max-width: 535px;
+}
+
+.use-cases {
+  display: grid;
+  grid-template-rows: repeat(5, min-content);
+  grid-auto-flow: column;
+  row-gap: 10px;
+  column-gap: 90px;
+  max-width: 515px;
+}
+
 .links-wrapper {
   display: flex;
   justify-content: center;
