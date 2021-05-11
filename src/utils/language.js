@@ -1,4 +1,4 @@
-export const DEFAULT_LANGUAGE = 'Plain Text';
+export const DEFAULT_LANGUAGE = 'Plain_Text';
 
 export const EXTENSION_LANGUAGE_MAPPING = {
   text: 'Plain Text',
