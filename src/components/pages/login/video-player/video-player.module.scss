@@ -1,0 +1,28 @@
+.wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.inner {
+  aspect-ratio: 960 / 540;
+  overflow: hidden;
+  border: 1px solid $color-middle-grey;
+  border-radius: 6px;
+
+  video {
+    object-fit: cover;
+  }
+}
+
+@supports not (aspect-ratio: 1) {
+  //following styles are used if aspect-ratio property is not supported by browser
+  .inner {
+    column-count: 1;
+  }
+
+  .inner::before {
+    float: left;
+    padding-bottom: calc(100% / (960 / 540));
+    content: '';
+  }
+}
