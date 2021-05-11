@@ -97,7 +97,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       mutate('getOwnedTemplateGroups');
     } catch (err) {
       setIsLoading(false);
-      console.log(err);
+      console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
     }
     clearErrors();
   };

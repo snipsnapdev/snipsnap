@@ -19,13 +19,16 @@ const Switch = ({ className, isChecked, onChange, label }) => (
 
 Switch.propTypes = {
   className: PropTypes.string,
-  isChecked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
+  isChecked: PropTypes.bool,
+  onChange: PropTypes.func,
+  label: PropTypes.string,
 };
 
 Switch.defaultProps = {
   className: '',
+  isChecked: false,
+  onChange: undefined,
+  label: '',
 };
 
 export default Switch;

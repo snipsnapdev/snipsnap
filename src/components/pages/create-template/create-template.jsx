@@ -45,16 +45,10 @@ const CreateTemplate = () => {
       ...(templateGroupId ? { templateGroupId } : {}),
     });
 
-    mutate('getOwnedTemplateGroups');
+    const templateId = res?.insert_template?.id || null;
 
-    try {
-      const templateId = res?.insert_template?.id || null;
-
-      if (templateId) {
-        router.push(`/template/${templateId}`);
-      }
-    } catch (error) {
-      console.error(error);
+    if (templateId) {
+      router.push(`/template/${templateId}`);
     }
   };
   return (

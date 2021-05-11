@@ -71,11 +71,6 @@ const EditTemplate = ({ templateId }) => {
       ...(templateGroupId ? { templateGroupId } : {}),
     });
 
-  if (!template) {
-    console.error('No template found with id=', templateId);
-    return <></>;
-  }
-
   return <TemplateForm key={templateId} initialValues={templateData} onSave={handleSave} />;
 };
 
