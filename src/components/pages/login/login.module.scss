@@ -90,13 +90,21 @@
   max-width: 535px;
 }
 
-.use-cases {
+.cases-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.cases-links {
   display: grid;
   grid-template-rows: repeat(5, min-content);
   grid-auto-flow: column;
   row-gap: 10px;
   column-gap: 90px;
   max-width: 515px;
+  line-height: 1.4;
 }
 
 .links-wrapper {

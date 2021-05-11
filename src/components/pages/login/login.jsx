@@ -93,18 +93,21 @@ export default function Login() {
           videoSrc="https://wp.upscope.com/wp-content/uploads/2021/04/feature-2.mp4"
           className={cx('video')}
         />
-        <h2 className={cx('subtitle')}>Use cases</h2>
-        <ul className={cx('use-cases')}>
-          {useCases.map(({ title, url }, index) => (
-            <li key={index}>
-              <Link href={url}>
-                <Button tag="a" themeType="link" size="md">
-                  With {title}
-                </Button>
-              </Link>
-            </li>
-          ))}
-        </ul>
+
+        <div>
+          <h2 className={cx('cases-title')}>Use cases</h2>
+          <ul className={cx('cases-links')}>
+            {useCases.map(({ title, url }, index) => (
+              <li key={index}>
+                <Link href={url}>
+                  <Button tag="a" themeType="link" size="md">
+                    With {title}
+                  </Button>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
