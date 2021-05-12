@@ -4,7 +4,7 @@
 }
 
 .inner {
-  aspect-ratio: 960 / 540;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid $color-middle-grey;
   border-radius: 6px;
@@ -25,7 +25,7 @@
 
   .inner::before {
     float: left;
-    padding-bottom: calc(100% / (960 / 540));
+    padding-bottom: calc(100% / (16 / 9));
     content: '';
   }
 }
