@@ -80,6 +80,12 @@
   background: $color-dark-grey;
   border: 1px solid $color-middle-grey;
   border-radius: 4px;
+
+  & svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
 }
 
 .select-menu {

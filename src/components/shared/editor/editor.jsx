@@ -89,6 +89,8 @@ const Editor = () => {
       value,
     });
 
+  const LanguageIcon = language.icon;
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>{filePath}</div>
@@ -121,6 +123,7 @@ const Editor = () => {
         showIcon
         hasIcons
       >
+        <LanguageIcon />
         {language.label}
       </Dropdown>
     </div>
