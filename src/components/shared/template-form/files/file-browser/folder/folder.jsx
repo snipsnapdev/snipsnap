@@ -9,7 +9,6 @@ import RenameFolderModal from 'components/shared/template-form/files/file-browse
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
-import FolderSvg from 'icons/folder.inline.svg';
 
 import styles from './folder.module.scss';
 
@@ -108,15 +107,14 @@ const Folder = ({
       <div className={styles.wrapper}>
         <button
           className={cx('folder-title')}
-          style={{ paddingLeft: 10 + 25 * level }}
+          style={{ paddingLeft: 14 + 25 * level }}
           onClick={(event) => {
             event.preventDefault();
             setIsOpen(!isOpen);
           }}
         >
-          <FolderSvg className={cx('icon-folder')} />
+          <ArrowSvg className={cx('arrow', !isOpen && 'closed')} />
           <span className={cx('folder-name')}>{folder.data.name}</span>
-          <ArrowSvg className={cx('arrow', isOpen && 'open')} />
         </button>
         <Dropdown
           menuItems={menuItems}
