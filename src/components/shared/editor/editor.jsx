@@ -91,6 +91,10 @@ const Editor = () => {
 
   const LanguageIcon = language.icon;
 
+  if (!openFile) {
+    return <></>;
+  }
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>{filePath}</div>
