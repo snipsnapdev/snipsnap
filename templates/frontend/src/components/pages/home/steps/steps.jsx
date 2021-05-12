@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Clipboard from 'react-clipboard.js';
 
 import { useGqlClient, gql } from 'api/graphql';
 import Button from 'components/shared/button';
@@ -65,6 +66,12 @@ const Steps = () => {
     }
   };
 
+  const [copied, setCopied] = useState(false);
+  const handleCopyButtonClick = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   return (
     <>
       <h2 className={cx('title')}>Get started with Snipsnap!</h2>
@@ -79,9 +86,13 @@ const Steps = () => {
           <h3 className={cx('item-title')}>Add API token to Extension settings</h3>
           <Input className={cx('item-input')} value={apiKey} readOnly />
           <div className={cx('item-footer', 'end')}>
-            <Button type="button" themeType="link">
-              Copy
-            </Button>
+            <Clipboard
+              className={cx('copy')}
+              data-clipboard-text={apiKey}
+              onSuccess={handleCopyButtonClick}
+            >
+              {copied ? 'Copied!' : 'Copy'}
+            </Clipboard>
             <Button type="button" themeType="link" onClick={handleRefresh}>
               Refresh
             </Button>
