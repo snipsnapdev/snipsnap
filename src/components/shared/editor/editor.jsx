@@ -79,6 +79,7 @@ const Editor = () => {
 
   const languageItems = [...new Set(LANGUAGES)].map((language) => ({
     text: language.label,
+    icon: language.icon,
     onClick: () => handleLanguageChange(language),
   }));
 
@@ -118,6 +119,7 @@ const Editor = () => {
         menuClassName={cx('select-menu')}
         stopPropagation
         showIcon
+        hasIcons
       >
         {language.label}
       </Dropdown>

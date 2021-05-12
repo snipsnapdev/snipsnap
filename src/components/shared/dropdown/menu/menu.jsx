@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import styles from './menu.module.scss';
 
 const cx = classNames.bind(styles);
-const Menu = ({ items, className }) => (
+const Menu = ({ items, hasIcons, className }) => (
   <div className={cx('menu', className)}>
     {items &&
       items.map((item) => {
         const {
           text,
+          icon: Icon,
           tagName: Tag = 'div',
           onClick = undefined,
           href = undefined,
@@ -27,6 +28,7 @@ const Menu = ({ items, className }) => (
 
         return (
           <Tag key={text} className={cx('item', theme === 'danger' && 'danger')} onClick={onClick}>
+            {hasIcons && <Icon />}
             {text}
           </Tag>
         );
@@ -36,6 +38,7 @@ const Menu = ({ items, className }) => (
 
 Menu.propTypes = {
   className: PropTypes.string,
+  hasIcons: PropTypes.bool,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
@@ -49,6 +52,7 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   className: '',
+  hasIcons: false,
   items: [],
 };
 
