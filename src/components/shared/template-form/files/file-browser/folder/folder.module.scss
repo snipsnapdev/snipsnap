@@ -60,7 +60,7 @@
   height: 6px;
   color: $color-grey;
 
-  &.closed {
+  &.open {
     transform: rotateX(180deg);
   }
 }

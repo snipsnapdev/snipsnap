@@ -17,6 +17,7 @@ const Dropdown = ({
   stopPropagation,
   menuClassName,
   showIcon,
+  hasIcons,
   menuItems,
   onClick,
 }) => {
@@ -45,7 +46,11 @@ const Dropdown = ({
           <IconDown />
         </div>
       )}
-      <Menu items={menuItems} className={cx('menu', `position-${position}`, menuClassName)} />
+      <Menu
+        items={menuItems}
+        hasIcons={hasIcons}
+        className={cx('menu', `position-${position}`, menuClassName)}
+      />
     </div>
   );
 };
@@ -53,11 +58,13 @@ const Dropdown = ({
 Dropdown.propTypes = {
   position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-right', 'bottom-left']),
   showIcon: PropTypes.bool,
+  hasIcons: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   position: 'top-left',
   showIcon: false,
+  hasIcons: false,
 };
 
 export default Dropdown;

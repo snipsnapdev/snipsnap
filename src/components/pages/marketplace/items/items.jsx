@@ -7,6 +7,7 @@ import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
 import Button from 'components/shared/button';
 
+import EmptyItems from './empty-items';
 import styles from './items.module.scss';
 
 const cx = classNames.bind(styles);
@@ -60,30 +61,35 @@ const Items = ({ searchText, items }) => {
   };
 
   return (
-    <div className={cx('wrapper')}>
-      {filteredItems.map(({ id, name, prompts, files, owner }) => (
-        <div className={cx('item')} key={id}>
-          <h3 className={cx('item-name')}>{name}</h3>
-          <div className={cx('item-footer')}>
-            <div className={cx('item-author')}>
-              <Avatar
-                className={cx('item-author-avatar')}
-                avatar={owner.image}
-                userName={owner.name}
-              />
-              <span>{owner.name}</span>
+    <>
+      {filteredItems.length === 0 && <EmptyItems />}
+      {filteredItems.length > 0 && (
+        <div className={cx('wrapper')}>
+          {filteredItems.map(({ id, name, prompts, files, owner }) => (
+            <div className={cx('item')} key={id}>
+              <h3 className={cx('item-name')}>{name}</h3>
+              <div className={cx('item-footer')}>
+                <div className={cx('item-author')}>
+                  <Avatar
+                    className={cx('item-author-avatar')}
+                    avatar={owner.image}
+                    userName={owner.name}
+                  />
+                  <span>{owner.name}</span>
+                </div>
+                <Button
+                  themeType="link"
+                  size="md"
+                  onClick={() => handleClone({ name, prompts, files })}
+                >
+                  Clone
+                </Button>
+              </div>
             </div>
-            <Button
-              themeType="link"
-              size="md"
-              onClick={() => handleClone({ name, prompts, files })}
-            >
-              Clone
-            </Button>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 };
 

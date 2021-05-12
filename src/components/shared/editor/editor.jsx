@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind';
+import { uniqBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 
+// list of modes https://github.com/ajaxorg/ace-builds/blob/master/ace-modules.d.ts
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-typescript';
-import 'ace-builds/src-noconflict/mode-sass';
+import 'ace-builds/src-noconflict/mode-scss';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-html';
 import 'ace-builds/src-noconflict/mode-css';
@@ -38,8 +40,6 @@ const Editor = () => {
   } = useFiles();
   const openFile = findFileById(files, openFileId);
   const filePath = getFilePath(files, openFileId);
-
-  console.log('open', openFile);
 
   let currentLanguage = DEFAULT_LANGUAGE;
 
@@ -77,8 +77,9 @@ const Editor = () => {
     setLanguage(newLanguage);
   };
 
-  const languageItems = [...new Set(LANGUAGES)].map((language) => ({
+  const languageItems = uniqBy(LANGUAGES, 'label').map((language) => ({
     text: language.label,
+    icon: language.icon,
     onClick: () => handleLanguageChange(language),
   }));
 
@@ -88,6 +89,12 @@ const Editor = () => {
       value,
     });
 
+  const LanguageIcon = language.icon;
+
+  if (!openFile) {
+    return <></>;
+  }
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('file-path')}>{filePath}</div>
@@ -95,7 +102,7 @@ const Editor = () => {
         <AceEditor
           readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
-          mode={language.label.toLowerCase()}
+          mode={language.aceMode.toLowerCase()}
           theme="monokai"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
@@ -118,7 +125,9 @@ const Editor = () => {
         menuClassName={cx('select-menu')}
         stopPropagation
         showIcon
+        hasIcons
       >
+        <LanguageIcon />
         {language.label}
       </Dropdown>
     </div>

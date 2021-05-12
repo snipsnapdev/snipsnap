@@ -13,51 +13,65 @@ import YamlIcon from 'icons/file-types/file_type_yaml.inline.svg';
 
 export const DEFAULT_LANGUAGE = {
   label: 'Plain_Text',
+  aceMode: 'Plain_Text',
   icon: PlainTextIcon,
 };
 
+// extension, ace mode name, dropdown label, icon
+
 export const EXTENSION_LANGUAGE_MAPPING = {
   text: {
-    label: 'Plain_Text',
+    aceMode: 'Plain_Text',
+    label: 'Plain Text',
     icon: PlainTextIcon,
   },
   py: {
     label: 'Python',
+    aceMode: 'Python',
     icon: PythonIcon,
   },
   java: {
+    aceMode: 'Java',
     label: 'Java',
     icon: JavaIcon,
   },
   json: {
+    aceMode: 'JSON',
     label: 'JSON',
     icon: JsonIcon,
   },
   less: {
-    label: 'LESS',
+    aceMode: 'LESS',
+    label: 'Less',
     icon: LessIcon,
   },
   html: {
+    aceMode: 'HTML',
     label: 'HTML',
     icon: HtmlIcon,
   },
   yaml: {
+    aceMode: 'YAML',
     label: 'YAML',
     icon: YamlIcon,
   },
   css: {
+    aceMode: 'CSS',
     label: 'CSS',
     icon: CssIcon,
   },
   sass: {
-    label: 'SCSS',
+    aceMode: 'SCSS',
+    label: 'Sass',
     icon: SassIcon,
   },
   scss: {
-    label: 'SCSS',
+    aceMode: 'SCSS',
+    label: 'Sass',
     icon: SassIcon,
   },
   ts: {
+    aceMode: 'Typescript',
     label: 'Typescript',
     icon: TypescriptIcon,
   },
@@ -66,11 +80,13 @@ export const EXTENSION_LANGUAGE_MAPPING = {
     icon: TypescriptIcon,
   },
   js: {
+    aceMode: 'Javascript',
     label: 'Javascript',
     icon: JavascriptIcon,
   },
   jsx: {
-    label: 'Javascript',
+    aceMode: 'Javascript',
+    label: 'ReactJS',
     icon: ReactIcon,
   },
 };
@@ -91,6 +107,5 @@ export const getIconByFilename = (fileName) => {
 export const getLanguageByLabel = (label) => {
   const found = Object.values(EXTENSION_LANGUAGE_MAPPING).find((item) => item.label === label);
   const res = found || DEFAULT_LANGUAGE;
-  console.log('search', label, 'found', found, res);
   return res;
 };

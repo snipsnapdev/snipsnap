@@ -26,6 +26,12 @@
   outline: none;
   transition: background-color $transition-base;
 
+  & svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
   &:hover {
     background-color: $color-middle-grey;
   }
