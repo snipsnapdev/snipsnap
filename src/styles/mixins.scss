@@ -37,3 +37,15 @@
     @include link;
   }
 }
+
+@mixin lg-down {
+  @media screen and (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin sm-down {
+  @media screen and (max-width: $breakpoint-sm) {
+    @content;
+  }
+}

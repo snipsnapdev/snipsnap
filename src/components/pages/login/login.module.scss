@@ -16,7 +16,7 @@
     column-gap: 30px;
   }
 
-  @media screen and (max-width: 1023px) {
+  @include lg-down {
     grid-template-columns: 1fr;
     row-gap: 60px;
     height: auto;
@@ -62,7 +62,7 @@
   display: flex;
   margin-bottom: 60px;
 
-  @media screen and (max-width: 575px) {
+  @include sm-down {
     display: block;
   }
 }
@@ -81,7 +81,7 @@
   border: 1px solid $color-middle-grey;
   border-radius: 2px;
 
-  @media screen and (max-width: 575px) {
+  @include sm-down {
     margin-right: 0;
     margin-bottom: 20px;
   }
@@ -102,7 +102,7 @@
   &:last-child {
     margin-right: 0;
 
-    @media screen and (max-width: 575px) {
+    @include sm-down {
       margin-bottom: 0;
     }
   }
@@ -116,7 +116,7 @@
 .video {
   max-width: 535px;
 
-  @media screen and (max-width: 1023px) {
+  @include lg-down {
     max-width: 100%;
   }
 }
@@ -137,7 +137,7 @@
   max-width: 515px;
   line-height: 1.4;
 
-  @media screen and (max-width: 575px) {
+  @include sm-down {
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: row;
   }
