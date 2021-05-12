@@ -54,9 +54,11 @@ const options = {
     async createUser({ userId }) {
       const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
       const token = jwt.encode(userId, ONE_YEAR_IN_SECONDS, 'user_api');
-      adminGQLClient()
-        .request(createAPIKey, { apiKey: token, userId })
-        .catch((error) => console.log(error));
+      try {
+        await adminGQLClient().request(createAPIKey, { apiKey: token, userId });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
