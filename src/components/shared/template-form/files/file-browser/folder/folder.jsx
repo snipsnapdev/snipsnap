@@ -113,7 +113,7 @@ const Folder = ({
             setIsOpen(!isOpen);
           }}
         >
-          <ArrowSvg className={cx('arrow', !isOpen && 'closed')} />
+          <ArrowSvg className={cx('arrow', isOpen && 'open')} />
           <span className={cx('folder-name')}>{folder.data.name}</span>
         </button>
         <Dropdown
