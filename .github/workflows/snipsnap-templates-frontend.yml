@@ -2,7 +2,7 @@ name: snipsnap-templates-frontend
 
 on:
   push:
-    branches: [deploy]
+    branches: [master]
     paths:
       - templates/frontend/**
 
@@ -57,7 +57,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: update-database
+    needs: build
     env:
       KUBERNETES_URL: ${{ secrets.KUBERNETES_URL }}
       KUBERNETES_TOKEN: ${{ secrets.KUBERNETES_TOKEN }}
