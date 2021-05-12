@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { uniqBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 
@@ -39,8 +40,6 @@ const Editor = () => {
   const openFile = findFileById(files, openFileId);
   const filePath = getFilePath(files, openFileId);
 
-  console.log('open', openFile);
-
   let currentLanguage = DEFAULT_LANGUAGE;
 
   if (openFile) {
@@ -50,11 +49,6 @@ const Editor = () => {
   }
 
   const [language, setLanguage] = useState(currentLanguage);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     let currentLanguage = DEFAULT_LANGUAGE;
@@ -77,7 +71,7 @@ const Editor = () => {
     setLanguage(newLanguage);
   };
 
-  const languageItems = [...new Set(LANGUAGES)].map((language) => ({
+  const languageItems = uniqBy(LANGUAGES, 'label').map((language) => ({
     text: language.label,
     icon: language.icon,
     onClick: () => handleLanguageChange(language),
@@ -102,7 +96,7 @@ const Editor = () => {
         <AceEditor
           readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
-          mode={language.label.toLowerCase()}
+          mode={language.aceMode.toLowerCase()}
           theme="monokai"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}

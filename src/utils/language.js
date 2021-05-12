@@ -85,8 +85,8 @@ export const EXTENSION_LANGUAGE_MAPPING = {
     icon: JavascriptIcon,
   },
   jsx: {
-    aceMode: 'ReactJS',
-    label: 'Javascript',
+    aceMode: 'Javascript',
+    label: 'ReactJS',
     icon: ReactIcon,
   },
 };
@@ -107,6 +107,5 @@ export const getIconByFilename = (fileName) => {
 export const getLanguageByLabel = (label) => {
   const found = Object.values(EXTENSION_LANGUAGE_MAPPING).find((item) => item.label === label);
   const res = found || DEFAULT_LANGUAGE;
-  console.log('search', label, 'found', found, res);
   return res;
 };
