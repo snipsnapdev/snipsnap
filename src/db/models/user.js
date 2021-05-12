@@ -21,7 +21,8 @@ const UserSchema = {
   },
 };
 
+// Hack in order to fix NextAuth bug in production https://github.com/nextauthjs/next-auth/issues/710
 export default {
-  model: User,
+  model: Object.defineProperty(User, 'name', { value: 'User' }),
   schema: UserSchema,
 };
