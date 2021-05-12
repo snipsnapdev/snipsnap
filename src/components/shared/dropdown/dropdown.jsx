@@ -12,12 +12,12 @@ const cx = classNames.bind(styles);
 
 const Dropdown = ({
   children,
-  menu,
   className: additionalClassName,
   position,
   stopPropagation,
   menuClassName,
   showIcon,
+  menuItems,
   onClick,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -45,7 +45,7 @@ const Dropdown = ({
           <IconDown />
         </div>
       )}
-      <Menu className={cx('menu', `position-${position}`, menuClassName)}>{menu}</Menu>
+      <Menu items={menuItems} className={cx('menu', `position-${position}`, menuClassName)} />
     </div>
   );
 };

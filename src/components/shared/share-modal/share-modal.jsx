@@ -1,17 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
+import AsyncButton from 'components/shared/async-button';
 import Avatar from 'components/shared/avatar';
-import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
+import Switch from 'components/shared/switch';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import styles from './share-modal.module.scss';
@@ -25,7 +25,12 @@ const cx = classNames.bind(styles);
 const getUsersTemplateGroupSharedTo = gql`
   query MyQuery($groupId: uuid!) {
     shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
-      shared_to_user_id
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
     }
   }
 `;
@@ -34,16 +39,12 @@ const getUsersTemplateSharedTo = gql`
   query MyQuery($templateId: uuid!) {
     shared_templates(where: { template_id: { _eq: $templateId } }) {
       shared_to_user_id
-    }
-  }
-`;
-
-const getUsersByIdsQuery = gql`
-  query MyQuery($ids: [uuid!]!) {
-    users(where: { user_id: { _in: $ids } }) {
-      name
-      user_id
-      email
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
     }
   }
 `;
@@ -85,6 +86,25 @@ const unshareTemplateQuery = gql`
   }
 `;
 
+const shareTemplateToAllQuery = gql`
+  mutation shareTemplate($templateId: uuid!, $isPublic: Boolean!) {
+    update_templates_by_pk(pk_columns: { id: $templateId }, _set: { is_public: $isPublic }) {
+      id
+      is_public
+    }
+  }
+`;
+
+// get public status
+const getTemplatePublicStatusQuery = gql`
+  query MyQuery($templateId: uuid!) {
+    templates(where: { id: { _eq: $templateId } }) {
+      id
+      is_public
+    }
+  }
+`;
+
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
@@ -95,9 +115,21 @@ const ShareModal = (props) => {
     resolver: yupResolver(schema),
   });
 
-  const [loading, setLoading] = useState(false);
-
   const gqlClient = useGqlClient();
+
+  // const [isPublic, setIsPublic] = useState(false);
+
+  const checkPublic = async () => {
+    if (type === 'group') {
+      return false;
+    }
+    const res = await gqlClient.request(getTemplatePublicStatusQuery, {
+      templateId: id,
+    });
+    return res.templates[0].is_public;
+  };
+
+  const { data: isPublic } = useSWR(`isPublic-${id}`, checkPublic);
 
   /* get shared item (if it's a template, search in both groups
   and templates without a group */
@@ -117,22 +149,19 @@ const ShareModal = (props) => {
   // get all users to whom the item is already shared
   const getUsersSharedTo = async () => {
     try {
-      let userIdsSharedTo;
-      let ids;
+      let users;
 
       if (type === 'group') {
-        userIdsSharedTo = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+        const res = await gqlClient.request(getUsersTemplateGroupSharedTo, {
           groupId: id,
         });
-        ids = userIdsSharedTo.shared_template_groups.map((item) => item.shared_to_user_id);
+        users = res?.shared_template_groups.map((item) => item.shared_to_user) || [];
       } else {
-        userIdsSharedTo = await gqlClient.request(getUsersTemplateSharedTo, {
+        const res = await gqlClient.request(getUsersTemplateSharedTo, {
           templateId: id,
         });
-        ids = userIdsSharedTo.shared_templates.map((item) => item.shared_to_user_id);
+        users = res?.shared_templates.map((item) => item.shared_to_user) || [];
       }
-
-      const { users } = await gqlClient.request(getUsersByIdsQuery, { ids });
       return users;
     } catch (error) {
       console.log('error', error);
@@ -144,11 +173,7 @@ const ShareModal = (props) => {
   const usersSharedTo = data || [];
 
   const onSubmit = async ({ email: shareToUserEmail }) => {
-    console.log(shareToUserEmail);
-
     try {
-      setLoading(true);
-
       if (type === 'group') {
         // share group with user
         await gqlClient.request(shareTemplateGroupQuery, {
@@ -169,23 +194,22 @@ const ShareModal = (props) => {
       }
 
       if (type === 'template') {
-        console.log('inside???', {
-          templateId: id,
-          shareToUserEmail,
-        });
         await gqlClient.request(shareTemplateQuery, {
           templateId: id,
           shareToUserEmail,
         });
       }
 
-      setLoading(false);
       reset();
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
     } catch (err) {
-      setLoading(false);
+      throw new Error(err);
     }
+  };
+
+  const handleError = (error) => {
+    console.error('Sharing failed', error);
   };
 
   if (!isOpen) {
@@ -211,33 +235,50 @@ const ShareModal = (props) => {
     }
   };
 
+  const handlePublicSwitch = async () => {
+    await gqlClient.request(shareTemplateToAllQuery, {
+      templateId: id,
+      isPublic: !isPublic,
+    });
+    mutate(`isPublic-${id}`);
+  };
+
   return (
     <ModalPortal>
-      <Modal title={`Share ${sharedItem.name} ${type}`} isOpen={isOpen} onRequestClose={onClose}>
+      <Modal title={`Share "${sharedItem.name}" ${type}`} isOpen={isOpen} onRequestClose={onClose}>
         <form>
           <div className={cx('top')}>
             <Input
-              placeholder="Invite someone..."
+              label="Email for invitation"
               name="email"
               register={register}
               errors={errors.email}
+              className={cx('input')}
             />
-            <Button
+            <AsyncButton
               className={cx('send-button')}
               type="submit"
-              loading={loading}
+              text="Send invite"
+              successText="sent"
               onClick={handleSubmit(onSubmit)}
-            >
-              Send invite
-            </Button>
+              onError={handleError}
+            />
           </div>
         </form>
+        {type === 'template' && (
+          <Switch
+            isChecked={isPublic}
+            label="Public availability"
+            className={cx('switch')}
+            onChange={handlePublicSwitch}
+          />
+        )}
         <div className={cx('users')}>
           {usersSharedTo.map((user) => (
             <div key={`${id}-${user.name}`} className={cx('user')}>
               <Avatar userName={user.name} avatar={user.image} />
               <span className={cx('name')}>{user.name}</span>
-              <span className={cx('status')}>invited</span>
+              <span className={cx('email')}>({user.email})</span>
               <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
                 uninvite
               </button>

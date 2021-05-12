@@ -39,8 +39,20 @@ export default function TemplateGroupsProvider({ children }) {
   const [session] = useSession();
   const gqlClient = useGqlClient();
 
-  const fetcher = () => gqlClient.request(query);
-  const { data } = useSWR('getOwnedTemplateGroups', fetcher);
+  const fetcher = async () => {
+    const res = await gqlClient.request(query);
+
+    if (res.errors) {
+      throw new Error('Failed to fetch available templates');
+    }
+
+    return res;
+  };
+  const { data, error } = useSWR('getOwnedTemplateGroups', fetcher, { revalidateOnFocus: false });
+
+  if (error) {
+    console.error(error);
+  }
 
   // Session can be undefined
   const { user } = session || {};

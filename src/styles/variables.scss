@@ -13,12 +13,16 @@ $color-accent-secondary: #ffe666;
 $color-link: #3bf;
 $color-link-hover: #35f;
 
+$color-green: #3f8;
+
 $color-red: #f66;
 $color-red-hover: darken($color-red, 5%);
 
 $color-accent-tertiary: #6cf;
 
 $font-family: 'Inter', -apple-system, helvetica neue, sans-serif;
+
+$line-height-even: 1;
 
 $font-size-xs: 12px;
 $line-height-xs: 15.6px;
@@ -34,10 +38,9 @@ $line-height-lg: 26px;
 
 $letter-spacing-sm: 0.02em;
 
+$font-weight-xs: 300;
 $font-weight-sm: 400;
 $font-weight-md: 500;
-$font-weight-lg: 600;
-$font-weight-xl: 700;
 
 $transition-base: 0.2s;
 

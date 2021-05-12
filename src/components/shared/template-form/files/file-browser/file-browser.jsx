@@ -62,7 +62,7 @@ const FileBrowser = () => {
               const newFile = {
                 name: item.name,
                 content: fileContent,
-                language: getLanguageByFilename(item.name),
+                language: getLanguageByFilename(item.name).label,
               };
               resolve(newFile);
             };
@@ -129,7 +129,7 @@ const FileBrowser = () => {
       type: 'addItem',
       data: {
         name: fileName,
-        language: getLanguageByFilename(fileName),
+        language: getLanguageByFilename(fileName).label,
         content: '',
       },
       parentFolderId,

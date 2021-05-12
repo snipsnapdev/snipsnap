@@ -51,15 +51,21 @@ const TemplateItem = ({ name, templateId, favourite = false }) => {
     }
   };
 
-  const templateMenu = (
-    <>
-      <div onClick={() => setIsShareModalOpen(true)}>Share</div>
-      <div onClick={handleFavouriteClick}>{favourite ? 'Remove from' : 'Add to'} favourites</div>
-      <div style={{ color: '#FF6666' }} onClick={() => setIsDeleteModalOpen(true)}>
-        Delete
-      </div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Share',
+      onClick: () => setIsShareModalOpen(true),
+    },
+    {
+      text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
+      onClick: handleFavouriteClick,
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteModalOpen(true),
+      theme: 'danger',
+    },
+  ];
 
   const hrefPath = `/template/${templateId}`;
   const isActive = asPath === hrefPath;
@@ -70,7 +76,7 @@ const TemplateItem = ({ name, templateId, favourite = false }) => {
         <div className={cx('inner')}>
           <span className={cx('name')}>{name}</span>
           <Dropdown
-            menu={templateMenu}
+            menuItems={menuItems}
             className={cx('options')}
             menuClassName={cx('menu')}
             position="top-right"

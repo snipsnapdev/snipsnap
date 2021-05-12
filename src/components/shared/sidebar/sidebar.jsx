@@ -18,13 +18,13 @@ import TemplatesGroupsTree from './templates-groups-tree';
 
 const cx = classNames.bind(styles);
 
-const userMenu = (
-  <>
-    <button style={{ color: '#FF6666' }} type="button" onClick={signOut}>
-      Logout
-    </button>
-  </>
-);
+const userMenuItems = [
+  {
+    text: 'Logout',
+    theme: 'danger',
+    onClick: signOut,
+  },
+];
 
 const Sidebar = () => {
   const [session] = useSession();
@@ -38,12 +38,16 @@ const Sidebar = () => {
 
   const handleCreateTemplateButtonClick = () => push('/create-template');
 
-  const createButtonMenu = (
-    <>
-      <div onClick={() => setIsCreateTemplateGroupModalOpen(true)}>Create group</div>
-      <div onClick={handleCreateTemplateButtonClick}>Create template</div>
-    </>
-  );
+  const creatButtonMenu = [
+    {
+      text: 'Create group',
+      onClick: () => setIsCreateTemplateGroupModalOpen(true),
+    },
+    {
+      text: 'Create template',
+      onClick: handleCreateTemplateButtonClick,
+    },
+  ];
 
   const handleCreateTemplateGroupModalClose = () => setIsCreateTemplateGroupModalOpen(false);
 
@@ -55,7 +59,7 @@ const Sidebar = () => {
       <div className={cx('header')}>
         <h1 className={cx('title')}>Templates</h1>
         <Dropdown
-          menu={createButtonMenu}
+          menuItems={creatButtonMenu}
           className={cx('options-inner')}
           menuClassName={cx('menu')}
           position="top-left"
@@ -83,7 +87,7 @@ const Sidebar = () => {
       <TemplatesGroupsTree />
 
       <div className={cx('footer')}>
-        <Dropdown className={cx('footer-item')} menu={userMenu} position="bottom-left">
+        <Dropdown className={cx('footer-item')} menuItems={userMenuItems} position="bottom-left">
           <Avatar avatar={avatar} userName={userName} />
           <span>{userName}</span>
         </Dropdown>

@@ -3,11 +3,13 @@ import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import { useState } from 'react';
 
+
 import VideoPlayer from 'components/pages/login/video-player';
 import Button from 'components/shared/new-button';
 import SupportUs from 'components/shared/support-us';
 
 import GithubLogo from './images/github.inline.svg';
+import LogoText from './images/logo-text.inline.svg';
 import Logo from './images/logo.inline.svg';
 import styles from './login.module.scss';
 
@@ -40,7 +42,7 @@ export default function Login() {
     <div className={cx('wrapper')}>
       <div className={cx('left')}>
         <Logo className={cx('logo')} />
-        <h1 className={cx('title')}>Snipsnap</h1>
+        <LogoText className={cx('title')} />
         <p className={cx('description')}>
           Create, manage, share and use code templates with cloud UI and VS Code Extension
         </p>
@@ -56,7 +58,7 @@ export default function Login() {
         >
           <GithubLogo /> Login with GitHub
         </Button>
-        <h2 className={cx('subtitle')}>Let Snipsnap 🚀 powers you!</h2>
+        <h2 className={cx('subtitle')}>Let Snipsnap 🚀 power you!</h2>
         <ul className={cx('features')}>
           <li className={cx('features-item')}>
             <span>Reduce number of mistakes during copy-pasting boilerplate code.</span>

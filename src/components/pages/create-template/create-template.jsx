@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
@@ -44,14 +45,10 @@ const CreateTemplate = () => {
       ...(templateGroupId ? { templateGroupId } : {}),
     });
 
-    try {
-      const templateId = res?.insert_templates_one?.id || null;
+    const templateId = res?.insert_template?.id || null;
 
-      if (templateId) {
-        router.push(`/template/${templateId}`);
-      }
-    } catch (error) {
-      console.error(error);
+    if (templateId) {
+      router.push(`/template/${templateId}`);
     }
   };
   return (

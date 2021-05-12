@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 
+import Button from 'components/shared/button';
 import Input from 'components/shared/input';
-import Button from 'components/shared/new-button';
 
 import styles from './steps.module.scss';
 

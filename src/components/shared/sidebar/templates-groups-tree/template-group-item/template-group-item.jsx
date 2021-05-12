@@ -22,16 +22,26 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const groupMenu = (
-    <>
-      <Link href={`/create-template?groupId=${groupId}`}>Create template</Link>
-      <div onClick={() => setIsShareModalOpen(true)}>Share</div>
-      <div onClick={() => setIsRenameModalOpen(true)}>Rename</div>
-      <div style={{ color: '#FF6666' }} onClick={() => setIsDeleteModalOpen(true)}>
-        Delete
-      </div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Create template',
+      tagName: 'Link',
+      href: `/create-template?groupId=${groupId}`,
+    },
+    {
+      text: 'Share',
+      onClick: () => setIsShareModalOpen(true),
+    },
+    {
+      text: 'Rename',
+      onClick: () => setIsRenameModalOpen(true),
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteModalOpen(true),
+      theme: 'danger',
+    },
+  ];
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -45,8 +55,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
         </div>
         <span className={cx('name')}>{name}</span>
         <Dropdown
-          menu={groupMenu}
-          menuClassName={cx('menu')}
+          menuItems={menuItems}
           className={cx('options')}
           position="top-right"
           stopPropagation
@@ -69,7 +78,7 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
         ) : (
           <p className={cx('no-templates-text')}>
             You don’t have any templates in this group.{' '}
-            <Link href="/create-template">
+            <Link href={`/create-template?groupId=${groupId}`}>
               <a>Create first.</a>
             </Link>
           </p>
