@@ -48,7 +48,7 @@
   @media screen and (max-width: $breakpoint-sm) {
     @content;
   }
-
+}
 // disable blue highlight on selected elements (mobile)
 @mixin no-highlight-on-tap {
   -webkit-tap-highlight-color: transparent;
