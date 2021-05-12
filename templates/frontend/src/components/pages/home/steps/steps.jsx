@@ -1,17 +1,25 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 import { useGqlClient, gql } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import useSession from 'hooks/use-session';
 
-
 import styles from './steps.module.scss';
 
 const updateAPIKey = gql`
   mutation updateApi($userId: String!) {
     refresh_api_token(object: { user_id: $userId }) {
+      api_key
+    }
+  }
+`;
+
+const getAPIKey = gql`
+  query GetToken($userId: uuid!) {
+    api_keys(where: { user_id: { _eq: $userId } }) {
       api_key
     }
   }
@@ -27,11 +35,31 @@ const Steps = () => {
 
   const gqlClient = useGqlClient();
 
+  const [apiKey, setApiKey] = useState('');
+
+  useEffect(() => {
+    if (!currentUserId) {
+      return;
+    }
+
+    const fetchApiKey = async () => {
+      try {
+        const res = await gqlClient.request(getAPIKey, { userId: currentUserId });
+        setApiKey(res?.api_keys?.[0]?.api_key || '');
+      } catch (error) {
+        console.error('Fetching api key failed', error);
+      }
+    };
+
+    fetchApiKey();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUserId]);
+
   const handleRefresh = async () => {
     try {
       const res = await gqlClient.request(updateAPIKey, { userId: currentUserId });
       const newKey = res?.refresh_api_token?.api_key || null;
-      console.log('newKey', newKey);
+      setApiKey(newKey);
     } catch (error) {
       console.error('Refresh api key failed', error);
     }
@@ -49,11 +77,7 @@ const Steps = () => {
         </li>
         <li className={cx('item')}>
           <h3 className={cx('item-title')}>Add API token to Extension settings</h3>
-          <Input
-            className={cx('item-input')}
-            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMzdWIiOiI"
-            readOnly
-          />
+          <Input className={cx('item-input')} value={apiKey} readOnly />
           <div className={cx('item-footer', 'end')}>
             <Button type="button" themeType="link">
               Copy
