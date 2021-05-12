@@ -22,6 +22,7 @@ import {
   EXTENSION_LANGUAGE_MAPPING,
   DEFAULT_LANGUAGE,
   getLanguageByFilename,
+  getLanguageByLabel,
 } from 'utils/language';
 
 import styles from './editor.module.scss';
@@ -38,10 +39,13 @@ const Editor = () => {
   const openFile = findFileById(files, openFileId);
   const filePath = getFilePath(files, openFileId);
 
+  console.log('open', openFile);
+
   let currentLanguage = DEFAULT_LANGUAGE;
+
   if (openFile) {
     currentLanguage = openFile.data.language
-      ? openFile.data.language
+      ? getLanguageByLabel(openFile.data.language)
       : getLanguageByFilename(openFile.data.name);
   }
 
@@ -56,7 +60,7 @@ const Editor = () => {
     let currentLanguage = DEFAULT_LANGUAGE;
     if (openFile) {
       currentLanguage = openFile.data.language
-        ? openFile.data.language
+        ? getLanguageByLabel(openFile.data.language)
         : getLanguageByFilename(openFile.data.name);
     }
 
@@ -67,14 +71,14 @@ const Editor = () => {
     if (openFile) {
       filesDispatch({
         type: 'changeOpenFileLanguage',
-        newLanguage,
+        newLanguage: newLanguage.label,
       });
     }
     setLanguage(newLanguage);
   };
 
   const languageItems = [...new Set(LANGUAGES)].map((language) => ({
-    text: language,
+    text: language.label,
     onClick: () => handleLanguageChange(language),
   }));
 
@@ -91,7 +95,7 @@ const Editor = () => {
         <AceEditor
           readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
-          mode={language.toLowerCase()}
+          mode={language.label.toLowerCase()}
           theme="monokai"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
@@ -115,7 +119,7 @@ const Editor = () => {
         stopPropagation
         showIcon
       >
-        {language}
+        {language.label}
       </Dropdown>
     </div>
   );

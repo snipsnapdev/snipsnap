@@ -22,7 +22,7 @@ const Files = () => {
       type: 'addItem',
       data: {
         name: fileName,
-        language: getLanguageByFilename(fileName),
+        language: getLanguageByFilename(fileName).label,
         content: '',
       },
     });
