@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const VideoPlayer = ({ videoSrc, className: additionalClassName }) => (
   <div className={cx('wrapper', additionalClassName)}>
     <div className={cx('inner')}>
-      <video src={videoSrc} type="video/mp4" controls />
+      <iframe title="YouTube video player" src={videoSrc} />
     </div>
   </div>
 );

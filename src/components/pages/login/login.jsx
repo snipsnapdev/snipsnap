@@ -89,10 +89,7 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <VideoPlayer
-          videoSrc="https://wp.upscope.com/wp-content/uploads/2021/04/feature-2.mp4"
-          className={cx('video')}
-        />
+        <VideoPlayer videoSrc="https://www.youtube.com/embed/aKKQdn26QJc" className={cx('video')} />
 
         <div>
           <h2 className={cx('cases-title')}>Use cases</h2>

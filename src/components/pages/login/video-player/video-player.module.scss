@@ -9,8 +9,11 @@
   border: 1px solid $color-middle-grey;
   border-radius: 6px;
 
-  video {
+  video,
+  iframe {
     object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 }
 
