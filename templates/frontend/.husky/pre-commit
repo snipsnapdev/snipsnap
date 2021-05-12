@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+cd templates/frontend
 npx --no-install lint-staged --concurrent false

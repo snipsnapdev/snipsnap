@@ -13,7 +13,7 @@
     "lint:js:fix": "eslint --fix --ext .js,.jsx --ignore-path .gitignore .",
     "lint:styles": "stylelint --ignore-path .gitignore '{**/*,*}.{css,sass,scss,md,html}'",
     "lint:styles:fix": "stylelint --fix --ignore-path .gitignore '{**/*,*}.{css,sass,scss,md,html}'",
-    "prepare": "husky install"
+    "prepare": "cd ../.. && husky install templates/frontend/.husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^1.3.0",
