@@ -3,9 +3,10 @@ import { uniqBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 
+// list of modes https://github.com/ajaxorg/ace-builds/blob/master/ace-modules.d.ts
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-typescript';
-import 'ace-builds/src-noconflict/mode-sass';
+import 'ace-builds/src-noconflict/mode-scss';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-html';
 import 'ace-builds/src-noconflict/mode-css';
@@ -49,6 +50,11 @@ const Editor = () => {
   }
 
   const [language, setLanguage] = useState(currentLanguage);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     let currentLanguage = DEFAULT_LANGUAGE;
