@@ -1,86 +1,74 @@
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
 
 import styles from './button.module.scss';
-import loaderSvg from './loader.url.svg';
+import LoaderIcon from './images/loader.inline.svg';
+import SuccessIcon from './images/success.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const Button = (props) => {
-  const {
-    className: additionalClassName,
-    children,
-    theme,
-    size,
-    icon: Icon,
-    loading,
-    type,
-    to,
-    disabled,
-    ...otherProps
-  } = props;
-  const withIcon = !!Icon;
-  const className = cx(
-    'button',
-    `theme-${theme}`,
-    `size-${size}`,
-    { loading },
-    additionalClassName,
-    { 'with-icon': withIcon }
-  );
-
-  const renderIcon = () =>
-    Icon && (
-      <span className={cx('icon-wrapper')}>
-        <Icon className={cx('icon')} />
-        {loading && (
-          <span className={cx('loader')}>
-            <img src={loaderSvg} />
-          </span>
-        )}
-      </span>
+const Button = forwardRef(
+  (
+    {
+      className: additionalClassName,
+      tag: Tag,
+      children,
+      themeType,
+      themeColor,
+      size,
+      width,
+      isLoading,
+      ...otherProps
+    },
+    ref
+  ) => {
+    const className = cx(
+      'wrapper',
+      {
+        [`type_${themeType}`]: themeType,
+        [`color_${themeColor}`]: themeColor,
+        [`size_${size}`]: size,
+        loading: isLoading,
+      },
+      additionalClassName
     );
 
-  return to ? (
-    <Link href={to}>
-      <a className={className} {...otherProps}>
-        {renderIcon()}
-        {children}
-      </a>
-    </Link>
-  ) : (
-    <button type={type} className={className} disabled={disabled} {...otherProps}>
-      {renderIcon()}
-      <span className={cx('text')}>{children}</span>
-      {!withIcon && loading && (
-        <span className={cx('loader')}>
-          <img src={loaderSvg} />
-        </span>
-      )}
-    </button>
-  );
-};
+    return (
+      <Tag
+        className={className}
+        disabled={isLoading}
+        ref={ref}
+        {...(width ? { style: { width } } : {})}
+        {...otherProps}
+      >
+        {themeColor === 'success' && <SuccessIcon className={cx('success-icon')} />}
+        <span className={cx('content')}>{children}</span>
+        {isLoading && <LoaderIcon className={cx('loader')} />}
+      </Tag>
+    );
+  }
+);
 
 Button.propTypes = {
+  width: PropTypes.number,
   className: PropTypes.string,
-  to: PropTypes.string,
-  children: PropTypes.node,
-  theme: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
-  size: PropTypes.oneOf(['md', 'lg']),
-  loading: PropTypes.bool,
-  disabled: PropTypes.bool,
+  tag: PropTypes.oneOf(['button', 'a']),
+  themeType: PropTypes.oneOf(['button', 'button-link', 'link']),
+  themeColor: PropTypes.oneOf(['default', 'white', 'red', 'success', 'custom']),
+  size: PropTypes.oneOf(['default', 'md']),
+  isLoading: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
 Button.defaultProps = {
+  width: undefined,
   className: null,
-  theme: 'primary',
-  to: null,
-  size: 'md',
-  loading: false,
-  disabled: false,
-  icon: null,
-  type: 'button',
+  themeType: 'button',
+  themeColor: 'default',
+  size: 'default',
+  isLoading: false,
+  tag: 'button',
 };
 
 export default Button;

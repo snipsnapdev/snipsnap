@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   postgres:
-    image: postgres:12
+    image: timescale/timescaledb:2.2.1-pg12
     restart: always
     ports:
       - 8433:5432

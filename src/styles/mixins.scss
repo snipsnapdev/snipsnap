@@ -37,3 +37,9 @@
     @include link;
   }
 }
+
+// disable blue highlight on selected elements (mobile)
+@mixin no-highlight-on-tap {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}

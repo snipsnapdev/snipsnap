@@ -15,7 +15,9 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
+    .matches(/^[a-zA-Z.]+(-[a-zA-Z.]+)*$/, {
+      message: "Name should contain only A-Za-z letters, space or '-'",
+    }),
 });
 const cx = classNames.bind(styles);
 
@@ -33,10 +35,13 @@ const AddFileModal = (props) => {
     <ModalPortal>
       <Modal title="Add file" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="File name" name="name" register={register} errors={errors.name} />
-          <Button className={cx('add-file-button')} type="submit">
-            Add file
-          </Button>
+          <Input label="File name" name="name" register={register} error={errors.name?.message} />
+          <div className={cx('actions')}>
+            <Button type="submit">Add file</Button>
+            <Button themeType="button-link" onClick={onClose}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </Modal>
     </ModalPortal>

@@ -22,6 +22,7 @@ import {
   EXTENSION_LANGUAGE_MAPPING,
   DEFAULT_LANGUAGE,
   getLanguageByFilename,
+  getLanguageByLabel,
 } from 'utils/language';
 
 import styles from './editor.module.scss';
@@ -38,10 +39,13 @@ const Editor = () => {
   const openFile = findFileById(files, openFileId);
   const filePath = getFilePath(files, openFileId);
 
+  console.log('open', openFile);
+
   let currentLanguage = DEFAULT_LANGUAGE;
+
   if (openFile) {
     currentLanguage = openFile.data.language
-      ? openFile.data.language
+      ? getLanguageByLabel(openFile.data.language)
       : getLanguageByFilename(openFile.data.name);
   }
 
@@ -56,7 +60,7 @@ const Editor = () => {
     let currentLanguage = DEFAULT_LANGUAGE;
     if (openFile) {
       currentLanguage = openFile.data.language
-        ? openFile.data.language
+        ? getLanguageByLabel(openFile.data.language)
         : getLanguageByFilename(openFile.data.name);
     }
 
@@ -67,21 +71,16 @@ const Editor = () => {
     if (openFile) {
       filesDispatch({
         type: 'changeOpenFileLanguage',
-        newLanguage,
+        newLanguage: newLanguage.label,
       });
     }
     setLanguage(newLanguage);
   };
 
-  const languageOptions = (
-    <>
-      {LANGUAGES.map((item, i) => (
-        <div key={`${item}-${i}`} onClick={() => handleLanguageChange(item)}>
-          {item}
-        </div>
-      ))}
-    </>
-  );
+  const languageItems = [...new Set(LANGUAGES)].map((language) => ({
+    text: language.label,
+    onClick: () => handleLanguageChange(language),
+  }));
 
   const handleFileContentChange = (value) =>
     filesDispatch({
@@ -94,8 +93,9 @@ const Editor = () => {
       <div className={cx('file-path')}>{filePath}</div>
       <div className={cx('editor-container')}>
         <AceEditor
+          readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
-          mode={language.toLowerCase()}
+          mode={language.label.toLowerCase()}
           theme="monokai"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
@@ -112,14 +112,14 @@ const Editor = () => {
         />
       </div>
       <Dropdown
-        menu={languageOptions}
+        menuItems={languageItems}
         className={cx('select')}
         position="bottom-right"
         menuClassName={cx('select-menu')}
         stopPropagation
         showIcon
       >
-        {language}
+        {language.label}
       </Dropdown>
     </div>
   );

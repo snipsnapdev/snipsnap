@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 
-import Button from 'components/shared/new-button';
+import Button from 'components/shared/button';
 
 import DockerLogo from './images/docker.inline.svg';
 import KubernetesLogo from './images/kubernetes.inline.svg';

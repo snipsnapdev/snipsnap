@@ -9,7 +9,6 @@ import RenameFolderModal from 'components/shared/template-form/files/file-browse
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
-import FolderSvg from 'icons/folder.inline.svg';
 
 import styles from './folder.module.scss';
 
@@ -76,14 +75,25 @@ const Folder = ({
   const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
   const [isDeleteFolderModalOpen, setIsDeleteFolderModalOpen] = useState(false);
 
-  const folderMenu = (
-    <>
-      <div onClick={() => setIsAddFileModalOpen(true)}>Add file</div>
-      <div onClick={() => setIsAddFolderModalOpen(true)}>Add folder</div>
-      <div onClick={() => setIsRenameFolderModalOpen(true)}>Rename</div>
-      <div onClick={() => setIsDeleteFolderModalOpen(true)}>Delete</div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Add file',
+      onClick: () => setIsAddFileModalOpen(true),
+    },
+    {
+      text: 'Add folder',
+      onClick: () => setIsAddFolderModalOpen(true),
+    },
+    {
+      text: 'Rename',
+      onClick: () => setIsRenameFolderModalOpen(true),
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteFolderModalOpen(true),
+      theme: 'danger',
+    },
+  ];
 
   return (
     <div
@@ -97,27 +107,24 @@ const Folder = ({
       <div className={styles.wrapper}>
         <button
           className={cx('folder-title')}
-          style={{ paddingLeft: 10 + 25 * level }}
+          style={{ paddingLeft: 14 + 25 * level }}
           onClick={(event) => {
             event.preventDefault();
             setIsOpen(!isOpen);
           }}
         >
-          <FolderSvg className={cx('icon-folder')} />
+          <ArrowSvg className={cx('arrow', !isOpen && 'closed')} />
           <span className={cx('folder-name')}>{folder.data.name}</span>
-          <ArrowSvg className={cx('arrow', isOpen && 'open')} />
         </button>
-        <div className={cx('options')}>
-          <Dropdown
-            menu={folderMenu}
-            className={cx('options-inner')}
-            position="top-right"
-            menuClassName={cx('options-menu')}
-            stopPropagation
-          >
-            <DotsIcon className={cx('options-icon')} />
-          </Dropdown>
-        </div>
+        <Dropdown
+          menuItems={menuItems}
+          className={cx('options')}
+          position="top-right"
+          menuClassName={cx('options-menu')}
+          stopPropagation
+        >
+          <DotsIcon className={cx('options-icon')} />
+        </Dropdown>
       </div>
       {isAddFileModalOpen && (
         <AddFileModal

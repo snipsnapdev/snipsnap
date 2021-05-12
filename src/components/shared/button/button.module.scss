@@ -1,157 +1,176 @@
-.button {
+.wrapper {
   position: relative;
-  display: flex;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 0;
   font-family: $font-family;
-  font-size: $font-size-xs;
+  font-weight: 500;
   line-height: 1;
-  color: $color-white;
   text-decoration: none;
-  letter-spacing: $letter-spacing-sm;
   cursor: pointer;
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
   outline: none;
-  transition-duration: $transition-base;
-  transition-property: background-color, border, color;
 
-  &.with-icon {
+  &.loading {
+    .content {
+      visibility: hidden;
+      opacity: 0;
+    }
+
     .loader {
-      position: absolute;
-    }
-
-    &.loading {
-      .icon {
-        opacity: 0;
-        transition-timing-function: ease;
-        transition-duration: $transition-base;
-        transition-property: opacity, transform;
-        transform: translateY(-5px);
-      }
-    }
-  }
-
-  &:not(.with-icon) {
-    &.loading {
-      .text {
-        opacity: 0;
-        transition-timing-function: ease;
-        transition-duration: $transition-base;
-        transition-property: opacity, transform;
-        transform: translateY(-5px);
-      }
-    }
-  }
-
-  .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: flex;
-    align-items: center;
-    height: $font-size-md;
-    opacity: 1;
-    transition-timing-function: ease;
-    transition-duration: $transition-base;
-    transition-property: opacity, transform;
-    transform: translateX(-50%) translateY(-50%);
-  }
-
-  .icon {
-    opacity: 1;
-    transition-timing-function: ease;
-    transition-duration: $transition-base;
-    transition-property: opacity, transform;
-    transform: translateY(0);
-  }
-
-  .icon-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-  }
-
-  &.size {
-    &-md {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      font-size: $font-size-xs;
-      font-weight: 600;
-      text-transform: uppercase;
-
-      .icon-wrapper {
-        height: $font-size-xs;
-      }
-    }
-
-    &-lg {
-      padding-top: 18px;
-      padding-bottom: 18px;
-      font-size: $font-size-md;
-      font-weight: 600;
-      text-transform: uppercase;
-
-      .icon-wrapper {
-        height: $font-size-md;
-      }
-    }
-  }
-
-  &.theme {
-    &-primary {
-      background-color: $color-accent-primary;
-
-      @include hover {
-        background-color: $color-accent-secondary;
-      }
-    }
-
-    &-secondary {
-      background-color: transparent;
-      border: 1px solid $color-grey;
-
-      @include hover {
-        border: 1px solid $color-white;
-      }
-    }
-
-    &-tertiary {
-      background-color: transparent;
-      border: 1px dashed $color-middle-grey;
-
-      @include hover {
-        background-color: $color-dark-grey;
-        border: 1px dashed $color-grey;
-      }
+      visibility: visible;
+      opacity: 1;
     }
   }
 
   &.type {
-    &-plus {
-      position: relative;
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background-color: $color-accent-primary;
-      border-radius: 3px;
+    &_button {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      transition: background-color $transition-base;
 
-      &::before,
-      &::after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 1px;
-        height: 8px;
-        content: '';
-        background-color: $color-white;
-        transform: translate(-50%, -50%);
+      svg {
+        margin-right: 10px;
+        fill: currentColor;
       }
 
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
+      &.color {
+        &_default {
+          color: $color-white;
+          background-color: $color-accent-primary;
+
+          &:hover:not([disabled]) {
+            background-color: $color-accent-primary-hover;
+          }
+        }
+
+        &_white {
+          color: $color-primary-black;
+          background-color: $color-white;
+
+          &:hover:not([disabled]) {
+            background-color: $color-light-grey;
+          }
+        }
+
+        &_red {
+          color: $color-white;
+          background-color: $color-red;
+
+          &:hover:not([disabled]) {
+            background-color: $color-red-hover;
+          }
+        }
+
+        &_success {
+          height: 40px;
+          color: $color-green;
+          background-color: transparent;
+          border: 1px solid $color-green;
+
+          & .success-icon {
+            margin-right: 7px;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          padding-top: 14px;
+          padding-right: 20px;
+          padding-bottom: 14px;
+          padding-left: 20px;
+          font-size: $font-size-xs;
+
+          .loader {
+            height: 30px;
+          }
+
+          svg {
+            height: 20px;
+          }
+        }
+
+        &_md {
+          padding-top: 15px;
+          padding-right: 30px;
+          padding-bottom: 15px;
+          padding-left: 30px;
+          font-size: $font-size-md;
+
+          .loader {
+            height: 45px;
+          }
+
+          svg {
+            height: 30px;
+          }
+        }
+      }
+    }
+
+    &_button-link {
+      &.color {
+        &_default {
+          color: $color-grey;
+          transition: color $transition-base;
+
+          &:hover:not([disabled]) {
+            color: $color-light-grey;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          padding-top: 14px;
+          padding-bottom: 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+      }
+    }
+
+    &_link {
+      &.color {
+        &_default {
+          color: $color-link;
+          transition: color $transition-base;
+
+          &:hover {
+            color: $color-accent-primary-hover;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          font-size: $font-size-xs;
+        }
+
+        &_md {
+          font-size: $font-size-md;
+        }
       }
     }
   }
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity $transition-base, visibility $transition-base;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $transition-base, visibility $transition-base;
+  transform: translate(-50%, -50%);
 }

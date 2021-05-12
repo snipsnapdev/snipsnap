@@ -18,7 +18,9 @@ const schema = yup.object().shape({
   newName: yup
     .string()
     .required('Name is required')
-    .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
+    .matches(/^[a-zA-Z]+(-[a-zA-Z]+)*$/, {
+      message: "Name should contain only A-Za-z letters, space or '-'",
+    }),
 });
 
 const cx = classNames.bind(styles);
@@ -66,10 +68,20 @@ const RenameGroupModal = (props) => {
     <ModalPortal>
       <Modal title="Rename group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="New group name" name="newName" register={register} errors={errors.name} />
-          <Button className={cx('rename-group-button')} type="submit" loading={loading}>
-            Save
-          </Button>
+          <Input
+            label="New group name"
+            name="newName"
+            register={register}
+            error={errors.name?.message}
+          />
+          <div className={cx('actions')}>
+            <Button className={cx('rename-group-button')} type="submit" isLoading={loading}>
+              Save
+            </Button>
+            <Button themeType="button-link" onClick={onClose}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </Modal>
     </ModalPortal>

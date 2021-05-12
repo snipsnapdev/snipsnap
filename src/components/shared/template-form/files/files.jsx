@@ -22,7 +22,7 @@ const Files = () => {
       type: 'addItem',
       data: {
         name: fileName,
-        language: getLanguageByFilename(fileName),
+        language: getLanguageByFilename(fileName).label,
         content: '',
       },
     });
@@ -41,20 +41,24 @@ const Files = () => {
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
   const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
 
-  const addMenu = (
-    <>
-      <div onClick={() => setIsAddFileModalOpen(true)}>Add File</div>
-      <div onClick={() => setIsAddFolderModalOpen(true)}>Add Folder</div>
-    </>
-  );
+  const menuItems = [
+    {
+      text: 'Add File',
+      onClick: () => setIsAddFileModalOpen(true),
+    },
+    {
+      text: 'Add Folder',
+      onClick: () => setIsAddFolderModalOpen(true),
+    },
+  ];
 
   return (
     <>
-      <div className={cx('file-browser-head')}>
-        <h2 className={cx('file-browser-title')}>Files</h2>
+      <div className={cx('head')}>
+        <h2 className={cx('title')}>Files</h2>
         <div className={cx('add-options')}>
           <Dropdown
-            menu={addMenu}
+            menuItems={menuItems}
             className={cx('add-options-inner')}
             position="top-left"
             stopPropagation

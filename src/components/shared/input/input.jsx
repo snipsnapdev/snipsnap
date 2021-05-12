@@ -24,6 +24,7 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
+  className: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
   error: PropTypes.string,
@@ -33,6 +34,7 @@ Input.defaultProps = {
   type: 'text',
   error: null,
   label: null,
+  className: '',
 };
 
 export default Input;

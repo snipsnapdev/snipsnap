@@ -4,6 +4,12 @@
   margin-bottom: 15px;
 }
 
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+}
+
 .button-disclosure {
   align-items: center;
   width: 20px;
@@ -34,11 +40,7 @@
 }
 
 .items-wrapper {
-  display: none;
-
-  &.active {
-    display: block;
-  }
+  display: block;
 }
 
 .item {
@@ -58,12 +60,15 @@
 
   &-button-remove {
     position: absolute;
-    top: -10px;
-    right: -35px;
+    top: 0;
+    right: 0;
     padding: 10px;
     cursor: pointer;
 
     svg {
+      width: 10px;
+      height: 10px;
+
       path {
         stroke: $color-grey;
       }
@@ -76,5 +81,17 @@
         }
       }
     }
+  }
+}
+
+.add-button {
+  width: 100%;
+  height: 40px;
+  color: $color-white;
+  background-color: transparent;
+  border: 1px dashed $color-middle-grey;
+
+  &:hover:not([disabled]) {
+    background-color: $color-dark-grey;
   }
 }

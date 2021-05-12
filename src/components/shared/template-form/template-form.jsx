@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { cloneDeep } from 'lodash';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useReducer } from 'react';
@@ -8,9 +7,10 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import AsyncButton from 'components/shared/async-button';
+import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
-import Button from 'components/shared/new-button';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { formatFilesDataForApi } from 'utils/files-provider-helpers';
@@ -32,7 +32,9 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
+    .matches(/^[a-zA-Z]+(-[a-zA-Z]+)*$/, {
+      message: "Name should contain only A-Za-z letters, space or '-'",
+    }),
   prompts: yup
     .array()
     .of(yup.object().shape(promptsSchema))
@@ -40,7 +42,7 @@ const schema = yup.object().shape({
 });
 
 const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
-  const { register, control, handleSubmit, reset, clearErrors, errors } = useForm({
+  const { register, control, handleSubmit, setValue, reset, clearErrors, errors } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
     defaultValues: initialValues,
@@ -54,23 +56,31 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     groups.find((group) => group.id === initialValues.groupId) || null
   );
 
-  useEffect(() => {
-    reset(cloneDeep(initialValues));
-  }, [initialValues, reset]);
-
-  const [isLoading, setIsLoading] = useState(false);
-
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
     openFileId: null,
   });
 
+  useEffect(() => {
+    // handle initial values change
+    setValue('name', initialValues.name);
+    setValue('prompts', initialValues.prompts);
+    setValue('files', initialValues.files);
+    setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
+    dispatch({
+      type: 'reset',
+      data: {
+        files: initialValues.files,
+        openFileId: null,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
+
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = formatFilesDataForApi(filesState.files);
 
     try {
-      setIsLoading(true);
-
       const newTemplateData = {
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
@@ -80,13 +90,15 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
       await onSave(newTemplateData);
 
-      setIsLoading(false);
       mutate('getOwnedTemplateGroups');
     } catch (err) {
-      setIsLoading(false);
-      console.log(err);
+      throw new Error(err);
     }
     clearErrors();
+  };
+
+  const handleError = (err) => {
+    console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
   };
 
   const handleCancelButtonClick = () => {
@@ -105,16 +117,16 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     }
   };
 
-  const groupOptions = (
-    <>
-      {groups.map((group) => (
-        <div key={group.id} onClick={() => setGroup(group)}>
-          {group.name}
-        </div>
-      ))}
-      <div onClick={() => setGroup(null)}>No group</div>
-    </>
-  );
+  const groupOptions = [
+    ...groups.map((item) => ({
+      text: item.name,
+      onClick: () => setGroup(item),
+    })),
+    {
+      text: 'No group',
+      onClick: () => setGroup(null),
+    },
+  ];
 
   return (
     <FilesContext.Provider
@@ -125,13 +137,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     >
       <div className={cx('wrapper')}>
         <h1 className={cx('title')}>
-          {isCreatingNewTemplate ? (
-            'Create template'
-          ) : (
-            <>
-              Edit template <span>"{initialValues.name}"</span>
-            </>
-          )}
+          {isCreatingNewTemplate ? 'Create template' : <>Edit template "{initialValues.name}"</>}
         </h1>
         <div className={cx('inner')}>
           <div className={cx('left-column')}>
@@ -142,7 +148,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
               <div className={cx('group-label')}>Group</div>
               <Dropdown
-                menu={groupOptions}
+                menuItems={groupOptions}
                 className={cx('group-select')}
                 menuClassName={cx('group-select-menu')}
                 position="top-right"
@@ -163,9 +169,13 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Files />
               </div>
               <div className={cx('buttons-wrapper')}>
-                <Button type="submit" isLoading={isLoading} onClick={handleSubmit(onSubmit)}>
-                  {isCreatingNewTemplate ? 'Create template' : 'Save changes'}
-                </Button>
+                <AsyncButton
+                  type="submit"
+                  text={isCreatingNewTemplate ? 'Create template' : 'Save changes'}
+                  successText="Saved"
+                  onClick={handleSubmit(onSubmit)}
+                  onError={handleError}
+                />
                 <Button type="button" themeType="button-link" onClick={handleCancelButtonClick}>
                   Cancel
                 </Button>

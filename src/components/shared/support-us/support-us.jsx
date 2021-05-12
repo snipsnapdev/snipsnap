@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 const SupportUs = () => (
   <div className={cx('wrapper')}>
     <p className={cx('text')}>
-      Snipsnap is an Open Source and Free tool, we will apreciate if you give as a star
+      Snipsnap is an Open Source and free, we will appreciate if you give us a star
     </p>
     <GitHubButton
       href="https://github.com/snipsnapdev/snipsnap"

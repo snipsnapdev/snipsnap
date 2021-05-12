@@ -2,6 +2,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 0;
   font-family: $font-family;
   font-weight: 500;
@@ -13,8 +14,6 @@
   outline: none;
 
   &.loading {
-    cursor: wait;
-
     .content {
       visibility: hidden;
       opacity: 0;
@@ -63,6 +62,16 @@
 
           &:hover:not([disabled]) {
             background-color: $color-red-hover;
+          }
+        }
+
+        &_success {
+          color: $color-green;
+          background-color: transparent;
+          border: 1px solid $color-green;
+
+          & .success-icon {
+            margin-right: 9px;
           }
         }
       }

@@ -10,7 +10,9 @@
 }
 
 .left {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
@@ -19,8 +21,6 @@
 
 .title {
   margin-bottom: 30px;
-  font-size: 30px;
-  line-height: 1;
 }
 
 .description {
@@ -31,6 +31,7 @@
   font-size: 26px;
   font-weight: 300;
   line-height: 1.4;
+  text-align: center;
 }
 
 .button {

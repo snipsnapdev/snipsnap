@@ -20,7 +20,9 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/[a-zA-Z| |-]+/, { message: "Name should contain only A-Za-z letters, space or '-'" }),
+    .matches(/^[a-zA-Z][a-zA-Z\s-]*$/, {
+      message: "Name should contain only A-Za-z letters, space or '-'",
+    }),
 });
 
 const query = gql`
@@ -34,7 +36,7 @@ const query = gql`
 `;
 
 const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const [loading, setLoading] = useState(false);
@@ -51,22 +53,23 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
       setLoading(false);
       console.log(error);
     }
-
-    clearErrors();
   };
 
   if (!isOpen) return null;
-
-  console.log(errors?.name?.message);
 
   return (
     <ModalPortal>
       <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="Name" name="name" register={register} error={errors?.name?.message} />
-          <Button className={cx('button')} type="submit" loading={loading}>
-            Add group
-          </Button>
+          <Input label="Name" name="name" register={register} error={errors.name?.message} />
+          <div className={cx('actions')}>
+            <Button type="submit" isLoading={loading}>
+              Add group
+            </Button>
+            <Button themeType="button-link" onClick={onClose}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </Modal>
     </ModalPortal>
