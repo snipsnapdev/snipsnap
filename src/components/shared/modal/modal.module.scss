@@ -1,8 +1,23 @@
 .wrapper {
   overflow: auto;
-  background: rgba(28, 29, 34, 0.9);
   inset: 0 0 0 0;
-  backdrop-filter: blur(10px);
+
+  &.blurred {
+    backdrop-filter: blur(10px);
+    background: rgba(28, 29, 34, 0.9);
+
+    .body {
+      padding: 30px;
+    }
+
+    .content {
+      background: $color-secondary-black;
+    }
+  }
+
+  &.transparent {
+    background: rgba(23, 24, 28, 0.95);
+  }
 }
 
 .open {
@@ -14,7 +29,6 @@
   position: relative;
   z-index: 11;
   width: 600px;
-  background: $color-secondary-black;
   border-radius: 5px;
 }
 
@@ -35,10 +49,6 @@
   line-height: $line-height-lg;
   text-align: center;
   transform: translateY(-100%);
-}
-
-.body {
-  padding: 30px;
 }
 
 .close {

@@ -1,6 +1,5 @@
 .top {
   display: flex;
-  margin-bottom: 30px;
 }
 
 .input {
@@ -13,7 +12,7 @@
 }
 
 .switch {
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .users {
@@ -22,6 +21,7 @@
   flex-direction: column;
   width: 100%;
   padding-top: 30px;
+  margin-top: 30px;
 
   &::before {
     position: absolute;

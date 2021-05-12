@@ -45,7 +45,12 @@ const DeleteGroupModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal title={`Delete ${name} group?`} isOpen={isOpen} onRequestClose={onClose}>
+      <Modal
+        title={`Delete ${name} group?`}
+        isOpen={isOpen}
+        theme="transparent"
+        onRequestClose={onClose}
+      >
         <div className={cx('actions')}>
           <Button themeColor="red" isLoading={loading} onClick={handleDelete}>
             Delete

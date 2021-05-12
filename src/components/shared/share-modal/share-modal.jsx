@@ -273,18 +273,20 @@ const ShareModal = (props) => {
             onChange={handlePublicSwitch}
           />
         )}
-        <div className={cx('users')}>
-          {usersSharedTo.map((user) => (
-            <div key={`${id}-${user.name}`} className={cx('user')}>
-              <Avatar userName={user.name} avatar={user.image} />
-              <span className={cx('name')}>{user.name}</span>
-              <span className={cx('email')}>({user.email})</span>
-              <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
-                uninvite
-              </button>
-            </div>
-          ))}
-        </div>
+        {Boolean(usersSharedTo.length) && (
+          <div className={cx('users')}>
+            {usersSharedTo.map((user) => (
+              <div key={`${id}-${user.name}`} className={cx('user')}>
+                <Avatar userName={user.name} avatar={user.image} />
+                <span className={cx('name')}>{user.name}</span>
+                <span className={cx('email')}>({user.email})</span>
+                <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
+                  uninvite
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </Modal>
     </ModalPortal>
   );
