@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
@@ -34,7 +33,7 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/^[a-zA-Z]+(-[a-zA-Z]+)*$/, {
+    .matches(/^[a-zA-Z ]+(-[a-zA-Z ]+)*$/, {
       message: "Name should contain only A-Za-z letters, space or '-'",
     }),
   prompts: yup
@@ -44,10 +43,21 @@ const schema = yup.object().shape({
 });
 
 const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
-  const { register, control, handleSubmit, setValue, reset, clearErrors, errors } = useForm({
+  const {
+    register,
+    control,
+    trigger,
+    handleSubmit,
+    setValue,
+    reset,
+    clearErrors,
+    errors,
+  } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
     defaultValues: initialValues,
+    reValidateMode: 'onChange',
+    mode: 'onChange',
   });
 
   const { back } = useRouter();
@@ -83,6 +93,10 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = formatFilesDataForApi(filesState.files);
 
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
     try {
       const newTemplateData = {
         name,
@@ -97,6 +111,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     } catch (err) {
       throw new Error(err);
     }
+
     clearErrors();
   };
 
@@ -132,6 +147,8 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     },
   ];
 
+  const isFormValid = Object.keys(errors).length === 0;
+
   return (
     <FilesContext.Provider
       value={{
@@ -146,8 +163,13 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
         <div className={cx('inner')}>
           <div className={cx('left-column')}>
             <form className={cx('form')}>
-              <div className={cx('main')}>
-                <Input label="Template name" name="name" register={register} errors={errors.name} />
+              <div className={cx('name')}>
+                <Input
+                  label="Template name"
+                  name="name"
+                  register={register}
+                  error={errors.name?.message}
+                />
               </div>
 
               <div className={cx('group-label')}>Group</div>
@@ -165,6 +187,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Prompts
                   control={control}
                   register={register}
+                  trigger={trigger}
                   errors={errors}
                   showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
                 />
@@ -174,6 +197,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
               </div>
               <div className={cx('buttons-wrapper')}>
                 <AsyncButton
+                  disabled={!isFormValid}
                   type="submit"
                   text={isCreatingNewTemplate ? 'Create template' : 'Save changes'}
                   successText="Saved"

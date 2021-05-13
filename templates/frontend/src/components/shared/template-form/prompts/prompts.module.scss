@@ -46,12 +46,13 @@
 .item {
   position: relative;
   padding: 15px;
+  padding-bottom: 30px;
   margin-bottom: 15px;
   border: 1px solid $color-middle-grey;
   border-radius: 5px;
 
   &-input {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 
     &:last-of-type {
       margin-bottom: 0;

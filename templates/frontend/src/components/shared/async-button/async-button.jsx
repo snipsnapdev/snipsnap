@@ -9,7 +9,7 @@ function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, SUCCESS_TIMEOUT_SECONDS * 1000));
 }
 
-const AsyncButton = ({ type, text, successText, className, onClick, onError }) => {
+const AsyncButton = ({ type, text, disabled, successText, className, onClick, onError }) => {
   const [color, setColor] = useState('default');
   const [loading, setIsLoading] = useState(false);
 
@@ -34,7 +34,13 @@ const AsyncButton = ({ type, text, successText, className, onClick, onError }) =
       type={type}
       themeColor={color}
       isLoading={loading}
-      onClick={async () => {
+      onClick={async (evt) => {
+        evt.preventDefault();
+
+        if (disabled) {
+          return;
+        }
+
         setIsLoading(true);
         try {
           await onClick();
@@ -63,6 +69,7 @@ AsyncButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   onError: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 AsyncButton.defaultProps = {
@@ -71,6 +78,7 @@ AsyncButton.defaultProps = {
   className: undefined,
   onClick: undefined,
   onError: undefined,
+  disabled: false,
 };
 
 export default AsyncButton;
