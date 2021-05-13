@@ -138,6 +138,8 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     },
   ];
 
+  console.log('errors', errors?.prompts);
+
   const isFormValid = Object.keys(errors).length === 0;
 
   return (

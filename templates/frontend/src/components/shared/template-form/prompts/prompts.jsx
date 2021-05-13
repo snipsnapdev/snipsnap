@@ -21,7 +21,7 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
       name={`prompts[${index}].message`}
       defaultValue={item.message}
       register={ref}
-      errors={errors?.prompts?.[index]?.message}
+      error={errors?.prompts?.[index]?.message?.message}
     />
     <Input
       className={cx('item-input')}
@@ -29,7 +29,7 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
       name={`prompts[${index}].variableName`}
       defaultValue={item.variableName}
       register={ref}
-      errors={errors?.prompts?.[index]?.variableName}
+      error={errors?.prompts?.[index]?.variableName?.message}
     />
 
     <span
