@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 import useOutsideClick from 'hooks/use-outside-click';
-import CloseSvg from 'icons/close.inline.svg';
 
 import styles from './modal.module.scss';
 
