@@ -103,11 +103,11 @@ const Folder = ({
       onDrag={handleDragStart}
       onDragEnd={onDragEnd}
     >
-      <div className={cx('folder-line')} style={{ left: 19 + 25 * level }} />
+      <div className={cx('folder-line')} style={{ left: 15 + 25 * level }} />
       <div className={styles.wrapper}>
         <button
           className={cx('folder-title')}
-          style={{ paddingLeft: 14 + 25 * level }}
+          style={{ paddingLeft: 10 + 25 * level }}
           onClick={(event) => {
             event.preventDefault();
             setIsOpen(!isOpen);

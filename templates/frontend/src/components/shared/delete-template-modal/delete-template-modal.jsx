@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { mutate } from 'swr';
@@ -27,12 +28,19 @@ const DeleteTemplateModal = (props) => {
   const [loading, setLoading] = useState(false);
   const gqlClient = useGqlClient();
 
+  const router = useRouter();
+
   const handleDelete = async () => {
     try {
       setLoading(true);
       await gqlClient.request(query, { id });
       setLoading(false);
       mutate('getOwnedTemplateGroups');
+
+      // if deleted template was open, redirect to home page
+      if (router.asPath === `/template/${id}`) {
+        router.push('/');
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);

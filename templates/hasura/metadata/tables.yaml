@@ -4,6 +4,15 @@
 - table:
     schema: public
     name: api_keys
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - api_key
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: sessions
