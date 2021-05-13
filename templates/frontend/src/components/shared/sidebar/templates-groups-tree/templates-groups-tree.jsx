@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import TemplateGroupItem from './template-group-item';
-import TemplateItem from './template-item';
+import TemplateItem from './template-item/template-item';
 import styles from './templates-groups-tree.module.scss';
 
 const cx = classNames.bind(styles);
@@ -47,6 +47,7 @@ const TemplatesGroupsTree = () => {
               name={group.name}
               groupId={group.id}
               templates={group.templates}
+              disableSharing
             />
           ))}
           {sharedTemplates.map((template) => (
@@ -55,6 +56,7 @@ const TemplatesGroupsTree = () => {
               name={template.name}
               templateId={template.id}
               favourite={template.favourite || false}
+              disableSharing
             />
           ))}
         </div>

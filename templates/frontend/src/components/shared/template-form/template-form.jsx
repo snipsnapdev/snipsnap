@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useReducer, useContext } from 'react';
+import { useState, useEffect, useReducer, useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
@@ -74,7 +74,14 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     openFileId: null,
   });
 
+  const inputRef = useRef(null);
+
   useEffect(() => {
+    if (inputRef.current) {
+      register(inputRef.current);
+      inputRef.current.focus();
+    }
+
     // handle initial values change
     setValue('name', initialValues.name);
     setValue('prompts', initialValues.prompts);
@@ -167,7 +174,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Input
                   label="Template name"
                   name="name"
-                  register={register}
+                  ref={inputRef}
                   error={errors.name?.message}
                 />
               </div>
