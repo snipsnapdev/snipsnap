@@ -16,7 +16,7 @@ import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const TemplateGroupItem = ({ name, groupId, templates }) => {
+const TemplateGroupItem = ({ name, groupId, templates, disableSharing = false }) => {
   const router = useRouter();
   const { groupId: urlGroupId } = router.query;
 
@@ -32,10 +32,14 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
       tagName: 'Link',
       href: `/create-template?groupId=${groupId}`,
     },
-    {
-      text: 'Share',
-      onClick: () => setIsShareModalOpen(true),
-    },
+    ...(disableSharing
+      ? []
+      : [
+          {
+            text: 'Share',
+            onClick: () => setIsShareModalOpen(true),
+          },
+        ]),
     {
       text: 'Rename',
       onClick: () => setIsRenameModalOpen(true),
@@ -50,6 +54,8 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  console.log('ITEMS', menuItems);
 
   return (
     <div className={cx('container', { expanded: isExpanded })}>

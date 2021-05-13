@@ -29,7 +29,7 @@ const query = gql`
   }
 `;
 
-const TemplateItem = ({ name, templateId, favourite = false }) => {
+const TemplateItem = ({ name, templateId, favourite = false, disableSharing = false }) => {
   const [session] = useSession();
   const { asPath } = useRouter();
 
@@ -52,10 +52,14 @@ const TemplateItem = ({ name, templateId, favourite = false }) => {
   };
 
   const menuItems = [
-    {
-      text: 'Share',
-      onClick: () => setIsShareModalOpen(true),
-    },
+    ...(disableSharing
+      ? []
+      : [
+          {
+            text: 'Share',
+            onClick: () => setIsShareModalOpen(true),
+          },
+        ]),
     {
       text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
       onClick: handleFavouriteClick,
