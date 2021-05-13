@@ -45,5 +45,5 @@ $font-weight-md: 500;
 $transition-base: 0.2s;
 
 // Breakpoints
-$breakpoint-lg: 1024px;
-$breakpoint-sm: 575px;
+$breakpoint-lg: 1024px - 0.02px;
+$breakpoint-sm: 576px - 0.02px;

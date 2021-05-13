@@ -1,5 +1,6 @@
 .wrapper {
-  min-height: 200px;
+  position: relative;
+  min-height: 220px;
   padding-top: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
@@ -14,4 +15,15 @@
   margin-bottom: 20px;
   font-size: $font-size-lg;
   line-height: 1.4;
+}
+
+.image-wrapper {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.github-button {
+  position: relative;
+  z-index: 1;
 }
