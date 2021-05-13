@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -31,11 +32,21 @@ const AddFileModal = (props) => {
     onClose();
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      register(inputRef.current);
+      inputRef.current.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <ModalPortal>
       <Modal title="Add file" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="File name" name="name" register={register} error={errors.name?.message} />
+          <Input label="File name" name="name" ref={inputRef} error={errors.name?.message} />
           <div className={cx('actions')}>
             <Button type="submit">Add file</Button>
             <Button themeType="button-link" onClick={onClose}>

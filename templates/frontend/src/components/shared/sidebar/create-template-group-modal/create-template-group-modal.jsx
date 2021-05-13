@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/^[a-zA-Z][a-zA-Z\s-]*$/, {
+    .matches(/^[a-zA-Z ]+(-[a-zA-Z ]+)*$/, {
       message: "Name should contain only A-Za-z letters, space or '-'",
     }),
 });
@@ -55,13 +55,25 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current && isOpen) {
+      register(inputRef.current);
+      inputRef.current.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <ModalPortal>
       <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input label="Name" name="name" register={register} error={errors.name?.message} />
+          <Input label="Name" name="name" error={errors.name?.message} ref={inputRef} />
           <div className={cx('actions')}>
             <Button type="submit" isLoading={loading}>
               Add group

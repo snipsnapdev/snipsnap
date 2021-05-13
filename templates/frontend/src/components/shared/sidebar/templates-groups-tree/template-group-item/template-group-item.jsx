@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import DeleteGroupModal from 'components/shared/delete-group-modal';
@@ -16,7 +17,10 @@ import styles from './template-group-item.module.scss';
 const cx = classNames.bind(styles);
 
 const TemplateGroupItem = ({ name, groupId, templates }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
+  const { groupId: urlGroupId } = router.query;
+
+  const [isExpanded, setIsExpanded] = useState(urlGroupId === groupId);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
