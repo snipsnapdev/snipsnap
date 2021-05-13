@@ -43,7 +43,16 @@ const schema = yup.object().shape({
 });
 
 const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
-  const { register, control, handleSubmit, setValue, reset, clearErrors, errors } = useForm({
+  const {
+    register,
+    control,
+    trigger,
+    handleSubmit,
+    setValue,
+    reset,
+    clearErrors,
+    errors,
+  } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
     defaultValues: initialValues,
@@ -138,8 +147,6 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     },
   ];
 
-  console.log('errors', errors?.prompts);
-
   const isFormValid = Object.keys(errors).length === 0;
 
   return (
@@ -156,7 +163,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
         <div className={cx('inner')}>
           <div className={cx('left-column')}>
             <form className={cx('form')}>
-              <div className={cx('main')}>
+              <div className={cx('name')}>
                 <Input
                   label="Template name"
                   name="name"
@@ -180,6 +187,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
                 <Prompts
                   control={control}
                   register={register}
+                  trigger={trigger}
                   errors={errors}
                   showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
                 />
