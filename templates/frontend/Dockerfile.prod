@@ -22,8 +22,4 @@ RUN npm ci --ignore-scripts
 # Bundle app source code
 COPY --chown=node . .
 
-# Build app
-
-RUN npm run build
-
 CMD [ "npm", "start" ]
