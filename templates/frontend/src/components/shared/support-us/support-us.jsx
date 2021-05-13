@@ -30,6 +30,7 @@ const SupportUs = () => (
         alt="Support us on Github"
         width={560}
         height={140}
+        quality={90}
       />
     </div>
   </div>
