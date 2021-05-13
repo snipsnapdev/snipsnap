@@ -2,15 +2,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
+
 
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
+import { ErrorModalContext } from 'contexts/error-modal-context';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { formatFilesDataForApi } from 'utils/files-provider-helpers';
@@ -49,6 +51,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
   });
 
   const { back } = useRouter();
+  const { showErrorModal } = useContext(ErrorModalContext);
 
   const { groups } = useTemplateGroups();
 
@@ -98,6 +101,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
   };
 
   const handleError = (err) => {
+    showErrorModal(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`);
     console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
   };
 

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';

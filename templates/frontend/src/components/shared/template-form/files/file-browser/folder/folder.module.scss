@@ -9,9 +9,10 @@
 .folder-line {
   position: absolute;
   top: 20px;
+  z-index: 2;
   width: 1px;
   height: calc(100% - 25px);
-  background-color: #2e3038;
+  background-color: $color-dark-grey;
 }
 
 .wrapper {

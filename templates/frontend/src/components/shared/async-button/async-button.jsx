@@ -5,6 +5,10 @@ import Button from 'components/shared/button';
 
 const SUCCESS_TIMEOUT_SECONDS = 2;
 
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, SUCCESS_TIMEOUT_SECONDS * 1000));
+}
+
 const AsyncButton = ({ type, text, successText, className, onClick, onError }) => {
   const [color, setColor] = useState('default');
   const [loading, setIsLoading] = useState(false);
@@ -36,7 +40,9 @@ const AsyncButton = ({ type, text, successText, className, onClick, onError }) =
           await onClick();
           setIsLoading(false);
           setColor('success');
-          await setTimeout(() => setColor('default'), SUCCESS_TIMEOUT_SECONDS * 1000);
+          await new Promise((resolve) =>
+            setTimeout(() => setColor('default'), SUCCESS_TIMEOUT_SECONDS * 1000)
+          );
         } catch (error) {
           onError(error);
           setIsLoading(false);
