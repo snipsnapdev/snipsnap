@@ -546,6 +546,8 @@ const context = ({ req }) => {
 };
 
 const server = new ApolloServer({
+  // Enable introspection in dev and production since it's necessary for hasura
+  introspection: true,
   typeDefs,
   resolvers,
   context,
