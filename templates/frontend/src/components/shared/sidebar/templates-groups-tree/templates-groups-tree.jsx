@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 
+import { useOpenGroups } from 'contexts/open-groups-context';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 
 import TemplateGroupItem from './template-group-item';
@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 
 const TemplatesGroupsTree = () => {
   const { ownedGroups, ownedTemplates, sharedGroups, sharedTemplates } = useTemplateGroups();
+  const { openGroups, openGroup, closeGroup } = useOpenGroups();
 
   const renderOwned = ownedGroups.length > 0 || ownedTemplates.length > 0;
   const renderShared = sharedGroups.length > 0 || sharedTemplates.length > 0;
@@ -26,6 +27,9 @@ const TemplatesGroupsTree = () => {
               name={group.name}
               groupId={group.id}
               templates={group.templates}
+              isOpen={openGroups.includes(group.id)}
+              onOpen={openGroup}
+              onClose={closeGroup}
             />
           ))}
           {ownedTemplates.map((template) => (
@@ -47,7 +51,10 @@ const TemplatesGroupsTree = () => {
               name={group.name}
               groupId={group.id}
               templates={group.templates}
+              isOpen={openGroups.includes(group.id)}
               disableSharing
+              onOpen={openGroup}
+              onClose={closeGroup}
             />
           ))}
           {sharedTemplates.map((template) => (
@@ -63,18 +70,6 @@ const TemplatesGroupsTree = () => {
       )}
     </div>
   );
-};
-
-TemplatesGroupsTree.propTypes = {
-  className: PropTypes.string,
-  onlyOwned: PropTypes.bool,
-  onlyShared: PropTypes.bool,
-};
-
-TemplatesGroupsTree.defaultProps = {
-  className: null,
-  onlyOwned: false,
-  onlyShared: false,
 };
 
 export default TemplatesGroupsTree;
