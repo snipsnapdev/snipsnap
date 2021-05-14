@@ -8,14 +8,14 @@ import withAuth from 'utils/with-auth';
 
 const EditTemplatePage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { templateId } = router.query;
 
   return (
     <Layout>
       <Head>
         <title>{generatePageTitle('Edit Template')}</title>
       </Head>
-      <EditTemplate templateId={id} />
+      <EditTemplate templateId={templateId} />
     </Layout>
   );
 };

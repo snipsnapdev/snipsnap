@@ -256,6 +256,8 @@
         - shared_to:
             shared_to_user_id:
               _eq: X-Hasura-User-Id
+        - is_public:
+            _eq: true
   update_permissions:
   - role: user
     permission:

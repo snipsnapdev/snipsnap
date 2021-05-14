@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import DeleteGroupModal from 'components/shared/delete-group-modal';
@@ -16,12 +16,15 @@ import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const TemplateGroupItem = ({ name, groupId, templates, disableSharing = false }) => {
-  const router = useRouter();
-  const { groupId: urlGroupId } = router.query;
-
-  const [isExpanded, setIsExpanded] = useState(urlGroupId === groupId);
-
+const TemplateGroupItem = ({
+  name,
+  groupId,
+  templates,
+  isOpen = false,
+  disableSharing = false,
+  onOpen,
+  onClose,
+}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -52,16 +55,18 @@ const TemplateGroupItem = ({ name, groupId, templates, disableSharing = false })
   ];
 
   const handleExpand = () => {
-    setIsExpanded(!isExpanded);
+    if (isOpen) {
+      onClose(groupId);
+    } else {
+      onOpen(groupId);
+    }
   };
 
-  console.log('ITEMS', menuItems);
-
   return (
-    <div className={cx('container', { expanded: isExpanded })}>
+    <div className={cx('container', { expanded: isOpen })}>
       <div className={cx('group-wrapper')} onClick={handleExpand}>
         <div className={cx('icon-wrapper')}>
-          <ArrowIcon className={cx('icon', isExpanded && 'expanded')} />
+          <ArrowIcon className={cx('icon', isOpen && 'expanded')} />
         </div>
         <span className={cx('name')}>{name}</span>
         <Dropdown
@@ -121,4 +126,30 @@ const TemplateGroupItem = ({ name, groupId, templates, disableSharing = false })
     </div>
   );
 };
+
+TemplateGroupItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  templates: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      favourite: PropTypes.bool,
+      disableSharing: PropTypes.bool,
+    })
+  ),
+  isOpen: PropTypes.bool,
+  disableSharing: PropTypes.bool,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+};
+
+TemplateGroupItem.defaultProps = {
+  templates: [],
+  isOpen: false,
+  disableSharing: false,
+  onOpen: undefined,
+  onClose: undefined,
+};
+
 export default TemplateGroupItem;
