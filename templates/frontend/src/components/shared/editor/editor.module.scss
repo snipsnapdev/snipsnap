@@ -54,7 +54,8 @@
 
     .ace_gutter-cell {
       color: $color-secondary-black;
-      border-radius: 3px;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
     }
 
     .ace-monokai .ace_marker-layer .ace_active-line {
