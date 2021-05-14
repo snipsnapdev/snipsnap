@@ -8,6 +8,7 @@ import Input from 'components/shared/input';
 import Tooltip from 'components/shared/tooltip';
 import ArrowRightSvg from 'icons/arrow-right.inline.svg';
 import CloseSvg from 'icons/close.inline.svg';
+import PlusSignSvg from 'icons/plus.inline.svg';
 
 import styles from './prompts.module.scss';
 
@@ -44,7 +45,7 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) 
     </span>
   </li>
 ));
-const Prompts = ({ tooltip, control, trigger, errors, register }) => {
+const Prompts = ({ control, trigger, errors, register }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
@@ -58,8 +59,14 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
         <h2 className={cx('title')}>Prompts</h2>
-        <Tooltip className={cx('tooltip')} position="bottom">
-          {tooltip}
+        <Tooltip>
+          <p>
+            Prompts represent list of questions that will be asked during template execution from
+            users as a popup.
+          </p>
+          <p>
+            Answers you can use as variables inside templates or filenames by using % myVariable %
+          </p>
         </Tooltip>
       </div>
       <div className={cx('items-wrapper')}>
@@ -79,26 +86,11 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
       </div>
 
       <Button type="button" themeColor="custom" className={cx('add-button')} onClick={addItem}>
+        <PlusSignSvg />
         Add Prompt
       </Button>
     </div>
   );
-};
-
-Prompts.defaultProps = {
-  tooltip: `
-          <p>
-            Prompts represent list of questions that will be asked during template execution from
-            users as a popup.
-          </p>
-          <p>
-            Answers you can use as variables inside templates or filenames by using % myVariable %
-          </p>
-  `,
-};
-
-Prompts.propTypes = {
-  tooltip: PropTypes.string,
 };
 
 export default Prompts;

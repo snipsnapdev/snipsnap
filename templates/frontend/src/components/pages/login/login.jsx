@@ -3,34 +3,18 @@ import { signIn } from 'next-auth/client';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import VideoPlayer from 'components/pages/login/video-player';
 import Button from 'components/shared/button';
 import SupportUs from 'components/shared/support-us';
+import UseCases from 'components/shared/use-cases';
+import VideoPlayer from 'components/shared/video-player';
 
 import GithubLogo from './images/github.inline.svg';
 import LogoText from './images/logo-text.inline.svg';
 import Logo from './images/logo.inline.svg';
 import styles from './login.module.scss';
 
-const cx = classNames.bind(styles);
 
-const useCases = [
-  { title: 'Kubernetes', url: '/' },
-  { title: 'Docker', url: '/' },
-  { title: 'React', url: '/' },
-  { title: 'Angular', url: '/' },
-  { title: 'Vue', url: '/' },
-  { title: 'Kubernetes', url: '/' },
-  { title: 'Docker', url: '/' },
-  { title: 'React', url: '/' },
-  { title: 'Angular', url: '/' },
-  { title: 'Vue', url: '/' },
-  { title: 'Kubernetes', url: '/' },
-  { title: 'Docker', url: '/' },
-  { title: 'React', url: '/' },
-  { title: 'Angular', url: '/' },
-  { title: 'Vue', url: '/' },
-];
+const cx = classNames.bind(styles);
 
 const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -90,22 +74,9 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <VideoPlayer videoSrc="https://www.youtube.com/embed/aKKQdn26QJc" className={cx('video')} />
+        <VideoPlayer videoSrc="https://www.youtube.com/embed/aKKQdn26QJc" />
 
-        <div>
-          <h2 className={cx('cases-title')}>Use cases</h2>
-          <ul className={cx('cases-links')}>
-            {useCases.map(({ title, url }, index) => (
-              <li key={index}>
-                <Link href={url}>
-                  <Button tag="a" themeType="link" size="md">
-                    With {title}
-                  </Button>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <UseCases />
       </div>
     </div>
   );

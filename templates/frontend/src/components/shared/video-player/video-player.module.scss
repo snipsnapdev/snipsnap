@@ -1,11 +1,16 @@
 .wrapper {
   position: relative;
   z-index: 1;
+  max-width: 535px;
   margin-top: 30px;
   margin-bottom: 30px;
   overflow: hidden;
   border: 1px solid $color-middle-grey;
   border-radius: 6px;
+
+  @include lg-down {
+    max-width: 100%;
+  }
 }
 
 .inner {
