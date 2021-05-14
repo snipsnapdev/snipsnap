@@ -281,7 +281,7 @@ const ShareModal = (props) => {
                 <span className={cx('name')}>{user.name}</span>
                 <span className={cx('email')}>({user.email})</span>
                 <button className={cx('unshare')} onClick={() => handleUnshare(user.email)}>
-                  uninvite
+                  Remove
                 </button>
               </div>
             ))}
