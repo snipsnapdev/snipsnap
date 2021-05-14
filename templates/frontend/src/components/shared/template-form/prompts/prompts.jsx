@@ -8,7 +8,7 @@ import Input from 'components/shared/input';
 import Tooltip from 'components/shared/tooltip';
 import ArrowRightSvg from 'icons/arrow-right.inline.svg';
 import CloseSvg from 'icons/close.inline.svg';
-import PlusSign from 'icons/plus.inline.svg';
+import PlusSignSvg from 'icons/plus.inline.svg';
 
 import styles from './prompts.module.scss';
 
@@ -80,7 +80,7 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
       </div>
 
       <Button type="button" themeColor="custom" className={cx('add-button')} onClick={addItem}>
-        <PlusSign />
+        <PlusSignSvg />
         Add Prompt
       </Button>
     </div>
