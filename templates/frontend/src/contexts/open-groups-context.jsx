@@ -11,6 +11,9 @@ const initialState = [];
 const openGroupsReducer = (state, action) => {
   switch (action.type) {
     case 'openGroup': {
+      if (state.includes(action.groupId)) {
+        return state;
+      }
       return [...state, action.groupId];
     }
     case 'closeGroup': {

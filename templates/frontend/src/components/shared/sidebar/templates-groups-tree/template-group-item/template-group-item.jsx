@@ -133,7 +133,7 @@ TemplateGroupItem.propTypes = {
   templates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      templateId: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
       favourite: PropTypes.bool,
       disableSharing: PropTypes.bool,
     })
