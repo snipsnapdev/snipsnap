@@ -319,12 +319,18 @@ const resolvers = {
     share_template: async (_, args, { userId }) => {
       if (!userId) return;
 
-      const shareToUserId = await getUserByEmail(
-        args.object.share_to_user_email
-      );
+      let shareToUserId = null;
+
+      try {
+        shareToUserId = await getUserByEmail(args.object.share_to_user_email);
+      } catch (err) {
+        throw new Error(err.message);
+      }
 
       // Can't share with yourself
-      if (shareToUserId === userId) return;
+      if (shareToUserId === userId) {
+        throw new Error("Can't share with yourself");
+      }
 
       const query = gql`
         query ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {

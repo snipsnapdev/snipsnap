@@ -111,7 +111,7 @@ const ShareModal = (props) => {
 
   const { groups, templates } = useTemplateGroups();
 
-  const { register, handleSubmit, reset, errors } = useForm({
+  const { register, handleSubmit, reset, errors, setError } = useForm({
     defaultValues: { email: '' },
     resolver: yupResolver(schema),
   });
@@ -205,12 +205,18 @@ const ShareModal = (props) => {
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
     } catch (err) {
-      throw new Error(err);
+      throw new Error(err.message);
     }
   };
 
   const handleError = (error) => {
-    console.error('Sharing failed', error);
+    if (error.message.startsWith("Couldn't find user by email")) {
+      setError('email', { message: 'User with this email not found' });
+    } else if (error.message.startsWith("Can't share with yourself")) {
+      setError('email', { message: "Can't share with yourself" });
+    } else {
+      throw new Error(error.message);
+    }
   };
 
   const handleUnshare = async (shareToUserEmail) => {
@@ -263,7 +269,7 @@ const ShareModal = (props) => {
               label="Email for invitation"
               name="email"
               ref={inputRef}
-              errors={errors.email}
+              error={errors.email?.message}
               className={cx('input')}
             />
             <AsyncButton
