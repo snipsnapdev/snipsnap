@@ -28,6 +28,8 @@ const getAPIKey = gql`
 
 const cx = classNames.bind(styles);
 
+const formatApiKey = (apiKey) => `${apiKey.slice(0, 15)  }...${  apiKey.slice(apiKey.length - 15)}`;
+
 const Steps = () => {
   const [session] = useSession();
   const {
@@ -84,7 +86,7 @@ const Steps = () => {
         </li>
         <li className={cx('item')}>
           <h3 className={cx('item-title')}>Add API token to Extension settings</h3>
-          <Input className={cx('item-input')} value={apiKey} readOnly />
+          <Input className={cx('item-input')} value={formatApiKey(apiKey)} readOnly />
           <div className={cx('item-footer', 'end')}>
             <Clipboard
               className={cx('copy')}
