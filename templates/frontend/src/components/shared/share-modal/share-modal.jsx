@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,8 @@ import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import Switch from 'components/shared/switch';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+
+import Tooltip from '../tooltip';
 
 import styles from './share-modal.module.scss';
 
@@ -107,7 +110,7 @@ const getTemplatePublicStatusQuery = gql`
 `;
 
 const ShareModal = (props) => {
-  const { id, type, isOpen, onClose } = props;
+  const { id, type, isOpen, onClose, availabilityTooltip, documentationURL } = props;
 
   const { groups, templates } = useTemplateGroups();
 
@@ -277,12 +280,15 @@ const ShareModal = (props) => {
           </div>
         </form>
         {type === 'template' && (
-          <Switch
-            isChecked={isPublic}
-            label="Public availability"
-            className={cx('switch')}
-            onChange={handlePublicSwitch}
-          />
+          <div className={cx('public-share')}>
+            <Switch
+              isChecked={isPublic}
+              label="Public availability"
+              className={cx('switch')}
+              onChange={handlePublicSwitch}
+            />
+            <Tooltip position="bottom">{availabilityTooltip}</Tooltip>
+          </div>
         )}
         {Boolean(usersSharedTo.length) && (
           <div className={cx('users')}>
@@ -308,11 +314,14 @@ ShareModal.propTypes = {
   type: PropTypes.oneOf(['template', 'group']).isRequired,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  availabilityTooltip: PropTypes.string,
+  documentationURL: PropTypes.string,
 };
 
 ShareModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
+  availabilityTooltip: `<p>Publicly available templates are visible in the marketplace, so others could use it as it is or clone it.</p>`,
 };
 
 export default ShareModal;

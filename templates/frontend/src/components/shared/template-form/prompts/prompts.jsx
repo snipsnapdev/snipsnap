@@ -59,9 +59,7 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
         <h2 className={cx('title')}>Prompts</h2>
-        <Tooltip className={cx('tooltip')} position="bottom">
-          {tooltip}
-        </Tooltip>
+        <Tooltip position="bottom">{tooltip}</Tooltip>
       </div>
       <div className={cx('items-wrapper')}>
         <ul>

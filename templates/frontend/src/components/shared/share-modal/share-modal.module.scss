@@ -11,8 +11,14 @@
   margin-left: 15px;
 }
 
-.switch {
+.public-share {
+  display: flex;
+  align-items: center;
   margin-top: 30px;
+
+  .switch {
+    width: max-content;
+  }
 }
 
 .users {
