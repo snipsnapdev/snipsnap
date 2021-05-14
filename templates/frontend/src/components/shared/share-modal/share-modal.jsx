@@ -279,7 +279,7 @@ const ShareModal = (props) => {
         {type === 'template' && (
           <Switch
             isChecked={isPublic}
-            label="Public availability"
+            label="Public"
             className={cx('switch')}
             onChange={handlePublicSwitch}
           />
