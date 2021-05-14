@@ -32,5 +32,3 @@ tmp
 prisma/.env
 
 sentry.properties
-
-.next/
