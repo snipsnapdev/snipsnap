@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
 
 import styles from './input.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Input = (props) => {
+const Input = forwardRef((props, ref) => {
   const { className: additionalClassName, register, label, type, error, ...otherProps } = props;
   return (
     <label className={cx('wrapper', additionalClassName)}>
@@ -14,14 +15,14 @@ const Input = (props) => {
         <input
           className={cx('input', { invalid: error })}
           type={type}
-          ref={register?.()}
+          ref={ref || register?.()}
           {...otherProps}
         />
         {error && <div className={cx('error')}>{error}</div>}
       </div>
     </label>
   );
-};
+});
 
 Input.propTypes = {
   className: PropTypes.string,
