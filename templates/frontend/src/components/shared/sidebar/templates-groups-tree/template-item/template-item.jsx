@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { mutate } from 'swr';
 
@@ -11,6 +12,7 @@ import ShareModal from 'components/shared/share-modal';
 import useSession from 'hooks/use-session';
 import DotsIcon from 'icons/dots.inline.svg';
 import StarIcon from 'icons/star.inline.svg';
+
 
 import styles from './template-item.module.scss';
 
@@ -109,6 +111,18 @@ const TemplateItem = ({ name, templateId, favourite = false, disableSharing = fa
       </div>
     </Link>
   );
+};
+
+TemplateItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  templateId: PropTypes.string.isRequired,
+  favourite: PropTypes.bool,
+  disableSharing: PropTypes.bool,
+};
+
+TemplateItem.defaultProps = {
+  favourite: false,
+  disableSharing: false,
 };
 
 export default TemplateItem;

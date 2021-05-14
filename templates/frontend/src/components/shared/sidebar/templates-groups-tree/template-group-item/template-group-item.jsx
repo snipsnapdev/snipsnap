@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import DeleteGroupModal from 'components/shared/delete-group-modal';
@@ -125,4 +126,30 @@ const TemplateGroupItem = ({
     </div>
   );
 };
+
+TemplateGroupItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  templates: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      templateId: PropTypes.string.isRequired,
+      favourite: PropTypes.bool,
+      disableSharing: PropTypes.bool,
+    })
+  ),
+  isOpen: PropTypes.bool,
+  disableSharing: PropTypes.bool,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+};
+
+TemplateGroupItem.defaultProps = {
+  templates: [],
+  isOpen: false,
+  disableSharing: false,
+  onOpen: undefined,
+  onClose: undefined,
+};
+
 export default TemplateGroupItem;

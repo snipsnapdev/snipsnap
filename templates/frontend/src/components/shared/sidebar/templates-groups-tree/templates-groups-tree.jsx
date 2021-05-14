@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 
 import { useOpenGroups } from 'contexts/open-groups-context';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
@@ -71,18 +70,6 @@ const TemplatesGroupsTree = () => {
       )}
     </div>
   );
-};
-
-TemplatesGroupsTree.propTypes = {
-  className: PropTypes.string,
-  onlyOwned: PropTypes.bool,
-  onlyShared: PropTypes.bool,
-};
-
-TemplatesGroupsTree.defaultProps = {
-  className: null,
-  onlyOwned: false,
-  onlyShared: false,
 };
 
 export default TemplatesGroupsTree;
