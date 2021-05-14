@@ -4,7 +4,7 @@
   column-gap: 60px;
   align-items: center;
   max-width: 1440px;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
@@ -19,7 +19,6 @@
   @include lg-down {
     grid-template-columns: 1fr;
     row-gap: 60px;
-    height: auto;
   }
 }
 
