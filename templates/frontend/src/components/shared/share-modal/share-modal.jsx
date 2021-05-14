@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
@@ -212,10 +213,6 @@ const ShareModal = (props) => {
     console.error('Sharing failed', error);
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   const handleUnshare = async (shareToUserEmail) => {
     try {
       if (type === 'group') {
@@ -243,6 +240,20 @@ const ShareModal = (props) => {
     mutate(`isPublic-${id}`);
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current && isOpen) {
+      register(inputRef.current);
+      inputRef.current.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <ModalPortal>
       <Modal title={`Share "${sharedItem.name}" ${type}`} isOpen={isOpen} onRequestClose={onClose}>
@@ -251,7 +262,7 @@ const ShareModal = (props) => {
             <Input
               label="Email for invitation"
               name="email"
-              register={register}
+              ref={inputRef}
               errors={errors.email}
               className={cx('input')}
             />

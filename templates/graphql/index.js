@@ -3,6 +3,28 @@ require("dotenv").config();
 const { ApolloServer, gql } = require("apollo-server");
 const { GraphQLClient } = require("graphql-request");
 
+const jwt = require("jsonwebtoken");
+
+const { JWT_SECRET } = process.env;
+
+const ENCRYPTION_ALGORITHM = "HS512";
+
+const encode = (userId, expires, role = "api-user") => {
+  const tokenContent = {
+    "https://hasura.io/jwt/claims": {
+      "x-hasura-allowed-roles": [role],
+      "x-hasura-default-role": role,
+      "x-hasura-role": role,
+      "x-hasura-user-id": userId,
+    },
+  };
+  const encodedToken = jwt.sign(tokenContent, JWT_SECRET, {
+    algorithm: ENCRYPTION_ALGORITHM,
+    expiresIn: `${expires}s`,
+  });
+  return encodedToken;
+};
+
 const MAX_FILE_SIZE = 5000; /// 5KB
 const MAX_FILES_AMOUNT = 20;
 
@@ -70,7 +92,7 @@ const validateFiles = (files) => {
 
 const getUserByEmail = async (email) => {
   const query = gql`
-    query($email: String!) {
+    query ($email: String!) {
       users(where: { email: { _eq: $email } }) {
         user_id
       }
@@ -145,6 +167,14 @@ const typeDefs = gql`
     updated_at: String
   }
 
+  input RefreshApiTokenInput {
+    user_id: String!
+  }
+
+  type RefreshApiToken {
+    api_key: String
+  }
+
   type Mutation {
     insert_template(object: InsertTemplateInput): Template
     update_template(object: UpdateTemplateInput): Template
@@ -152,16 +182,45 @@ const typeDefs = gql`
     unshare_template(object: ShareTemplateInput): SharedTemplate
     share_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
     unshare_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
+    refresh_api_token(object: RefreshApiTokenInput): RefreshApiToken
   }
 `;
 
 const resolvers = {
   Mutation: {
+    refresh_api_token: async (_, args, { userId }) => {
+      if (!userId) return;
+
+      const mutation = gql`
+        mutation ($user_id: uuid!, $newToken: String!) {
+          update_api_keys(
+            _set: { api_key: $newToken }
+            where: { user_id: { _eq: $user_id } }
+          ) {
+            returning {
+              api_key
+            }
+          }
+        }
+      `;
+
+      const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+      const newToken = encode(userId, ONE_YEAR_IN_SECONDS, "user_api");
+
+      const res = await gqlClient.request(mutation, {
+        newToken,
+        user_id: userId,
+      });
+
+      console.log("TOKEN UPDATE", res?.update_api_keys?.returning);
+
+      return res?.update_api_keys?.returning?.[0];
+    },
     insert_template: async (_, args, { userId }) => {
       if (!userId) return;
 
       const mutation = gql`
-        mutation(
+        mutation (
           $name: String!
           $prompts: jsonb
           $files: jsonb!
@@ -216,7 +275,7 @@ const resolvers = {
       if (!userId) return;
 
       const mutation = gql`
-        mutation(
+        mutation (
           $id: uuid!
           $name: String
           $prompts: jsonb
@@ -268,7 +327,7 @@ const resolvers = {
       if (shareToUserId === userId) return;
 
       const query = gql`
-        query($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        query ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           shared_templates(
             where: {
               _and: [
@@ -300,7 +359,7 @@ const resolvers = {
       if (queryData?.shared_templates?.length > 0) return;
 
       const mutation = gql`
-        mutation($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           insert_shared_templates_one(
             object: {
               template_id: $template_id
@@ -337,7 +396,7 @@ const resolvers = {
       if (shareToUserId === userId) return;
 
       const mutation = gql`
-        mutation($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           delete_shared_templates(
             where: {
               template_id: { _eq: $template_id }
@@ -378,7 +437,7 @@ const resolvers = {
       if (shareToUserId === userId) return;
 
       const query = gql`
-        query($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        query ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           shared_template_groups(
             where: {
               _and: [
@@ -410,7 +469,7 @@ const resolvers = {
       if (queryData?.shared_template_groups?.length > 0) return;
 
       const mutation = gql`
-        mutation($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           insert_shared_template_groups_one(
             object: {
               template_group_id: $template_group_id
@@ -447,7 +506,7 @@ const resolvers = {
       if (shareToUserId === userId) return;
 
       const mutation = gql`
-        mutation($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
           delete_shared_template_groups(
             where: {
               template_group_id: { _eq: $template_group_id }
@@ -487,6 +546,8 @@ const context = ({ req }) => {
 };
 
 const server = new ApolloServer({
+  // Enable introspection in dev and production since it's necessary for hasura
+  introspection: true,
   typeDefs,
   resolvers,
   context,

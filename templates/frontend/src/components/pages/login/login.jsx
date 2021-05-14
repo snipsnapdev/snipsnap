@@ -43,7 +43,7 @@ export default function Login() {
         <Logo className={cx('logo')} />
         <LogoText className={cx('title')} />
         <p className={cx('description')}>
-          Create, manage, share and use code templates with cloud UI and VS Code Extension
+          Manage, share and use code templates with cloud UI and VS Code Extension
         </p>
         <Button
           className={cx('button')}

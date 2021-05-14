@@ -2,7 +2,7 @@ name: snipsnap-templates-frontend
 
 on:
   push:
-    branches: [deploy]
+    branches: [master]
     paths:
       - templates/frontend/**
 
@@ -34,8 +34,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: lint
+    env:
+      WORKING_DIRECTORY: ./templates/frontend/
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: NPM Install
+        run: npm ci
+        working-directory: ${{env.WORKING_DIRECTORY}}
+      - name: Build frontend
+        env:
+          SENTRY_ENABLED: true
+          SENTRY_ENVIRONMENT: production
+          SENTRY_URL: https://sentry.io/
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG}}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT}}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN}}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN}}
+          NEXT_PUBLIC_SITE_URL: https://templates.snipsnap.dev/
+          NEXT_PUBLIC_GRAPHQL_URL: https://hasura-t.snipsnap.dev/v1/graphql
+        run: npm run build
+        working-directory: ${{env.WORKING_DIRECTORY}}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -57,7 +78,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: update-database
+    needs: build
     env:
       KUBERNETES_URL: ${{ secrets.KUBERNETES_URL }}
       KUBERNETES_TOKEN: ${{ secrets.KUBERNETES_TOKEN }}

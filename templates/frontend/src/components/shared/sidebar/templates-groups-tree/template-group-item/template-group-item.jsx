@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import DeleteGroupModal from 'components/shared/delete-group-modal';
@@ -15,8 +16,11 @@ import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
 
-const TemplateGroupItem = ({ name, groupId, templates }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const TemplateGroupItem = ({ name, groupId, templates, disableSharing = false }) => {
+  const router = useRouter();
+  const { groupId: urlGroupId } = router.query;
+
+  const [isExpanded, setIsExpanded] = useState(urlGroupId === groupId);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
@@ -28,10 +32,14 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
       tagName: 'Link',
       href: `/create-template?groupId=${groupId}`,
     },
-    {
-      text: 'Share',
-      onClick: () => setIsShareModalOpen(true),
-    },
+    ...(disableSharing
+      ? []
+      : [
+          {
+            text: 'Share',
+            onClick: () => setIsShareModalOpen(true),
+          },
+        ]),
     {
       text: 'Rename',
       onClick: () => setIsRenameModalOpen(true),
@@ -46,6 +54,8 @@ const TemplateGroupItem = ({ name, groupId, templates }) => {
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  console.log('ITEMS', menuItems);
 
   return (
     <div className={cx('container', { expanded: isExpanded })}>

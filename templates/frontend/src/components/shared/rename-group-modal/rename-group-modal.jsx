@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
@@ -18,7 +18,7 @@ const schema = yup.object().shape({
   newName: yup
     .string()
     .required('Name is required')
-    .matches(/^[a-zA-Z]+(-[a-zA-Z]+)*$/, {
+    .matches(/^[a-zA-Z ]+(-[a-zA-Z ]+)*$/, {
       message: "Name should contain only A-Za-z letters, space or '-'",
     }),
 });
@@ -38,7 +38,7 @@ const query = gql`
 const RenameGroupModal = (props) => {
   const { id, name, isOpen, onClose } = props;
 
-  const { register, handleSubmit, clearErrors, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     defaultValues: { newName: name },
     resolver: yupResolver(schema),
   });
@@ -60,6 +60,16 @@ const RenameGroupModal = (props) => {
     onClose();
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      register(inputRef.current);
+      inputRef.current.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (!isOpen) {
     return null;
   }
@@ -71,8 +81,8 @@ const RenameGroupModal = (props) => {
           <Input
             label="New group name"
             name="newName"
-            register={register}
-            error={errors.name?.message}
+            error={errors.newName?.message}
+            ref={inputRef}
           />
           <div className={cx('actions')}>
             <Button className={cx('rename-group-button')} type="submit" isLoading={loading}>

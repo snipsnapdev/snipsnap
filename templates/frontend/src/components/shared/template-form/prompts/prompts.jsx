@@ -13,7 +13,7 @@ import styles from './prompts.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
+const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) => (
   <li className={cx('item')} key={item.id}>
     <Input
       className={cx('item-input')}
@@ -21,7 +21,8 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
       name={`prompts[${index}].message`}
       defaultValue={item.message}
       register={ref}
-      errors={errors?.prompts?.[index]?.message}
+      error={errors?.prompts?.[index]?.message?.message}
+      onBlur={() => trigger('prompts')}
     />
     <Input
       className={cx('item-input')}
@@ -29,7 +30,8 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
       name={`prompts[${index}].variableName`}
       defaultValue={item.variableName}
       register={ref}
-      errors={errors?.prompts?.[index]?.variableName}
+      error={errors?.prompts?.[index]?.variableName?.message}
+      onBlur={() => trigger('prompts')}
     />
 
     <span
@@ -42,7 +44,7 @@ const Prompt = React.forwardRef(({ item, index, errors, remove }, ref) => (
     </span>
   </li>
 ));
-const Prompts = ({ tooltip, control, errors, register }) => {
+const Prompts = ({ tooltip, control, trigger, errors, register }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
@@ -70,6 +72,7 @@ const Prompts = ({ tooltip, control, errors, register }) => {
               index={index}
               remove={remove}
               errors={errors}
+              trigger={trigger}
             />
           ))}
         </ul>
