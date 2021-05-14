@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,6 +9,7 @@ import * as yup from 'yup';
 import { gql, useGqlClient } from 'api/graphql';
 import AsyncButton from 'components/shared/async-button';
 import Avatar from 'components/shared/avatar';
+import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
@@ -287,7 +287,12 @@ const ShareModal = (props) => {
               className={cx('switch')}
               onChange={handlePublicSwitch}
             />
-            <Tooltip position="bottom">{availabilityTooltip}</Tooltip>
+            <Tooltip>
+              <p>{availabilityTooltip}</p>
+              <Button tag="a" target="_blank" href={documentationURL} themeType="link">
+                Learn more
+              </Button>
+            </Tooltip>
           </div>
         )}
         {Boolean(usersSharedTo.length) && (
@@ -321,7 +326,8 @@ ShareModal.propTypes = {
 ShareModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
-  availabilityTooltip: `<p>Publicly available templates are visible in the marketplace, so others could use it as it is or clone it.</p>`,
+  availabilityTooltip: `Publicly available templates are visible in the marketplace, so others could use it as it is or clone it.`,
+  documentationURL: 'https://github.com/snipsnapdev',
 };
 
 export default ShareModal;

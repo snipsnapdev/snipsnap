@@ -15,11 +15,9 @@ const UseCases = ({ cases }) => (
     <ul className={cx('links')}>
       {cases.map(({ title, url }, index) => (
         <li key={index}>
-          <Link href={url}>
-            <Button tag="a" themeType="link" size="md">
-              With {title}
-            </Button>
-          </Link>
+          <Button href={url} target="_blank" tag="a" themeType="link" size="md">
+            With {title}
+          </Button>
         </li>
       ))}
     </ul>

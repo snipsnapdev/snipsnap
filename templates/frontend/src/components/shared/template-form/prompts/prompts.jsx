@@ -45,7 +45,7 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) 
     </span>
   </li>
 ));
-const Prompts = ({ tooltip, control, trigger, errors, register }) => {
+const Prompts = ({ control, trigger, errors, register }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
@@ -59,7 +59,15 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
     <div className={cx('wrapper')}>
       <div className={cx('head')}>
         <h2 className={cx('title')}>Prompts</h2>
-        <Tooltip position="bottom">{tooltip}</Tooltip>
+        <Tooltip>
+          <p>
+            Prompts represent list of questions that will be asked during template execution from
+            users as a popup.
+          </p>
+          <p>
+            Answers you can use as variables inside templates or filenames by using % myVariable %
+          </p>
+        </Tooltip>
       </div>
       <div className={cx('items-wrapper')}>
         <ul>
@@ -83,22 +91,6 @@ const Prompts = ({ tooltip, control, trigger, errors, register }) => {
       </Button>
     </div>
   );
-};
-
-Prompts.defaultProps = {
-  tooltip: `
-          <p>
-            Prompts represent list of questions that will be asked during template execution from
-            users as a popup.
-          </p>
-          <p>
-            Answers you can use as variables inside templates or filenames by using % myVariable %
-          </p>
-  `,
-};
-
-Prompts.propTypes = {
-  tooltip: PropTypes.string,
 };
 
 export default Prompts;
