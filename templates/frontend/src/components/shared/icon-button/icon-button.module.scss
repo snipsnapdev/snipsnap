@@ -1,0 +1,24 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  background-color: $color-accent-primary;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  transition: background-color $transition-base;
+
+  &:hover {
+    background-color: $color-accent-primary-hover;
+  }
+}
+
+.icon {
+  fill: $color-white;
+}

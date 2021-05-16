@@ -1,0 +1,108 @@
+.folder {
+  position: relative;
+
+  &-dragover {
+    background-color: $color-secondary-black;
+  }
+}
+
+.folder-line {
+  position: absolute;
+  top: 20px;
+  z-index: 2;
+  width: 1px;
+  height: calc(100% - 25px);
+  background-color: $color-dark-grey;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-secondary-black;
+    border-radius: 3px;
+
+    .options {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.folder-title {
+  @include reset-button;
+
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  color: $color-white;
+
+  & span {
+    margin-right: 5px;
+  }
+}
+
+.folder-name {
+  margin-left: 7px;
+  font-family: $font-family;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  line-height: $line-height-xs;
+  color: $color-white;
+}
+
+.arrow {
+  width: 10px;
+  height: 6px;
+  color: $color-grey;
+
+  &.open {
+    transform: rotateX(180deg);
+  }
+}
+
+.collapsible {
+  &-hidden {
+    display: none;
+  }
+}
+
+.options {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 12px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-left: auto;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-50%);
+
+  &:hover {
+    circle {
+      fill: $color-white;
+    }
+  }
+}
+
+.options-icon {
+  height: 15px;
+  fill: $color-grey;
+}
+
+.options-menu {
+  min-width: 100px;
+}

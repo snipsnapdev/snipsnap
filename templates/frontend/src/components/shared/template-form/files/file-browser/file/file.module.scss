@@ -1,0 +1,66 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-family: $font-family;
+  font-size: $font-size-xs;
+  font-weight: 400;
+  line-height: $line-height-xs;
+  color: $color-white;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-secondary-black;
+    border-radius: 3px;
+
+    & .button-delete {
+      visibility: visible;
+    }
+  }
+
+  &-selected {
+    font-weight: 500;
+  }
+}
+
+.file-icon {
+  position: absolute;
+  top: 7px;
+  left: 2px;
+
+  & svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.button-delete {
+  @include reset-button;
+
+  display: flex;
+  align-items: center;
+  width: 18px;
+  height: 8px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 5px;
+  visibility: hidden;
+
+  svg {
+    path {
+      stroke: $color-grey;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-white;
+      }
+    }
+  }
+}

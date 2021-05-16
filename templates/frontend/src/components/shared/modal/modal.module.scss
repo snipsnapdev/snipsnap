@@ -1,0 +1,74 @@
+.wrapper {
+  overflow: auto;
+  inset: 0 0 0 0;
+
+  &.blurred {
+    backdrop-filter: blur(10px);
+    background: rgba(28, 29, 34, 0.9);
+
+    .body {
+      padding: 30px;
+    }
+
+    .content {
+      background: $color-secondary-black;
+    }
+  }
+
+  &.transparent {
+    background: rgba(23, 24, 28, 0.95);
+  }
+}
+
+.open {
+  position: fixed;
+  z-index: 10;
+}
+
+.content {
+  position: relative;
+  z-index: 11;
+  width: 600px;
+  border-radius: 5px;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.title {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  font-size: $font-size-lg;
+  font-weight: 300;
+  line-height: $line-height-lg;
+  text-align: center;
+  transform: translateY(-100%);
+}
+
+.close {
+  position: absolute;
+  top: -10px;
+  right: -32px;
+  padding: 10px;
+  cursor: pointer;
+
+  svg {
+    path {
+      stroke: $color-grey;
+    }
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-white;
+      }
+    }
+  }
+}

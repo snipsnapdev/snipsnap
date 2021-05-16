@@ -1,0 +1,44 @@
+@import './fonts.scss';
+@import './reset.css';
+@import './mixins.scss';
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: $font-size-xs;
+  font-weight: 400;
+  line-height: $line-height-xs;
+  color: $color-white;
+  background-color: $color-secondary-black;
+}
+
+h1 {
+  font-size: $font-size-lg;
+  font-weight: 500;
+  line-height: $line-height-lg;
+}
+
+h2 {
+  font-size: $font-size-md;
+  font-weight: 500;
+  line-height: $line-height-md;
+}
+
+h1,
+h2 {
+  &.with-tooltip {
+    display: flex;
+    justify-content: space-between;
+  }
+}

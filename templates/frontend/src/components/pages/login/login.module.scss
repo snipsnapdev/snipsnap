@@ -1,0 +1,127 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 60px;
+  align-items: center;
+  max-width: 1440px;
+  min-height: 100vh;
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media screen and (max-width: 1279px) {
+    column-gap: 30px;
+  }
+
+  @include lg-down {
+    grid-template-columns: 1fr;
+    row-gap: 60px;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+.description {
+  max-width: 590px;
+  margin-right: auto;
+  margin-bottom: 30px;
+  margin-left: auto;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.button {
+  margin-bottom: 60px;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.features {
+  display: flex;
+  margin-bottom: 60px;
+
+  @include sm-down {
+    display: block;
+  }
+}
+
+.features-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-right: 30px;
+  text-align: left;
+  counter-increment: item;
+  background-color: $color-secondary-black;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+
+  @include sm-down {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    content: counter(item);
+    border: 1px solid #fde155;
+    border-radius: 50%;
+  }
+
+  &:last-child {
+    margin-right: 0;
+
+    @include sm-down {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+.links-wrapper {
+  display: flex;
+  justify-content: center;
+
+  li {
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

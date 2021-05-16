@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 535px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  border: 1px solid $color-middle-grey;
+  border-radius: 6px;
+
+  @include lg-down {
+    max-width: 100%;
+  }
+}
+
+.inner {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+
+  & iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

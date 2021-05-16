@@ -1,0 +1,49 @@
+$color-primary-black: #17181c;
+$color-secondary-black: #242528;
+$color-dark-grey: #303236;
+$color-middle-grey: #494a50;
+$color-grey: #94969e;
+$color-light-grey: #d7d7db;
+$color-white: #fff;
+
+$color-accent-primary: #35f;
+$color-accent-primary-hover: #002bff;
+$color-accent-secondary: #ffe666;
+
+$color-link: #3bf;
+$color-link-hover: #35f;
+
+$color-green: #3f8;
+
+$color-red: #f66;
+$color-red-hover: darken($color-red, 5%);
+
+$color-accent-tertiary: #6cf;
+
+$font-family: 'Inter', -apple-system, helvetica neue, sans-serif;
+
+$line-height-even: 1;
+
+$font-size-xs: 12px;
+$line-height-xs: 15.6px;
+
+$font-size-sm: 13px;
+$line-height-sm: 16.9px;
+
+$font-size-md: 14px;
+$line-height-md: 18.2px;
+
+$font-size-lg: 20px;
+$line-height-lg: 26px;
+
+$letter-spacing-sm: 0.02em;
+
+$font-weight-xs: 300;
+$font-weight-sm: 400;
+$font-weight-md: 500;
+
+$transition-base: 0.2s;
+
+// Breakpoints
+$breakpoint-lg: 1024px - 0.02px;
+$breakpoint-sm: 576px - 0.02px;
