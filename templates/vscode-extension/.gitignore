@@ -3,3 +3,4 @@ node_modules
 *.vsix
 .DS_Store
 .vscode/snipsnap.code-snippets
+dist
