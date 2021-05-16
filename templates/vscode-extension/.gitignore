@@ -1,0 +1,5 @@
+node_modules
+.vscode-test/
+*.vsix
+.DS_Store
+.vscode/snipsnap.code-snippets
