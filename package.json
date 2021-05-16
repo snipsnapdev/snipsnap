@@ -3,7 +3,7 @@
   "displayName": "Snipsnap Templates",
   "publisher": "pixel-point",
   "description": "Generate custom templates on a whim",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "engines": {
     "vscode": "^1.52.0"
   },
@@ -42,6 +42,19 @@
           "group": "1_modification"
         }
       ]
+    },
+    "configuration": {
+      "title": "Snipsnap Templates",
+      "properties": {
+        "snipsnap-templates.token": {
+          "type": "string",
+          "default": ""
+        },
+        "snipsnap-templates.defaultServer": {
+          "type": "string",
+          "default": "https://hasura-t.snipsnap.dev"
+        }
+      }
     }
   },
   "scripts": {
@@ -61,6 +74,8 @@
     "vscode-test": "^1.4.1"
   },
   "dependencies": {
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "handlebars": "^4.7.7",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
