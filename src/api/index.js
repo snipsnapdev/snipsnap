@@ -1,7 +1,12 @@
+const vscode = require("vscode");
 const { gql, GraphQLClient } = require("graphql-request");
 
+const defaultServer = vscode.workspace
+  .getConfiguration("snipsnap-templates")
+  .get("defaultServer");
+
 const gqlClient = (token) => {
-  return new GraphQLClient("http://localhost:3010/v1/graphql", {
+  return new GraphQLClient(`${defaultServer}/v1/graphql`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

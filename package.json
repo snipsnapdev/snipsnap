@@ -49,6 +49,10 @@
         "snipsnap-templates.token": {
           "type": "string",
           "default": ""
+        },
+        "snipsnap-templates.defaultServer": {
+          "type": "string",
+          "default": "https://hasura-t.snipsnap.dev"
         }
       }
     }
@@ -70,6 +74,7 @@
     "vscode-test": "^1.4.1"
   },
   "dependencies": {
+    "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "handlebars": "^4.7.7",
     "lodash.camelcase": "^4.3.0",
