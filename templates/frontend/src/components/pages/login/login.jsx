@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -10,9 +11,7 @@ import VideoPlayer from 'components/shared/video-player';
 
 import GithubLogo from './images/github.inline.svg';
 import LogoText from './images/logo-text.inline.svg';
-import Logo from './images/logo.inline.svg';
 import styles from './login.module.scss';
-
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +23,9 @@ export default function Login() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('left')}>
-        <Logo className={cx('logo')} />
+        <div className={cx('logo-wrapper')}>
+          <Image src="/logo-white.png" alt="Snipsnap Logo" width={80} height={80} quality={90} />
+        </div>
         <LogoText className={cx('title')} />
         <p className={cx('description')}>
           Manage, share and use code templates with cloud UI and VS Code Extension
