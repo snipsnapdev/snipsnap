@@ -258,6 +258,21 @@
               _eq: X-Hasura-User-Id
         - is_public:
             _eq: true
+  - role: user_api
+    permission:
+      columns:
+      - files
+      - name
+      - prompts
+      filter:
+        _or:
+        - shared_to:
+            shared_to_user_id:
+              _eq: X-Hasura-User-Id
+        - is_public:
+            _eq: true
+        - owner_id:
+            _eq: X-Hasura-User-Id
   update_permissions:
   - role: user
     permission:
@@ -321,6 +336,15 @@
       filter:
         available_for_user_id:
           _eq: X-Hasura-User-Id
+  - role: user_api
+    permission:
+      columns:
+      - favourite
+      - id
+      filter:
+        available_for_user_id:
+          _eq: X-Hasura-User-Id
+      limit: 100
   update_permissions:
   - role: user
     permission:

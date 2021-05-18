@@ -30,12 +30,7 @@ const promptsSchema = {
 };
 
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/^[a-zA-Z ]+(-[a-zA-Z ]+)*$/, {
-      message: "Name should contain only A-Za-z letters, space or '-'",
-    }),
+  name: yup.string().required('Name is required'),
   prompts: yup
     .array()
     .of(yup.object().shape(promptsSchema))

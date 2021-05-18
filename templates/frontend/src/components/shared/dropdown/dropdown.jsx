@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import Menu from 'components/shared/dropdown/menu';
 import useOutsideClick from 'hooks/use-outside-click';
-import IconDown from 'icons/arrow-down.inline.svg';
+import IconDown from 'icons/arrow-down-larger.inline.svg';
 
 import styles from './dropdown.module.scss';
 
