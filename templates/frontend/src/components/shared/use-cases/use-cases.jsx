@@ -16,7 +16,7 @@ const UseCases = ({ cases }) => (
       {cases.map(({ title, url }, index) => (
         <li key={index}>
           <Button href={url} target="_blank" tag="a" themeType="link" size="md">
-            With {title}
+            {title}
           </Button>
         </li>
       ))}
