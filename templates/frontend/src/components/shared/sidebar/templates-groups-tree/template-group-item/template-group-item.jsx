@@ -21,7 +21,7 @@ const TemplateGroupItem = ({
   groupId,
   templates,
   isOpen = false,
-  disableSharing = false,
+  shared = false,
   onOpen,
   onClose,
 }) => {
@@ -35,7 +35,7 @@ const TemplateGroupItem = ({
       tagName: 'Link',
       href: `/create-template?groupId=${groupId}`,
     },
-    ...(disableSharing
+    ...(shared
       ? []
       : [
           {
@@ -47,11 +47,15 @@ const TemplateGroupItem = ({
       text: 'Rename',
       onClick: () => setIsRenameModalOpen(true),
     },
-    {
-      text: 'Delete',
-      onClick: () => setIsDeleteModalOpen(true),
-      theme: 'danger',
-    },
+    ...(shared
+      ? []
+      : [
+          {
+            text: 'Delete',
+            onClick: () => setIsDeleteModalOpen(true),
+            theme: 'danger',
+          },
+        ]),
   ];
 
   const handleExpand = () => {
@@ -135,11 +139,11 @@ TemplateGroupItem.propTypes = {
       name: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
       favourite: PropTypes.bool,
-      disableSharing: PropTypes.bool,
+      shared: PropTypes.bool,
     })
   ),
   isOpen: PropTypes.bool,
-  disableSharing: PropTypes.bool,
+  shared: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
 };
@@ -147,7 +151,7 @@ TemplateGroupItem.propTypes = {
 TemplateGroupItem.defaultProps = {
   templates: [],
   isOpen: false,
-  disableSharing: false,
+  shared: false,
   onOpen: undefined,
   onClose: undefined,
 };

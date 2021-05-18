@@ -52,7 +52,7 @@ const TemplatesGroupsTree = () => {
               groupId={group.id}
               templates={group.templates}
               isOpen={openGroups.includes(group.id)}
-              disableSharing
+              shared
               onOpen={openGroup}
               onClose={closeGroup}
             />
@@ -63,7 +63,7 @@ const TemplatesGroupsTree = () => {
               name={template.name}
               templateId={template.id}
               favourite={template.favourite || false}
-              disableSharing
+              shared
             />
           ))}
         </div>

@@ -30,7 +30,7 @@ const query = gql`
   }
 `;
 
-const TemplateItem = ({ name, templateId, favourite = false, disableSharing = false }) => {
+const TemplateItem = ({ name, templateId, favourite = false, shared = false }) => {
   const [session] = useSession();
   const { asPath } = useRouter();
 
@@ -53,7 +53,7 @@ const TemplateItem = ({ name, templateId, favourite = false, disableSharing = fa
   };
 
   const menuItems = [
-    ...(disableSharing
+    ...(shared
       ? []
       : [
           {
@@ -65,11 +65,15 @@ const TemplateItem = ({ name, templateId, favourite = false, disableSharing = fa
       text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
       onClick: handleFavouriteClick,
     },
-    {
-      text: 'Delete',
-      onClick: () => setIsDeleteModalOpen(true),
-      theme: 'danger',
-    },
+    ...(shared
+      ? []
+      : [
+          {
+            text: 'Delete',
+            onClick: () => setIsDeleteModalOpen(true),
+            theme: 'danger',
+          },
+        ]),
   ];
 
   const hrefPath = `/template/${templateId}`;
@@ -118,12 +122,12 @@ TemplateItem.propTypes = {
   name: PropTypes.string.isRequired,
   templateId: PropTypes.string.isRequired,
   favourite: PropTypes.bool,
-  disableSharing: PropTypes.bool,
+  shared: PropTypes.bool,
 };
 
 TemplateItem.defaultProps = {
   favourite: false,
-  disableSharing: false,
+  shared: false,
 };
 
 export default TemplateItem;
