@@ -34,6 +34,37 @@ const gqlClient = new GraphQLClient(process.env.HASURA_GRAPHQL_URL, {
   },
 });
 
+const getUsersTemplateGroupSharedTo = gql`
+  query MyQuery($groupId: uuid!) {
+    shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
+    }
+  }
+`;
+
+const shareTemplateQuery = gql`
+  mutation shareTemplate(
+    $templateId: String!
+    $shareToUserEmail: String!
+    $shareByUserId: String
+  ) {
+    share_template(
+      object: {
+        template_id: $templateId
+        share_to_user_email: $shareToUserEmail
+        share_by_user_id: $shareByUserId
+      }
+    ) {
+      id
+    }
+  }
+`;
+
 const validatePrompts = (prompts) => {
   if (!Array.isArray(prompts)) return false;
 
@@ -142,6 +173,7 @@ const typeDefs = gql`
   input ShareTemplateInput {
     template_id: String!
     share_to_user_email: String!
+    share_by_user_id: String
   }
 
   type SharedTemplate {
@@ -212,8 +244,6 @@ const resolvers = {
         user_id: userId,
       });
 
-      console.log("TOKEN UPDATE", res?.update_api_keys?.returning);
-
       return res?.update_api_keys?.returning?.[0];
     },
     insert_template: async (_, args, { userId }) => {
@@ -267,7 +297,30 @@ const resolvers = {
         owner_id: userId,
       });
 
-      console.log("res", res);
+      // if group was shared - share this template with all that users
+      if (template_group_id && res?.insert_templates_one?.id) {
+        // find users group was shared to
+        const users = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+          groupId: template_group_id,
+        });
+        const userEmails =
+          users?.shared_template_groups.map(
+            (item) => item.shared_to_user.email
+          ) || [];
+
+        // share template
+        if (userEmails.length > 0) {
+          await Promise.all(
+            userEmails.map((email) =>
+              gqlClient.request(shareTemplateQuery, {
+                templateId: res.insert_templates_one.id,
+                shareToUserEmail: email,
+                shareByUserId: userId,
+              })
+            )
+          );
+        }
+      }
 
       return res?.insert_templates_one;
     },
@@ -317,14 +370,22 @@ const resolvers = {
       });
     },
     share_template: async (_, args, { userId }) => {
-      if (!userId) return;
+      const { template_id, share_by_user_id } = args.object;
 
-      const shareToUserId = await getUserByEmail(
-        args.object.share_to_user_email
-      );
+      if (!userId && !share_by_user_id) return;
+
+      let shareToUserId = null;
+
+      try {
+        shareToUserId = await getUserByEmail(args.object.share_to_user_email);
+      } catch (err) {
+        throw new Error(err.message);
+      }
 
       // Can't share with yourself
-      if (shareToUserId === userId) return;
+      if (shareToUserId === userId) {
+        throw new Error("Can't share with yourself");
+      }
 
       const query = gql`
         query ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
@@ -347,11 +408,9 @@ const resolvers = {
         }
       `;
 
-      const { template_id } = args.object;
-
       const queryData = await gqlClient.request(query, {
         template_id: template_id,
-        user_by: userId,
+        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
       });
 
@@ -379,14 +438,16 @@ const resolvers = {
 
       const mutationData = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_by: userId,
+        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
       });
 
       return mutationData?.insert_shared_templates_one || null;
     },
     unshare_template: async (_, args, { userId }) => {
-      if (!userId) return;
+      const { share_by_user_id } = args.object;
+
+      if (!userId && !share_by_user_id) return;
 
       const shareToUserId = await getUserByEmail(
         args.object.share_to_user_email
@@ -420,7 +481,7 @@ const resolvers = {
 
       const data = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_by: userId,
+        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
       });
 
@@ -533,6 +594,57 @@ const resolvers = {
         user_by: userId,
         user_to: shareToUserId,
       });
+
+      // unshare all templates in that group
+      const getTemplatesInGroup = gql`
+        query ($template_group_id: uuid!) {
+          template_groups(where: { id: { _eq: $template_group_id } }) {
+            templates {
+              id
+            }
+          }
+        }
+      `;
+
+      // find templates included in the unshared group
+      const templates = await gqlClient.request(getTemplatesInGroup, {
+        template_group_id,
+      });
+
+      const templateIds = templates?.template_groups?.[0].templates.map(
+        (t) => t.id
+      );
+
+      const unshareTemplateQuery = gql`
+        mutation shareTemplate(
+          $templateId: String!
+          $shareToUserEmail: String!
+          $shareByUserId: String
+        ) {
+          unshare_template(
+            object: {
+              template_id: $templateId
+              share_to_user_email: $shareToUserEmail
+              share_by_user_id: $shareByUserId
+            }
+          ) {
+            shared_to_user_id
+          }
+        }
+      `;
+
+      // unshare all templates with the user removed from group
+      if (templateIds.length > 0) {
+        await Promise.all(
+          templateIds.map((templateId) =>
+            gqlClient.request(unshareTemplateQuery, {
+              templateId,
+              shareToUserEmail: args.object.share_to_user_email,
+              shareByUserId: userId,
+            })
+          )
+        );
+      }
 
       return data?.delete_shared_template_groups?.returning?.[0] || null;
     },
