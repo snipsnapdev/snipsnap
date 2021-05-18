@@ -13,7 +13,6 @@ import useSession from 'hooks/use-session';
 import DotsIcon from 'icons/dots.inline.svg';
 import StarIcon from 'icons/star.inline.svg';
 
-
 import styles from './template-item.module.scss';
 
 const cx = classNames.bind(styles);
@@ -77,39 +76,41 @@ const TemplateItem = ({ name, templateId, favourite = false, disableSharing = fa
   const isActive = asPath === hrefPath;
 
   return (
-    <Link href={hrefPath}>
-      <div className={cx('wrapper', { active: isActive })}>
-        <div className={cx('inner')}>
-          <span className={cx('name')}>{name}</span>
-          <Dropdown
-            menuItems={menuItems}
-            className={cx('options')}
-            menuClassName={cx('menu')}
-            position="top-right"
-            stopPropagation
-          >
-            <DotsIcon className={cx('options-icon')} />
-          </Dropdown>
-          {favourite && <StarIcon className={cx('star')} />}
-          {isDeleteModalOpen && (
-            <DeleteTemplateModal
-              id={templateId}
-              name={name}
-              isOpen={isDeleteModalOpen}
-              onClose={() => setIsDeleteModalOpen(false)}
-            />
-          )}
-          {isShareModalOpen && (
-            <ShareModal
-              id={templateId}
-              type="template"
-              isOpen={isShareModalOpen}
-              onClose={() => setIsShareModalOpen(false)}
-            />
-          )}
+    <>
+      <Link href={hrefPath}>
+        <div className={cx('wrapper', { active: isActive })}>
+          <div className={cx('inner')}>
+            <span className={cx('name')}>{name}</span>
+            <Dropdown
+              menuItems={menuItems}
+              className={cx('options')}
+              menuClassName={cx('menu')}
+              position="top-right"
+              stopPropagation
+            >
+              <DotsIcon className={cx('options-icon')} />
+            </Dropdown>
+            {favourite && <StarIcon className={cx('star')} />}
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+      {isDeleteModalOpen && (
+        <DeleteTemplateModal
+          id={templateId}
+          name={name}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        />
+      )}
+      {isShareModalOpen && (
+        <ShareModal
+          id={templateId}
+          type="template"
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+        />
+      )}
+    </>
   );
 };
 
