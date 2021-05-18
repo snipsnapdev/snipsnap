@@ -160,7 +160,13 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     >
       <div className={cx('wrapper')}>
         <h1 className={cx('title')}>
-          {isCreatingNewTemplate ? 'Create template' : <>Edit template "{initialValues.name}"</>}
+          {isCreatingNewTemplate ? (
+            'Create template'
+          ) : (
+            <>
+              Edit template <span>"{initialValues.name}"</span>
+            </>
+          )}
         </h1>
         <div className={cx('inner')}>
           <div className={cx('left-column')}>

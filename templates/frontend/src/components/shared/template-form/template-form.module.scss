@@ -15,6 +15,10 @@
   font-weight: $font-weight-xs;
   line-height: $line-height-even;
   color: $color-white;
+
+  & span {
+    color: $color-light-grey;
+  }
 }
 
 .name {
