@@ -22,6 +22,9 @@
 }
 
 .files-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   margin-bottom: 30px;
 }
 
@@ -30,15 +33,18 @@
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  padding-top: 25px;
+  padding-top: 20px;
   padding-right: 30px;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   padding-left: 30px;
 }
 
 .inner {
   display: flex;
+  flex-grow: 1;
 }
 
 .right-column {
@@ -46,10 +52,10 @@
 }
 
 .group-label {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: $font-size-xs;
   font-weight: 500;
-  line-height: $line-height-xs;
+  line-height: 1;
   color: $color-grey;
 }
 
@@ -74,7 +80,6 @@
 .buttons-wrapper {
   display: flex;
   align-items: center;
-  margin-top: auto;
 
   > * {
     margin-right: 30px;
