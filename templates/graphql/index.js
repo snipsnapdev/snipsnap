@@ -34,6 +34,37 @@ const gqlClient = new GraphQLClient(process.env.HASURA_GRAPHQL_URL, {
   },
 });
 
+const getUsersTemplateGroupSharedTo = gql`
+  query MyQuery($groupId: uuid!) {
+    shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
+      shared_to_user {
+        id
+        name
+        image
+        email
+      }
+    }
+  }
+`;
+
+const shareTemplateQuery = gql`
+  mutation shareTemplate(
+    $templateId: String!
+    $shareToUserEmail: String!
+    $shareByUserId: String
+  ) {
+    share_template(
+      object: {
+        template_id: $templateId
+        share_to_user_email: $shareToUserEmail
+        share_by_user_id: $shareByUserId
+      }
+    ) {
+      id
+    }
+  }
+`;
+
 const validatePrompts = (prompts) => {
   if (!Array.isArray(prompts)) return false;
 
@@ -142,6 +173,7 @@ const typeDefs = gql`
   input ShareTemplateInput {
     template_id: String!
     share_to_user_email: String!
+    share_by_user_id: String
   }
 
   type SharedTemplate {
@@ -269,6 +301,33 @@ const resolvers = {
 
       console.log("res", res);
 
+      // if group was shared - share this template with all that users
+      if (template_group_id && res?.insert_templates_one?.id) {
+        console.log("group was shared");
+        // find users group was shared to
+        const users = await gqlClient.request(getUsersTemplateGroupSharedTo, {
+          groupId: template_group_id,
+        });
+        const userEmails =
+          users?.shared_template_groups.map(
+            (item) => item.shared_to_user.email
+          ) || [];
+
+        console.log("shared to emails", userEmails);
+        // share template
+        if (userEmails.length > 0) {
+          await Promise.all(
+            userEmails.map((email) =>
+              gqlClient.request(shareTemplateQuery, {
+                templateId: res.insert_templates_one.id,
+                shareToUserEmail: email,
+                shareByUserId: userId,
+              })
+            )
+          );
+        }
+      }
+
       return res?.insert_templates_one;
     },
     update_template: async (_, args, { userId }) => {
@@ -317,7 +376,13 @@ const resolvers = {
       });
     },
     share_template: async (_, args, { userId }) => {
-      if (!userId) return;
+      const { template_id, share_by_user_id } = args.object;
+
+      if (!userId && !share_by_user_id) return;
+
+      console.log("share userId", userId);
+      console.log("share arg userId", share_by_user_id);
+      console.log("will share to", userId || share_by_user_id);
 
       let shareToUserId = null;
 
@@ -353,11 +418,11 @@ const resolvers = {
         }
       `;
 
-      const { template_id } = args.object;
+      console.log("sharing", template_id, "TO", shareToUserId);
 
       const queryData = await gqlClient.request(query, {
         template_id: template_id,
-        user_by: userId,
+        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
       });
 
@@ -385,7 +450,7 @@ const resolvers = {
 
       const mutationData = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_by: userId,
+        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
       });
 
