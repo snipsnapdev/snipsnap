@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" type="image/png" href="/favicon.png" />
+          <meta property="og:image" content="/social-media.jpg" />
         </Head>
         <body>
           <Main />
