@@ -60,9 +60,10 @@
   width: 10px;
   height: 6px;
   color: $color-grey;
+  transform: rotateX(180deg);
 
   &.open {
-    transform: rotateX(180deg);
+    transform: rotateX(0);
   }
 }
 
