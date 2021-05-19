@@ -12,6 +12,7 @@ import DotsIcon from 'icons/dots.inline.svg';
 
 import TemplateItem from '../template-item';
 
+import FilesSvg from './images/files.inline.svg';
 import styles from './template-group-item.module.scss';
 
 const cx = classNames.bind(styles);
@@ -91,12 +92,15 @@ const TemplateGroupItem = ({
             ))}
           </>
         ) : (
-          <p className={cx('no-templates-text')}>
-            You don’t have any templates in this group.{' '}
-            <Link href={`/create-template?groupId=${groupId}`}>
-              <a>Create first.</a>
-            </Link>
-          </p>
+          <div className={cx('no-templates')}>
+            <FilesSvg />
+            <p>
+              You don’t have any templates in this group.{' '}
+              <Link href={`/create-template?groupId=${groupId}`}>
+                <a>Create first.</a>
+              </Link>
+            </p>
+          </div>
         )}
       </div>
       {isDeleteModalOpen && (

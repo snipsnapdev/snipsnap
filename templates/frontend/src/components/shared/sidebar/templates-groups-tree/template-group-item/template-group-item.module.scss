@@ -114,13 +114,18 @@
   }
 }
 
-.no-templates-text {
-  padding-top: 80px;
+.no-templates {
+  padding-top: 3px;
   padding-bottom: 5px;
   padding-left: 20px;
   font-size: $font-size-sm;
   line-height: $line-height-sm;
   color: $color-grey;
+
+  svg {
+    display: block;
+    margin-bottom: 8px;
+  }
 
   @include with-link;
 }
