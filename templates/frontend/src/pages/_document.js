@@ -11,7 +11,10 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" type="image/png" href="/favicon.png" />
-          <meta property="og:image" content="/social-media.jpg" />
+          <meta
+            property="og:image"
+            content={`${process.env.NEXT_PUBLIC_SITE_URL}/social-media.jpg`}
+          />
         </Head>
         <body>
           <Main />
