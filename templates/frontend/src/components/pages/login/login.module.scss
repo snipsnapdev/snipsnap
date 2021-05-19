@@ -57,6 +57,11 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.4;
+
+  & span {
+    font-size: 21px;
+    line-height: 1;
+  }
 }
 
 .features {
