@@ -49,10 +49,6 @@
   }
 }
 
-.item-input {
-  margin-bottom: 10px;
-}
-
 .item-list-item {
   position: relative;
   margin-bottom: 10px;
@@ -60,6 +56,15 @@
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.item-input {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 .item-footer {
@@ -97,6 +102,6 @@
   transition: color $transition-base;
 
   &:hover {
-    color: $color-accent-primary-hover;
+    color: $color-link-hover;
   }
 }
