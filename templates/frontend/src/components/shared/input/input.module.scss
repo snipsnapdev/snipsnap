@@ -29,6 +29,10 @@
   border-radius: 2px;
   transition: border-color $transition-base;
 
+  &:hover {
+    border-color: $color-grey;
+  }
+
   &:focus {
     border-color: $color-link;
     box-shadow: 0 0 5px rgba(51, 187, 255, 0.75);

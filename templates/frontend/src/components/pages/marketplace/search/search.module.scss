@@ -32,6 +32,10 @@
   border-bottom: 1px solid $color-middle-grey;
   transition: border-bottom $transition-base;
 
+  &:hover {
+    border-bottom-color: $color-grey;
+  }
+
   &:focus,
   &:active {
     border-bottom-color: $color-link;

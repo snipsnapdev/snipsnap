@@ -75,6 +75,10 @@
   background: $color-dark-grey;
   border: 1px solid $color-middle-grey;
   border-radius: 2px;
+
+  &:hover {
+    border-color: $color-grey;
+  }
 }
 
 .group-select-menu {
