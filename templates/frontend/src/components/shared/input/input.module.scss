@@ -6,7 +6,7 @@
   display: block;
   margin-bottom: 8px;
   font-size: $font-size-xs;
-  line-height: $line-height-xs;
+  line-height: $line-height-even;
   color: $color-grey;
 }
 
@@ -29,8 +29,13 @@
   border-radius: 2px;
   transition: border-color $transition-base;
 
+  &:hover {
+    border-color: $color-grey;
+  }
+
   &:focus {
-    border-color: $color-accent-tertiary;
+    border-color: $color-link;
+    box-shadow: 0 0 5px rgba(51, 187, 255, 0.75);
   }
 
   &.invalid {

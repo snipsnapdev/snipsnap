@@ -12,6 +12,9 @@
 
     .content {
       background: $color-secondary-black;
+      border: 1px solid $color-dark-grey;
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(23, 24, 28, 0.75);
     }
   }
 
@@ -29,7 +32,6 @@
   position: relative;
   z-index: 11;
   width: 600px;
-  border-radius: 5px;
 }
 
 .content-wrapper {

@@ -1,6 +1,6 @@
 .wrapper {
+  flex-grow: 1;
   min-height: 300px;
-  max-height: 397px;
   padding-top: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -13,7 +13,8 @@
   line-height: $line-height-xs;
   color: $color-white;
   background-color: $color-primary-black;
-  border-radius: 3px;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
 
   &-dragover {
     background-color: $color-secondary-black;

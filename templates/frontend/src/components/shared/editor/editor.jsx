@@ -15,7 +15,7 @@ import 'ace-builds/src-noconflict/mode-yaml';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-plain_text';
-import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/theme-twilight';
 
 import Dropdown from 'components/shared/dropdown';
 import { useFiles } from 'contexts/files-provider';
@@ -103,7 +103,7 @@ const Editor = () => {
           readOnly={!openFile}
           value={openFile ? openFile.data.content : ''}
           mode={language.aceMode.toLowerCase()}
-          theme="monokai"
+          theme="twilight"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
           width="100%"

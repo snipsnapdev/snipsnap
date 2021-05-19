@@ -17,7 +17,7 @@
   padding: 0 !important;
   margin-left: 10px;
   background-color: $color-primary-black;
-  border-radius: 3px;
+  border-radius: 2px;
 
   span {
     display: flex;
@@ -45,7 +45,7 @@
   padding-bottom: 30px;
   margin-bottom: 15px;
   border: 1px solid $color-middle-grey;
-  border-radius: 5px;
+  border-radius: 2px;
 
   &-input {
     margin-bottom: 30px;
@@ -90,5 +90,6 @@
 
   &:hover:not([disabled]) {
     background-color: $color-dark-grey;
+    border-color: $color-grey;
   }
 }
