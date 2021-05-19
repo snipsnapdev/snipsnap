@@ -52,25 +52,9 @@
   margin-bottom: 10px;
 }
 
-.item-list {
-  padding-left: 12px;
-}
-
 .item-list-item {
   position: relative;
   margin-bottom: 10px;
-
-  &::before {
-    position: absolute;
-    top: 50%;
-    left: -12px;
-    width: 4px;
-    height: 4px;
-    content: '';
-    background-color: $color-white;
-    border-radius: 50%;
-    transform: translateY(-50%);
-  }
 
   &:last-child {
     margin-bottom: 0;
