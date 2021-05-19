@@ -41,11 +41,11 @@
       background: $color-primary-black;
     }
 
-    .ace-monokai .ace_gutter {
+    .ace-twilight .ace_gutter {
       background-color: $color-primary-black;
     }
 
-    .ace-monokai .ace_selection {
+    .ace-twilight .ace_selection {
       // adds padding for selection
       margin-left: -10px;
       background-color: #2f3038;
@@ -61,11 +61,11 @@
       border-bottom-left-radius: 3px;
     }
 
-    .ace-monokai .ace_marker-layer .ace_active-line {
+    .ace-twilight .ace_marker-layer .ace_active-line {
       background: $color-secondary-black;
     }
 
-    .ace-monokai .ace_gutter-active-line {
+    .ace-twilight .ace_gutter-active-line {
       background-color: $color-secondary-black;
     }
   }
