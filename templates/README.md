@@ -22,7 +22,7 @@
 - [How it works]()
 - [Features]()
 - [Use cases]()
-- [Contributing]
+- [Contributing]()
 
 
 
