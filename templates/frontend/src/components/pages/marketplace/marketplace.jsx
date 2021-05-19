@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Image from 'next/image';
 import { useState } from 'react';
 import useSWR from 'swr';
 
@@ -46,6 +47,15 @@ const Marketplace = () => {
       </div>
       <Search value={searchText} onChange={setSearchText} />
       <Items searchText={searchText} items={availableTemplates} />
+      <div className={cx('image-wrapper')}>
+        <Image
+          src="/images/marketplace-illustration.png"
+          alt="Support us on Github"
+          width={512}
+          height={170}
+          quality={90}
+        />
+      </div>
     </div>
   );
 };
