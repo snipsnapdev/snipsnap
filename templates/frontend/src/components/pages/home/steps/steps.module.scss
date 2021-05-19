@@ -36,6 +36,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    box-sizing: content-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,7 +44,7 @@
     height: 30px;
     font-size: 16px;
     content: counter(item);
-    border: 1px solid #fde155;
+    border: 1px solid $color-grey;
     border-radius: 50%;
   }
 }
