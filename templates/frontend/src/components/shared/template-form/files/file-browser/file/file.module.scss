@@ -7,7 +7,7 @@
   padding-bottom: 7px;
   font-family: $font-family;
   font-size: $font-size-xs;
-  font-weight: 400;
+  font-weight: $font-weight-sm;
   line-height: $line-height-xs;
   color: $color-white;
   cursor: pointer;
@@ -23,7 +23,7 @@
   }
 
   &-selected {
-    font-weight: 500;
+    font-weight: $font-weight-md;
   }
 }
 

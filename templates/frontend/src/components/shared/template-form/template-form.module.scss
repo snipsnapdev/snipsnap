@@ -48,8 +48,8 @@
 .group-label {
   margin-bottom: 8px;
   font-size: $font-size-xs;
-  font-weight: 500;
-  line-height: 1;
+  font-weight: $font-weight-md;
+  line-height: $line-height-even;
   color: $color-grey;
 }
 

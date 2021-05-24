@@ -27,7 +27,7 @@
 .item-name {
   margin-bottom: 20px;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: $font-weight-sm;
   line-height: 1.4;
 }
 
@@ -36,7 +36,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: $font-size-md;
-  line-height: 1;
+  line-height: $line-height-even;
 }
 
 .item-author {

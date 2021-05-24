@@ -5,8 +5,8 @@
   justify-content: center;
   padding: 0;
   font-family: $font-family;
-  font-weight: 500;
-  line-height: 1;
+  font-weight: $font-weight-md;
+  line-height: $line-height-even;
   text-decoration: none;
   cursor: pointer;
   background-color: transparent;

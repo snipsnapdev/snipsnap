@@ -43,7 +43,7 @@
   margin-bottom: 30px;
   margin-left: auto;
   font-size: 26px;
-  font-weight: 300;
+  font-weight: $font-weight-xs;
   line-height: 1.4;
   text-align: center;
 }
@@ -55,12 +55,12 @@
 .subtitle {
   margin-bottom: 20px;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: $font-weight-sm;
   line-height: 1.4;
 
   & span {
     font-size: 21px;
-    line-height: 1;
+    line-height: $line-height-even;
   }
 }
 

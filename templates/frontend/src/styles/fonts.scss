@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
+  font-weight: $font-weight-md;
   src:
     url('/fonts/inter-v3-latin-500.woff2') format('woff2'),
     url('/fonts/inter-v3-latin-500.woff') format('woff');
@@ -10,7 +10,7 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 400;
+  font-weight: $font-weight-sm;
   src:
     url('/fonts/inter-v3-latin-regular.woff2') format('woff2'),
     url('/fonts/inter-v3-latin-regular.woff') format('woff');
@@ -19,7 +19,7 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 300;
+  font-weight: $font-weight-xs;
   src:
     url('/fonts/inter-v3-latin-300.woff2') format('woff2'),
     url('/fonts/inter-v3-latin-300.woff') format('woff');

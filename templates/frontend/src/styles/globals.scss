@@ -17,7 +17,7 @@ body {
   margin: 0;
   font-family: $font-family;
   font-size: $font-size-xs;
-  font-weight: 400;
+  font-weight: $font-weight-sm;
   line-height: $line-height-xs;
   color: $color-white;
   background-color: $color-secondary-black;
@@ -25,13 +25,13 @@ body {
 
 h1 {
   font-size: $font-size-lg;
-  font-weight: 500;
+  font-weight: $font-size-md;
   line-height: $line-height-lg;
 }
 
 h2 {
   font-size: $font-size-md;
-  font-weight: 500;
+  font-weight: $font-size-md;
   line-height: $line-height-md;
 }
 
