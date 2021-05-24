@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const Input = forwardRef((props, ref) => {
   const { className: additionalClassName, register, label, type, error, ...otherProps } = props;
   return (
-    <label className={cx('wrapper', additionalClassName)}>
+    <div className={cx('wrapper', additionalClassName)}>
       {label && <div className={cx('label')}>{label}</div>}
       <div className={cx('input-wrapper')}>
         <input
@@ -20,7 +20,7 @@ const Input = forwardRef((props, ref) => {
         />
         {error && <div className={cx('error')}>{error}</div>}
       </div>
-    </label>
+    </div>
   );
 });
 

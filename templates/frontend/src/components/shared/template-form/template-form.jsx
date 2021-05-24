@@ -145,6 +145,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     })),
     {
       text: 'No group',
+      theme: 'grey',
       onClick: () => setGroup(null),
     },
   ];

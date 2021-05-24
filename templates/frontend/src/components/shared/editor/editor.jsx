@@ -100,8 +100,8 @@ const Editor = () => {
           <Image
             src="/images/templates-illustration.png"
             alt="Templates"
-            width={312}
-            height={360}
+            width={348}
+            height={400}
             quality={90}
           />
         </div>

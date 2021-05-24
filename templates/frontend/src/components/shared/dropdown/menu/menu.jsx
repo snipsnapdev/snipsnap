@@ -9,25 +9,18 @@ const Menu = ({ items, hasIcons, className }) => (
   <div className={cx('menu', className)}>
     {items &&
       items.map((item) => {
-        const {
-          text,
-          icon: Icon,
-          tagName: Tag = 'div',
-          onClick = undefined,
-          href = undefined,
-          theme = 'default',
-        } = item;
+        const { text, icon: Icon, tagName: Tag = 'div', onClick, href, theme } = item;
 
         if (Tag === 'Link') {
           return (
             <Link key={text} href={href}>
-              <a className={cx('item', theme === 'danger' && 'danger')}>{text}</a>
+              <a className={cx('item', theme)}>{text}</a>
             </Link>
           );
         }
 
         return (
-          <Tag key={text} className={cx('item', theme === 'danger' && 'danger')} onClick={onClick}>
+          <Tag key={text} className={cx('item', theme)} onClick={onClick}>
             {hasIcons && <Icon />}
             {text}
           </Tag>
@@ -45,7 +38,7 @@ Menu.propTypes = {
       tagName: PropTypes.oneOf(['div', 'Link', 'button']),
       onClick: PropTypes.func,
       href: PropTypes.string,
-      theme: PropTypes.oneOf(['default', 'danger']),
+      theme: PropTypes.oneOf(['default', 'danger', 'grey']),
     })
   ),
 };
