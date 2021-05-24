@@ -2,15 +2,17 @@ import classNames from 'classnames/bind';
 import { chain, compact, isEmpty, map } from 'lodash';
 import React from 'react';
 
+import Button from 'components/shared/button';
 import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
 import { useFiles } from 'contexts/files-provider';
 import { getLanguageByFilename } from 'utils/language';
 
 import styles from './file-browser.module.scss';
+import FileSvg from './images/file.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const FileBrowser = () => {
+const FileBrowser = ({ onCreateManually }) => {
   const {
     state: { files },
     filesDispatch,
@@ -192,21 +194,33 @@ const FileBrowser = () => {
 
   return (
     <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
-      <TreeRecursive
-        data={files}
-        parentDragOverHandler={handleDragOver}
-        parentDragLeaveHandler={handleDragLeave}
-        parentId={null}
-        level={0}
-        onAddFile={handleAddFile}
-        onAddFolder={handleAddFolder}
-        onDropFile={handleDropFile}
-        onRenameFolder={handleRenameFolder}
-        onItemDelete={handleDeleteItem}
-        onOpenFile={handleOpenFile}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      />
+      {files.length ? (
+        <TreeRecursive
+          data={files}
+          parentDragOverHandler={handleDragOver}
+          parentDragLeaveHandler={handleDragLeave}
+          parentId={null}
+          level={0}
+          onAddFile={handleAddFile}
+          onAddFolder={handleAddFolder}
+          onDropFile={handleDropFile}
+          onRenameFolder={handleRenameFolder}
+          onItemDelete={handleDeleteItem}
+          onOpenFile={handleOpenFile}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        />
+      ) : (
+        <div className={cx('empty')}>
+          <FileSvg />
+          <div>
+            Drag and drop files or{' '}
+            <Button tag="a" themeType="link" size="md" onClick={onCreateManually}>
+              Create manually
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

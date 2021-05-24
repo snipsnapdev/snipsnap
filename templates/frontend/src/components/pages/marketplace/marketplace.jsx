@@ -50,7 +50,7 @@ const Marketplace = () => {
       <div className={cx('image-wrapper')}>
         <Image
           src="/images/marketplace-illustration.png"
-          alt="Support us on Github"
+          alt="Marketplace"
           width={512}
           height={170}
           quality={90}

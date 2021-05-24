@@ -95,3 +95,17 @@
 .select-menu {
   width: 100%;
 }
+
+.vertical-line {
+  width: 1px;
+  height: calc(100% - 20px);
+  margin-top: 20px;
+  background-color: $color-dark-grey;
+}
+
+.image-wrapper {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

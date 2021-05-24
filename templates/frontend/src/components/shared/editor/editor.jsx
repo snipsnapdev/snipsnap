@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { uniqBy } from 'lodash';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 
@@ -92,7 +93,20 @@ const Editor = () => {
   const LanguageIcon = language.icon;
 
   if (!openFile) {
-    return <></>;
+    return (
+      <>
+        <div className={cx('vertical-line')} />
+        <div className={cx('image-wrapper')}>
+          <Image
+            src="/images/templates-illustration.png"
+            alt="Templates"
+            width={312}
+            height={360}
+            quality={90}
+          />
+        </div>
+      </>
+    );
   }
 
   return (

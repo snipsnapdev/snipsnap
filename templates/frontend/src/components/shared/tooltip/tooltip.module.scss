@@ -7,28 +7,19 @@
   margin-left: 8px;
   font-size: 12px;
   line-height: 18px;
+  color: $color-light-grey;
   text-align: center;
   cursor: pointer;
-  background-color: $color-middle-grey;
+  background-color: $color-dark-grey;
   border-radius: 50%;
 
   &:hover {
+    color: $color-white;
+    background-color: $color-middle-grey;
+
     .content {
       display: block;
     }
-
-    &::after {
-      content: '';
-    }
-  }
-
-  &::after {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 35px;
-    height: 40px;
-    transform: translateY(-50%);
   }
 }
 
@@ -47,6 +38,16 @@
   background-color: $color-middle-grey;
   border-radius: 2px;
   transform: translateY(-50%);
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: -35px;
+    width: 35px;
+    height: 40px;
+    content: '';
+    transform: translateY(-50%);
+  }
 
   &::after {
     position: absolute;

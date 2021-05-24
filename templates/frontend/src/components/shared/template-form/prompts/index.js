@@ -1,3 +1,1 @@
-import Prompts from './prompts';
-
-export default Prompts;
+export { default } from './prompts';

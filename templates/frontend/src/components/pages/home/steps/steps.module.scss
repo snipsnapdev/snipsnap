@@ -59,12 +59,7 @@
 }
 
 .item-input {
-  width: 100%;
-  padding: 0;
   margin-bottom: 10px;
-  background-color: transparent;
-  border: none;
-  outline: none;
 }
 
 .item-footer {
@@ -82,6 +77,10 @@
   &.end {
     justify-content: flex-end;
   }
+}
+
+.error {
+  color: $color-red;
 }
 
 .copy {

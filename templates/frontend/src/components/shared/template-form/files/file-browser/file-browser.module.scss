@@ -1,5 +1,6 @@
 .wrapper {
-  flex-grow: 1;
+  position: relative;
+  height: calc(100% - 35px);
   min-height: 300px;
   padding-top: 10px;
   padding-right: 10px;
@@ -17,6 +18,26 @@
   border-radius: 2px;
 
   &-dragover {
-    background-color: $color-secondary-black;
+    background-color: rgba(51, 187, 255, 0.05);
+    border: 1px dashed $color-link;
+  }
+}
+
+.empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  font-size: $font-size-md;
+  font-weight: $font-weight-sm;
+  line-height: $line-height-even;
+  color: $color-grey;
+  transform: translate(-50%, -50%);
+
+  & svg {
+    margin-bottom: 25px;
   }
 }

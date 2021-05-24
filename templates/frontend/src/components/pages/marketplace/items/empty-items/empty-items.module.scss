@@ -29,3 +29,11 @@
     color: $color-link-hover;
   }
 }
+
+.image-wrapper {
+  margin-bottom: 40px;
+
+  & > div {
+    display: block;
+  }
+}

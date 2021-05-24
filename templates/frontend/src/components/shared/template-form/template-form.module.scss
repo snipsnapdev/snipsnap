@@ -1,12 +1,12 @@
 .left-column {
-  width: 360px;
-  margin-right: 30px;
+  width: 380px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.scroll-box {
+  height: calc(100vh - 170px);
+  padding-right: 30px;
+  margin-bottom: 30px;
+  overflow-y: scroll;
 }
 
 .title {
@@ -25,21 +25,11 @@
   margin-bottom: 30px;
 }
 
-.files-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-bottom: 30px;
-}
-
 .prompts-wrapper {
   margin-bottom: 30px;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   padding-top: 20px;
   padding-right: 30px;
   padding-bottom: 30px;
@@ -48,10 +38,10 @@
 
 .inner {
   display: flex;
-  flex-grow: 1;
 }
 
 .right-column {
+  position: relative;
   flex-grow: 1;
 }
 
@@ -96,4 +86,8 @@
       margin-right: 0;
     }
   }
+}
+
+.files-wrapper {
+  height: calc(100% - 285px);
 }

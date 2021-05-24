@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Clipboard from 'react-clipboard.js';
+import { useCopyToClipboard } from 'react-use';
 
 import { useGqlClient, gql } from 'api/graphql';
 import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import useSession from 'hooks/use-session';
+
 
 import styles from './steps.module.scss';
 
@@ -68,8 +69,11 @@ const Steps = () => {
     }
   };
 
+  const [{ error }, copyToClipboard] = useCopyToClipboard();
   const [copied, setCopied] = useState(false);
+
   const handleCopyButtonClick = () => {
+    copyToClipboard(formatApiKey(apiKey));
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -86,25 +90,21 @@ const Steps = () => {
         </li>
         <li className={cx('item')}>
           <h3 className={cx('item-title')}>Add API token to Extension settings</h3>
-          <Clipboard
+          <Input
             className={cx('item-input')}
-            data-clipboard-text={apiKey}
-            onSuccess={handleCopyButtonClick}
-          >
-            <Input value={formatApiKey(apiKey)} readOnly />
-          </Clipboard>
+            value={formatApiKey(apiKey)}
+            readOnly
+            onClick={handleCopyButtonClick}
+          />
           <div className={cx('item-footer', 'end')}>
-            <Clipboard
-              className={cx('copy')}
-              data-clipboard-text={apiKey}
-              onSuccess={handleCopyButtonClick}
-            >
+            <Button type="button" themeType="link" onClick={handleCopyButtonClick}>
               {copied ? 'Copied!' : 'Copy'}
-            </Clipboard>
+            </Button>
             <Button type="button" themeType="link" onClick={handleRefresh}>
               Refresh
             </Button>
           </div>
+          {error && <p className={cx('error')}>{error.message}</p>}
         </li>
         <li className={cx('item')}>
           <h3 className={cx('item-title')}>Create first template</h3>

@@ -82,7 +82,7 @@ const Files = () => {
         )}
       </div>
 
-      <FileBrowser />
+      <FileBrowser onCreateManually={() => setIsAddFileModalOpen(true)} />
     </>
   );
 };

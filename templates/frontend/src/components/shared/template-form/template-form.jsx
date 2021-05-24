@@ -171,37 +171,39 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
         <div className={cx('inner')}>
           <div className={cx('left-column')}>
             <form className={cx('form')}>
-              <div className={cx('name')}>
-                <Input
-                  label="Template name"
-                  name="name"
-                  ref={inputRef}
-                  error={errors.name?.message}
-                />
-              </div>
+              <div className={cx('scroll-box')}>
+                <div className={cx('name')}>
+                  <Input
+                    label="Template name"
+                    name="name"
+                    ref={inputRef}
+                    error={errors.name?.message}
+                  />
+                </div>
 
-              <div className={cx('group-label')}>Group</div>
-              <Dropdown
-                menuItems={groupOptions}
-                className={cx('group-select')}
-                menuClassName={cx('group-select-menu')}
-                position="top-right"
-                stopPropagation
-                showIcon
-              >
-                <span>{group ? group.name : 'Select group'}</span>
-              </Dropdown>
-              <div className={cx('prompts-wrapper')}>
-                <Prompts
-                  control={control}
-                  register={register}
-                  trigger={trigger}
-                  errors={errors}
-                  showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
-                />
-              </div>
-              <div className={cx('files-wrapper')}>
-                <Files />
+                <div className={cx('group-label')}>Group</div>
+                <Dropdown
+                  menuItems={groupOptions}
+                  className={cx('group-select')}
+                  menuClassName={cx('group-select-menu')}
+                  position="top-right"
+                  stopPropagation
+                  showIcon
+                >
+                  <span>{group ? group.name : 'Select group'}</span>
+                </Dropdown>
+                <div className={cx('prompts-wrapper')}>
+                  <Prompts
+                    control={control}
+                    register={register}
+                    trigger={trigger}
+                    errors={errors}
+                    showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
+                  />
+                </div>
+                <div className={cx('files-wrapper')}>
+                  <Files />
+                </div>
               </div>
               <div className={cx('buttons-wrapper')}>
                 <AsyncButton
