@@ -212,6 +212,7 @@ const typeDefs = gql`
     update_template(object: UpdateTemplateInput): Template
     share_template(object: ShareTemplateInput): SharedTemplate
     unshare_template(object: ShareTemplateInput): SharedTemplate
+    unshare_template_from_me(object: ShareTemplateInput): SharedTemplate
     share_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
     unshare_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
     refresh_api_token(object: RefreshApiTokenInput): RefreshApiToken
@@ -453,11 +454,13 @@ const resolvers = {
         args.object.share_to_user_email
       );
 
-      // Can't unshare from yourself. Yes, even if we let unshare mutation run, it won't delete anything since such item does not exist but still
-      if (shareToUserId === userId) return;
+      // can't unshare with yourself
+      if (userId === shareToUserId) {
+        return;
+      }
 
       const mutation = gql`
-        mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_id: uuid!, $user_by: uuid, $user_to: uuid!) {
           delete_shared_templates(
             where: {
               template_id: { _eq: $template_id }
@@ -481,8 +484,40 @@ const resolvers = {
 
       const data = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
+        user_by: userId || share_by_user_id,
+      });
+
+      return data?.delete_shared_templates?.returning?.[0] || null;
+    },
+    unshare_template_from_me: async (_, args, { userId }) => {
+      if (!userId) return;
+
+      const mutation = gql`
+        mutation ($template_id: uuid!, $user_to: uuid!) {
+          delete_shared_templates(
+            where: {
+              template_id: { _eq: $template_id }
+              shared_to_user_id: { _eq: $user_to }
+            }
+          ) {
+            returning {
+              id
+              template_id
+              shared_by_user_id
+              shared_to_user_id
+              created_at
+              updated_at
+            }
+          }
+        }
+      `;
+
+      const { template_id } = args.object;
+
+      const data = await gqlClient.request(mutation, {
+        template_id: template_id,
+        user_to: userId,
       });
 
       return data?.delete_shared_templates?.returning?.[0] || null;

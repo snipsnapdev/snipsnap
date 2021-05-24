@@ -8,7 +8,7 @@
         schema: |-
           schema  { query: Query mutation: Mutation }
           type Query { hello: String }
-          type Mutation { insert_template(object: InsertTemplateInput ): Template update_template(object: UpdateTemplateInput ): Template share_template(object: ShareTemplateInput ): SharedTemplate unshare_template(object: ShareTemplateInput ): SharedTemplate share_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup unshare_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup refresh_api_token(object: RefreshApiTokenInput ): RefreshApiToken }
+          type Mutation { insert_template(object: InsertTemplateInput ): Template update_template(object: UpdateTemplateInput ): Template share_template(object: ShareTemplateInput ): SharedTemplate unshare_template(object: ShareTemplateInput ): SharedTemplate unshare_template_from_me(object: ShareTemplateInput ): SharedTemplate share_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup unshare_template_group(object: ShareTemplateGroupInput ): SharedTemplateGroup refresh_api_token(object: RefreshApiTokenInput ): RefreshApiToken }
           type Template { id: String name: String prompts: String files: String template_group_id: String owner_id: String created_at: String updated_at: String }
           type SharedTemplate { id: String template_id: String shared_by_user_id: String shared_to_user_id: String created_at: String updated_at: String }
           type SharedTemplateGroup { id: String template_group_id: String shared_by_user_id: String shared_to_user_id: String created_at: String updated_at: String }

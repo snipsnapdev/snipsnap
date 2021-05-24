@@ -1,0 +1,8 @@
+.actions {
+  display: flex;
+  justify-content: center;
+
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+}
