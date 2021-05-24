@@ -92,6 +92,7 @@ const TemplateGroupItem = ({
                 name={template.name}
                 templateId={template.id}
                 favourite={template.favourite || false}
+                shared={shared}
               />
             ))}
           </>
