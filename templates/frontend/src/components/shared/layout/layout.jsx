@@ -24,7 +24,6 @@ const Layout = ({ children }) => (
       effect="solid"
       place="right"
       delayHide={500}
-      offset={{ right: 16 }}
       id="tooltip-modal"
       clickable
     >

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import ReactTooltip from 'react-tooltip';
 import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
