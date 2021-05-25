@@ -1,0 +1,175 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: $font-family;
+  font-weight: $font-weight-md;
+  line-height: $line-height-even;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &.loading {
+    .content {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .loader {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.type {
+    &_button {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      transition: background-color $transition-base;
+
+      svg {
+        margin-right: 10px;
+        fill: currentColor;
+      }
+
+      &.color {
+        &_default {
+          color: $color-white;
+          background-color: $color-accent-primary;
+
+          &:hover:not([disabled]) {
+            background-color: $color-accent-primary-hover;
+          }
+        }
+
+        &_white {
+          color: $color-primary-black;
+          background-color: $color-white;
+
+          &:hover:not([disabled]) {
+            background-color: $color-light-grey;
+          }
+        }
+
+        &_red {
+          color: $color-white;
+          background-color: $color-red;
+
+          &:hover:not([disabled]) {
+            background-color: $color-red-hover;
+          }
+        }
+
+        &_success {
+          color: $color-green;
+          background-color: transparent;
+          border: 1px solid $color-green;
+
+          & .success-icon {
+            margin-right: 9px;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          padding-top: 14px;
+          padding-right: 20px;
+          padding-bottom: 14px;
+          padding-left: 20px;
+          font-size: $font-size-xs;
+
+          .loader {
+            height: 30px;
+          }
+
+          svg {
+            height: 20px;
+          }
+        }
+
+        &_md {
+          padding-top: 15px;
+          padding-right: 30px;
+          padding-bottom: 15px;
+          padding-left: 30px;
+          font-size: $font-size-md;
+
+          .loader {
+            height: 45px;
+          }
+
+          svg {
+            height: 30px;
+          }
+        }
+      }
+    }
+
+    &_button-link {
+      &.color {
+        &_default {
+          color: $color-grey;
+          transition: color $transition-base;
+
+          &:hover:not([disabled]) {
+            color: $color-light-grey;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          padding-top: 14px;
+          padding-bottom: 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+      }
+    }
+
+    &_link {
+      &.color {
+        &_default {
+          color: $color-link;
+          transition: color $transition-base;
+
+          &:hover {
+            color: $color-accent-primary-hover;
+          }
+        }
+      }
+
+      &.size {
+        &_default {
+          font-size: $font-size-xs;
+        }
+
+        &_md {
+          font-size: $font-size-md;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity $transition-base, visibility $transition-base;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $transition-base, visibility $transition-base;
+  transform: translate(-50%, -50%);
+}

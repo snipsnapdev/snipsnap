@@ -1,0 +1,100 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: -20px;
+  margin-left: -20px;
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    .name {
+      color: $color-white;
+    }
+
+    .options {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    .inner {
+      background-color: $color-dark-grey;
+      border-radius: 2px;
+
+      .name {
+        font-weight: $font-weight-md;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  padding-right: 15px;
+  padding-left: 30px;
+}
+
+.name {
+  position: relative;
+  max-width: 200px;
+  overflow: hidden;
+  font-size: $font-size-md;
+  font-weight: $font-weight-sm;
+  line-height: $line-height-md;
+  color: $color-light-grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color $transition-base;
+}
+
+.options {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 30px;
+  visibility: hidden;
+  border-radius: 2px;
+  opacity: 0;
+  transition:
+    background-color $transition-base,
+    opacity $transition-base,
+    visibility $transition-base;
+  transform: translateY(-50%);
+
+  &:hover {
+    background-color: $color-dark-grey;
+  }
+}
+
+.options-icon {
+  display: block;
+  width: 3px;
+  fill: $color-grey;
+}
+
+.star {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  z-index: 1;
+  height: 11px;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,111 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.file-path {
+  margin-bottom: 5px;
+  font-size: $font-size-xs;
+  line-height: $line-height-xs;
+  color: $color-grey;
+}
+
+.editor-container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  background-color: $color-primary-black;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100px;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(180deg, rgba(28, 29, 34, 0) 0%, #1c1d22 100%);
+  }
+
+  :global {
+    .ace-tm .ace_gutter {
+      background: $color-primary-black;
+    }
+
+    .ace-twilight .ace_gutter {
+      background-color: $color-primary-black;
+    }
+
+    .ace-twilight .ace_selection {
+      // adds padding for selection
+      margin-left: -10px;
+      background-color: #2f3038;
+    }
+
+    .ace_editor {
+      background-color: $color-primary-black;
+    }
+
+    .ace_gutter-cell {
+      color: $color-middle-grey;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    .ace-twilight .ace_marker-layer .ace_active-line {
+      background: $color-secondary-black;
+    }
+
+    .ace-twilight .ace_gutter-active-line {
+      background-color: $color-secondary-black;
+    }
+  }
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 40px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-left: auto;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  background: $color-dark-grey;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+
+  & svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+}
+
+.select-menu {
+  width: 100%;
+}
+
+.vertical-line {
+  width: 1px;
+  height: calc(100% - 20px);
+  margin-top: 20px;
+  background-color: $color-dark-grey;
+}
+
+.image-wrapper {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

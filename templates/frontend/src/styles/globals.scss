@@ -1,0 +1,101 @@
+@import './fonts.scss';
+@import './reset.css';
+@import './mixins.scss';
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-sm;
+  line-height: $line-height-xs;
+  color: $color-white;
+  background-color: $color-secondary-black;
+}
+
+h1 {
+  font-size: $font-size-lg;
+  font-weight: $font-size-md;
+  line-height: $line-height-lg;
+}
+
+h2 {
+  font-size: $font-size-md;
+  font-weight: $font-size-md;
+  line-height: $line-height-md;
+}
+
+h1,
+h2 {
+  &.with-tooltip {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.tooltip {
+  width: 280px;
+  padding: 15px !important;
+  font-size: $font-size-sm;
+  line-height: $line-height-md;
+  color: $color-white;
+  text-align: left;
+  cursor: auto;
+  background-color: $color-middle-grey !important;
+  border-radius: 2px;
+  opacity: 1 !important;
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    width: 0;
+    height: 0;
+    content: '';
+    border-color: transparent $color-middle-grey transparent transparent !important;
+    border-style: solid;
+    border-width: 6px 6px 6px 0;
+    transform: translateY(-50%);
+  }
+
+  p {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+//Custom scrollbar styles
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-middle-grey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $color-dark-grey;
+}

@@ -1,0 +1,94 @@
+.left-column {
+  width: 375px;
+  margin-right: 15px;
+}
+
+.scroll-box {
+  height: calc(100vh - 170px);
+  padding-right: 15px;
+  margin-bottom: 30px;
+  overflow-y: scroll;
+}
+
+.title {
+  margin-bottom: 30px;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+  color: $color-white;
+
+  & span {
+    color: $color-light-grey;
+  }
+}
+
+.name {
+  margin-bottom: 30px;
+}
+
+.prompts-wrapper {
+  margin-bottom: 30px;
+}
+
+.wrapper {
+  padding-top: 20px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+}
+
+.inner {
+  display: flex;
+}
+
+.right-column {
+  position: relative;
+  flex-grow: 1;
+}
+
+.group-label {
+  margin-bottom: 8px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-md;
+  line-height: $line-height-even;
+  color: $color-grey;
+}
+
+.group-select {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 30px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  background: $color-dark-grey;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+
+  &:hover {
+    border-color: $color-grey;
+  }
+}
+
+.group-select-menu {
+  width: 100%;
+}
+
+.buttons-wrapper {
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.files-wrapper {
+  height: calc(100% - 285px);
+}

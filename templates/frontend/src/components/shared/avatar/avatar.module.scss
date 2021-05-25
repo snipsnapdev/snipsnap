@@ -1,0 +1,16 @@
+.wrapper {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  background-color: $color-dark-grey;
+  border-radius: 50%;
+}
+
+.symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: $font-weight-md;
+  transform: translate(-50%, -50%);
+}

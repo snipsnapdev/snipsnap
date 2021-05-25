@@ -1,0 +1,87 @@
+.wrapper {
+  position: relative;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.icon {
+  position: absolute;
+  top: 2.5px;
+  left: 0;
+  width: 20px;
+
+  circle,
+  path {
+    transition: stroke $transition-base;
+  }
+}
+
+.input {
+  width: 100%;
+  padding-top: 0;
+  padding-right: 30px;
+  padding-bottom: 5px;
+  padding-left: 30px;
+  font-family: $font-family;
+  font-size: 18px;
+  font-weight: $font-weight-xs;
+  line-height: 1.4;
+  color: $color-white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $color-middle-grey;
+  transition: border-bottom $transition-base;
+
+  &:hover {
+    border-bottom-color: $color-grey;
+  }
+
+  &:focus,
+  &:active {
+    border-bottom-color: $color-link;
+
+    ~ .icon {
+      circle,
+      path {
+        stroke: $color-white;
+      }
+    }
+  }
+
+  &::placeholder {
+    color: $color-grey;
+  }
+}
+
+.reset {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &:hover {
+    svg {
+      path {
+        stroke: $color-white;
+      }
+    }
+  }
+
+  svg {
+    display: block;
+    width: 12px;
+
+    path {
+      stroke: $color-grey;
+      transition: stroke $transition-base;
+    }
+  }
+}

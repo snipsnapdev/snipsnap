@@ -1,0 +1,92 @@
+.top {
+  display: flex;
+}
+
+.input {
+  flex-grow: 1;
+}
+
+.send-button {
+  align-self: flex-end;
+  margin-left: 15px;
+}
+
+.public-share {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+  .switch {
+    width: max-content;
+  }
+}
+
+.users {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 30px;
+  margin-top: 30px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: -30px;
+    left: -30px;
+    width: calc(100% + 30px * 2);
+    height: 1px;
+    content: '';
+    background-color: $color-dark-grey;
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &:hover {
+    .unshare {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.name {
+  margin-left: 10px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-white;
+}
+
+.email {
+  margin-right: auto;
+  margin-left: 5px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-grey;
+}
+
+.unshare {
+  @include reset-button;
+
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-size: $font-size-md;
+  line-height: $line-height-even;
+  color: $color-grey;
+  visibility: hidden;
+  opacity: 0;
+  transition: color $transition-base, opacity $transition-base;
+
+  @include hover {
+    color: $color-white;
+  }
+}
