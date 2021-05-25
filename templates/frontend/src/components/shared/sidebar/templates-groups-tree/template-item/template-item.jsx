@@ -2,7 +2,8 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
@@ -120,12 +121,14 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
         />
       )}
       {isShareModalOpen && (
-        <ShareModal
-          id={templateId}
-          type="template"
-          isOpen={isShareModalOpen}
-          onClose={() => setIsShareModalOpen(false)}
-        />
+        <>
+          <ShareModal
+            id={templateId}
+            type="template"
+            isOpen={isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+          />
+        </>
       )}
       {isRemoveModalOpen && (
         <UnshareModal

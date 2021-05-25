@@ -3,13 +3,13 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import ReactTooltip from 'react-tooltip';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
 import { gql, useGqlClient } from 'api/graphql';
 import AsyncButton from 'components/shared/async-button';
 import Avatar from 'components/shared/avatar';
-import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
@@ -110,7 +110,7 @@ const getTemplatePublicStatusQuery = gql`
 `;
 
 const ShareModal = (props) => {
-  const { id, type, isOpen, onClose, availabilityTooltip, documentationURL } = props;
+  const { id, type, isOpen, onClose } = props;
 
   const { groups, templates } = useTemplateGroups();
 
@@ -122,6 +122,11 @@ const ShareModal = (props) => {
   const gqlClient = useGqlClient();
 
   // const [isPublic, setIsPublic] = useState(false);
+
+  // Rebuild ReactTooltip for positioning when a modal has opened
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
 
   const checkPublic = async () => {
     if (type === 'group') {
@@ -298,12 +303,8 @@ const ShareModal = (props) => {
               className={cx('switch')}
               onChange={handlePublicSwitch}
             />
-            <Tooltip>
-              <p>{availabilityTooltip}</p>
-              <Button tag="a" target="_blank" href={documentationURL} themeType="link">
-                Learn more
-              </Button>
-            </Tooltip>
+
+            <Tooltip dataFor="tooltip-modal" />
           </div>
         )}
         {Boolean(usersSharedTo.length) && (
@@ -337,8 +338,6 @@ ShareModal.propTypes = {
 ShareModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
-  availabilityTooltip: `Publicly available templates are visible in the marketplace, so others could use it as it is or clone it.`,
-  documentationURL: 'https://github.com/snipsnapdev',
 };
 
 export default ShareModal;
