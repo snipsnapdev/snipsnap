@@ -70,7 +70,6 @@ const typeDefs = gql`
 
   input AddEventInput {
     event: String!
-    user_id: String!
     metadata: String
   }
 

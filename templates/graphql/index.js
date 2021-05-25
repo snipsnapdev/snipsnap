@@ -620,6 +620,8 @@ const resolvers = {
       return data?.delete_shared_template_groups?.returning?.[0] || null;
     },
     add_event: async (_, args, { userId }) => {
+      if (!userId) return;
+
       const addEventMutation = gql`
         mutation ($event: String!, $user_id: uuid, $metadata: String) {
           insert_stats_one(
@@ -633,12 +635,12 @@ const resolvers = {
         }
       `;
 
-      const { event, metadata, user_id } = args.object;
+      const { event, metadata } = args.object;
 
       const res = await gqlClient.request(addEventMutation, {
         event,
         metadata,
-        user_id,
+        user_id: userId,
       });
 
       return res?.insert_stats_one;

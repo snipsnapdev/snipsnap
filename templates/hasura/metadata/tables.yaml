@@ -147,6 +147,21 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: stats
+  insert_permissions:
+  - role: user_api
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - event
+      - metadata
+      - timestamp
+      - user_id
+      backend_only: false
+- table:
+    schema: public
     name: template_groups
   array_relationships:
   - name: shared_template_groups
@@ -262,6 +277,7 @@
     permission:
       columns:
       - files
+      - id
       - name
       - prompts
       filter:
@@ -352,6 +368,7 @@
       columns:
       - favourite
       - id
+      - template_id
       filter:
         available_for_user_id:
           _eq: X-Hasura-User-Id
