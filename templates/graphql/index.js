@@ -619,6 +619,32 @@ const resolvers = {
 
       return data?.delete_shared_template_groups?.returning?.[0] || null;
     },
+    add_event: async (_, args, { userId }) => {
+      if (!userId) return;
+
+      const addEventMutation = gql`
+        mutation ($event: String!, $user_id: uuid, $metadata: String) {
+          insert_stats_one(
+            object: { event: $event, user_id: $user_id, metadata: $metadata }
+          ) {
+            event
+            user_id
+            timestamp
+            metadata
+          }
+        }
+      `;
+
+      const { event, metadata } = args.object;
+
+      const res = await gqlClient.request(addEventMutation, {
+        event,
+        metadata,
+        user_id: userId,
+      });
+
+      return res?.insert_stats_one;
+    },
   },
 };
 

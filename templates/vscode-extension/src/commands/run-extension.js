@@ -33,6 +33,23 @@ Handlebars.registerHelper("toPascalCase", function (string) {
   return startCase(camelCase(string)).replace(/ /g, "");
 });
 
+const addCreateFromTemplateEventQuery = gql`
+  mutation addEvent($event: String!, $metadata: String) {
+    add_event(object: { event: $event, metadata: $metadata }) {
+      timestamp
+    }
+  }
+`;
+
+const trackEvent = async ({ token, event, metadata }) => {
+  try {
+    await gqlClient(token).request(addCreateFromTemplateEventQuery, {
+      event,
+      metadata,
+    });
+  } catch (error) {}
+};
+
 function fetchRemoteTemplates(token) {
   const getTemplates = gql`
     query {
@@ -43,6 +60,7 @@ function fetchRemoteTemplates(token) {
           name
           files
           prompts
+          id
         }
       }
     }
@@ -81,9 +99,18 @@ async function runExtension(folderURI) {
   const remoteTemplateNames = remoteTemplates.map(({ name }) => name);
 
   async function createFromRemoteTemplate(templateName) {
-    const { prompts, files } = remoteTemplates.find(
-      ({ name }) => name === templateName
-    );
+    const {
+      prompts,
+      files,
+      id: templateId,
+    } = remoteTemplates.find(({ name }) => name === templateName);
+
+    // track create from template event
+    await trackEvent({
+      token,
+      event: "create-from-template",
+      metadata: templateId,
+    });
 
     const promptResults = {};
 
