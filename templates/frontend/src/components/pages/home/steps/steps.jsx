@@ -8,7 +8,6 @@ import Button from 'components/shared/button';
 import Input from 'components/shared/input';
 import useSession from 'hooks/use-session';
 
-
 import styles from './steps.module.scss';
 
 const updateAPIKey = gql`
@@ -73,7 +72,7 @@ const Steps = () => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyButtonClick = () => {
-    copyToClipboard(formatApiKey(apiKey));
+    copyToClipboard(apiKey);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
