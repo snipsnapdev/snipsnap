@@ -8,8 +8,8 @@ import { mutate } from 'swr';
 import { gql, useGqlClient } from 'api/graphql';
 import DeleteTemplateModal from 'components/shared/delete-template-modal';
 import Dropdown from 'components/shared/dropdown';
-import RemoveTemplateModal from 'components/shared/remove-template-modal';
 import ShareModal from 'components/shared/share-modal';
+import UnshareModal from 'components/shared/unshare-modal';
 import useSession from 'hooks/use-session';
 import DotsIcon from 'icons/dots.inline.svg';
 import StarIcon from 'icons/star.inline.svg';
@@ -128,7 +128,7 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
         />
       )}
       {isRemoveModalOpen && (
-        <RemoveTemplateModal
+        <UnshareModal
           id={templateId}
           name={name}
           isOpen={isRemoveModalOpen}

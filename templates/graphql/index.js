@@ -212,9 +212,14 @@ const typeDefs = gql`
     update_template(object: UpdateTemplateInput): Template
     share_template(object: ShareTemplateInput): SharedTemplate
     unshare_template(object: ShareTemplateInput): SharedTemplate
-    unshare_template_from_me(object: ShareTemplateInput): SharedTemplate
+    unshare_template_from_current_user(
+      object: ShareTemplateInput
+    ): SharedTemplate
     share_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
     unshare_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
+    unshare_template_group_from_current_user(
+      object: ShareTemplateGroupInput
+    ): SharedTemplateGroup
     refresh_api_token(object: RefreshApiTokenInput): RefreshApiToken
   }
 `;
@@ -490,8 +495,19 @@ const resolvers = {
 
       return data?.delete_shared_templates?.returning?.[0] || null;
     },
-    unshare_template_from_me: async (_, args, { userId }) => {
+    unshare_template_from_current_user: async (_, args, { userId }) => {
       if (!userId) return;
+
+      const { share_to_user_email, template_id } = args.object;
+
+      let shareToUserId;
+      if (!userId) {
+        const shareToUserId = await getUserByEmail(share_to_user_email);
+      }
+
+      if (!userId && !shareToUserId) {
+        return;
+      }
 
       const mutation = gql`
         mutation ($template_id: uuid!, $user_to: uuid!) {
@@ -513,11 +529,9 @@ const resolvers = {
         }
       `;
 
-      const { template_id } = args.object;
-
       const data = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_to: userId,
+        user_to: userId || shareToUserId,
       });
 
       return data?.delete_shared_templates?.returning?.[0] || null;
@@ -676,6 +690,90 @@ const resolvers = {
               templateId,
               shareToUserEmail: args.object.share_to_user_email,
               shareByUserId: userId,
+            })
+          )
+        );
+      }
+
+      return data?.delete_shared_template_groups?.returning?.[0] || null;
+    },
+    unshare_template_group_from_current_user: async (_, args, { userId }) => {
+      if (!userId) return;
+
+      const mutation = gql`
+        mutation ($template_group_id: uuid!, $user_to: uuid!) {
+          delete_shared_template_groups(
+            where: {
+              template_group_id: { _eq: $template_group_id }
+              shared_to_user_id: { _eq: $user_to }
+            }
+          ) {
+            returning {
+              id
+              template_group_id
+              shared_by_user_id
+              shared_to_user_id
+              created_at
+              updated_at
+            }
+          }
+        }
+      `;
+
+      const { template_group_id, share_to_user_email } = args.object;
+
+      console.log("UNSHARE GROUP", template_group_id, "FROM", userId);
+
+      const data = await gqlClient.request(mutation, {
+        template_group_id: template_group_id,
+        user_to: userId,
+      });
+
+      // unshare all templates in that group
+      const getTemplatesInGroup = gql`
+        query ($template_group_id: uuid!) {
+          template_groups(where: { id: { _eq: $template_group_id } }) {
+            templates {
+              id
+            }
+          }
+        }
+      `;
+
+      // find templates included in the unshared group
+      const templates = await gqlClient.request(getTemplatesInGroup, {
+        template_group_id,
+      });
+
+      const templateIds = templates?.template_groups?.[0].templates.map(
+        (t) => t.id
+      );
+
+      console.log("FOUND TEMPLATES", templateIds);
+
+      const unshareTemplateQuery = gql`
+        mutation shareTemplate(
+          $templateId: String!
+          $shareToUserEmail: String!
+        ) {
+          unshare_template_from_current_user(
+            object: {
+              template_id: $templateId
+              share_to_user_email: $shareToUserEmail
+            }
+          ) {
+            shared_to_user_id
+          }
+        }
+      `;
+
+      // unshare all templates with the user removed from group
+      if (templateIds.length > 0) {
+        await Promise.all(
+          templateIds.map((templateId) =>
+            gqlClient.request(unshareTemplateQuery, {
+              templateId,
+              shareToUserEmail: share_to_user_email,
             })
           )
         );

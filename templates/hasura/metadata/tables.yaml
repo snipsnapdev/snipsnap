@@ -302,6 +302,17 @@
   - name: user
     using:
       foreign_key_constraint_on: available_for_user_id
+  array_relationships:
+  - name: shared_template_groups
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: shared_template_groups
+        insertion_order: null
+        column_mapping:
+          template_group_id: template_group_id
+          available_for_user_id: shared_to_user_id
   select_permissions:
   - role: user
     permission:

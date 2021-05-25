@@ -10,13 +10,13 @@ import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 import useSession from 'hooks/use-session';
 
-import styles from './remove-template-modal.module.scss';
+import styles from './unshare-modal.module.scss';
 
 const cx = classNames.bind(styles);
 
 const unshareTemplateQuery = gql`
   mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
-    unshare_template_from_me(
+    unshare_template_from_current_user(
       object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }
     ) {
       shared_to_user_id
@@ -24,8 +24,18 @@ const unshareTemplateQuery = gql`
   }
 `;
 
+const unshareGroupQuery = gql`
+  mutation unshareTemplateGroup($groupId: String!, $shareToUserEmail: String!) {
+    unshare_template_group_from_current_user(
+      object: { template_group_id: $groupId, share_to_user_email: $shareToUserEmail }
+    ) {
+      shared_to_user_id
+    }
+  }
+`;
+
 const RemoveTemplateModal = (props) => {
-  const { id, name, isOpen, onClose } = props;
+  const { id, name, isOpen, onClose, type } = props;
 
   const [session] = useSession();
   const {
@@ -41,10 +51,18 @@ const RemoveTemplateModal = (props) => {
     try {
       setLoading(true);
       console.log('remove', id, 'from', email);
-      await gqlClient.request(unshareTemplateQuery, {
-        templateId: id,
-        shareToUserEmail: email,
-      });
+      if (type === 'template') {
+        await gqlClient.request(unshareTemplateQuery, {
+          templateId: id,
+          shareToUserEmail: email,
+        });
+      } else {
+        await gqlClient.request(unshareGroupQuery, {
+          groupId: id,
+          shareToUserEmail: email,
+        });
+      }
+
       setLoading(false);
       mutate('getOwnedTemplateGroups');
 
@@ -63,7 +81,7 @@ const RemoveTemplateModal = (props) => {
   return (
     <ModalPortal>
       <Modal
-        title={`Remove ${name} template?`}
+        title={`Remove ${name} ${type}?`}
         isOpen={isOpen}
         theme="transparent"
         onRequestClose={onClose}
@@ -86,11 +104,13 @@ RemoveTemplateModal.propTypes = {
   name: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  type: PropTypes.oneOf(['group', 'template']),
 };
 
 RemoveTemplateModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
+  type: 'template',
 };
 
 export default RemoveTemplateModal;

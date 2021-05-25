@@ -7,6 +7,7 @@ import DeleteGroupModal from 'components/shared/delete-group-modal';
 import Dropdown from 'components/shared/dropdown';
 import RenameGroupModal from 'components/shared/rename-group-modal';
 import ShareModal from 'components/shared/share-modal';
+import UnshareModal from 'components/shared/unshare-modal';
 import ArrowIcon from 'icons/arrow.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
 
@@ -29,6 +30,7 @@ const TemplateGroupItem = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
   const menuItems = [
     {
@@ -54,6 +56,16 @@ const TemplateGroupItem = ({
           {
             text: 'Delete',
             onClick: () => setIsDeleteModalOpen(true),
+            theme: 'danger',
+          },
+        ]),
+    // unshare group shared to the current user
+    ...(!shared
+      ? []
+      : [
+          {
+            text: 'Remove',
+            onClick: () => setIsRemoveModalOpen(true),
             theme: 'danger',
           },
         ]),
@@ -130,6 +142,15 @@ const TemplateGroupItem = ({
           type="group"
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
+        />
+      )}
+      {isRemoveModalOpen && (
+        <UnshareModal
+          id={groupId}
+          name={name}
+          isOpen={isRemoveModalOpen}
+          type="group"
+          onClose={() => setIsRemoveModalOpen(false)}
         />
       )}
     </div>
