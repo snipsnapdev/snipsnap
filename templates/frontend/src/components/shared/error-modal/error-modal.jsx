@@ -19,12 +19,7 @@ const ErrorModal = () => {
 
   return (
     <ModalPortal>
-      <Modal
-        title={errorText}
-        isOpen={isErrorModalOpen}
-        theme="transparent"
-        onRequestClose={closeErrorModal}
-      >
+      <Modal title={errorText} isOpen={isErrorModalOpen} onRequestClose={closeErrorModal}>
         <div className={cx('actions')}>
           <Button themeColor="red" onClick={closeErrorModal}>
             Ok

@@ -71,7 +71,7 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
 
   return (
     <ModalPortal>
-      <Modal title="Add group" isOpen={isOpen} onRequestClose={onClose}>
+      <Modal theme="grey" title="Add group" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input label="Name" name="name" error={errors.name?.message} ref={inputRef} />
           <div className={cx('actions')}>

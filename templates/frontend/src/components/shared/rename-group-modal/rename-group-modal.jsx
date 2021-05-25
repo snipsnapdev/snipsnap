@@ -76,7 +76,7 @@ const RenameGroupModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal title="Rename group" isOpen={isOpen} onRequestClose={onClose}>
+      <Modal title="Rename group" isOpen={isOpen} theme="grey" onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             label="New group name"

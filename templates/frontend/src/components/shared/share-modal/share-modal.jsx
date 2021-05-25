@@ -265,7 +265,12 @@ const ShareModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal title={`Share "${sharedItem.name}" ${type}`} isOpen={isOpen} onRequestClose={onClose}>
+      <Modal
+        theme="grey"
+        title={`Share <span>"${sharedItem.name}"</span> ${type}`}
+        isOpen={isOpen}
+        onRequestClose={onClose}
+      >
         <form>
           <div className={cx('top')}>
             <Input

@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import useOutsideClick from 'hooks/use-outside-click';
+import CloseSvg from 'icons/close.inline.svg';
 
 import styles from './modal.module.scss';
 
@@ -13,8 +14,9 @@ const Modal = ({ title, children, isOpen, onRequestClose, theme }) => {
     <div className={cx('wrapper', theme, { open: isOpen })}>
       <div className={cx('content-wrapper')}>
         <div className={cx('content')} ref={register}>
-          <h2 className={cx('title')}>{title}</h2>
+          <h2 className={cx('title')} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={cx('body')}>{children}</div>
+          {theme === 'grey' && <CloseSvg className={cx('close')} onClick={onRequestClose} />}
         </div>
       </div>
     </div>
@@ -22,11 +24,11 @@ const Modal = ({ title, children, isOpen, onRequestClose, theme }) => {
 };
 
 Modal.propTypes = {
-  theme: PropTypes.oneOf(['blurred', 'transparent']),
+  theme: PropTypes.oneOf(['grey', 'transparent']),
 };
 
 Modal.defaultProps = {
-  theme: 'blurred',
+  theme: 'transparent',
 };
 
 export default Modal;

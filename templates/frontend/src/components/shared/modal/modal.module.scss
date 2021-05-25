@@ -1,11 +1,10 @@
 .wrapper {
   overflow: auto;
   inset: 0 0 0 0;
+  background: rgba(23, 24, 28, 0.9);
+  backdrop-filter: blur(14px);
 
-  &.blurred {
-    backdrop-filter: blur(10px);
-    background: rgba(28, 29, 34, 0.9);
-
+  &.grey {
     .body {
       padding: 30px;
     }
@@ -16,10 +15,6 @@
       border-radius: 2px;
       box-shadow: 0 0 10px rgba(23, 24, 28, 0.75);
     }
-  }
-
-  &.transparent {
-    background: rgba(23, 24, 28, 0.95);
   }
 }
 
@@ -51,26 +46,27 @@
   line-height: $line-height-lg;
   text-align: center;
   transform: translateY(-100%);
+
+  & > span {
+    color: $color-light-grey;
+  }
 }
 
 .close {
   position: absolute;
-  top: -10px;
-  right: -32px;
-  padding: 10px;
+  top: 0;
+  right: -30px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 
-  svg {
-    path {
-      stroke: $color-grey;
-    }
+  path {
+    stroke: $color-middle-grey;
   }
 
   &:hover {
-    svg {
-      path {
-        stroke: $color-white;
-      }
+    path {
+      stroke: $color-white;
     }
   }
 }

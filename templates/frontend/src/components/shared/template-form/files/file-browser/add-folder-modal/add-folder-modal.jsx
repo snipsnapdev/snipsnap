@@ -44,7 +44,7 @@ const AddFolderModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal title="Add folder" isOpen={isOpen} onRequestClose={onClose}>
+      <Modal theme="grey" title="Add folder" isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input label="Folder name" name="name" ref={inputRef} error={errors.name?.message} />
           <div className={cx('actions')}>

@@ -1,10 +1,11 @@
 .left-column {
-  width: 390px;
+  width: 375px;
+  margin-right: 15px;
 }
 
 .scroll-box {
   height: calc(100vh - 170px);
-  padding-right: 30px;
+  padding-right: 15px;
   margin-bottom: 30px;
   overflow-y: scroll;
 }

@@ -14,12 +14,7 @@ const DeleteFolderModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal
-        title={`Delete ${name} folder?`}
-        isOpen={isOpen}
-        theme="transparent"
-        onRequestClose={onClose}
-      >
+      <Modal title={`Delete ${name} folder?`} isOpen={isOpen} onRequestClose={onClose}>
         <div className={cx('actions')}>
           <Button themeColor="red" onClick={onSave}>
             Delete
