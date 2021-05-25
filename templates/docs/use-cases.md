@@ -1,3 +1,14 @@
+### Table of Contents
+- [Kubernetes](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#kubernetes)
+- [CI/CD](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#cicd)
+- [Docker](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#docker)
+- [React](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#react)
+- [Vue](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#vue)
+- [Graphql](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#graphql)
+- [Webinars](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#webinars)
+- [Node.js](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#nodejs)
+- [Tailwind](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#tailwind)
+- [Starters](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#starters)
 ### Kubernetes
 
 Optimize the routine you usually have when you copy-pasting yaml files of deployments/pods/certificate etc. from project to project. Create flexible templates that you can recreate easily with a matter of clicks.
