@@ -18,11 +18,11 @@
 
 ---
 ## Table of Contents
-- [What problem Snipsnap Templates is trying to solve?]()
-- [How it works]()
-- [Features]()
-- [Use cases]()
-- [Contributing]()
+- [What problem Snipsnap Templates is trying to solve?](https://github.com/snipsnapdev/snipsnap/tree/master/templates#-what-problem-snipsnap-is-trying-to-solve)
+- [How it works](https://github.com/snipsnapdev/snipsnap/tree/master/templates#%EF%B8%8F-how-it-works)
+- [Features](https://github.com/snipsnapdev/snipsnap/tree/master/templates#-features)
+- [Use cases](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md)
+- [Contributing](https://github.com/snipsnapdev/snipsnap/tree/master/templates#-contributing)
 
 
 
@@ -32,7 +32,7 @@ Snipsnap Templates could help you create a flexible folder and file structures t
 
 Nowadays we spend a lot of time creating boilerplate code structures whether we work with **React** or **Devops** tools such as Kubernetes.
 
-Check our [uses cases section](https://example.com) to see how Snipsnap can help you to boost your productivity.
+Check our [uses cases section](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md) to see how Snipsnap can help you to boost your productivity.
 
 Imagine you've just started your new project with React. Probably you will have the following structure for every new component
 
