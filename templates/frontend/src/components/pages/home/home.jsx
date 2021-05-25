@@ -16,7 +16,7 @@ const Home = () => (
     </div>
     <div className={cx('right')}>
       <SupportUs />
-      <VideoPlayer videoSrc="https://www.youtube.com/embed/aKKQdn26QJc" className={cx('video')} />
+      <VideoPlayer className={cx('video')} />
       <UseCases />
     </div>
   </div>

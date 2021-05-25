@@ -77,7 +77,7 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <VideoPlayer videoSrc="https://www.youtube.com/embed/aKKQdn26QJc" />
+        <VideoPlayer />
 
         <UseCases />
       </div>
