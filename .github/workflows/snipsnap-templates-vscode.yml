@@ -1,0 +1,23 @@
+name: snipsnap-templates-vscode
+
+on:
+  push:
+    tags:
+      - "snipsnap-templates-vscode@*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      WORKING_DIRECTORY: ./templates/vscode-extension/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ${{env.WORKING_DIRECTORY}}
+      - name: Package Extension
+        run: npm run package
+        working-directory: ${{env.WORKING_DIRECTORY}}

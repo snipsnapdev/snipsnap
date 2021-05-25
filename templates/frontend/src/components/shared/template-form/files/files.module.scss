@@ -1,0 +1,24 @@
+.head {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+}
+
+.add-button {
+  margin-left: 10px;
+}
+
+.add-options-inner {
+  width: 100px;
+}
+
+.group-options {
+  margin-left: auto;
+}

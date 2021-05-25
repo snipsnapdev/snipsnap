@@ -1,0 +1,131 @@
+.group-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 25px;
+  padding-left: 20px;
+  margin-right: -20px;
+  margin-left: -20px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    .name {
+      color: $color-white;
+    }
+
+    .options {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  color: $color-grey;
+}
+
+.icon {
+  transition: $transition-base transform;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.options {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 30px;
+  visibility: hidden;
+  border-radius: 2px;
+  opacity: 0;
+  transition:
+    background-color $transition-base,
+    opacity $transition-base,
+    visibility $transition-base;
+  transform: translateY(-50%);
+
+  &:hover {
+    background-color: $color-dark-grey;
+  }
+}
+
+.options-icon {
+  display: block;
+  width: 3px;
+  fill: $color-grey;
+}
+
+.name {
+  max-width: 140px;
+  margin-right: 5px;
+  overflow: hidden;
+  font-size: $font-size-md;
+  line-height: $line-height-md;
+  color: $color-light-grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color $transition-base;
+}
+
+.templates {
+  display: none;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: -20px;
+  margin-left: -20px;
+}
+
+.expanded {
+  position: relative;
+
+  &:last-child {
+    .templates {
+      margin-bottom: 0;
+    }
+  }
+
+  .templates {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  &::after {
+    position: absolute;
+    top: 27px;
+    bottom: 5px;
+    left: 4px;
+    width: 1px;
+    content: '';
+    background-color: $color-middle-grey;
+  }
+}
+
+.no-templates {
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  color: $color-grey;
+
+  svg {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  @include with-link;
+}

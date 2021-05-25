@@ -1,0 +1,70 @@
+.wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  color: $color-white;
+  transform: translateY(-50%);
+
+  &.up {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  svg {
+    display: block;
+    width: 14px;
+    height: 10px;
+  }
+}
+
+.menu {
+  position: absolute;
+  z-index: 9;
+  display: none;
+  white-space: nowrap;
+}
+
+.position-top-left {
+  bottom: -10px;
+  left: 0;
+  transform: translateY(100%);
+}
+
+.position-top-right {
+  right: 0;
+  bottom: -10px;
+  transform: translateY(100%);
+
+  // avoid triggering hover of the next element
+  &::before {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    content: '';
+    background-color: transparent;
+  }
+}
+
+.position-bottom-right {
+  top: -10px;
+  right: 0;
+  transform: translateY(-100%);
+}
+
+.position-bottom-left {
+  top: -10px;
+  left: 0;
+  transform: translateY(-100%);
+}
+
+.opened {
+  .menu {
+    display: block;
+  }
+}
