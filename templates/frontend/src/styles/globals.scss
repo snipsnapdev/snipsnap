@@ -69,6 +69,11 @@ h2 {
       margin-bottom: 0;
     }
   }
+
+  a,
+  span {
+    transition: none !important;
+  }
 }
 
 //Custom scrollbar styles
