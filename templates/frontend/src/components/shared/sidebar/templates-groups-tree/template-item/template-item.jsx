@@ -9,6 +9,7 @@ import { gql, useGqlClient } from 'api/graphql';
 import DeleteTemplateModal from 'components/shared/delete-template-modal';
 import Dropdown from 'components/shared/dropdown';
 import ShareModal from 'components/shared/share-modal';
+import UnshareModal from 'components/shared/unshare-modal';
 import useSession from 'hooks/use-session';
 import DotsIcon from 'icons/dots.inline.svg';
 import StarIcon from 'icons/star.inline.svg';
@@ -40,6 +41,8 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  // un-share template shared with the current user
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
   const gqlClient = useGqlClient();
 
@@ -71,6 +74,16 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
           {
             text: 'Delete',
             onClick: () => setIsDeleteModalOpen(true),
+            theme: 'danger',
+          },
+        ]),
+    // un-share template shared with the current user
+    ...(!shared
+      ? []
+      : [
+          {
+            text: 'Remove',
+            onClick: () => setIsRemoveModalOpen(true),
             theme: 'danger',
           },
         ]),
@@ -112,6 +125,14 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
           type="template"
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
+        />
+      )}
+      {isRemoveModalOpen && (
+        <UnshareModal
+          id={templateId}
+          name={name}
+          isOpen={isRemoveModalOpen}
+          onClose={() => setIsRemoveModalOpen(false)}
         />
       )}
     </>

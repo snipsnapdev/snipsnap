@@ -78,13 +78,23 @@ export default function TemplateGroupsProvider({ children }) {
   const sharedGroups = groups.filter(({ owner_id }) => owner_id !== user.id);
   const sharedTemplates = templatesWithoutGroup.filter(({ owner_id }) => owner_id !== user.id);
 
+  const sharedGroupIds = sharedGroups.map((group) => group.id);
+  /* if template was in a group, but the template is shared and the group is not,
+   the user it was shared with should see it as a template without a group */
+  const sharedTemplatesFromUnsharedGroups = templates.filter(
+    ({ template_group_id, owner_id }) =>
+      owner_id !== user.id && !!template_group_id && !sharedGroupIds.includes(template_group_id)
+  );
+
   const providerValue = {
     groups,
     templates: templatesWithoutGroup,
     ownedGroups,
     ownedTemplates,
     sharedGroups,
-    sharedTemplates,
+    sharedTemplates: [...sharedTemplates, ...sharedTemplatesFromUnsharedGroups].sort(
+      sortTemplatesByName
+    ),
   };
 
   return (

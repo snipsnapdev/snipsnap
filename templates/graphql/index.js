@@ -3,30 +3,15 @@ require("dotenv").config();
 const { ApolloServer, gql } = require("apollo-server");
 const { GraphQLClient } = require("graphql-request");
 
-const jwt = require("jsonwebtoken");
+const { typeDefs } = require("./types");
 
-const { JWT_SECRET } = process.env;
-
-const ENCRYPTION_ALGORITHM = "HS512";
-
-const encode = (userId, expires, role = "api-user") => {
-  const tokenContent = {
-    "https://hasura.io/jwt/claims": {
-      "x-hasura-allowed-roles": [role],
-      "x-hasura-default-role": role,
-      "x-hasura-role": role,
-      "x-hasura-user-id": userId,
-    },
-  };
-  const encodedToken = jwt.sign(tokenContent, JWT_SECRET, {
-    algorithm: ENCRYPTION_ALGORITHM,
-    expiresIn: `${expires}s`,
-  });
-  return encodedToken;
-};
-
-const MAX_FILE_SIZE = 5000; /// 5KB
-const MAX_FILES_AMOUNT = 20;
+const { encode } = require("./utils/jwt");
+const {
+  validatePrompts,
+  validateSizesOfFiles,
+  validateAmountOfFiles,
+  validateFiles,
+} = require("./utils/validation");
 
 const gqlClient = new GraphQLClient(process.env.HASURA_GRAPHQL_URL, {
   headers: {
@@ -65,62 +50,6 @@ const shareTemplateQuery = gql`
   }
 `;
 
-const validatePrompts = (prompts) => {
-  if (!Array.isArray(prompts)) return false;
-
-  const variableNames = prompts.map(({ variableName }) => variableName);
-
-  return (
-    // Checks if prompts have multiple variableName with the same value or not
-    new Set(variableNames).size === prompts.length &&
-    // Checks if every prompt has both message and variableName
-    prompts.every(({ message, variableName }) => message && variableName)
-  );
-};
-
-const validateSizesOfFiles = (files) => {
-  const callback = ({ type, data }) => {
-    if (type === "file") {
-      const fileSize = Buffer.byteLength(data.content, "utf8");
-      if (fileSize > MAX_FILE_SIZE) {
-        console.log("file", data.name, "is too large: ", fileSize, "bites");
-      }
-      return fileSize <= MAX_FILE_SIZE;
-    } else {
-      return data.files.every(callback);
-    }
-  };
-
-  return files.every(callback);
-};
-
-// Ignores folders, counts only files
-const validateAmountOfFiles = (files) => {
-  let amountOfFiles = 0;
-
-  const callback = ({ type, data }) => {
-    if (type === "file") {
-      amountOfFiles++;
-    } else {
-      data.files.forEach(callback);
-    }
-  };
-
-  files.forEach(callback);
-
-  if (amountOfFiles > MAX_FILES_AMOUNT) {
-    console.log("too many files");
-  }
-
-  return amountOfFiles <= MAX_FILES_AMOUNT;
-};
-
-const validateFiles = (files) => {
-  const isFileSizesValid = validateSizesOfFiles(files);
-  const amountOfFiles = validateAmountOfFiles(files);
-  return isFileSizesValid && amountOfFiles;
-};
-
 const getUserByEmail = async (email) => {
   const query = gql`
     query ($email: String!) {
@@ -138,85 +67,6 @@ const getUserByEmail = async (email) => {
 
   return data?.users?.[0]?.user_id;
 };
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-
-  input InsertTemplateInput {
-    name: String!
-    prompts: String
-    files: String!
-    template_group_id: String
-  }
-
-  input UpdateTemplateInput {
-    id: String!
-    name: String
-    prompts: String
-    files: String
-    template_group_id: String
-  }
-
-  type Template {
-    id: String
-    name: String
-    prompts: String
-    files: String
-    template_group_id: String
-    owner_id: String
-    created_at: String
-    updated_at: String
-  }
-
-  input ShareTemplateInput {
-    template_id: String!
-    share_to_user_email: String!
-    share_by_user_id: String
-  }
-
-  type SharedTemplate {
-    id: String
-    template_id: String
-    shared_by_user_id: String
-    shared_to_user_id: String
-    created_at: String
-    updated_at: String
-  }
-
-  input ShareTemplateGroupInput {
-    template_group_id: String!
-    share_to_user_email: String!
-  }
-
-  type SharedTemplateGroup {
-    id: String
-    template_group_id: String
-    shared_by_user_id: String
-    shared_to_user_id: String
-    created_at: String
-    updated_at: String
-  }
-
-  input RefreshApiTokenInput {
-    user_id: String!
-  }
-
-  type RefreshApiToken {
-    api_key: String
-  }
-
-  type Mutation {
-    insert_template(object: InsertTemplateInput): Template
-    update_template(object: UpdateTemplateInput): Template
-    share_template(object: ShareTemplateInput): SharedTemplate
-    unshare_template(object: ShareTemplateInput): SharedTemplate
-    share_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
-    unshare_template_group(object: ShareTemplateGroupInput): SharedTemplateGroup
-    refresh_api_token(object: RefreshApiTokenInput): RefreshApiToken
-  }
-`;
 
 const resolvers = {
   Mutation: {
@@ -453,11 +303,13 @@ const resolvers = {
         args.object.share_to_user_email
       );
 
-      // Can't unshare from yourself. Yes, even if we let unshare mutation run, it won't delete anything since such item does not exist but still
-      if (shareToUserId === userId) return;
+      // can't unshare with yourself
+      if (userId === shareToUserId) {
+        return;
+      }
 
       const mutation = gql`
-        mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+        mutation ($template_id: uuid!, $user_by: uuid, $user_to: uuid!) {
           delete_shared_templates(
             where: {
               template_id: { _eq: $template_id }
@@ -481,8 +333,47 @@ const resolvers = {
 
       const data = await gqlClient.request(mutation, {
         template_id: template_id,
-        user_by: userId || share_by_user_id,
         user_to: shareToUserId,
+        user_by: userId || share_by_user_id,
+      });
+
+      return data?.delete_shared_templates?.returning?.[0] || null;
+    },
+    unshare_template_from_current_user: async (_, args, { userId }) => {
+      const { share_to_user_email, template_id } = args.object;
+
+      let shareToUserId;
+      if (!userId) {
+        shareToUserId = await getUserByEmail(share_to_user_email);
+      }
+
+      if (!userId && !shareToUserId) {
+        return;
+      }
+
+      const mutation = gql`
+        mutation ($template_id: uuid!, $user_to: uuid!) {
+          delete_shared_templates(
+            where: {
+              template_id: { _eq: $template_id }
+              shared_to_user_id: { _eq: $user_to }
+            }
+          ) {
+            returning {
+              id
+              template_id
+              shared_by_user_id
+              shared_to_user_id
+              created_at
+              updated_at
+            }
+          }
+        }
+      `;
+
+      const data = await gqlClient.request(mutation, {
+        template_id: template_id,
+        user_to: userId || shareToUserId,
       });
 
       return data?.delete_shared_templates?.returning?.[0] || null;
@@ -641,6 +532,86 @@ const resolvers = {
               templateId,
               shareToUserEmail: args.object.share_to_user_email,
               shareByUserId: userId,
+            })
+          )
+        );
+      }
+
+      return data?.delete_shared_template_groups?.returning?.[0] || null;
+    },
+    unshare_template_group_from_current_user: async (_, args, { userId }) => {
+      if (!userId) return;
+
+      const mutation = gql`
+        mutation ($template_group_id: uuid!, $user_to: uuid!) {
+          delete_shared_template_groups(
+            where: {
+              template_group_id: { _eq: $template_group_id }
+              shared_to_user_id: { _eq: $user_to }
+            }
+          ) {
+            returning {
+              id
+              template_group_id
+              shared_by_user_id
+              shared_to_user_id
+              created_at
+              updated_at
+            }
+          }
+        }
+      `;
+
+      const { template_group_id, share_to_user_email } = args.object;
+
+      const data = await gqlClient.request(mutation, {
+        template_group_id: template_group_id,
+        user_to: userId,
+      });
+
+      // unshare all templates in that group
+      const getTemplatesInGroup = gql`
+        query ($template_group_id: uuid!) {
+          template_groups(where: { id: { _eq: $template_group_id } }) {
+            templates {
+              id
+            }
+          }
+        }
+      `;
+
+      // find templates included in the unshared group
+      const templates = await gqlClient.request(getTemplatesInGroup, {
+        template_group_id,
+      });
+
+      const templateIds = templates?.template_groups?.[0].templates.map(
+        (t) => t.id
+      );
+
+      const unshareTemplateQuery = gql`
+        mutation shareTemplate(
+          $templateId: String!
+          $shareToUserEmail: String!
+        ) {
+          unshare_template_from_current_user(
+            object: {
+              template_id: $templateId
+              share_to_user_email: $shareToUserEmail
+            }
+          ) {
+            shared_to_user_id
+          }
+        }
+      `;
+
+      // unshare all templates with the user removed from group
+      if (templateIds.length > 0) {
+        await Promise.all(
+          templateIds.map((templateId) =>
+            gqlClient.request(unshareTemplateQuery, {
+              templateId,
+              shareToUserEmail: share_to_user_email,
             })
           )
         );
