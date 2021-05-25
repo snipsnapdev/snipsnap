@@ -9,6 +9,9 @@
 - [Node.js](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#nodejs)
 - [Tailwind](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#tailwind)
 - [Starters](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#starters)
+- [Wordpress](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#wordpress)
+- [Linters](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#linters)
+
 ### Kubernetes
 
 Optimize the routine you usually have when you copy-pasting yaml files of deployments/pods/certificate etc. from project to project. Create flexible templates that you can recreate easily with a matter of clicks.
@@ -126,3 +129,9 @@ If you move some tailwind components from one project to another, wrap it as a t
 
 ### Starters
 You can add a lot of different folders and files to every Code Template within Snipsnap. If you have some starters for new plugin or extension for your popular framework, you can use Snipsnap to avoid recreating all those file structure over and over again.
+
+### Wordpress
+Wrap a starter for your go to Worpdress template and create it easily from VS Code Extension
+
+### Linters
+There are many linters could be in the single project like stylelint, eslint, commitlint etc. Create a template that combines all of those configs, so next time you will start the project you can bootstrap it faster.
