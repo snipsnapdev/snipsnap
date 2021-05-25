@@ -340,13 +340,11 @@ const resolvers = {
       return data?.delete_shared_templates?.returning?.[0] || null;
     },
     unshare_template_from_current_user: async (_, args, { userId }) => {
-      if (!userId) return;
-
       const { share_to_user_email, template_id } = args.object;
 
       let shareToUserId;
       if (!userId) {
-        const shareToUserId = await getUserByEmail(share_to_user_email);
+        shareToUserId = await getUserByEmail(share_to_user_email);
       }
 
       if (!userId && !shareToUserId) {
@@ -566,8 +564,6 @@ const resolvers = {
 
       const { template_group_id, share_to_user_email } = args.object;
 
-      console.log("UNSHARE GROUP", template_group_id, "FROM", userId);
-
       const data = await gqlClient.request(mutation, {
         template_group_id: template_group_id,
         user_to: userId,
@@ -592,8 +588,6 @@ const resolvers = {
       const templateIds = templates?.template_groups?.[0].templates.map(
         (t) => t.id
       );
-
-      console.log("FOUND TEMPLATES", templateIds);
 
       const unshareTemplateQuery = gql`
         mutation shareTemplate(
