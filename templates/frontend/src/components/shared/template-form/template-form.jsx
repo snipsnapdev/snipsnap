@@ -37,12 +37,7 @@ const schema = yup.object().shape({
     .compact((v) => v.message === '' && v.variableName === ''),
 });
 
-const TemplateForm = ({
-  initialValues,
-  isCreatingNewTemplate = false,
-  readOny = false,
-  onSave,
-}) => {
+const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
   const {
     register,
     control,
@@ -157,8 +152,6 @@ const TemplateForm = ({
 
   const isFormValid = Object.keys(errors).length === 0;
 
-  console.log('FORM readOny');
-
   return (
     <FilesContext.Provider
       value={{
@@ -186,7 +179,6 @@ const TemplateForm = ({
                     name="name"
                     ref={inputRef}
                     error={errors.name?.message}
-                    readOny={readOny}
                   />
                 </div>
 
@@ -208,7 +200,6 @@ const TemplateForm = ({
                     trigger={trigger}
                     errors={errors}
                     showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
-                    readOny={readOny}
                   />
                 </div>
                 <div className={cx('files-wrapper')}>

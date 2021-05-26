@@ -20,6 +20,7 @@ const File = ({
   onDragStart,
   onDragEnd,
   level,
+  readOnly,
 }) => {
   const fileRef = useRef();
 
@@ -72,9 +73,11 @@ const File = ({
         <Icon />
       </div>
       {file.data.name}
-      <button className={cx('button-delete')} onClick={handleDelete}>
-        <CloseSvg className={cx('icon')} />
-      </button>
+      {!readOnly && (
+        <button className={cx('button-delete')} onClick={handleDelete}>
+          <CloseSvg className={cx('icon')} />
+        </button>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import FileSvg from './images/file.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const FileBrowser = ({ onCreateManually }) => {
+const FileBrowser = ({ readOnly = false, onCreateManually }) => {
   const {
     state: { files },
     filesDispatch,
@@ -192,6 +192,8 @@ const FileBrowser = ({ onCreateManually }) => {
       fileId: file ? file.id : null,
     });
 
+  const noop = () => {};
+
   return (
     <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
       {files.length ? (
@@ -201,14 +203,15 @@ const FileBrowser = ({ onCreateManually }) => {
           parentDragLeaveHandler={handleDragLeave}
           parentId={null}
           level={0}
-          onAddFile={handleAddFile}
-          onAddFolder={handleAddFolder}
-          onDropFile={handleDropFile}
-          onRenameFolder={handleRenameFolder}
-          onItemDelete={handleDeleteItem}
+          readOnly={readOnly}
+          onAddFile={!readOnly ? handleAddFile : noop}
+          onAddFolder={!readOnly ? handleAddFolder : noop}
+          onDropFile={!readOnly ? handleDropFile : noop}
+          onRenameFolder={!readOnly ? handleRenameFolder : noop}
+          onItemDelete={!readOnly ? handleDeleteItem : noop}
           onOpenFile={handleOpenFile}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
+          onDragStart={!readOnly ? handleDragStart : noop}
+          onDragEnd={!readOnly ? handleDragEnd : noop}
         />
       ) : (
         <div className={cx('empty')}>
