@@ -27,4 +27,31 @@ const createTemplateMutation = gql`
   }
 `;
 
-module.exports = { createTemplateMutation };
+const updateTemplateMutation = gql`
+  mutation (
+    $id: uuid!
+    $name: String
+    $prompts: jsonb
+    $files: jsonb
+    $template_group_id: uuid
+  ) {
+    update_templates_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        name: $name
+        files: $files
+        prompts: $prompts
+        template_group_id: $template_group_id
+      }
+    ) {
+      id
+      name
+      prompts
+      files
+      template_group_id
+      owner_id
+    }
+  }
+`;
+
+module.exports = { createTemplateMutation, updateTemplateMutation };

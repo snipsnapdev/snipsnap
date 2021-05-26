@@ -1,11 +1,11 @@
-const { createTemplateMutation } = require("./mutations");
+const { createTemplateMutation } = require("../mutations");
 const {
   shareTemplateQuery,
   getUsersTemplateGroupSharedTo,
-} = require("./queries");
-const { validatePrompts, validateFiles } = require("../utils/validation");
+} = require("../queries");
+const { validatePrompts, validateFiles } = require("../../utils/validation");
 
-const { gqlClient } = require("../api/client");
+const { gqlClient } = require("../../api/client");
 
 const createTemplate = async (_, args, { userId }) => {
   if (!userId) return;
