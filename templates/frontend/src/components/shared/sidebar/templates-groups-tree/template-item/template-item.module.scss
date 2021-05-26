@@ -81,6 +81,10 @@
 
   &:hover {
     background-color: $color-dark-grey;
+
+    path {
+      fill: $color-white;
+    }
   }
 }
 

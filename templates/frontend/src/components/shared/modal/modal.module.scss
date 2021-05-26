@@ -27,6 +27,20 @@
   position: relative;
   z-index: 11;
   width: 600px;
+
+  &.withGradient {
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      pointer-events: none;
+      content: '';
+      background: linear-gradient(180deg, rgba(36, 37, 40, 0) 0%, #242528 100%);
+      border-radius: 2px;
+    }
+  }
 }
 
 .content-wrapper {

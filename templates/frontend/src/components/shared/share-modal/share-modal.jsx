@@ -274,6 +274,7 @@ const ShareModal = (props) => {
         theme="grey"
         title={`Share <span>"${sharedItem.name}"</span> ${type}`}
         isOpen={isOpen}
+        hasGradient={Boolean(usersSharedTo.length > 6)}
         onRequestClose={onClose}
       >
         <form>
