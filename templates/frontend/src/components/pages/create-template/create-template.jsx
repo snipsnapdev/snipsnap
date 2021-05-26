@@ -47,7 +47,7 @@ const CreateTemplate = () => {
     const templateId = res?.insert_template?.id || null;
 
     if (templateId) {
-      router.push(`/template/${templateId}`);
+      router.push(`/template/${templateId}/edit`);
     }
   };
   return (

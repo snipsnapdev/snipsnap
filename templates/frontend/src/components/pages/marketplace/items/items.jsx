@@ -53,7 +53,7 @@ const Items = ({ searchText, items }) => {
       const templateId = res?.insert_template?.id || null;
 
       if (templateId) {
-        router.push(`/template/${templateId}`);
+        router.push(`/template/${templateId}/edit`);
       }
     } catch (error) {
       console.error(error);
