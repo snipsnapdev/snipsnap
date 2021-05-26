@@ -59,18 +59,31 @@ export default function Login() {
 
         <ul className={cx('links-wrapper')}>
           <li>
-            <Link href="/">
-              <Button tag="a" themeType="link" size="md">
-                Guides
-              </Button>
-            </Link>
+            <Button
+              tag="a"
+              themeType="link"
+              size="md"
+              target="_blank"
+              href="https://github.com/snipsnapdev/snipsnap/tree/master/templates"
+            >
+              Docs
+            </Button>
           </li>
           <li>
-            <Link href="/">
-              <Button tag="a" themeType="link" size="md">
-                Install VS Code Extension
-              </Button>
-            </Link>
+            <Button
+              tag="a"
+              themeType="link"
+              size="md"
+              target="_blank"
+              href="https://github.com/snipsnapdev/snipsnap/issues"
+            >
+              Report an issue
+            </Button>
+          </li>
+          <li>
+            <Button href="mailto:info@snipsnap.dev" tag="a" themeType="link" size="md">
+              Contact Us
+            </Button>
           </li>
         </ul>
       </div>

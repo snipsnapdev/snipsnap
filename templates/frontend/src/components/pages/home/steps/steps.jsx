@@ -83,7 +83,7 @@ const Steps = () => {
       <ul>
         <li className={cx('item')}>
           <h3 className={cx('item-title')}>Install VS Code extension</h3>
-          <Button tag="a" href="vscode:extension/snipsnapdev.snipsnap-vscode">
+          <Button tag="a" href="vscode:extension/snipsnapdev.snipsnap-templates-vscode">
             Install extension
           </Button>
         </li>
@@ -122,20 +122,30 @@ const Steps = () => {
           <h3 className={cx('item-title')}>Useful links</h3>
           <ul className={cx('item-list')}>
             <li className={cx('item-list-item')}>
-              <Link href="/">
-                <Button tag="a" themeType="link" size="md">
-                  Guides
-                </Button>
-              </Link>
+              <Button
+                tag="a"
+                themeType="link"
+                size="md"
+                target="_blank"
+                href="https://github.com/snipsnapdev/snipsnap/tree/master/templates"
+              >
+                Docs
+              </Button>
             </li>
             <li className={cx('item-list-item')}>
               <Button
                 tag="a"
                 themeType="link"
                 size="md"
-                href="vscode:extension/snipsnapdev.snipsnap-vscode"
+                target="_blank"
+                href="https://github.com/snipsnapdev/snipsnap/issues"
               >
-                Install VS Code extension
+                Report an issue
+              </Button>
+            </li>
+            <li className={cx('item-list-item')}>
+              <Button href="mailto:info@snipsnap.dev" tag="a" themeType="link" size="md">
+                Contact Us
               </Button>
             </li>
           </ul>

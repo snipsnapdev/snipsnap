@@ -72,14 +72,30 @@ const Prompts = ({ control, trigger, errors, register, readOny = false }) => {
       <div className={cx('head')}>
         <h2 className={cx('title')}>Prompts</h2>
         <Tooltip dataFor="tooltip" />
-        <ReactTooltip className={cx('tooltip')} effect="solid" place="right" id="tooltip" clickable>
+        <ReactTooltip
+          className={cx('tooltip')}
+          effect="solid"
+          place="right"
+          id="tooltip"
+          delayHide={500}
+          clickable
+        >
           <p>
             Prompts represent list of questions that will be asked during template execution from
             users as a popup.
           </p>
           <p>
-            Answers you can use as variables inside templates or filenames by using % myVariable %
+            Answers you can use as variables inside templates or filenames like this{' '}
+            {'{{variableName}}'}
           </p>
+          <Button
+            tag="a"
+            target="_blank"
+            href="https://github.com/snipsnapdev/snipsnap/tree/master/templates#template-engine-support"
+            themeType="link"
+          >
+            Learn more
+          </Button>
         </ReactTooltip>
       </div>
       <div className={cx('items-wrapper')}>

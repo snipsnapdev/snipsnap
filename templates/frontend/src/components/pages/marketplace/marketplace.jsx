@@ -41,8 +41,8 @@ const Marketplace = () => {
       <div className={cx('header')}>
         <h2 className={cx('title')}>Marketplace</h2>
         <p className={cx('description')}>
-          Create or use existing templates for your deployments, pods, certificates. Reduce changes
-          of failures copypasting yaml files from previous project
+          Find templates created by other users. Clone them and modify for your needs. Share your
+          templates with the community.
         </p>
       </div>
       <Search value={searchText} onChange={setSearchText} />
