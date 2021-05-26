@@ -68,7 +68,7 @@ const File = ({
       onDrag={handleDragStart}
       onDragEnd={onDragEnd}
     >
-      <div className={cx('file-icon')} style={{ left: 5 + 25 * level }}>
+      <div className={cx('file-icon')} style={{ left: 7 + 25 * level }}>
         <Icon />
       </div>
       {file.data.name}
