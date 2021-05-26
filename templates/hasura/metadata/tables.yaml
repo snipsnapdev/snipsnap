@@ -278,6 +278,7 @@
       columns:
       - files
       - id
+      - is_public
       - name
       - prompts
       filter:

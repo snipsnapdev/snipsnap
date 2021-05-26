@@ -1,54 +1,13 @@
 require("dotenv").config();
 
 const { ApolloServer, gql } = require("apollo-server");
-const { GraphQLClient } = require("graphql-request");
 
 const { typeDefs } = require("./types");
 
 const { encode } = require("./utils/jwt");
-const {
-  validatePrompts,
-  validateSizesOfFiles,
-  validateAmountOfFiles,
-  validateFiles,
-} = require("./utils/validation");
+const { gqlClient } = require("./api/client");
 
-const gqlClient = new GraphQLClient(process.env.HASURA_GRAPHQL_URL, {
-  headers: {
-    "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
-  },
-});
-
-const getUsersTemplateGroupSharedTo = gql`
-  query MyQuery($groupId: uuid!) {
-    shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
-      shared_to_user {
-        id
-        name
-        image
-        email
-      }
-    }
-  }
-`;
-
-const shareTemplateQuery = gql`
-  mutation shareTemplate(
-    $templateId: String!
-    $shareToUserEmail: String!
-    $shareByUserId: String
-  ) {
-    share_template(
-      object: {
-        template_id: $templateId
-        share_to_user_email: $shareToUserEmail
-        share_by_user_id: $shareByUserId
-      }
-    ) {
-      id
-    }
-  }
-`;
+const { createTemplate, updateTemplate } = require("./template");
 
 const getUserByEmail = async (email) => {
   const query = gql`
@@ -96,129 +55,8 @@ const resolvers = {
 
       return res?.update_api_keys?.returning?.[0];
     },
-    insert_template: async (_, args, { userId }) => {
-      if (!userId) return;
-
-      const mutation = gql`
-        mutation (
-          $name: String!
-          $prompts: jsonb
-          $files: jsonb!
-          $template_group_id: uuid
-          $owner_id: uuid!
-        ) {
-          insert_templates_one(
-            object: {
-              name: $name
-              files: $files
-              prompts: $prompts
-              template_group_id: $template_group_id
-              owner_id: $owner_id
-            }
-          ) {
-            id
-            name
-            prompts
-            files
-            template_group_id
-            owner_id
-          }
-        }
-      `;
-
-      const { name, prompts, files, template_group_id } = args.object;
-
-      const isPromptsValid = validatePrompts(JSON.parse(prompts));
-      const isFilesValid = validateFiles(JSON.parse(files));
-
-      if (!isPromptsValid) {
-        throw new Error("Prompts not valid");
-      }
-
-      if (!isFilesValid) {
-        throw new Error("Files not valid");
-      }
-
-      const res = await gqlClient.request(mutation, {
-        name,
-        prompts,
-        files,
-        template_group_id,
-        owner_id: userId,
-      });
-
-      // if group was shared - share this template with all that users
-      if (template_group_id && res?.insert_templates_one?.id) {
-        // find users group was shared to
-        const users = await gqlClient.request(getUsersTemplateGroupSharedTo, {
-          groupId: template_group_id,
-        });
-        const userEmails =
-          users?.shared_template_groups.map(
-            (item) => item.shared_to_user.email
-          ) || [];
-
-        // share template
-        if (userEmails.length > 0) {
-          await Promise.all(
-            userEmails.map((email) =>
-              gqlClient.request(shareTemplateQuery, {
-                templateId: res.insert_templates_one.id,
-                shareToUserEmail: email,
-                shareByUserId: userId,
-              })
-            )
-          );
-        }
-      }
-
-      return res?.insert_templates_one;
-    },
-    update_template: async (_, args, { userId }) => {
-      if (!userId) return;
-
-      const mutation = gql`
-        mutation (
-          $id: uuid!
-          $name: String
-          $prompts: jsonb
-          $files: jsonb
-          $template_group_id: uuid
-        ) {
-          update_templates_by_pk(
-            pk_columns: { id: $id }
-            _set: {
-              name: $name
-              files: $files
-              prompts: $prompts
-              template_group_id: $template_group_id
-            }
-          ) {
-            id
-            name
-            prompts
-            files
-            template_group_id
-            owner_id
-          }
-        }
-      `;
-
-      const { id, name, prompts, files, template_group_id } = args.object;
-
-      const isPromptsValid = validatePrompts(JSON.parse(prompts));
-      const isFilesValid = validateFiles(JSON.parse(files));
-
-      if (!isPromptsValid || !isFilesValid) return;
-
-      return gqlClient.request(mutation, {
-        id,
-        name,
-        prompts,
-        files,
-        template_group_id,
-      });
-    },
+    insert_template: createTemplate,
+    update_template: updateTemplate,
     share_template: async (_, args, { userId }) => {
       const { template_id, share_by_user_id } = args.object;
 

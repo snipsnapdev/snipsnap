@@ -32,7 +32,7 @@ import styles from './editor.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Editor = () => {
+const Editor = ({ readOnly = false }) => {
   const LANGUAGES = Object.values(EXTENSION_LANGUAGE_MAPPING);
 
   const {
@@ -114,7 +114,7 @@ const Editor = () => {
       <div className={cx('file-path')}>{filePath}</div>
       <div className={cx('editor-container')}>
         <AceEditor
-          readOnly={!openFile}
+          readOnly={!openFile || readOnly}
           value={openFile ? openFile.data.content : ''}
           mode={language.aceMode.toLowerCase()}
           theme="twilight"
