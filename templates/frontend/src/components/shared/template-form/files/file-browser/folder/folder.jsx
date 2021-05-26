@@ -25,6 +25,7 @@ const Folder = ({
   onDragStart,
   onDragEnd,
   level,
+  readOnly,
 }) => {
   const folderRef = useRef();
   const [isOpen, setIsOpen] = useState(true);
@@ -116,15 +117,17 @@ const Folder = ({
           <ArrowSvg className={cx('arrow', isOpen && 'open')} />
           <span className={cx('folder-name')}>{folder.data.name}</span>
         </button>
-        <Dropdown
-          menuItems={menuItems}
-          className={cx('options')}
-          position="top-right"
-          menuClassName={cx('options-menu')}
-          stopPropagation
-        >
-          <DotsIcon className={cx('options-icon')} />
-        </Dropdown>
+        {!readOnly && (
+          <Dropdown
+            menuItems={menuItems}
+            className={cx('options')}
+            position="top-right"
+            menuClassName={cx('options-menu')}
+            stopPropagation
+          >
+            <DotsIcon className={cx('options-icon')} />
+          </Dropdown>
+        )}
       </div>
       {isAddFileModalOpen && (
         <AddFileModal

@@ -14,7 +14,7 @@ import styles from './files.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Files = () => {
+const Files = ({ readOnly = false }) => {
   const { filesDispatch } = useFiles();
 
   const addFileHandler = (fileName) => {
@@ -56,16 +56,18 @@ const Files = () => {
     <>
       <div className={cx('head')}>
         <h2 className={cx('title')}>Files</h2>
-        <div className={cx('add-options')}>
-          <Dropdown
-            menuItems={menuItems}
-            className={cx('add-options-inner')}
-            position="top-left"
-            stopPropagation
-          >
-            <IconButton className={cx('add-button')} icon={{ name: 'plus', size: 10 }} />
-          </Dropdown>
-        </div>
+        {!readOnly && (
+          <div className={cx('add-options')}>
+            <Dropdown
+              menuItems={menuItems}
+              className={cx('add-options-inner')}
+              position="top-left"
+              stopPropagation
+            >
+              <IconButton className={cx('add-button')} icon={{ name: 'plus', size: 10 }} />
+            </Dropdown>
+          </div>
+        )}
         {isAddFileModalOpen && (
           <AddFileModal
             isOpen={isAddFileModalOpen}
@@ -82,7 +84,7 @@ const Files = () => {
         )}
       </div>
 
-      <FileBrowser onCreateManually={() => setIsAddFileModalOpen(true)} />
+      <FileBrowser readOnly={readOnly} onCreateManually={() => setIsAddFileModalOpen(true)} />
     </>
   );
 };

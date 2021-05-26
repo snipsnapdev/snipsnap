@@ -88,7 +88,7 @@ export default function TemplateGroupsProvider({ children }) {
 
   const providerValue = {
     groups,
-    templates: templatesWithoutGroup,
+    templates: [...templatesWithoutGroup, ...sharedTemplatesFromUnsharedGroups],
     ownedGroups,
     ownedTemplates,
     sharedGroups,

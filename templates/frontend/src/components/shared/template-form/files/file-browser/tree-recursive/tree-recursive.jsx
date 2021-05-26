@@ -19,6 +19,7 @@ const TreeRecursive = ({
   onDragStart,
   onDragEnd,
   level,
+  readOnly = false,
 }) => (
   <div className={styles.tree}>
     {data.map((item) => {
@@ -28,6 +29,7 @@ const TreeRecursive = ({
             key={item.id}
             file={item}
             level={level}
+            readOnly={readOnly}
             onDragOver={parentDragOverHandler}
             onDragLeave={parentDragLeaveHandler}
             onDrop={(evt) => onDropFile(parentId, evt)}
@@ -43,6 +45,7 @@ const TreeRecursive = ({
           key={item.id}
           folder={item}
           level={level}
+          readOnly={readOnly}
           onDelete={onItemDelete}
           onDropFile={onDropFile}
           onAddFile={onAddFile}
