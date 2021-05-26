@@ -66,7 +66,15 @@ const Items = ({ searchText, items }) => {
       {filteredItems.length > 0 && (
         <div className={cx('wrapper')}>
           {filteredItems.map(({ id, name, prompts, files, owner }) => (
-            <div className={cx('item')} key={id}>
+            <div
+              className={cx('item')}
+              key={id}
+              onClick={(evt) => {
+                evt.stopPropagation();
+                evt.preventDefault();
+                router.push(`/template/${id}`);
+              }}
+            >
               <h3 className={cx('item-name')}>{name}</h3>
               <div className={cx('item-footer')}>
                 <div className={cx('item-author')}>
@@ -80,7 +88,11 @@ const Items = ({ searchText, items }) => {
                 <Button
                   themeType="link"
                   size="md"
-                  onClick={() => handleClone({ name, prompts, files })}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    handleClone({ name, prompts, files });
+                  }}
                 >
                   Clone
                 </Button>

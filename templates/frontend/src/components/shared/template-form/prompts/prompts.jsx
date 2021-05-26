@@ -19,7 +19,7 @@ const ReactTooltip = dynamic(() => import('react-tooltip'), {
 
 const cx = classNames.bind(styles);
 
-const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) => (
+const Prompt = React.forwardRef(({ item, trigger, index, errors, remove, readOny }, ref) => (
   <li className={cx('item')} key={item.id}>
     <Input
       className={cx('item-input')}
@@ -28,6 +28,7 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) 
       defaultValue={item.message}
       register={ref}
       error={errors?.prompts?.[index]?.message?.message}
+      readOny={readOny}
       onBlur={() => trigger('prompts')}
     />
     <Input
@@ -37,26 +38,32 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove }, ref) 
       defaultValue={item.variableName}
       register={ref}
       error={errors?.prompts?.[index]?.variableName?.message}
+      readOny={readOny}
       onBlur={() => trigger('prompts')}
     />
 
-    <span
-      className={cx('item-button-remove')}
-      onClick={() => {
-        remove(index);
-      }}
-    >
-      <CloseSvg />
-    </span>
+    {!readOny && (
+      <span
+        className={cx('item-button-remove')}
+        onClick={() => {
+          remove(index);
+        }}
+      >
+        <CloseSvg />
+      </span>
+    )}
   </li>
 ));
-const Prompts = ({ control, trigger, errors, register }) => {
+const Prompts = ({ control, trigger, errors, register, readOny = false }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'prompts',
   });
 
   const addItem = () => {
+    if (readOny) {
+      return;
+    }
     append({ message: '', variableName: '' });
   };
 
@@ -86,6 +93,7 @@ const Prompts = ({ control, trigger, errors, register }) => {
               remove={remove}
               errors={errors}
               trigger={trigger}
+              readOny={readOny}
             />
           ))}
         </ul>

@@ -24,40 +24,14 @@ const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
 
-const promptsSchema = {
-  message: yup.string().required('Message is required'),
-  variableName: yup.string().required('Variable name is required'),
-};
-
-const schema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  prompts: yup
-    .array()
-    .of(yup.object().shape(promptsSchema))
-    .compact((v) => v.message === '' && v.variableName === ''),
-});
-
-const TemplateForm = ({
+const ViewOnlyTemplateForm = ({
   initialValues,
   isCreatingNewTemplate = false,
   readOny = false,
   onSave,
 }) => {
-  const {
-    register,
-    control,
-    trigger,
-    handleSubmit,
-    setValue,
-    reset,
-    clearErrors,
-    errors,
-  } = useForm({
-    shouldFocusError: false,
-    resolver: yupResolver(schema),
+  const { register, control, trigger, handleSubmit, setValue } = useForm({
     defaultValues: initialValues,
-    reValidateMode: 'onChange',
-    mode: 'onChange',
   });
 
   const { back } = useRouter();
@@ -100,10 +74,6 @@ const TemplateForm = ({
   const onSubmit = async ({ name, prompts }) => {
     const filesForApi = formatFilesDataForApi(filesState.files);
 
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
     try {
       const newTemplateData = {
         name,
@@ -118,46 +88,17 @@ const TemplateForm = ({
     } catch (err) {
       throw new Error(err);
     }
-
-    clearErrors();
   };
 
   const handleError = (err) => {
-    showErrorModal(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`);
-    console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
+    showErrorModal(`Failed to clone template`);
+    console.error(`Failed to clone template`, err);
   };
 
   const handleCancelButtonClick = () => {
-    if (isCreatingNewTemplate) {
-      back();
-    } else {
-      reset();
-      setGroup(groups.find((group) => group.id === initialValues.groupId) || null);
-      dispatch({
-        type: 'reset',
-        data: {
-          files: initialValues.files,
-          openFileId: null,
-        },
-      });
-    }
+    // navigate to marketplace
+    back();
   };
-
-  const groupOptions = [
-    ...groups.map((item) => ({
-      text: item.name,
-      onClick: () => setGroup(item),
-    })),
-    {
-      text: 'No group',
-      theme: 'grey',
-      onClick: () => setGroup(null),
-    },
-  ];
-
-  const isFormValid = Object.keys(errors).length === 0;
-
-  console.log('FORM readOny');
 
   return (
     <FilesContext.Provider
@@ -168,13 +109,7 @@ const TemplateForm = ({
     >
       <div className={cx('wrapper')}>
         <h1 className={cx('title')}>
-          {isCreatingNewTemplate ? (
-            'Create template'
-          ) : (
-            <>
-              Edit template <span>"{initialValues.name}"</span>
-            </>
-          )}
+          View template <span>"{initialValues.name}"</span>
         </h1>
         <div className={cx('inner')}>
           <div className={cx('left-column')}>
@@ -184,29 +119,16 @@ const TemplateForm = ({
                   <Input
                     label="Template name"
                     name="name"
-                    ref={inputRef}
-                    error={errors.name?.message}
-                    readOny={readOny}
+                    value={initialValues.name}
+                    readOny={!!readOny}
                   />
                 </div>
 
-                <div className={cx('group-label')}>Group</div>
-                <Dropdown
-                  menuItems={groupOptions}
-                  className={cx('group-select')}
-                  menuClassName={cx('group-select-menu')}
-                  position="top-right"
-                  stopPropagation
-                  showIcon
-                >
-                  <span>{group ? group.name : 'Select group'}</span>
-                </Dropdown>
                 <div className={cx('prompts-wrapper')}>
                   <Prompts
                     control={control}
                     register={register}
                     trigger={trigger}
-                    errors={errors}
                     showPrompts={!isCreatingNewTemplate && initialValues.prompts.length > 0}
                     readOny={readOny}
                   />
@@ -217,15 +139,14 @@ const TemplateForm = ({
               </div>
               <div className={cx('buttons-wrapper')}>
                 <AsyncButton
-                  disabled={!isFormValid}
                   type="submit"
-                  text={isCreatingNewTemplate ? 'Create template' : 'Save changes'}
-                  successText="Saved"
-                  onClick={handleSubmit(onSubmit)}
+                  text="Clone"
+                  successText="Cloned"
+                  onClick={onSubmit}
                   onError={handleError}
                 />
                 <Button type="button" themeType="button-link" onClick={handleCancelButtonClick}>
-                  Cancel
+                  Back
                 </Button>
               </div>
             </form>
@@ -239,4 +160,4 @@ const TemplateForm = ({
   );
 };
 
-export default TemplateForm;
+export default ViewOnlyTemplateForm;
