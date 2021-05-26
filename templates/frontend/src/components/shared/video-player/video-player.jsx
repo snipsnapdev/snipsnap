@@ -6,7 +6,7 @@ import styles from './video-player.module.scss';
 
 const cx = classNames.bind(styles);
 
-const VideoPlayer = ({ videoSrc, className: additionalClassName }) => (
+const VideoPlayer = ({ className: additionalClassName }) => (
   <div className={cx('wrapper', additionalClassName)}>
     <div className={cx('inner')}>
       <iframe
@@ -14,6 +14,7 @@ const VideoPlayer = ({ videoSrc, className: additionalClassName }) => (
         src={videoSrc}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        src="https://www.youtube-nocookie.com/embed/uZdIICU9_44?rel=0"
         allowFullScreen
       />
     </div>
@@ -21,7 +22,6 @@ const VideoPlayer = ({ videoSrc, className: additionalClassName }) => (
 );
 
 VideoPlayer.propTypes = {
-  videoSrc: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 

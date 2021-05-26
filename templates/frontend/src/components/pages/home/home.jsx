@@ -16,10 +16,7 @@ const Home = () => (
     </div>
     <div className={cx('right')}>
       <SupportUs />
-      <VideoPlayer
-        videoSrc="https://www.youtube-nocookie.com/embed/uZdIICU9_44?rel=0"
-        className={cx('video')}
-      />
+      <VideoPlayer className={cx('video')} />
       <UseCases />
     </div>
   </div>

@@ -68,6 +68,18 @@ const typeDefs = gql`
     api_key: String
   }
 
+  input AddEventInput {
+    event: String!
+    metadata: String
+  }
+
+  type Event {
+    user_id: String!
+    timestamp: String!
+    event: String!
+    metadata: String
+  }
+
   type Mutation {
     insert_template(object: InsertTemplateInput): Template
     update_template(object: UpdateTemplateInput): Template
@@ -82,6 +94,7 @@ const typeDefs = gql`
       object: ShareTemplateGroupInput
     ): SharedTemplateGroup
     refresh_api_token(object: RefreshApiTokenInput): RefreshApiToken
+    add_event(object: AddEventInput): Event
   }
 `;
 

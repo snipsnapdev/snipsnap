@@ -65,14 +65,7 @@ const Prompts = ({ control, trigger, errors, register }) => {
       <div className={cx('head')}>
         <h2 className={cx('title')}>Prompts</h2>
         <Tooltip dataFor="tooltip" />
-        <ReactTooltip
-          className={cx('tooltip')}
-          effect="solid"
-          place="right"
-          offset={{ right: 16 }}
-          id="tooltip"
-          clickable
-        >
+        <ReactTooltip className={cx('tooltip')} effect="solid" place="right" id="tooltip" clickable>
           <p>
             Prompts represent list of questions that will be asked during template execution from
             users as a popup.

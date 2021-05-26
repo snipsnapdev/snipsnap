@@ -46,6 +46,7 @@ h2 {
 .tooltip {
   width: 280px;
   padding: 15px !important;
+  margin-left: 15px !important;
   font-size: $font-size-sm;
   line-height: $line-height-md;
   color: $color-white;
@@ -56,16 +57,9 @@ h2 {
   opacity: 1 !important;
 
   &::after {
-    position: absolute;
-    top: 50%;
-    left: -6px;
-    width: 0;
-    height: 0;
-    content: '';
+    left: -7px !important;
     border-color: transparent $color-middle-grey transparent transparent !important;
-    border-style: solid;
-    border-width: 6px 6px 6px 0;
-    transform: translateY(-50%);
+    border-width: 6px 6px 6px 0 !important;
   }
 
   p {
@@ -74,6 +68,11 @@ h2 {
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  a,
+  span {
+    transition: none !important;
   }
 }
 
