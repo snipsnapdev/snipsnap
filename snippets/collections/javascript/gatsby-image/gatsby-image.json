@@ -1,0 +1,50 @@
+{
+  "gatsby-image-usestaticquery-fluid": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["gatsby-image usestaticquery fluid"],
+    "body": [
+      "const {",
+      "  ${1:queryName}: { childImageSharp: {fluid: ${2:imageFluid}}}",
+      "} = useStaticQuery(graphql`",
+      "  query {",
+      "    ${1:queryName}: file(relativePath: { eq: \"${3:imagePath.png}\" }) {",
+      "      childImageSharp {",
+      "        fluid(maxWidth: ${4:300}) {",
+      "          ...${5|GatsbyImageSharpFluid,GatsbyImageSharpFluid_noBase64,GatsbyImageSharpFluid_tracedSVG,GatsbyImageSharpFluid_withWebp,GatsbyImageSharpFluid_withWebp_noBase64,GatsbyImageSharpFluid_withWebp_tracedSVG|}",
+      "        }",
+      "      }",
+      "    }",
+      "  }",
+      "`)"
+    ]
+  },
+  "gatsby-image-usestaticquery-fixed": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["gatsby-image usestaticquery fixed"],
+    "body": [
+      "const {",
+      "  ${1:queryName}: { childImageSharp: {fixed: ${2:imageFixed}}}",
+      "} = useStaticQuery(graphql`",
+      "  query {",
+      "    ${1:queryName}: file(relativePath: { eq: \"${3:imagePath.png}\" }) {",
+      "      childImageSharp {",
+      "        fixed(width: ${4:300}) {",
+      "          ...${5|GatsbyImageSharpFixed,GatsbyImageSharpFixed_noBase64,GatsbyImageSharpFixed_tracedSVG,GatsbyImageSharpFixed_withWebp,GatsbyImageSharpFixed_withWebp_noBase64,GatsbyImageSharpFixed_withWebp_tracedSVG|}",
+      "        }",
+      "      }",
+      "    }",
+      "  }",
+      "`)"
+    ]
+  },
+  "gatsby-image-import": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["gatsby-image import"],
+    "body": ["import ${1:Img} from 'gatsby-image';"]
+  },
+  "gatsby-image-import-withiepolyfill": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["gatsby-image import withiepolyfill"],
+    "body": ["import ${1:Img} from \"gatsby-image/withIEPolyfill\""]
+  }
+}

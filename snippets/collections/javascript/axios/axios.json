@@ -1,0 +1,117 @@
+{
+  "axios-require": {
+    "prefix": ["axios require"],
+    "body": ["const axios = require('axios').default;"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "require axios"
+  },
+  "axios-import": {
+    "prefix": ["axios import"],
+    "body": ["import axios from 'axios';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "import axios"
+  },
+  "axios-get-promise": {
+    "prefix": ["axios get promise"],
+    "body": [
+      "axios.get('${1:uri}')",
+      ".then(function (response) {",
+      "\t${2:success}",
+      "})",
+      ".catch(function (error) {",
+      "\t${3:error}",
+      "})"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Use Axios to make a get request - promise based"
+  },
+  "axios-get-async-await": {
+    "prefix": ["axios get async await"],
+    "body": [
+      "async function ${1:name}() {",
+      "\ttry {",
+      "\t\tconst response = await axios.get('${2:uri}');",
+      "\t\t${3:success}",
+      "\t}\tcatch (error) {",
+      "\t\t${4:error}",
+      "\t}",
+      "}"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Use Axios to make a get request - async-await"
+  },
+  "axios-post-promise": {
+    "prefix": ["axios post promise"],
+    "body": [
+      "axios.post('${1:uri}', ${2:post})",
+      ".then(function (response) {",
+      "\t${3:success}",
+      "})",
+      ".catch(function (error) {",
+      "\t${4:error}",
+      "})"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Use Axios to make a post request - promise based"
+  },
+  "axios-post-async-await": {
+    "prefix": ["axios post async await"],
+    "body": [
+      "async function ${1:name}() {",
+      "\ttry {",
+      "\t\tconst response = await axios.post('${2:uri}', ${3:post});",
+      "\t\t${4:success}",
+      "\t}\tcatch (error) {",
+      "\t\t${5:error}",
+      "\t}",
+      "}"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Use Axios to make a post request - async-await"
+  },
+  "axios-instance": {
+    "prefix": ["axios instance"],
+    "body": [
+      "const ${1:instance} = axios.create({",
+      "\tbaseURL: '${2:uri}',",
+      "\ttimeout: $3,",
+      "\theaders: {'${4:key}': '${5:value}'}"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Create an Axios instance for requests"
+  },
+  "axios-defaults": {
+    "prefix": ["axios defaults"],
+    "body": ["axios.defaults.${1:key} = '${2:value}';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Define global axios defaults, eg. baseURL, headers etc."
+  },
+  "axios-interceptors-request": {
+    "prefix": ["axios interceptors request"],
+    "body": [
+      "axios.interceptors.request.use(function (config) {",
+      "\t${1:do something}",
+      "return config;",
+      "}, function (error) {",
+      "\t${2:do something}",
+      "$return Promise.reject(error);",
+      "});"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "You can intercept requests before they are handled by then or catch."
+  },
+  "axios-interceptors-response": {
+    "prefix": ["axios interceptors response"],
+    "body": [
+      "axios.interceptors.response.use(function (response) {",
+      "\t${1:do something}",
+      "return response;",
+      "}, function (error) {",
+      "\t${2:do something}",
+      "$return Promise.reject(error);",
+      "});"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "You can intercept responses before they are handled by then or catch."
+  }
+}

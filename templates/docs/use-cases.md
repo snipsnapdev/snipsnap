@@ -1,8 +1,24 @@
+### Table of Contents
+
+- [Kubernetes](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#kubernetes)
+- [CI/CD](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#cicd)
+- [Docker](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#docker)
+- [React](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#react)
+- [Vue](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#vue)
+- [Graphql](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#graphql)
+- [Webinars](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#webinars)
+- [Node.js](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#nodejs)
+- [Tailwind](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#tailwind)
+- [Starters](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#starters)
+- [Wordpress](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#wordpress)
+- [Linters](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md#linters)
+
 ### Kubernetes
 
 Optimize the routine you usually have when you copy-pasting yaml files of deployments/pods/certificate etc. from project to project. Create flexible templates that you can recreate easily with a matter of clicks.
 
 For example you can create a `{{toKebabCase appName}}.yaml` file with the following content for your deployment
+
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -26,13 +42,15 @@ spec:
         ports:
         - containerPort: 80
 ```
+
 Then set a user prompt as `appName` in Cloud UI and you ready to use it.
 
 ### CI/CD
 
 Github Actions, Drone CI, Circle CI, Gitlab all use YAML files to define your build process. It could be very annoying to copy and paste those YAML files from one microservice to another and then there is a big chance of errors if you forget to rename some important parts. Instead, create a template(s).Example:
 
-``.drone.yml``
+`.drone.yml`
+
 ```yaml
 kind: pipeline
 name: default
@@ -72,9 +90,9 @@ steps:
 
 ```
 
-Add ``appName`` as a prompt in Cloud UI and you good to go. Next time you will try to create that template user will be asked to type App Name that will be automatically inserted in the kebab-case to a generated drone.yaml file
+Add `appName` as a prompt in Cloud UI and you good to go. Next time you will try to create that template user will be asked to type App Name that will be automatically inserted in the kebab-case to a generated drone.yaml file
 
-### Docker 
+### Docker
 
 Despite Docker syntax is simple, you probably always start a new project set up by copying Dockerfiles from previously created based on best practices configurations and the fact that it worked previously. Also you could have different versions of Dockerfiles per environemnt like Dockerfile.test, Dockerfile.prod, [Dockerfile.dev](http://dockerfile.dev). As well as you can have docker-compose file with a generic configuration and services such as postgres/ or redis. Snipsnap could wrap all of those files as a template, ask for user prompts and replace variables defined in handlebars template with user's input.
 
@@ -89,6 +107,7 @@ Create a template for your Vue components with default `<template>`, `<script>`,
 ### Graphql
 
 Common graphql server folder structure propose to have multiple files per domain. Like this:
+
 ```
 ├── package.json
 └── src
@@ -100,6 +119,7 @@ Common graphql server folder structure propose to have multiple files per domain
     │   └── typeDef.js
     └── index.js
 ```
+
 All files inside books folder at the beginning will have some generic boilerplate structure. Create it as a template and recreate the folder and all files just with one click.
 
 ### Webinars
@@ -108,10 +128,21 @@ Snipsnap Templates could help you run webinars or workshops. Prepare in advance 
 Focus your listeners on important stuff instead of spending time typping boilerplate code and creating manually files. After webinar you can share some of those code templates with your audience so they can easily go over the same steps.
 
 ### Node.js
+
 When you do some REST service with Express or Koa you have to create manually files for different endpoints with some boilerplate code, often you also break down it by folders and add test files. Wrap it with Code Template and save time recreating similar constructions in the future.
 
 ### Tailwind
+
 If you move some tailwind components from one project to another, wrap it as a template, or add Tailwin UI components as templates that you can easily recreate from extension.
 
 ### Starters
+
 You can add a lot of different folders and files to every Code Template within Snipsnap. If you have some starters for new plugin or extension for your popular framework, you can use Snipsnap to avoid recreating all those file structure over and over again.
+
+### Wordpress
+
+Wrap a starter for your go to Worpdress template and create it easily from VS Code Extension
+
+### Linters
+
+There are many linters could be in the single project like stylelint, eslint, commitlint etc. Create a template that combines all of those configs, so next time you will start the project you can bootstrap it faster.

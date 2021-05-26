@@ -6,9 +6,9 @@
 ### Snipsnap Templates
 Manage, share and use code templates with cloud UI and VS Code Extension
 
-[Read more]()
+[Read more](https://github.com/snipsnapdev/snipsnap/tree/master/templates)
 
 ### Snipsnap Code Snippets
 The ultimate snippets collection and VS Code extension that automatically exposes all available snippets for every library you are using in your project.
 
-[Read more]()
+[Read more](https://github.com/snipsnapdev/snipsnap/tree/master/snippets)

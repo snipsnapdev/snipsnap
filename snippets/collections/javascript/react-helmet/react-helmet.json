@@ -1,0 +1,17 @@
+{
+  "react-helmet-import": {
+    "prefix": ["react-helmet import"],
+    "body": ["import { Helmet } from 'react-helmet';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-helmet-title": {
+    "prefix": ["react-helmet title"],
+    "body": ["<Helmet>", "  <title>${1:title}</title>", "</Helmet>"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-helmet-component": {
+    "prefix": ["react-helmet component"],
+    "body": ["<Helmet>", "${1:example}", "</Helmet>"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  }
+}

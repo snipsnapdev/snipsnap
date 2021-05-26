@@ -1,0 +1,87 @@
+{
+  "redux-import-connect": {
+    "prefix": ["redux import connect"],
+    "body": ["import { connect } from 'react-redux'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Import connect from Redux"
+  },
+  "redux-map-to-props": {
+    "prefix": ["redux map props"],
+    "body": [
+      "const mapStateToProps = (state) => ({",
+      "\t${1}",
+      "})",
+      "",
+      "const mapDispatchToProps = {",
+      "\t",
+      "}",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Creates mapStateToProps function."
+  },
+  "redux-const": {
+    "prefix": ["redux const", "rxconst"],
+    "body": ["export const ${1:constantName} = '${1:constantName}'"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "redux-reducer": {
+    "prefix": ["redux reducer", "rxreducer"],
+    "body": [
+      "const initialState = {",
+      "",
+      "}",
+      "",
+      "export default (state = initialState, { type, payload }) => {",
+      "\tswitch (type) {",
+      "",
+      "\tcase ${1:typeName}:",
+      "\t\treturn { ...state, ...payload }",
+      "",
+      "\tdefault:",
+      "\t\treturn state",
+      "\t}",
+      "}",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Redux reducer template"
+  },
+  "redux-action": {
+    "prefix": ["redux action", "rxaction"],
+    "body": [
+      "const ${1:actionCreatorName} = ${2:payload} => {",
+      "  return {",
+      "    type: '${3:ACTION_TYPE}',",
+      "    payload: ${2:payload},",
+      "  };",
+      "};"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Redux action template"
+  },
+  "redux-import-hooks": {
+    "prefix": ["redux import hooks", "irrh"],
+    "body": ["import { useSelector, useDispatch } from 'react-redux';"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Import Redux hooks (useSelector, useDispatch)"
+  },
+  "redux-useselector": {
+    "prefix": ["redux useselector", "uss"],
+    "body": ["const $1 = useSelector(state => state.$1);"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Redux useSelector() hook"
+  },
+  "redux-usedispatch-hook": {
+    "prefix": ["redux usedispatch", "rxusdh"],
+    "body": ["const dispatch = useDispatch();"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Redux useDispatch() hook"
+  },
+  "redux-dispatch-hook": {
+    "prefix": ["redux dispatch", "rxd"],
+    "body": ["const $1 = $2 => dispatch($3);"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "Redux dispatch hook"
+  }
+}

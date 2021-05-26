@@ -1,0 +1,50 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: initial_notification
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      template: >
+        Repository: *{{repo.name}}*. Status: *Running*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+
+  - name: validate
+    image: node:12.14.0-alpine3.11
+    commands:
+      - apk add --no-cache git
+      - npx snipsnapdev/snipsnap-importer validate
+
+  - name: import
+    image: node:12.14.0-alpine3.11
+    environment:
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME:
+        from_secret: db_username_prod
+      POSTGRESQL_DB:
+        from_secret: db_name_prod
+      POSTGRESQL_PASSWORD:
+        from_secret: db_pass_prod
+      POSTGRESQL_HOST:
+        from_secret: db_host_prod
+    commands:
+      - apk add --no-cache git
+      - git diff-tree --no-commit-id -r --name-status HEAD > diff.txt
+      - npx snipsnapdev/snipsnap-importer import:diff
+    when:
+      branch: master
+      event: push
+  - name: build_status_notification
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      template: >
+        {{#success build.status}}
+        Repository: *{{repo.name}}*. Status: *Completed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+        {{else}}
+        Repository: *{{repo.name}}*. Status: *Failed*. Author: *{{build.author}}*. Build: *#{{build.number}}*. Branch: *{{build.branch}}*. Event: *{{build.event}}*. Logs: {{build.link}}
+        {{/success}}
+    when:
+      status: [success, failure]

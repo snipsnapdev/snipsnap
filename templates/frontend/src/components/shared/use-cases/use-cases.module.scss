@@ -13,7 +13,7 @@
 
 .links {
   display: grid;
-  grid-template-rows: repeat(5, auto);
+  grid-template-rows: repeat(4, auto);
   grid-template-columns: 1fr 1fr max-content;
   grid-auto-flow: column;
   row-gap: 10px;

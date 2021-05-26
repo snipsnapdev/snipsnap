@@ -1,0 +1,677 @@
+{
+  "import-react": {
+    "prefix": ["react import", "imr"],
+    "body": ["import React from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": "import React"
+  },
+  "import-react-component": {
+    "prefix": ["react import component", "imrc"],
+    "body": ["import React, { Component } from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "description": ""
+  },
+  "import-react-component-prop-types": {
+    "prefix": ["react import component proptypes", "imrcp"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "import PropTypes from 'prop-types'",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-purecomponent": {
+    "prefix": ["react import purecomponent", "imrpc"],
+    "body": ["import React, { PureComponent } from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-pure-component-prop-types": {
+    "prefix": ["react import purecomponent proptypes", "imrpcp"],
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "import PropTypes from 'prop-types'",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-memo": {
+    "prefix": ["react import memo", "imrm"],
+    "body": ["import React, { memo } from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-memo-prop-types": {
+    "prefix": ["react import memo proptypes", "imrmp"],
+    "body": [
+      "import React, { memo } from 'react'",
+      "import PropTypes from 'prop-types'",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-usestate": {
+    "prefix": ["react import usestate", "imrs"],
+    "body": ["import React, { useState } from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "import-react-usestate-useeffect": {
+    "prefix": ["react import usestate useeffect", "imrse"],
+    "body": ["import React, { useState, useEffect } from 'react'", ""],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-component": {
+    "prefix": ["react component class", "rcc"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Creates a React component class with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-export-component": {
+    "prefix": ["react component class export", "rce"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React component class with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-functional-export-component": {
+    "prefix": ["react component functional export", "rfce"],
+    "body": [
+      "import React from 'react'",
+      "",
+      "function ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}() {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React Functional Component with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-functional-component": {
+    "prefix": ["react component functional", "rfc"],
+    "body": [
+      "import React from 'react'",
+      "",
+      "export default function ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}() {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      ""
+    ],
+    "description": "Creates a React Functional Component with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-functional-component-with-proptypes": {
+    "prefix": ["react component functional proptypes", "rfcp"],
+    "body": [
+      "import React from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "function ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}(props) {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}.propTypes = {",
+      "",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      "",
+      ""
+    ],
+    "description": "Creates a React Functional Component with ES7 module system with PropTypes",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-arrow-function-export-component": {
+    "prefix": ["react component arrow function export", "rafce"],
+    "body": [
+      "import React from 'react'",
+      "",
+      "const ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-arrow-function-component": {
+    "prefix": ["react component arrow function", "rafc"],
+    "body": [
+      "import React from 'react'",
+      "",
+      "export const ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-arrow-function-component-proptypes": {
+    "prefix": ["react component arrow function proptypes", "rafcp"],
+    "body": [
+      "import React from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "const ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} = props => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}.propTypes = {",
+      "",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component with ES7 module system with PropTypes",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-export-component-proptypes": {
+    "prefix": ["react component class export proptypes", "rcep"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\tstatic propTypes = {",
+      "",
+      "\t}",
+      "",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React component class with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-pure-component": {
+    "prefix": ["react component class pure", "rpc"],
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends PureComponent {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Creates a React pure component class with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-export-pure-component": {
+    "prefix": ["react component class export pure", "rpce"],
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends PureComponent {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "export default ${1:$TM_FILENAME_BASE}",
+      ""
+    ],
+    "description": "Creates a React pure component class with ES7 module system export",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-pure-component-proptypes": {
+    "prefix": ["react component class pure with proptypes", "rpcp"],
+    "body": [
+      "import React, { PureComponent } from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends PureComponent {",
+      "\tstatic propTypes = {",
+      "",
+      "\t}",
+      "",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Creates a React component class with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-function-memo-component": {
+    "prefix": ["react component function memo", "rmc"],
+    "body": [
+      "import React, { memo } from 'react'",
+      "",
+      "export default memo(function ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}() {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "})",
+      ""
+    ],
+    "description": "Creates a React Memo Function Component with ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-function-memo-component-proptypes": {
+    "prefix": ["react component function memo proptypes", "rmcp"],
+    "body": [
+      "import React, { memo } from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "const ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} = memo(function ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}(props) {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "})",
+      "",
+      "${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}.propTypes = {",
+      "",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}}",
+      ""
+    ],
+    "description": "Creates a React Memo Function Component with ES7 module system with PropTypes",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-component-proptypes": {
+    "prefix": ["react component class proptypes", "rccp"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\tstatic propTypes = {",
+      "\t\t${2:prop}: ${3:PropTypes}",
+      "\t}",
+      "",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Creates a React component class with PropTypes and ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-component-redux": {
+    "prefix": ["react component class redux", "rcredux"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "import { connect } from 'react-redux'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "const mapStateToProps = (state) => ({",
+      "\t",
+      "})",
+      "",
+      "const mapDispatchToProps = {",
+      "\t",
+      "}",
+      "",
+      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}})",
+      ""
+    ],
+    "description": "Creates a React component class with connected redux and ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-component-redux-proptypes": {
+    "prefix": ["react component class redux proptypes", "rcreduxp"],
+    "body": [
+      "import React, { Component } from 'react'",
+      "import PropTypes from 'prop-types'",
+      "import { connect } from 'react-redux'",
+      "",
+      "export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}} extends Component {",
+      "\tstatic propTypes = {",
+      "\t\t${2:prop}: ${3:PropTypes}",
+      "\t}",
+      "",
+      "\trender() {",
+      "\t\treturn (",
+      "\t\t\t<div>",
+      "\t\t\t\t$0",
+      "\t\t\t</div>",
+      "\t\t)",
+      "\t}",
+      "}",
+      "",
+      "const mapStateToProps = (state) => ({",
+      "\t",
+      "})",
+      "",
+      "const mapDispatchToProps = {",
+      "\t",
+      "}",
+      "",
+      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}})",
+      ""
+    ],
+    "description": "Creates a React component class with PropTypes with connected redux and ES7 module system",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-class-constructor": {
+    "prefix": ["react class constructor", "rconst"],
+    "body": [
+      "constructor(props) {",
+      "\tsuper(props)",
+      "",
+      "\tthis.state = {",
+      "\t\t $0",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Adds a default constructor for it('', () => {})the class that contains props as arguments",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-empty-state": {
+    "prefix": ["react empty state", "est"],
+    "body": ["state = {", "\t$1", "}", ""],
+    "description": "Creates empty state object. To be used in a constructor.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentwillmount": {
+    "prefix": ["react componentwillmount", "cwm"],
+    "body": ["componentWillMount() {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked once, both on the client and server, immediately before the initial rendering occurs",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentdidmount": {
+    "prefix": ["react componentdidmount", "cdm"],
+    "body": ["componentDidMount() {", "\t$0", "}", ""],
+    "description": "Invoked once, only on the client (not on the server), immediately after the initial rendering occurs.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentwillreceiveprops": {
+    "prefix": ["react componentwillreceiveprops", "cwr"],
+    "body": ["componentWillReceiveProps(nextProps) {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked when a component is receiving new props. This method is not called for the initial render.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-shouldcomponentupdate": {
+    "prefix": ["react shouldcomponentupdate", "scu"],
+    "body": ["shouldComponentUpdate(nextProps, nextState) {", "\t$0", "}", ""],
+    "description": "Invoked before rendering when new props or state are being received. ",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentwillupdate": {
+    "prefix": ["react componentwillupdate", "cwup"],
+    "body": ["componentWillUpdate(nextProps, nextState) {", "\t$0", "}", ""],
+    "description": "DEPRECATED!!!. Invoked immediately before rendering when new props or state are being received.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentdidupdate": {
+    "prefix": ["react componentdidupdate", "cdup"],
+    "body": ["componentDidUpdate(prevProps, prevState) {", "\t$0", "}", ""],
+    "description": "Invoked immediately after the component's updates are flushed to the DOM.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-componentwillunmount": {
+    "prefix": ["react componentwillunmount", "cwun"],
+    "body": ["componentWillUnmount() {", "\t$0", "}", ""],
+    "description": "Invoked immediately before a component is unmounted from the DOM.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-getderivedstatefromprops": {
+    "prefix": ["react getderivedstatefromprops", "gdsfp"],
+    "body": ["static getDerivedStateFromProps(props, state) {", "\t${1}", "}"],
+    "description": "Invoked right before calling the render method, both on the initial mount and on subsequent updates.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-getsnapshotbeforeupdate": {
+    "prefix": ["react getsnapshotbeforeupdate", "gsbu"],
+    "body": [
+      "getSnapshotBeforeUpdate = (prevProps, prevState) => {",
+      "\t$0",
+      "}",
+      ""
+    ],
+    "description": "Called right before mutations are made (e.g. before the DOM is updated)",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-component-render": {
+    "prefix": ["react component render", "ren"],
+    "body": [
+      "render() {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}"
+    ],
+    "description": "Basic render.",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-createcontext": {
+    "prefix": ["react createcontext", "rcontext"],
+    "body": ["const ${1:contextName} = React.createContext()", ""],
+    "description": "Create React context",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-createref": {
+    "prefix": ["react createref", "cref"],
+    "body": ["this.${1:refName}Ref = React.createRef()", ""],
+    "description": "Create ref statement used inside constructor",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-forwardref": {
+    "prefix": ["react forwardref", "fref"],
+    "body": ["const ref = React.createRef()", ""],
+    "description": "Forward ref statement used inside component",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-component-set-state-object": {
+    "prefix": ["react componentsetstateobject", "sst"],
+    "body": ["this.setState({$0})"],
+    "description": "Performs a shallow merge of nextState into current state",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-component-set-state-func": {
+    "prefix": ["react component setstate func", "ssf"],
+    "body": ["this.setState((state, props) => { return { $0 }})", ""],
+    "description": "Performs a shallow merge of nextState into current state",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-component-props": {
+    "prefix": ["react component props", "props"],
+    "body": ["this.props.$0"],
+    "description": "Access component's props",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-component-state": {
+    "prefix": ["react component state", "state"],
+    "body": ["this.state.$0"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-bind-this": {
+    "prefix": ["react bind this", "bnd"],
+    "body": ["this.${1:methodName} = this.${1:methodName}.bind(this)$0"],
+    "description": "Binds this to a method",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-hoc": {
+    "prefix": ["react hoc", "hoc"],
+    "body": [
+      "import React from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "export default (WrappedComponent) => {",
+      "\tconst hocComponent = ({ ...props }) => <WrappedComponent {...props} />",
+      "",
+      "\thocComponent.propTypes = {",
+      "\t}",
+      "",
+      "\treturn hocComponent",
+      "}",
+      ""
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-usestate": {
+    "prefix": ["react usestate", "usestate"],
+    "body": [
+      "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialState})"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-useeffect": {
+    "prefix": ["react useeffect", "useeffect"],
+    "body": [
+      "useEffect(() => {",
+      "\t${1:effect}",
+      "\treturn () => {",
+      "\t\t${2:cleanup}",
+      "\t};",
+      "}, [${3:input}])"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-usecontext": {
+    "prefix": ["react usecontext", "usecontext"],
+    "body": ["const ${1:context} = useContext(${2:contextValue})"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-usecallback": {
+    "prefix": ["react usecallback", "usecallback"],
+    "body": [
+      "useCallback(",
+      "\t() => {",
+      "\t\t${1:callback}",
+      "\t},",
+      "\t[${2:input}],",
+      ")"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-usememo": {
+    "prefix": ["react usememo", "usememo"],
+    "body": ["useMemo(() => ${1:function}, ${2:input})"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-useref": {
+    "prefix": ["react useref", "useref"],
+    "body": ["const ${1:ref} = useRef(${2:initialValue})"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-useimperativehandle": {
+    "prefix": ["react useimperativehandle", "useimperativehandle"],
+    "body": [
+      "useImperativeHandle(",
+      "\t${1:ref},",
+      "\t() => {",
+      "\t\t${2:handler}",
+      "\t},",
+      "\t[${3:input}],",
+      ")"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-usedebugvalue": {
+    "prefix": ["react usedebugvalue", "usedebugvalue"],
+    "body": ["useDebugValue(${1:value})"],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  },
+  "react-uselayouteffect": {
+    "prefix": ["react uselayouteffect", "uselayouteffect"],
+    "body": [
+      "useLayoutEffect(() => {",
+      "\t${1:effect}",
+      "\treturn () => {",
+      "\t\t${2:cleanup}",
+      "\t};",
+      "}, [${3:input}])"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "classnames-usage": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["classnames usage"],
+    "body": ["${1:classNames}('${2:foo}', '${3:bar}');"]
+  },
+  "classnames-usage-object": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["classnames usage object"],
+    "body": ["${1:classNames}({ '${2:foo-bar}': true });"]
+  },
+  "classnames-import-bind": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["classnames import bind"],
+    "body": ["import ${1:classNames} from 'classnames/bind';"]
+  },
+  "classnames-bind-usage": {
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "prefix": ["classnames bind usage"],
+    "body": ["const ${1:cx} = ${2:classNames}.bind(styles);"]
+  }
+}

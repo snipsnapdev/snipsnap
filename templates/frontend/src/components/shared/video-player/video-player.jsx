@@ -10,9 +10,11 @@ const VideoPlayer = ({ className: additionalClassName }) => (
   <div className={cx('wrapper', additionalClassName)}>
     <div className={cx('inner')}>
       <iframe
-        frameBorder="0"
         title="YouTube video player"
-        src="https://www.youtube.com/embed/aKKQdn26QJc"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        src="https://www.youtube-nocookie.com/embed/uZdIICU9_44?rel=0"
+        allowFullScreen
       />
     </div>
   </div>

@@ -1,0 +1,36 @@
+{
+  "dotenv-safe-require": {
+    "scope": "javascript,typescript",
+    "prefix": ["dotenv-safe require"],
+    "body": ["require('dotenv-safe').config();"],
+    "description": "As early as possible in your application, require and configure dotenv-safe. This will load environment variables from .env as usual, but will also read any variables defined in .env.example. If any variables are already defined in the environment before reading from .env, they will not be overwritten. If any variables are missing from the environment, a MissingEnvVarsError will be thrown, which lists the missing variables."
+  },
+  "dotenv-safe-path": {
+    "scope": "javascript,typescript",
+    "prefix": ["dotenv-safe path"],
+    "body": [
+      "require('dotenv-safe').config({ path: '${1:/full/custom/path/to/your/env/vars}' })"
+    ],
+    "description": "You may specify a custom path if your file containing environment variables is located elsewhere."
+  },
+  "dotenv-safe-encoding": {
+    "scope": "javascript,typescript",
+    "prefix": ["dotenv-safe encoding"],
+    "body": ["require('dotenv-safe').config({ encoding: '${1:latin1}' })"],
+    "description": "You may specify the encoding of your file containing environment variables."
+  },
+  "dotenv-safe-debug": {
+    "scope": "javascript,typescript",
+    "prefix": ["dotenv-safe debug"],
+    "body": ["require('dotenv-safe').config({ debug: ${1|true,false|} })"],
+    "description": "You may turn on logging to help debug why certain keys or values are not being set as you expect."
+  },
+  "dotenv-safe-allowemptyvalues": {
+    "scope": "javascript,typescript",
+    "prefix": ["dotenv-safe allowemptyvalues"],
+    "body": [
+      "require('dotenv-safe').config({ allowEmptyValues: ${1|true,false|} })"
+    ],
+    "description": "If a variable is defined in the example file and has an empty value in the environment, enabling this option will not throw an error after loading."
+  }
+}
