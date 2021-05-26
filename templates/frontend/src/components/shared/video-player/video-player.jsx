@@ -11,7 +11,6 @@ const VideoPlayer = ({ className: additionalClassName }) => (
     <div className={cx('inner')}>
       <iframe
         title="YouTube video player"
-        src={videoSrc}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         src="https://www.youtube-nocookie.com/embed/uZdIICU9_44?rel=0"
