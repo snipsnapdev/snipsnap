@@ -106,7 +106,7 @@ async function runExtension(folderURI) {
     } = remoteTemplates.find(({ name }) => name === templateName);
 
     // track create from template event
-    await trackEvent({
+    trackEvent({
       token,
       event: "create-from-template",
       metadata: templateId,
