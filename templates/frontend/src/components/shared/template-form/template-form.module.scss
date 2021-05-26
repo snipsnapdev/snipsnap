@@ -69,6 +69,10 @@
 
   &:hover {
     border-color: $color-grey;
+
+    path {
+      stroke: $color-white;
+    }
   }
 }
 

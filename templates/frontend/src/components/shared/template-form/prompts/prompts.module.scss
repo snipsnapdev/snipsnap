@@ -91,5 +91,9 @@
   &:hover:not([disabled]) {
     background-color: $color-dark-grey;
     border-color: $color-grey;
+
+    path {
+      fill: $color-white;
+    }
   }
 }
