@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 import Button from 'components/shared/button';
 import Sidebar from 'components/shared/sidebar';
@@ -14,6 +15,9 @@ const cx = classNames.bind(styles);
 
 const Layout = ({ children }) => (
   <div className={cx('wrapper')}>
+    <Head>
+      <meta name="viewport" content="width=1280, initial-scale=1.0" />
+    </Head>
     <Sidebar />
     <div className={cx('main')}>{children}</div>
 
