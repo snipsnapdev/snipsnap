@@ -1,9 +1,10 @@
 {
   "name": "snipsnap-templates-vscode",
   "displayName": "Snipsnap Templates",
-  "publisher": "pixel-point",
-  "description": "Generate custom templates on a whim",
-  "version": "0.3.7",
+  "publisher": "snipsnapdev",
+  "description": "Manage, share and use code templates with cloud UI and VS Code Extension",
+  "icon": "snipsnap-logo.jpg",
+  "version": "0.3.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/snipsnapdev/snipsnap.git",
