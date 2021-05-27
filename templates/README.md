@@ -5,14 +5,14 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/license/snipsnapdev/snipsnap"/>
+  <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-templates-vscode">
+    <img alt="VS Code Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/snipsnapdev.snipsnap-templates-vscode"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-vscode">
-    <img alt="VS Code Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/snipsnapdev.snipsnap-vscode"></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-vscode">
-    <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/snipsnapdev.snipsnap-vscode"></a>
+    <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/snipsnapdev.snipsnap-templates-vscode"></a>
   <a href="https://twitter.com/snipsnap_dev"><img src="https://img.shields.io/twitter/follow/snipsnap_dev?style=social"/></a>
 </p>
 
-<h3 align="center"><a href="https://templates.snipsnap.dev/">Visit Home Page</a></h3>
+<h4 align="center"><a href="https://templates.snipsnap.dev/">Visit Home Page</a> • <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-templates-vscode">Install VS Code Extension</a></h4>
 
 
 <p align="center"><a href="https://youtu.be/G7J_rWiMzwE">
