@@ -212,19 +212,14 @@ const ShareModal = (props) => {
       reset();
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
-    } catch (err) {
-      throw new Error(err.message);
+    } catch (error) {
+      const errorMessage = JSON.parse(JSON.stringify(error)).response.errors[0].message;
+      throw new Error(errorMessage);
     }
   };
 
   const handleError = (error) => {
-    if (error.message.startsWith("Couldn't find user by email")) {
-      setError('email', { message: 'User with this email not found' });
-    } else if (error.message.startsWith("Can't share with yourself")) {
-      setError('email', { message: "Can't share with yourself" });
-    } else {
-      throw new Error(error.message);
-    }
+    setError('email', { message: error.message });
   };
 
   const handleUnshare = async (shareToUserEmail) => {

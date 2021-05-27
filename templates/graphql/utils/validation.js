@@ -19,7 +19,11 @@ const validateSizesOfFiles = (files) => {
     if (type === "file") {
       const fileSize = Buffer.byteLength(data.content, "utf8");
       if (fileSize > MAX_FILE_SIZE) {
-        throw new Error(`File ${data.name} is too large`);
+        throw new Error(
+          `File ${data.name} is too large. Max allowed size is ${Math.floor(
+            MAX_FILE_SIZE / 1000
+          )} KB`
+        );
       }
       return fileSize <= MAX_FILE_SIZE;
     } else {

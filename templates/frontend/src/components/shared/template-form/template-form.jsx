@@ -146,30 +146,17 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
 
       mutate('getOwnedTemplateGroups');
     } catch (error) {
-      console.error('SUBMIT ERROR', error);
-      console.error('SUBMIT ERROR MESSAGE', error.message);
-      throw new Error(error.message);
+      const errorMessage = JSON.parse(JSON.stringify(error)).response.errors[0].message;
+      throw new Error(errorMessage);
     }
 
     clearErrors();
   };
 
   const handleError = (error) => {
-    let errorMessage = '';
-    if (error.message.startsWith('Too many files.')) {
-      errorMessage = 'Too many files. Please create template with no more than 20 files';
-    }
-
-    if (error.message.startsWith('Too many files.')) {
-      errorMessage = 'Too many files. Please create template with no more than 20 files';
-    }
-    if (error.message.indexOf('is too large') > 0) {
-      errorMessage =
-        'Some of the files are too large. Please make sure that the max file size is 5KB';
-    }
     showErrorModal(
       `Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}${
-        errorMessage ? `: \n${errorMessage}.` : '.'
+        error ? `: \n${error.message}.` : '.'
       }`
     );
   };
