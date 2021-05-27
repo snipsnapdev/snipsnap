@@ -15,12 +15,7 @@ import ModalPortal from 'components/shared/modal-portal';
 import styles from './rename-group-modal.module.scss';
 
 const schema = yup.object().shape({
-  newName: yup
-    .string()
-    .required('Name is required')
-    .matches(/^[A-Za-z0-9.{}\-_\s]+$/, {
-      message: 'Name should have only allowed symbols A-Za-z0-9.{}-_ ',
-    }),
+  newName: yup.string().required('Name is required'),
 });
 
 const cx = classNames.bind(styles);
