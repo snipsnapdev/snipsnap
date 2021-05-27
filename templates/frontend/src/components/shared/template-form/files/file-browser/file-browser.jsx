@@ -122,7 +122,7 @@ const FileBrowser = ({ readOnly = false, onCreateManually }) => {
         })
       );
     } catch (error) {
-      console.log('Error while trying to add new files: ', error);
+      throw new Error(`Error while trying to add new files: ${error}`);
     }
   };
 

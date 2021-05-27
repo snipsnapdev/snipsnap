@@ -19,7 +19,7 @@ const validateSizesOfFiles = (files) => {
     if (type === "file") {
       const fileSize = Buffer.byteLength(data.content, "utf8");
       if (fileSize > MAX_FILE_SIZE) {
-        console.log("file", data.name, "is too large: ", fileSize, "bites");
+        throw new Error(`File ${data.name} is too large`);
       }
       return fileSize <= MAX_FILE_SIZE;
     } else {
@@ -45,7 +45,9 @@ const validateAmountOfFiles = (files) => {
   files.forEach(callback);
 
   if (amountOfFiles > MAX_FILES_AMOUNT) {
-    console.log("too many files");
+    throw new Error(
+      `Too many files. Please create template with no more than ${MAX_FILES_AMOUNT} files`
+    );
   }
 
   return amountOfFiles <= MAX_FILES_AMOUNT;
