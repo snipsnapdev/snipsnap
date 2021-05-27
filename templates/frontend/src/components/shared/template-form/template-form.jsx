@@ -124,7 +124,9 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   useEffect(() => {
     if (inputRef.current) {
       register(inputRef.current);
-      inputRef.current.focus();
+      if (isCreatingNewTemplate) {
+        inputRef.current.focus();
+      }
     }
 
     // handle initial values change
