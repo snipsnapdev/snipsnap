@@ -7,7 +7,8 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, useGqlClient } from 'api/graphql';
+import { useGqlClient } from 'api/graphql';
+import { createTemplateMutation, editTemplateMutation } from 'api/mutations';
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
@@ -23,53 +24,6 @@ import styles from './template-form.module.scss';
 const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
-
-const createTemplateQuery = gql`
-  mutation createTemplate(
-    $name: String!
-    $prompts: String
-    $files: String!
-    $templateGroupId: String
-  ) {
-    insert_template(
-      object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
-    ) {
-      id
-      name
-      prompts
-      files
-      template_group_id
-      owner_id
-    }
-  }
-`;
-
-const editTemplateQuery = gql`
-  mutation updateTemplate(
-    $id: String!
-    $name: String
-    $prompts: String
-    $files: String
-    $templateGroupId: String
-  ) {
-    update_template(
-      object: {
-        id: $id
-        name: $name
-        prompts: $prompts
-        files: $files
-        template_group_id: $templateGroupId
-      }
-    ) {
-      id
-      name
-      prompts
-      files
-      template_group_id
-      owner_id
-    }
-  }
-`;
 
 const promptsSchema = {
   message: yup.string().required('Message is required'),
@@ -145,7 +99,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   }, [initialValues]);
 
   const handleCreateTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
-    const res = await gqlClient.request(createTemplateQuery, {
+    const res = await gqlClient.request(createTemplateMutation, {
       name,
       prompts,
       files,
@@ -160,7 +114,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   };
 
   const handleEditTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
-    await gqlClient.request(editTemplateQuery, {
+    await gqlClient.request(editTemplateMutation, {
       id: templateId,
       name,
       prompts,
