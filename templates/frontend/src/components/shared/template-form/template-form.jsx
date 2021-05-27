@@ -16,6 +16,7 @@ import Input from 'components/shared/input';
 import { ErrorModalContext } from 'contexts/error-modal-context';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
+import { useAlertIfUnsavedChanges } from 'hooks/use-alert-if-unsaved-changes';
 
 import Files from './files';
 import Prompts from './prompts';
@@ -48,6 +49,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     reset,
     clearErrors,
     errors,
+    formState: { isDirty },
   } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
@@ -71,6 +73,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
     openFileId: openFile || null,
+    hasChangedFiles: false,
   });
 
   const inputRef = useRef(null);
@@ -97,6 +100,9 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
+
+  // show alert if form is dirty before changing URL
+  useAlertIfUnsavedChanges(isCreatingNewTemplate ? true : isDirty || filesState.hasChangedFiles);
 
   const handleCreateTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
     const res = await gqlClient.request(createTemplateMutation, {
