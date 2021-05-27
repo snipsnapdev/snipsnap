@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import { gql, useGqlClient } from 'api/graphql';
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
@@ -14,7 +15,6 @@ import Input from 'components/shared/input';
 import { ErrorModalContext } from 'contexts/error-modal-context';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import { formatFilesDataForApi } from 'utils/files-provider-helpers';
 
 import Files from './files';
 import Prompts from './prompts';
@@ -23,6 +23,53 @@ import styles from './template-form.module.scss';
 const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
+
+const createTemplateQuery = gql`
+  mutation createTemplate(
+    $name: String!
+    $prompts: String
+    $files: String!
+    $templateGroupId: String
+  ) {
+    insert_template(
+      object: { name: $name, files: $files, prompts: $prompts, template_group_id: $templateGroupId }
+    ) {
+      id
+      name
+      prompts
+      files
+      template_group_id
+      owner_id
+    }
+  }
+`;
+
+const editTemplateQuery = gql`
+  mutation updateTemplate(
+    $id: String!
+    $name: String
+    $prompts: String
+    $files: String
+    $templateGroupId: String
+  ) {
+    update_template(
+      object: {
+        id: $id
+        name: $name
+        prompts: $prompts
+        files: $files
+        template_group_id: $templateGroupId
+      }
+    ) {
+      id
+      name
+      prompts
+      files
+      template_group_id
+      owner_id
+    }
+  }
+`;
 
 const promptsSchema = {
   message: yup.string().required('Message is required'),
@@ -37,12 +84,12 @@ const schema = yup.object().shape({
     .compact((v) => v.message === '' && v.variableName === ''),
 });
 
-const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
+const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId = null }) => {
   const {
     register,
     control,
-    trigger,
     handleSubmit,
+    trigger,
     setValue,
     reset,
     clearErrors,
@@ -54,8 +101,11 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     reValidateMode: 'onChange',
     mode: 'onChange',
   });
+  const gqlClient = useGqlClient();
 
-  const { back } = useRouter();
+  const router = useRouter();
+  const { openFile } = router.query;
+
   const { showErrorModal } = useContext(ErrorModalContext);
 
   const { groups } = useTemplateGroups();
@@ -66,7 +116,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
-    openFileId: null,
+    openFileId: openFile || null,
   });
 
   const inputRef = useRef(null);
@@ -86,15 +136,40 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       type: 'reset',
       data: {
         files: initialValues.files,
-        openFileId: null,
+        openFileId: openFile || null,
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
-  const onSubmit = async ({ name, prompts }) => {
-    const filesForApi = formatFilesDataForApi(filesState.files);
+  const handleCreateTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
+    const res = await gqlClient.request(createTemplateQuery, {
+      name,
+      prompts,
+      files,
+      ...(templateGroupId ? { templateGroupId } : {}),
+    });
 
+    const newTemplateId = res?.insert_template?.id || null;
+
+    if (newTemplateId) {
+      router.push(`/template/${newTemplateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+    }
+  };
+
+  const handleEditTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
+    await gqlClient.request(editTemplateQuery, {
+      id: templateId,
+      name,
+      prompts,
+      files,
+      ...(templateGroupId ? { templateGroupId } : {}),
+    });
+
+    router.push(`/template/${templateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+  };
+
+  const onSubmit = async ({ name, prompts }) => {
     if (Object.keys(errors).length > 0) {
       return;
     }
@@ -103,11 +178,15 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       const newTemplateData = {
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
-        files: JSON.stringify(filesForApi),
+        files: JSON.stringify(filesState.files),
         ...(group ? { templateGroupId: group.id } : {}),
       };
 
-      await onSave(newTemplateData);
+      if (isCreatingNewTemplate) {
+        await handleCreateTemplate({ ...newTemplateData, openFileId: filesState.openFileId });
+      } else {
+        await handleEditTemplate({ ...newTemplateData, openFileId: filesState.openFileId });
+      }
 
       mutate('getOwnedTemplateGroups');
     } catch (err) {
@@ -124,7 +203,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
   const handleCancelButtonClick = () => {
     if (isCreatingNewTemplate) {
-      back();
+      router.back();
     } else {
       reset();
       setGroup(groups.find((group) => group.id === initialValues.groupId) || null);

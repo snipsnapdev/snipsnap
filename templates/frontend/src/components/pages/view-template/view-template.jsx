@@ -3,7 +3,6 @@ import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
 import ViewOnlyTemplateForm from 'components/shared/template-form/view-only-form';
-import { formatFilesDataFromApi } from 'utils/files-provider-helpers';
 
 const cloneTemplateQuery = gql`
   mutation createTemplate($name: String!, $prompts: String, $files: String!) {
@@ -50,7 +49,7 @@ const ViewTemplate = ({ templateId }) => {
   const templateData = {
     name: template?.name || '',
     prompts: template?.prompts ? JSON.parse(template.prompts) : [],
-    files: template?.files ? formatFilesDataFromApi(JSON.parse(template.files)) : [],
+    files: template?.files ? JSON.parse(template.files) : [],
   };
 
   const handleSave = async () => {

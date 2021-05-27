@@ -207,48 +207,6 @@ export const getFilePath = (files, fileId) => {
   return path ? path.map((item) => item.data.name).join('/') : null;
 };
 
-/** Remove ids from all files and folders */
-export const formatFilesDataForApi = (data) => data.map(removeIds);
-
-/** Add ids to all files and folders */
-export const formatFilesDataFromApi = (data) => data.map(addIds);
-
-/** Traverse file tree, remove ids */
-const removeIds = (item) => {
-  if (item.type === 'file') {
-    return {
-      type: 'file',
-      data: item.data,
-    };
-  }
-  return {
-    type: 'folder',
-    data: {
-      ...item.data,
-      files: item.data.files.map(removeIds),
-    },
-  };
-};
-
-/** Traverse file tree, add ids */
-const addIds = (item) => {
-  if (item.type === 'file') {
-    return {
-      type: 'file',
-      id: uuid(),
-      data: item.data,
-    };
-  }
-  return {
-    type: 'folder',
-    id: uuid(),
-    data: {
-      ...item.data,
-      files: item.data.files.map(addIds),
-    },
-  };
-};
-
 /** Sort files: folders first, then alphabetically */
 const fileComparator = (file1, file2) => {
   if (file1.type === 'file' && file2.type === 'folder') {
