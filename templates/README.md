@@ -12,7 +12,10 @@
   <a href="https://twitter.com/snipsnap_dev"><img src="https://img.shields.io/twitter/follow/snipsnap_dev?style=social"/></a>
 </p>
 
-<p align="center"><a href="#">
+<h3 align="center"><a href="https://templates.snipsnap.dev/">Visit Home Page</a></h3>
+
+
+<p align="center"><a href="https://youtu.be/G7J_rWiMzwE">
 <img width="500px" src="https://user-images.githubusercontent.com/2697570/118845264-eaacd800-b8cb-11eb-83ef-eb293180ac53.jpg" alt="Getting started with Snipsnap"/>
 </a></p>
 
