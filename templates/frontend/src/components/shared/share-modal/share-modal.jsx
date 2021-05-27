@@ -242,7 +242,7 @@ const ShareModal = (props) => {
       }
       mutate(`getSharedTo-${id}`);
     } catch (err) {
-      console.log('err');
+      throw new Error(`Unshare failed: ${err}`);
     }
   };
 

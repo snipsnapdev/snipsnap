@@ -51,7 +51,7 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
       mutate('getOwnedTemplateGroups');
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      throw new Error(`Creating group failed: ${error}`);
     }
   };
 

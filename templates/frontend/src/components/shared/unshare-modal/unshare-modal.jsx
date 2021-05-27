@@ -71,7 +71,7 @@ const RemoveTemplateModal = (props) => {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      throw new Error(`Deleting failed: ${err}`);
     }
 
     onClose();

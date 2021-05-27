@@ -54,7 +54,7 @@ const RenameGroupModal = (props) => {
       mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      throw new Error(`Renaming group failed: ${err}`);
     }
 
     onClose();

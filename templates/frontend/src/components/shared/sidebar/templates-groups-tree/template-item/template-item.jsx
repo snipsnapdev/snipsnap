@@ -51,7 +51,7 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
       await gqlClient.request(query, { templateId, userId: currentUserId, favourite: !favourite });
       mutate('getOwnedTemplateGroups');
     } catch (error) {
-      console.log('error');
+      throw new Error(`Setting favourite failed: ${error}`);
     }
   };
 
