@@ -43,7 +43,7 @@ export default function Login() {
           <GithubLogo /> Login with GitHub
         </Button>
         <h2 className={cx('subtitle')}>
-          Let Snipsnap <span>💪</span> powers you!
+          Let Snipsnap <span>💪</span> power you!
         </h2>
         <ul className={cx('features')}>
           <li className={cx('features-item')}>
