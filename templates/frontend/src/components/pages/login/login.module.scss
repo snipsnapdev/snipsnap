@@ -50,10 +50,19 @@
 
 .actions {
   display: flex;
+
+  @include sm-down {
+    flex-direction: column;
+  }
 }
 
 .button {
   margin-bottom: 60px;
+
+  @include sm-down {
+    width: 100%;
+    margin-bottom: 40px;
+  }
 
   &.how-to {
     margin-left: 30px;
@@ -64,6 +73,10 @@
     &:hover:not([disabled]) {
       background-color: $color-dark-grey;
       border-color: $color-white;
+    }
+
+    @include sm-down {
+      margin-left: 0;
     }
   }
 }
