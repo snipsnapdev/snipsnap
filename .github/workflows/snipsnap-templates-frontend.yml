@@ -53,7 +53,7 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT}}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN}}
           NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN}}
-          NEXT_PUBLIC_SITE_URL: https://templates.snipsnap.dev/
+          NEXT_PUBLIC_SITE_URL: https://templates.snipsnap.dev
           NEXT_PUBLIC_GRAPHQL_URL: https://hasura-t.snipsnap.dev/v1/graphql
         run: npm run build
         working-directory: ${{env.WORKING_DIRECTORY}}
