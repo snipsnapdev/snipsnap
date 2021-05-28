@@ -4,7 +4,7 @@
   "publisher": "snipsnapdev",
   "description": "Manage, share and use code templates with cloud UI and VS Code Extension",
   "icon": "snipsnap-logo.png",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "repository": {
     "type": "git",
     "url": "https://github.com/snipsnapdev/snipsnap.git",
