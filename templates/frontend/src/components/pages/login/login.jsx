@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from 'components/shared/button';
 import SupportUs from 'components/shared/support-us';
@@ -18,6 +18,12 @@ const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+
+  // to make autoplay work on ios
+  const [isVideoPaused, setIsVideoPaused] = useState(true);
+  useEffect(() => {
+    setIsVideoPaused(false);
+  }, []);
 
   return (
     <div className={cx('wrapper')}>
