@@ -121,6 +121,10 @@ async function runExtension(folderURI) {
           prompt: prompt.message,
         });
 
+        if (promptResult === undefined) {
+          throw new Error("input cancelled");
+        }
+
         promptResults[prompt.variableName] = promptResult;
       }
     }
