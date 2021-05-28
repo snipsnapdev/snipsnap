@@ -43,26 +43,25 @@ Check our [uses cases section](https://github.com/snipsnapdev/snipsnap/blob/mast
 Imagine you've just started your new project with React. Probably you will have the following structure for every new component:
 
 ```jsx
-my - example;
---index.js;
---my - example.js;
---my - example.css;
+my-example
+-- index.js
+-- my-example.js
+-- my-example.css
 ```
-
 Each of those files will have a predictable boilerplate code structure based on the component name.
 
 ```jsx
-import React from "react";
-import PropTypes from "prop-types";
-
-import styles from "./my-example.css";
-
-const MyExample = (props) => <div className={cx("wrapper")}></div>;
-
-MyExample.propTypes = {};
-
-MyExample.defaultProps = {};
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './my-example.css';
+const MyExample = (props) => (
+  <div className={cx('wrapper')}>
+  </div>
+)
+MyExample.propTypes = {
+};
+MyExample.defaultProps = {
+};
 export default MyExample;
 ```
 
@@ -75,12 +74,12 @@ export { default } from "./my-example";
 The example above is a simple scenario however it could easily go beyond that by having
 
 ```jsx
-my - example;
---index.js;
---my - example.js;
---my - example.container.js;
---my - example.stories.js;
---my - example.css;
+my-example
+-- index.js
+-- my-example.js
+-- my-example.container.js
+-- my-example.stories.js
+-- my-example.css
 ```
 
 We have several options to manage it:
