@@ -1,34 +1,5 @@
-import { gql, useGqlClient } from 'api/graphql';
 import TemplateForm from 'components/shared/template-form';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import { formatFilesDataFromApi } from 'utils/files-provider-helpers';
-
-const editTemplateQuery = gql`
-  mutation updateTemplate(
-    $id: String!
-    $name: String
-    $prompts: String
-    $files: String
-    $templateGroupId: String
-  ) {
-    update_template(
-      object: {
-        id: $id
-        name: $name
-        prompts: $prompts
-        files: $files
-        template_group_id: $templateGroupId
-      }
-    ) {
-      id
-      name
-      prompts
-      files
-      template_group_id
-      owner_id
-    }
-  }
-`;
 
 const findTemplateById = (templateId, groups, templates) => {
   let template = null;
@@ -56,22 +27,11 @@ const EditTemplate = ({ templateId }) => {
   const templateData = {
     name: template?.name || '',
     prompts: template?.prompts ? JSON.parse(template.prompts) : [],
-    files: template?.files ? formatFilesDataFromApi(JSON.parse(template.files)) : [],
+    files: template?.files ? JSON.parse(template.files) : [],
     groupId,
   };
 
-  const gqlClient = useGqlClient();
-
-  const handleSave = async ({ name, prompts, files, templateGroupId }) =>
-    gqlClient.request(editTemplateQuery, {
-      id: templateId,
-      name,
-      prompts,
-      files,
-      ...(templateGroupId ? { templateGroupId } : {}),
-    });
-
-  return <TemplateForm key={templateId} initialValues={templateData} onSave={handleSave} />;
+  return <TemplateForm key={templateId} templateId={templateId} initialValues={templateData} />;
 };
 
 export default EditTemplate;

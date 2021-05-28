@@ -12,16 +12,8 @@ const createTemplate = async (_, args, { userId }) => {
 
   const { name, prompts, files, template_group_id } = args.object;
 
-  const isPromptsValid = validatePrompts(JSON.parse(prompts));
-  const isFilesValid = validateFiles(JSON.parse(files));
-
-  if (!isPromptsValid) {
-    throw new Error("Prompts not valid");
-  }
-
-  if (!isFilesValid) {
-    throw new Error("Files not valid");
-  }
+  validatePrompts(JSON.parse(prompts));
+  validateFiles(JSON.parse(files));
 
   const res = await gqlClient.request(createTemplateMutation, {
     name,

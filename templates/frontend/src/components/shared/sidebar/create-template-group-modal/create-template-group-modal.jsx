@@ -17,12 +17,7 @@ import styles from './create-template-group-modal.module.scss';
 const cx = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/^[A-Za-z0-9.{}\-_\s]+$/, {
-      message: 'Name should have only allowed symbols A-Za-z0-9.{}-_ ',
-    }),
+  name: yup.string().required('Name is required'),
 });
 
 const query = gql`
@@ -51,7 +46,7 @@ const CreateTemplateGroupModal = ({ isOpen, onClose }) => {
       mutate('getOwnedTemplateGroups');
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      throw new Error(`Creating group failed: ${error}`);
     }
   };
 

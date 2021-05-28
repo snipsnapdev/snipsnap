@@ -14,13 +14,11 @@ const ErrorModalProvider = ({ children }) => {
   const [errorText, setErrorText] = useState('');
 
   const showErrorModal = (text) => {
-    console.log('show err');
     setErrorText(text);
     setIsErrorModalOpen(true);
   };
 
   const closeErrorModal = () => {
-    console.log('hide err');
     setIsErrorModalOpen(false);
     setErrorText('');
   };

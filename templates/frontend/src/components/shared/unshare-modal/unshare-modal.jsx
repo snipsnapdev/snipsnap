@@ -50,7 +50,6 @@ const RemoveTemplateModal = (props) => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      console.log('remove', id, 'from', email);
       if (type === 'template') {
         await gqlClient.request(unshareTemplateQuery, {
           templateId: id,
@@ -72,7 +71,7 @@ const RemoveTemplateModal = (props) => {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      throw new Error(`Deleting failed: ${err}`);
     }
 
     onClose();

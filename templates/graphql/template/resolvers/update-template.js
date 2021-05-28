@@ -8,10 +8,8 @@ const updateTemplate = async (_, args, { userId }) => {
 
   const { id, name, prompts, files, template_group_id } = args.object;
 
-  const isPromptsValid = validatePrompts(JSON.parse(prompts));
-  const isFilesValid = validateFiles(JSON.parse(files));
-
-  if (!isPromptsValid || !isFilesValid) return;
+  validatePrompts(JSON.parse(prompts));
+  validateFiles(JSON.parse(files));
 
   return gqlClient.request(updateTemplateMutation, {
     id,

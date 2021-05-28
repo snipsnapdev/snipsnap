@@ -12,6 +12,7 @@ import {
 const initialState = {
   openFileId: null,
   files: [],
+  hasChangedFiles: false,
 };
 
 export const FilesContext = React.createContext(null);
@@ -23,6 +24,7 @@ export const filesReducer = (state, action) => {
     case 'addItem':
       return {
         ...state,
+        hasChangedFiles: true,
         ...addItem({
           files: state.files,
           data: action.data,
@@ -32,16 +34,19 @@ export const filesReducer = (state, action) => {
     case 'moveItem':
       return {
         ...state,
+        hasChangedFiles: true,
         ...moveItem({ files: state.files, item: action.item, newFolderId: action.newFolderId }),
       };
     case 'renameFolder':
       return {
         ...state,
+        hasChangedFiles: true,
         ...renameFolder({ files: state.files, folderId: action.folderId, newName: action.newName }),
       };
     case 'deleteItem':
       return {
         ...state,
+        hasChangedFiles: true,
         ...deleteItem({
           files: state.files,
           itemId: action.itemId,
@@ -51,7 +56,11 @@ export const filesReducer = (state, action) => {
     case 'openFile':
       return { ...state, openFileId: action.fileId };
     case 'changeOpenFileContent': {
-      return { ...state, files: changeFileContent(state.files, state.openFileId, action.value) };
+      return {
+        ...state,
+        hasChangedFiles: true,
+        files: changeFileContent(state.files, state.openFileId, action.value),
+      };
     }
     case 'changeOpenFileLanguage': {
       return {
@@ -62,6 +71,7 @@ export const filesReducer = (state, action) => {
     case 'reset': {
       return {
         ...state,
+        hasChangedFiles: false,
         ...action.data,
       };
     }

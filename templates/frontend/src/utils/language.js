@@ -12,7 +12,7 @@ import TypescriptIcon from 'icons/file-types/file_type_typescript.inline.svg';
 import YamlIcon from 'icons/file-types/file_type_yaml.inline.svg';
 
 export const DEFAULT_LANGUAGE = {
-  label: 'Plain_Text',
+  label: 'Plain Text',
   aceMode: 'Plain_Text',
   icon: PlainTextIcon,
 };

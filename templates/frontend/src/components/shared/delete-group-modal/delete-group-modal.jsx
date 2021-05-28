@@ -37,7 +37,7 @@ const DeleteGroupModal = (props) => {
       mutate('getOwnedTemplateGroups');
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      throw new Error(`Deleting group failed: ${err}`);
     }
 
     onClose();

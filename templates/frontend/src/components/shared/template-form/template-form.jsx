@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as yup from 'yup';
 
+import { useGqlClient } from 'api/graphql';
+import { createTemplateMutation, editTemplateMutation } from 'api/mutations';
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
 import Dropdown from 'components/shared/dropdown';
@@ -14,7 +16,7 @@ import Input from 'components/shared/input';
 import { ErrorModalContext } from 'contexts/error-modal-context';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
-import { formatFilesDataForApi } from 'utils/files-provider-helpers';
+import { useAlertIfUnsavedChanges } from 'hooks/use-alert-if-unsaved-changes';
 
 import Files from './files';
 import Prompts from './prompts';
@@ -37,16 +39,17 @@ const schema = yup.object().shape({
     .compact((v) => v.message === '' && v.variableName === ''),
 });
 
-const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) => {
+const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId = null }) => {
   const {
     register,
     control,
-    trigger,
     handleSubmit,
+    trigger,
     setValue,
     reset,
     clearErrors,
     errors,
+    formState: { isDirty },
   } = useForm({
     shouldFocusError: false,
     resolver: yupResolver(schema),
@@ -54,8 +57,11 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
     reValidateMode: 'onChange',
     mode: 'onChange',
   });
+  const gqlClient = useGqlClient();
 
-  const { back } = useRouter();
+  const router = useRouter();
+  const { openFile } = router.query;
+
   const { showErrorModal } = useContext(ErrorModalContext);
 
   const { groups } = useTemplateGroups();
@@ -66,7 +72,8 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
 
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: initialValues.files,
-    openFileId: null,
+    openFileId: openFile || null,
+    hasChangedFiles: false,
   });
 
   const inputRef = useRef(null);
@@ -74,7 +81,9 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
   useEffect(() => {
     if (inputRef.current) {
       register(inputRef.current);
-      inputRef.current.focus();
+      if (isCreatingNewTemplate) {
+        inputRef.current.focus();
+      }
     }
 
     // handle initial values change
@@ -86,15 +95,43 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       type: 'reset',
       data: {
         files: initialValues.files,
-        openFileId: null,
+        openFileId: openFile || null,
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
-  const onSubmit = async ({ name, prompts }) => {
-    const filesForApi = formatFilesDataForApi(filesState.files);
+  // show alert if form is dirty before changing URL
+  useAlertIfUnsavedChanges(isCreatingNewTemplate ? true : isDirty || filesState.hasChangedFiles);
 
+  const handleCreateTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
+    const res = await gqlClient.request(createTemplateMutation, {
+      name,
+      prompts,
+      files,
+      ...(templateGroupId ? { templateGroupId } : {}),
+    });
+
+    const newTemplateId = res?.insert_template?.id || null;
+
+    if (newTemplateId) {
+      router.push(`/template/${newTemplateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+    }
+  };
+
+  const handleEditTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
+    await gqlClient.request(editTemplateMutation, {
+      id: templateId,
+      name,
+      prompts,
+      files,
+      ...(templateGroupId ? { templateGroupId } : {}),
+    });
+
+    router.push(`/template/${templateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+  };
+
+  const onSubmit = async ({ name, prompts }) => {
     if (Object.keys(errors).length > 0) {
       return;
     }
@@ -103,28 +140,36 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, onSave }) 
       const newTemplateData = {
         name,
         prompts: JSON.stringify(typeof prompts !== 'undefined' ? prompts : []),
-        files: JSON.stringify(filesForApi),
+        files: JSON.stringify(filesState.files),
         ...(group ? { templateGroupId: group.id } : {}),
       };
 
-      await onSave(newTemplateData);
+      if (isCreatingNewTemplate) {
+        await handleCreateTemplate({ ...newTemplateData, openFileId: filesState.openFileId });
+      } else {
+        await handleEditTemplate({ ...newTemplateData, openFileId: filesState.openFileId });
+      }
 
       mutate('getOwnedTemplateGroups');
-    } catch (err) {
-      throw new Error(err);
+    } catch (error) {
+      const errorMessage = JSON.parse(JSON.stringify(error)).response.errors[0].message;
+      throw new Error(errorMessage);
     }
 
     clearErrors();
   };
 
-  const handleError = (err) => {
-    showErrorModal(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`);
-    console.error(`Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}`, err);
+  const handleError = (error) => {
+    showErrorModal(
+      `Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}${
+        error ? `: \n${error.message}.` : '.'
+      }`
+    );
   };
 
   const handleCancelButtonClick = () => {
     if (isCreatingNewTemplate) {
-      back();
+      router.back();
     } else {
       reset();
       setGroup(groups.find((group) => group.id === initialValues.groupId) || null);

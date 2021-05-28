@@ -6,12 +6,9 @@ import { useReducer, useContext } from 'react';
 
 import AsyncButton from 'components/shared/async-button';
 import Button from 'components/shared/button';
-import Dropdown from 'components/shared/dropdown';
 import Input from 'components/shared/input';
 import { ErrorModalContext } from 'contexts/error-modal-context';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
-import { useTemplateGroups } from 'contexts/template-groups-provider';
-import { formatFilesDataForApi } from 'utils/files-provider-helpers';
 
 import Files from './files';
 import PromptsReadOnly from './prompts/prompts-read-only';
