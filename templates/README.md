@@ -15,9 +15,7 @@
 <h4 align="center"><a href="https://templates.snipsnap.dev/">Visit Home Page</a> • <a href="https://marketplace.visualstudio.com/items?itemName=snipsnapdev.snipsnap-templates-vscode">Install VS Code Extension</a></h4>
 
 
-<p align="center"><a href="https://youtu.be/G7J_rWiMzwE">
-<img width="500px" src="https://user-images.githubusercontent.com/2697570/118845264-eaacd800-b8cb-11eb-83ef-eb293180ac53.jpg" alt="Getting started with Snipsnap"/>
-</a></p>
+![snipsnap-templates-demo](https://user-images.githubusercontent.com/2697570/119970573-30466080-bfb0-11eb-9455-21c5d7e2561e.gif)
 
 ---
 ## Table of Contents
@@ -27,6 +25,11 @@
 - [Use cases](https://github.com/snipsnapdev/snipsnap/blob/master/templates/docs/use-cases.md)
 - [Contributing](https://github.com/snipsnapdev/snipsnap/tree/master/templates#-contributing)
 
+## 🚀 Getting Started
+
+<a href="https://youtu.be/G7J_rWiMzwE">
+<img width="500px" src="https://user-images.githubusercontent.com/2697570/118845264-eaacd800-b8cb-11eb-83ef-eb293180ac53.jpg" alt="Getting started with Snipsnap"/>
+</a>
 
 
 ## 🔥 What problem Snipsnap is trying to solve?
