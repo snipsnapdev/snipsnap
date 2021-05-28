@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
@@ -29,6 +30,7 @@ const getTemplateByIdQuery = gql`
 const ViewTemplate = ({ templateId }) => {
   const gqlClient = useGqlClient();
   const [template, setTemplate] = useState(undefined);
+  const router = useRouter();
 
   useEffect(() => {
     if (!templateId) {
@@ -56,13 +58,13 @@ const ViewTemplate = ({ templateId }) => {
     if (!template) {
       return;
     }
-    const res = await gqlClient.request(cloneTemplateQuery, {
-      ...template,
-    });
-
-    mutate('getOwnedTemplateGroups');
-
     try {
+      const res = await gqlClient.request(cloneTemplateQuery, {
+        ...template,
+      });
+
+      mutate('getOwnedTemplateGroups');
+
       const templateId = res?.insert_template?.id || null;
 
       if (templateId) {
