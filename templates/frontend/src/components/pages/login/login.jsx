@@ -116,6 +116,7 @@ export default function Login() {
           autoPlay
           loop
           muted
+          playsInline
         >
           <source src="/videos/demo.mp4" />
         </video>
