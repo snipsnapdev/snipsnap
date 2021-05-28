@@ -135,6 +135,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     if (Object.keys(errors).length > 0) {
       return;
     }
+    console.log('submitting');
 
     try {
       const newTemplateData = {
@@ -166,6 +167,31 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
       }`
     );
   };
+
+  // save form on cmd/ctrl + S press
+  useEffect(() => {
+    const keyDownHandler = async (event) => {
+      if (
+        (window && window.navigator.platform.toUpperCase().indexOf('MAC') >= 0
+          ? event.metaKey
+          : event.ctrlKey) &&
+        event.keyCode == 83
+      ) {
+        event.preventDefault();
+
+        if (document) {
+          const saveButton = document.getElementById('form-submit-button');
+          if (saveButton) {
+            saveButton.click();
+          }
+        }
+      }
+    };
+    document.addEventListener('keydown', keyDownHandler);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, [initialValues]);
 
   const handleCancelButtonClick = () => {
     if (isCreatingNewTemplate) {
@@ -253,6 +279,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
               </div>
               <div className={cx('buttons-wrapper')}>
                 <AsyncButton
+                  id="form-submit-button"
                   disabled={!isFormValid}
                   type="submit"
                   text={isCreatingNewTemplate ? 'Create template' : 'Save changes'}

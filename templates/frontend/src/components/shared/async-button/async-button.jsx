@@ -9,7 +9,16 @@ function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, SUCCESS_TIMEOUT_SECONDS * 1000));
 }
 
-const AsyncButton = ({ type, text, disabled, successText, className, onClick, onError }) => {
+const AsyncButton = ({
+  type,
+  text,
+  disabled,
+  successText,
+  className,
+  onClick,
+  onError,
+  ...otherProps
+}) => {
   const [color, setColor] = useState('default');
   const [loading, setIsLoading] = useState(false);
 
@@ -56,6 +65,7 @@ const AsyncButton = ({ type, text, disabled, successText, className, onClick, on
         }
       }}
       {...(color === 'success' ? { width: currentWidth } : {})}
+      {...otherProps}
     >
       {color === 'success' ? successText : text}
     </Button>
