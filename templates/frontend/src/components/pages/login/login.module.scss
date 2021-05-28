@@ -48,8 +48,24 @@
   text-align: center;
 }
 
+.actions {
+  display: flex;
+}
+
 .button {
   margin-bottom: 60px;
+
+  &.how-to {
+    margin-left: 30px;
+    color: $color-white;
+    background-color: transparent;
+    border: 1px solid $color-white;
+
+    &:hover:not([disabled]) {
+      background-color: $color-dark-grey;
+      border-color: $color-white;
+    }
+  }
 }
 
 .subtitle {
@@ -131,4 +147,10 @@
       margin-right: 0;
     }
   }
+}
+
+.demo {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
 }

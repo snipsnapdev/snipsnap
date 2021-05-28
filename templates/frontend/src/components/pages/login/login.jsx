@@ -1,16 +1,15 @@
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/client';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import Button from 'components/shared/button';
 import SupportUs from 'components/shared/support-us';
 import UseCases from 'components/shared/use-cases';
-import VideoPlayer from 'components/shared/video-player';
 
 import GithubLogo from './images/github.inline.svg';
 import LogoText from './images/logo-text.inline.svg';
+import PlayIcon from './images/play.inline.svg';
 import styles from './login.module.scss';
 
 const cx = classNames.bind(styles);
@@ -30,18 +29,31 @@ export default function Login() {
         <p className={cx('description')}>
           Manage, share and use code templates with cloud UI and VS Code Extension
         </p>
-        <Button
-          className={cx('button')}
-          themeColor="white"
-          size="md"
-          isLoading={isLoading}
-          onClick={() => {
-            setIsLoading(true);
-            signIn('github', { callbackUrl: CALLBACK_URL });
-          }}
-        >
-          <GithubLogo /> Login with GitHub
-        </Button>
+        <div className={cx('actions')}>
+          <Button
+            className={cx('button')}
+            themeColor="white"
+            size="md"
+            isLoading={isLoading}
+            onClick={() => {
+              setIsLoading(true);
+              signIn('github', { callbackUrl: CALLBACK_URL });
+            }}
+          >
+            <GithubLogo /> Login with GitHub
+          </Button>
+          <Button
+            className={cx('button', 'how-to')}
+            themeColor="custom"
+            size="md"
+            tag="a"
+            target="_blank"
+            rel="noopener noreferer"
+            href="https://www.youtube.com/watch?v=G7J_rWiMzwE"
+          >
+            <PlayIcon /> How it works
+          </Button>
+        </div>
         <h2 className={cx('subtitle')}>
           Let Snipsnap <span>💪</span> power you!
         </h2>
@@ -90,7 +102,9 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <VideoPlayer videoSrc="https://www.youtube-nocookie.com/embed/uZdIICU9_44?rel=0" />
+        <video title="Snipsnap demo" className={cx('demo')} type="video/mp4" autoPlay loop muted>
+          <source src="/videos/demo.mp4" />
+        </video>
 
         <UseCases />
       </div>
