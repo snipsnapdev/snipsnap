@@ -102,7 +102,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   }, [initialValues]);
 
   // show alert if form is dirty before changing URL
-  useAlertIfUnsavedChanges(isCreatingNewTemplate ? true : isDirty || filesState.hasChangedFiles);
+  // useAlertIfUnsavedChanges(isCreatingNewTemplate ? true : isDirty || filesState.hasChangedFiles);
 
   const handleCreateTemplate = async ({ name, prompts, files, templateGroupId, openFileId }) => {
     const res = await gqlClient.request(createTemplateMutation, {
