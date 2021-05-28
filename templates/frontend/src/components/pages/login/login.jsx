@@ -108,7 +108,15 @@ export default function Login() {
 
       <div className={cx('right')}>
         <SupportUs />
-        <video title="Snipsnap demo" className={cx('demo')} type="video/mp4" autoPlay loop muted>
+        <video
+          title="Snipsnap demo"
+          className={cx('demo')}
+          type="video/mp4"
+          paused={isVideoPaused}
+          autoPlay
+          loop
+          muted
+        >
           <source src="/videos/demo.mp4" />
         </video>
 
