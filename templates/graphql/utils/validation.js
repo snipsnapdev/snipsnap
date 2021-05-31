@@ -1,4 +1,4 @@
-const MAX_FILE_SIZE = 15000; /// 15KB
+const MAX_FILE_SIZE = 25000; /// 25KB
 const MAX_FILES_AMOUNT = 20;
 
 const validatePrompts = (prompts) => {
