@@ -66,6 +66,10 @@
     .ace-twilight .ace_gutter-active-line {
       background-color: $color-secondary-black;
     }
+
+    .ace_scrollbar-h {
+      bottom: 5px;
+    }
   }
 }
 
