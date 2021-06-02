@@ -23,19 +23,6 @@
   border: 1px solid $color-middle-grey;
   border-radius: 2px;
 
-  &::after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 4;
-    width: 100%;
-    height: 100px;
-    pointer-events: none;
-    content: '';
-    background: linear-gradient(180deg, rgba(28, 29, 34, 0) 0%, #1c1d22 100%);
-  }
-
   :global {
     .ace-tm .ace_gutter {
       background: $color-primary-black;
