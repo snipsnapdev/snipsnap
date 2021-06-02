@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useFiles } from 'contexts/files-provider';
 import CloseSvg from 'icons/close.inline.svg';
 import { getIconByFilename } from 'utils/language';
+
+import DeleteFileModal from '../delete-file-modal';
 
 import styles from './file.module.scss';
 
@@ -28,6 +30,8 @@ const File = ({
     state: { openFileId },
   } = useFiles();
 
+  const [isDeleteFileModalOpen, setIsDeleteFileModalOpen] = useState(false);
+
   useEffect(() => {
     const fileElem = fileRef.current;
     fileElem.addEventListener('dragover', onDragOver);
@@ -50,6 +54,12 @@ const File = ({
     onDelete(file.id);
   };
 
+  const handleDeleteClick = (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    setIsDeleteFileModalOpen(true);
+  };
+
   const handleDragStart = (evt) => {
     onOpen(null);
     evt.preventDefault();
@@ -69,12 +79,20 @@ const File = ({
       onDrag={handleDragStart}
       onDragEnd={onDragEnd}
     >
+      {isDeleteFileModalOpen && (
+        <DeleteFileModal
+          name={file.data.name}
+          isOpen={isDeleteFileModalOpen}
+          onClose={() => setIsDeleteFileModalOpen(false)}
+          onSave={handleDelete}
+        />
+      )}
       <div className={cx('file-icon')} style={{ left: 7 + 25 * level }}>
         <Icon />
       </div>
       {file.data.name}
       {!readOnly && (
-        <button className={cx('button-delete')} onClick={handleDelete}>
+        <button className={cx('button-delete')} onClick={handleDeleteClick}>
           <CloseSvg className={cx('icon')} />
         </button>
       )}
