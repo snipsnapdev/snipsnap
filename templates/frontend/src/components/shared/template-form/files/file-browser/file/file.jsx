@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 
-
 import { useFiles } from 'contexts/files-provider';
 import CloseSvg from 'icons/close.inline.svg';
 import { getIconByFilename } from 'utils/language';
@@ -51,11 +50,11 @@ const File = ({
     onOpen(file);
   };
 
-  const handleDelete = (evt) => {
+  const handleDelete = () => {
     onDelete(file.id);
   };
 
-  const handleClose = (evt) => {
+  const handleDeleteClick = (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
     setIsDeleteFileModalOpen(true);
@@ -93,7 +92,7 @@ const File = ({
       </div>
       {file.data.name}
       {!readOnly && (
-        <button className={cx('button-delete')} onClick={handleClose}>
+        <button className={cx('button-delete')} onClick={handleDeleteClick}>
           <CloseSvg className={cx('icon')} />
         </button>
       )}
