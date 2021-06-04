@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/client';
 import jwt from 'utils/jwt';
 
 const MAX_AGE = process.env.JWT_API_MAX_AGE;
+const {SENTRY_ENABLED} = process.env;
 
 const refreshToken = async (req, res) => {
   const session = await getSession({ req });
@@ -15,4 +16,5 @@ const refreshToken = async (req, res) => {
   res.json({ token });
 };
 
-export default withSentry(refreshToken);
+const refresher = SENTRY_ENABLED === 'true' ? withSentry(refreshToken) : refreshToken;
+export default refresher;

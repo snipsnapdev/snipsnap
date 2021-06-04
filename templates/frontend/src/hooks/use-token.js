@@ -19,11 +19,7 @@ const fetchToken = async () => {
 const useToken = () => {
   const { token, setToken } = useContext(AppContext);
 
-  const { data } = useSWR(() => (isExpired(token) ? 'token' : null), fetchToken, {
-    initialData: token,
-  });
-
-  return { token: data, setToken };
+  return { token, setToken };
 };
 
 export { useToken, isExpired, fetchToken };
