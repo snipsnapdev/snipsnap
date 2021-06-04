@@ -39,16 +39,10 @@ This is a Frontend Part of the [**Snipsnap Templates**](https://templates.snipsn
 1. **Clone this repository**
 
    ```bash
-   git clone git@github.com:pixel-point/gatsby-starter.git
+   git clone https://github.com/snipsnapdev/snipsnap.git
    ```
 
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Duplicate `.env.example` file at the root and rename it into `.env`**
+2. **Duplicate `.env.example` file at the root and rename it into `.env`**
 
 ### Start GraphQL server
 1. **Go to `templates/graphql` folder and install dependecies:**
@@ -57,7 +51,7 @@ This is a Frontend Part of the [**Snipsnap Templates**](https://templates.snipsn
    ```
 3. **Run GraphQL server**: 
    ```bash
-   nodemon index.js
+   npm run dev
    ```
 
 ### Configure Hasura
