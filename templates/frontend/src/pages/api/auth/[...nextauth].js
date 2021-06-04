@@ -75,22 +75,22 @@ const options = {
     async signIn({ user, account }) {
       // Get user email if we don't have it in public emails
       if (!user.email) {
-        // fetch user email
-        const res = await fetch('https://api.github.com/user/emails', {
-          headers: {
-            Authorization: `token ${account.accessToken}`,
-          },
-        });
-        const emails = await res.json();
-        if (!emails || emails.length === 0) {
-          return;
-        }
-
-        // Sort by primary email - the user may have several emails, but only one of them will be primary
-        const sortedEmails = emails.sort((a, b) => b.primary - a.primary);
-        const primaryEmail = sortedEmails[0].email;
-
         try {
+          // fetch user email
+          const res = await fetch('https://api.github.com/user/emails', {
+            headers: {
+              Authorization: `token ${account.accessToken}`,
+            },
+          });
+          const emails = await res.json();
+          if (!emails || emails.length === 0) {
+            return;
+          }
+
+          // Sort by primary email - the user may have several emails, but only one of them will be primary
+          const sortedEmails = emails.sort((a, b) => b.primary - a.primary);
+          const primaryEmail = sortedEmails[0].email;
+
           await adminGQLClient().request(updateUserEmail, {
             userId: user.userId,
             email: primaryEmail,
