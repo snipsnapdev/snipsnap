@@ -123,6 +123,7 @@ const Editor = ({ readOnly = false }) => {
           width="100%"
           height="100%"
           fontSize="14px"
+          setOptions={{ useWorker: false }}
           style={{ lineHeight: '22px' }}
           showPrintMargin={false}
           onChange={handleFileContentChange}
