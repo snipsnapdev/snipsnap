@@ -211,7 +211,6 @@ const ShareModal = (props) => {
       }
 
       reset();
-      console.log('AFTER RESET', getValues('email'));
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
     } catch (error) {

@@ -135,7 +135,6 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     if (Object.keys(errors).length > 0) {
       return;
     }
-    console.log('submitting');
 
     try {
       const newTemplateData = {
@@ -163,7 +162,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
   const handleError = (error) => {
     showErrorModal(
       `Failed to ${isCreatingNewTemplate ? 'create template' : 'save changes'}${
-        error ? `: \n${error.message}.` : '.'
+        error ? `: \n${error.message}.` : ''
       }`
     );
   };

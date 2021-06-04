@@ -6,9 +6,11 @@ const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL;
 const hasuraAdminSecret = process.env.HASURA_ADMIN_SECRET;
 
 let client;
+let originalRequest = null;
 const getQlClient = () => {
   if (!client) {
     client = new GraphQLClient(endpoint);
+    originalRequest = client.request;
   }
   return client;
 };
@@ -19,16 +21,18 @@ const useGqlClient = () => {
   const client = getQlClient();
   client.setHeader('Authorization', `Bearer ${token}`);
 
-  const originalRequest = client.request;
   client.request = async (...args) => {
     if (isExpired(token)) {
-      const newToken = await fetchToken();
-      setToken(newToken);
-      client.setHeader('Authorization', `Bearer ${newToken}`);
+      try {
+        const newToken = await fetchToken();
+        setToken(newToken);
+        client.setHeader('Authorization', `Bearer ${newToken}`);
+      } catch (error) {
+        throw new Error(`updating token failed: ${error}`);
+      }
     }
     return originalRequest.call(client, ...args);
   };
-
   return client;
 };
 
