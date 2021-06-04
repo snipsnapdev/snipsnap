@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactTooltip from 'react-tooltip';
 import useSWR, { mutate } from 'swr';
@@ -114,7 +114,7 @@ const ShareModal = (props) => {
 
   const { groups, templates } = useTemplateGroups();
 
-  const { register, handleSubmit, reset, errors, setError } = useForm({
+  const { register, handleSubmit, reset, errors, setError, getValues } = useForm({
     defaultValues: { email: '' },
     resolver: yupResolver(schema),
   });
@@ -182,6 +182,7 @@ const ShareModal = (props) => {
   const usersSharedTo = data || [];
 
   const onSubmit = async ({ email: shareToUserEmail }) => {
+    console.log('submitting', shareToUserEmail);
     try {
       if (type === 'group') {
         // share group with user
@@ -210,6 +211,7 @@ const ShareModal = (props) => {
       }
 
       reset();
+      console.log('AFTER RESET', getValues('email'));
       // update list of users with whom the item is shared
       mutate(`getSharedTo-${id}`);
     } catch (error) {
@@ -249,12 +251,10 @@ const ShareModal = (props) => {
     mutate(`isPublic-${id}`);
   };
 
-  const inputRef = useRef(null);
-
   useEffect(() => {
-    if (inputRef.current && isOpen) {
-      register(inputRef.current);
-      inputRef.current.focus();
+    if (isOpen && typeof document !== 'undefined') {
+      const emailInput = document.getElementById('email-input');
+      emailInput.focus();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
@@ -275,9 +275,10 @@ const ShareModal = (props) => {
         <form>
           <div className={cx('top')}>
             <Input
+              id="email-input"
               label="Email for invitation"
               name="email"
-              ref={inputRef}
+              ref={register}
               error={errors.email?.message}
               className={cx('input')}
             />
