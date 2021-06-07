@@ -1,11 +1,11 @@
 # Configure Hasura
-### Requirements
+## Requirements
 
 - Docker
 - hasura-cli
 - Node.js 14
 
-### Launch
+## Launch
 
 1. **Start containers**.
    
@@ -29,5 +29,5 @@
    hasura metadata apply
    ```
    
-### Additional information
+## Additional information
 Hasura connects to databases, REST servers, GraphQL servers, and third party APIs to provide a unified realtime GraphQL API across all data sources. Read more in Hasura [documentation](https://hasura.io/docs/latest/graphql/core/).
