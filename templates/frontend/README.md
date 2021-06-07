@@ -33,7 +33,7 @@ This is a Frontend Part of the [**Snipsnap Templates**](https://templates.snipsn
 
 - Docker
 - hasura-cli
-- NodeJS v14.15.4
+- Node.js 14
 
 ### Getting Started
 1. **Clone this repository**
@@ -45,38 +45,17 @@ This is a Frontend Part of the [**Snipsnap Templates**](https://templates.snipsn
 2. **Duplicate `.env.example` file at the root and rename it into `.env`**
 
 ### Start GraphQL server
-1. **Go to `templates/graphql` folder and install dependecies:**
-   ```bash
-   npm install
-   ```
-3. **Run GraphQL server**: 
-   ```bash
-   npm run dev
-   ```
+Navigate to `templates/graphql` folder and follow [instructions](https://github.com/snipsnapdev/snipsnap/blob/master/templates/graphql/README.md) on how to run the **Appolo GraphQL Server**. 
+
 
 ### Configure Hasura
 
-1. **Run `docker-compose up -d` command from the root of `templates` folder**.
-2. **Go to `templates/hasura` folder**.
-3. **Run `hasura` dashboard**.
-   
-   If you want to use hasura and check the dashboard, install hasura-cli and run:
-   ```bash
-   hasura console
-   ```
-5. **Create DB structure.** 
- 
-   In order to create db structure apply migrations and metadata using the following command from there:
-
-   ```bash
-   hasura migrate apply
-   hasura metadata apply
-   ```
+Read our [documentation](https://github.com/snipsnapdev/snipsnap/tree/master/templates/hasura) on how to configure **Hasura** and create **docker containers**.
 
 ### Start development server
 1. **Install dependencies.**
    
-   From `templates/frontend` folder run the following commands to install dependencies:om
+   From `templates/frontend` folder run the following commands to install dependencies:
    ```bash
    npm install
    ```
