@@ -50,7 +50,7 @@ Navigate to `templates/graphql` folder and follow [instructions](https://github.
 
 ### Configure Hasura
 
-Read our [documentation](https://github.com/snipsnapdev/snipsnap/tree/master/templates/hasura) on how to configure **Hasura** and create **docker containers**.
+Read our [guide](https://github.com/snipsnapdev/snipsnap/tree/master/templates/hasura) on how to configure **Hasura** and create **docker containers**.
 
 ### Start development server
 1. **Install dependencies.**
