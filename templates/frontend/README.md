@@ -129,14 +129,14 @@ component
 │  │  └── image.png
 │  ├── icons
 │  │  └── icon.svg
-│  ├── nested-component.js
+│  ├── nested-component.jsx
 │  ├── nested-component.module.scss
 │  └── index.js
 ├── images
 │  └── image.png
 ├── icons
 │  └── icon.svg
-├── component.js
+├── component.jsx
 ├── component.module.scss
 └── index.js
 ```
