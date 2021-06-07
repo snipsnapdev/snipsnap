@@ -113,7 +113,38 @@ In CSS files all properties should be in kebab-case.
 .my-class
 ```
 
-## Code formatting
+
+## Code Style
+
 ### ES Lint
 
+[ES Lint](https://eslint.org/) helps to find and fix code style issues and force developers to follow same rules. Current configuration is based on [Airbnb style guide](https://github.com/airbnb/javascript).
+
+Additional commands:
+
+```bash
+npm run lint
+```
+
+Run it to check the current status of eslint issues across project.
+
+```bash
+npm run lint:fix
+```
+
+Run it to fix all possible issues.
+
 ### Prettier
+
+[Prettier](https://prettier.io/) helps to format code based on defined rules. [Difference between Prettier and ESLint](https://prettier.io/docs/en/comparison.html).
+
+Additional commands:
+
+```bash
+npm run format
+```
+
+Run it to format all files across the project.
+
+
+
