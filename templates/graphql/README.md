@@ -1,4 +1,4 @@
-### Appolo Graphql server
+# Appolo Graphql server
 
 ### Requirements
 
