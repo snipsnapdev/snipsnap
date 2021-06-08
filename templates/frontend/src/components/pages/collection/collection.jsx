@@ -5,10 +5,8 @@ import React from 'react';
 
 import Button from 'components/shared/button';
 
-
 import styles from './collection.module.scss';
 import ReactjsLogo from './images/reactjs.inline.svg';
-
 
 const cx = classNames.bind(styles);
 
@@ -55,7 +53,7 @@ const Collection = ({ collectionId }) => {
       <p className={cx('description')}>
         Create or use existing templates for your deployments, pods, certificates. Reduce changes of
         failures copypasting yaml files from previous project. Create or use existing templates for
-        your deployments, pods, certificates.{' '}
+        your deployments, pods, certificates.
       </p>
       {items.map(({ id, name }) => (
         <div
