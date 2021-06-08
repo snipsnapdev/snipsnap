@@ -1,0 +1,49 @@
+.wrapper {
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image {
+  height: 34px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+}
+
+.description {
+  max-width: 870px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: $font-weight-xs;
+  line-height: 1.4;
+  color: $color-light-grey;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 10px;
+  box-shadow: 0 1px 0 $color-dark-grey, inset 0 1px 0 $color-dark-grey;
+  transition: background-color $transition-base, color $transition-base;
+
+  &:hover {
+    color: $color-link;
+    cursor: pointer;
+    background-color: $color-dark-grey;
+  }
+}
+
+.item-name {
+  font-size: 16px;
+}

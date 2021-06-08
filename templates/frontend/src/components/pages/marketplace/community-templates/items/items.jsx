@@ -69,9 +69,9 @@ const Items = ({ searchText, items }) => {
             <div
               className={cx('item')}
               key={id}
-              onClick={(evt) => {
-                evt.stopPropagation();
-                evt.preventDefault();
+              onClick={(event) => {
+                event.stopPropagation();
+                event.preventDefault();
                 router.push(`/template/${id}`);
               }}
             >

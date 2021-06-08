@@ -33,9 +33,9 @@ const Items = ({ items }) => {
           <div
             className={cx('item')}
             key={id}
-            onClick={(evt) => {
-              evt.stopPropagation();
-              evt.preventDefault();
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
               router.push(`/collection/${id}`);
             }}
           >
