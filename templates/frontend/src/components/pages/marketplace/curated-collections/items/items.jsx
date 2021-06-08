@@ -26,8 +26,8 @@ const Items = ({ items }) => {
 
   return (
     <div className={cx('wrapper')}>
-      {items.map(({ id, name, imageName, numberOfTemplates }) => {
-        const Image = images[imageName];
+      {items.map(({ id, name, image_name, slug, templates }) => {
+        const Image = images[image_name];
 
         return (
           <div
@@ -36,7 +36,7 @@ const Items = ({ items }) => {
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              router.push(`/collection/${id}`);
+              router.push(`/collection/${slug}`);
             }}
           >
             <div className={cx('item-header')}>
@@ -44,7 +44,7 @@ const Items = ({ items }) => {
               <Image className={cx('item-image')} />
             </div>
             <Button className={cx('item-number')} themeType="link" size="md">
-              {numberOfTemplates} templates
+              {templates.length} {templates.length === 1 ? 'template' : 'templates'}
             </Button>
           </div>
         );

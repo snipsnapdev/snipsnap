@@ -2,7 +2,9 @@ import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
+import useSWR from 'swr';
 
+import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 
 import styles from './collection.module.scss';
@@ -10,52 +12,42 @@ import ReactjsLogo from './images/reactjs.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const items = [
-  {
-    id: '0',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '1',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '2',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '3',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '4',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '5',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-  {
-    id: '6',
-    name: 'React Class Component (Folder + JSX + CSS + index.js)',
-  },
-];
+const getCuratedTemplateGroup = gql`
+  query getCuratedTemplateGroup($slug: String!) {
+    curated_template_groups(where: { slug: { _eq: $slug } }) {
+      name
+      description
+      image_name
+      templates {
+        id
+        template {
+          name
+        }
+      }
+    }
+  }
+`;
 
-const Collection = ({ collectionId }) => {
+const Collection = ({ collectionSlug }) => {
   const router = useRouter();
+
+  const gqlClient = useGqlClient();
+
+  const fetcher = () => gqlClient.request(getCuratedTemplateGroup, { slug: collectionSlug });
+  const { data } = useSWR('getCuratedTemplateGroup', fetcher);
+
+  const collection = data?.curated_template_groups?.[0] || null;
+
+  if (!collection) return null;
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
         <ReactjsLogo className={cx('image')} />
-        <h2 className={cx('title')}>React Component</h2>
+        <h2 className={cx('title')}>{collection.name}</h2>
       </div>
-      <p className={cx('description')}>
-        Create or use existing templates for your deployments, pods, certificates. Reduce changes of
-        failures copypasting yaml files from previous project. Create or use existing templates for
-        your deployments, pods, certificates.
-      </p>
-      {items.map(({ id, name }) => (
+      <p className={cx('description')}>{collection.description}</p>
+      {collection.templates.map(({ id, template: { name } }) => (
         <div
           className={cx('item')}
           key={id}
@@ -76,7 +68,7 @@ const Collection = ({ collectionId }) => {
 };
 
 Collection.propTypes = {
-  collectionId: PropTypes.string.isRequired,
+  collectionSlug: PropTypes.string.isRequired,
 };
 
 export default Collection;

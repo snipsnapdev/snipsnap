@@ -8,14 +8,14 @@ import withAuth from 'utils/with-auth';
 
 const ViewTemplatePage = () => {
   const router = useRouter();
-  const { collectionId } = router.query;
+  const { collectionSlug } = router.query;
 
   return (
     <Layout>
       <Head>
         <title>{generatePageTitle('View Collection')}</title>
       </Head>
-      <Collection collectionId={collectionId} />
+      <Collection collectionSlug={collectionSlug} />
     </Layout>
   );
 };

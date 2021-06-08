@@ -15,6 +15,54 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: curated_template_groups
+  array_relationships:
+  - name: templates
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: curated_templates
+        insertion_order: null
+        column_mapping:
+          id: curated_template_group_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - description
+      - id
+      - image_name
+      - name
+      - slug
+      - updated_at
+      filter: {}
+- table:
+    schema: public
+    name: curated_templates
+  object_relationships:
+  - name: template
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: templates
+        insertion_order: null
+        column_mapping:
+          template_id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - updated_at
+      - curated_template_group_id
+      - id
+      - template_id
+      filter: {}
+- table:
+    schema: public
     name: sessions
 - table:
     schema: public
@@ -256,6 +304,7 @@
     permission:
       columns:
       - created_at
+      - description
       - files
       - id
       - is_public
