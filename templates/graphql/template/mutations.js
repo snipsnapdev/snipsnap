@@ -54,4 +54,46 @@ const updateTemplateMutation = gql`
   }
 `;
 
-module.exports = { createTemplateMutation, updateTemplateMutation };
+const shareTemplateMutation = gql`
+  mutation shareTemplate(
+    $templateId: String!
+    $shareToUserEmail: String!
+    $shareByUserId: String
+  ) {
+    share_template(
+      object: {
+        template_id: $templateId
+        share_to_user_email: $shareToUserEmail
+        share_by_user_id: $shareByUserId
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+const shareTemplateGroupMutation = gql`
+  mutation ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+    insert_shared_template_groups_one(
+      object: {
+        template_group_id: $template_group_id
+        shared_by_user_id: $user_by
+        shared_to_user_id: $user_to
+      }
+    ) {
+      id
+      template_group_id
+      shared_by_user_id
+      shared_to_user_id
+      created_at
+      updated_at
+    }
+  }
+`;
+
+module.exports = {
+  createTemplateMutation,
+  updateTemplateMutation,
+  shareTemplateMutation,
+  shareTemplateGroupMutation,
+};

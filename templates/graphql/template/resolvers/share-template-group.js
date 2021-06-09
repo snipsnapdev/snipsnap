@@ -1,60 +1,14 @@
-const { shareTemplateQuery } = require("../queries");
+const {
+  checkIfTemplateGroupSharedQuery,
+  getTemplateGroupByIdQuery,
+} = require("../queries");
+const {
+  shareTemplateMutation,
+  shareTemplateGroupMutation,
+} = require("../mutations");
 
 const { getUserByEmail } = require("../../utils/helpers");
 const { gqlClient } = require("../../api/client");
-
-const { gql } = require("apollo-server");
-
-const checkIfTemplateGroupSharedQuery = gql`
-  query ($templateGroupId: uuid!, $byUserId: uuid!, $toUserId: uuid!) {
-    shared_template_groups(
-      where: {
-        _and: [
-          { template_group_id: { _eq: $templateGroupId } }
-          { shared_by_user_id: { _eq: $byUserId } }
-          { shared_to_user_id: { _eq: $toUserId } }
-        ]
-      }
-    ) {
-      id
-      template_group_id
-      shared_by_user_id
-      shared_to_user_id
-      created_at
-      updated_at
-    }
-  }
-`;
-
-const getTemplateGroupByIdQuery = gql`
-  query ($templateGroupId: uuid!) {
-    template_groups(where: { id: { _eq: $templateGroupId } }) {
-      id
-      templates {
-        id
-      }
-    }
-  }
-`;
-
-const shareTemplateGroupMutation = gql`
-  mutation ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
-    insert_shared_template_groups_one(
-      object: {
-        template_group_id: $template_group_id
-        shared_by_user_id: $user_by
-        shared_to_user_id: $user_to
-      }
-    ) {
-      id
-      template_group_id
-      shared_by_user_id
-      shared_to_user_id
-      created_at
-      updated_at
-    }
-  }
-`;
 
 const checkIfGroupAlreadyShared = async ({
   toUserId,
@@ -110,7 +64,7 @@ const shareTemplateGroup = async (_, args, { userId }) => {
   if (templateIds.length > 0) {
     await Promise.all(
       templateIds.map((templateId) =>
-        gqlClient.request(shareTemplateQuery, {
+        gqlClient.request(shareTemplateMutation, {
           templateId,
           shareToUserEmail: args.object.share_to_user_email,
           shareByUserId: userId,
