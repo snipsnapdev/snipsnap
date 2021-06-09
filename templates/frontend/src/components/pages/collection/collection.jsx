@@ -25,6 +25,7 @@ const getCuratedTemplateGroup = gql`
       templates {
         id
         template {
+          id
           name
         }
       }
@@ -33,7 +34,7 @@ const getCuratedTemplateGroup = gql`
 `;
 
 const Collection = ({ collectionSlug }) => {
-  const router = useRouter();
+  const { push } = useRouter();
 
   const gqlClient = useGqlClient();
 
@@ -53,14 +54,14 @@ const Collection = ({ collectionSlug }) => {
         <h2 className={cx('title')}>{collection.name}</h2>
       </div>
       <p className={cx('description')}>{collection.description}</p>
-      {collection.templates.map(({ id, template: { name } }) => (
+      {collection.templates.map(({ template: { name, id } }) => (
         <div
           className={cx('item')}
           key={id}
           onClick={(event) => {
             event.stopPropagation();
             event.preventDefault();
-            router.push(`/collection-template/${id}`);
+            push(`/collection-template/${id}`);
           }}
         >
           <span className={cx('item-name')}>{name}</span>

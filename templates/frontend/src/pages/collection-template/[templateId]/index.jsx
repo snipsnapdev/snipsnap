@@ -6,23 +6,23 @@ import Layout from 'components/shared/layout';
 import generatePageTitle from 'utils/generate-page-title';
 import withAuth from 'utils/with-auth';
 
-const ViewTemplatePage = () => {
+const CollectionTemplatePage = () => {
   const router = useRouter();
-  const { collectionTemplateId } = router.query;
+  const { templateId } = router.query;
 
   return (
     <Layout>
       <Head>
         <title>{generatePageTitle('View Collection Template')}</title>
       </Head>
-      <CollectionTemplate collectionTemplateId={collectionTemplateId} />
+      <CollectionTemplate templateId={templateId} />
     </Layout>
   );
 };
 
 export async function getServerSideProps(context) {
-  const data = await withAuth(context);
+  const data = await withAuth(context, true);
   return data;
 }
 
-export default ViewTemplatePage;
+export default CollectionTemplatePage;

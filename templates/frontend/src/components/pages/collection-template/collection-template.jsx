@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
+import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useState } from 'react';
 import useSWR, { mutate } from 'swr';
-
 
 import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
@@ -14,16 +14,13 @@ import DownloadIcon from './images/download.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const getCuratedTemplate = gql`
-  query getCuratedTemplate($id: uuid!) {
-    curated_templates(where: { id: { _eq: $id } }) {
-      id
-      template {
-        name
-        description
-        prompts
-        files
-      }
+const getTemplate = gql`
+  query getTemplate($id: uuid!) {
+    templates(where: { id: { _eq: $id } }) {
+      name
+      description
+      prompts
+      files
     }
   }
 `;
@@ -40,19 +37,22 @@ const cloneTemplateQuery = gql`
   }
 `;
 
-const CollectionTemplate = ({ collectionTemplateId }) => {
-  const [session] = useSession();
+const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
+
+const CollectionTemplate = ({ templateId }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [session = {}] = useSession();
 
   const { user } = session;
 
-  const router = useRouter();
+  const { push, asPath } = useRouter();
 
   const gqlClient = useGqlClient();
 
-  const fetcher = () => gqlClient.request(getCuratedTemplate, { id: collectionTemplateId });
-  const { data } = useSWR('getCuratedTemplate', fetcher);
+  const fetcher = () => gqlClient.request(getTemplate, { id: templateId });
+  const { data } = useSWR('getTemplate', fetcher);
 
-  const collectionTemplate = data?.curated_templates?.[0] || null;
+  const template = data?.templates?.[0] || null;
 
   const handleCloneButtonClick = async (event) => {
     event.stopPropagation();
@@ -60,9 +60,9 @@ const CollectionTemplate = ({ collectionTemplateId }) => {
 
     if (user) {
       const res = await gqlClient.request(cloneTemplateQuery, {
-        name: collectionTemplate.template.name,
-        prompts: collectionTemplate.template.prompts,
-        files: collectionTemplate.template.files,
+        name: template.name,
+        prompts: template.prompts,
+        files: template.files,
       });
 
       mutate('getOwnedTemplateGroups');
@@ -71,25 +71,30 @@ const CollectionTemplate = ({ collectionTemplateId }) => {
         const templateId = res?.insert_template?.id || null;
 
         if (templateId) {
-          router.push(`/template/${templateId}/edit`);
+          push(`/template/${templateId}/edit`);
         }
       } catch (error) {
         console.error(error);
       }
     } else {
-      router.push('/login');
+      setIsLoading(true);
+      signIn('github', { callbackUrl: `${CALLBACK_URL}${asPath}` });
     }
   };
 
-  if (!collectionTemplate) return null;
+  if (!template) return null;
 
   return (
     <div className={cx('wrapper')}>
-      <h2 className={cx('title')}>{collectionTemplate.template.name}</h2>
+      <h2 className={cx('title')}>{template.name}</h2>
       <div className={cx('description-wrapper')}>
-        <p className={cx('description')}>{collectionTemplate.template.description}</p>
-        <Button className={cx('clone-button')} onClick={handleCloneButtonClick}>
-          <DownloadIcon />
+        <p className={cx('description')}>{template.description}</p>
+        <Button
+          className={cx('clone-button')}
+          isLoading={isLoading}
+          onClick={handleCloneButtonClick}
+        >
+          <DownloadIcon className={cx('download-icon')} />
           <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
         </Button>
       </div>

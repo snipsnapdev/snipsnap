@@ -15,7 +15,7 @@ const MarketplacePage = () => (
 );
 
 export async function getServerSideProps(context) {
-  const data = await withAuth(context);
+  const data = await withAuth(context, true);
   return data;
 }
 

@@ -6,7 +6,7 @@ import Layout from 'components/shared/layout';
 import generatePageTitle from 'utils/generate-page-title';
 import withAuth from 'utils/with-auth';
 
-const ViewTemplatePage = () => {
+const CollectionPage = () => {
   const router = useRouter();
   const { collectionSlug } = router.query;
 
@@ -21,8 +21,8 @@ const ViewTemplatePage = () => {
 };
 
 export async function getServerSideProps(context) {
-  const data = await withAuth(context);
+  const data = await withAuth(context, true);
   return data;
 }
 
-export default ViewTemplatePage;
+export default CollectionPage;

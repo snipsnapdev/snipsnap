@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/client';
 
 import generateToken from './generate-token';
 
-const withAuth = async (context) => {
+const withAuth = async (context, canBeWithoutSession) => {
   const session = await getSession(context);
 
   if (session) {
@@ -10,6 +10,9 @@ const withAuth = async (context) => {
     return {
       props: { session, token },
     };
+  }
+  if (canBeWithoutSession) {
+    return { props: {} };
   }
 
   return {

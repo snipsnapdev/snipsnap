@@ -27,7 +27,7 @@ const CuratedCollections = () => {
   const gqlClient = useGqlClient();
 
   const fetcher = () => gqlClient.request(getCuratedTemplateGroups);
-  const { data } = useSWR('getCuratedTemplateGroups', fetcher);
+  const { data, error } = useSWR('getCuratedTemplateGroups', fetcher);
 
   const items = data?.curated_template_groups || [];
 

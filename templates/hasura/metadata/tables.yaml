@@ -27,6 +27,17 @@
         column_mapping:
           id: curated_template_group_id
   select_permissions:
+  - role: guest
+    permission:
+      columns:
+      - id
+      - name
+      - description
+      - image_name
+      - slug
+      - created_at
+      - updated_at
+      filter: {}
   - role: user
     permission:
       columns:
@@ -52,6 +63,15 @@
         column_mapping:
           template_id: id
   select_permissions:
+  - role: guest
+    permission:
+      columns:
+      - id
+      - template_id
+      - curated_template_group_id
+      - created_at
+      - updated_at
+      filter: {}
   - role: user
     permission:
       columns:
@@ -300,6 +320,22 @@
       - template_group_id
       backend_only: false
   select_permissions:
+  - role: guest
+    permission:
+      columns:
+      - id
+      - name
+      - prompts
+      - files
+      - owner_id
+      - template_group_id
+      - created_at
+      - updated_at
+      - is_public
+      - description
+      filter:
+        is_public:
+          _eq: true
   - role: user
     permission:
       columns:
@@ -436,6 +472,16 @@
     schema: public
     name: users
   select_permissions:
+  - role: guest
+    permission:
+      columns:
+      - created_at
+      - id
+      - image
+      - name
+      - updated_at
+      - user_id
+      filter: {}
   - role: user
     permission:
       columns:

@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { mutate } from 'swr';
@@ -6,6 +7,7 @@ import { mutate } from 'swr';
 import { gql, useGqlClient } from 'api/graphql';
 import Avatar from 'components/shared/avatar';
 import Button from 'components/shared/button';
+import useSession from 'hooks/use-session';
 
 import EmptyItems from './empty-items';
 import styles from './items.module.scss';
@@ -24,6 +26,8 @@ const cloneTemplateQuery = gql`
   }
 `;
 
+const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
+
 const Items = ({ searchText, items }) => {
   const filteredItems = searchText
     ? items.filter(({ name, owner }) => {
@@ -36,7 +40,11 @@ const Items = ({ searchText, items }) => {
       })
     : items;
 
-  const router = useRouter();
+  const { push, asPath } = useRouter();
+
+  const [session = {}] = useSession();
+
+  const { user } = session;
 
   const gqlClient = useGqlClient();
 
@@ -53,7 +61,7 @@ const Items = ({ searchText, items }) => {
       const templateId = res?.insert_template?.id || null;
 
       if (templateId) {
-        router.push(`/template/${templateId}/edit`);
+        push(`/template/${templateId}/edit`);
       }
     } catch (error) {
       console.error(error);
@@ -72,7 +80,7 @@ const Items = ({ searchText, items }) => {
               onClick={(event) => {
                 event.stopPropagation();
                 event.preventDefault();
-                router.push(`/template/${id}`);
+                push(user ? `/template/${id}` : `/collection-template/${id}`);
               }}
             >
               <h3 className={cx('item-name')}>{name}</h3>
@@ -91,10 +99,14 @@ const Items = ({ searchText, items }) => {
                   onClick={(evt) => {
                     evt.preventDefault();
                     evt.stopPropagation();
-                    handleClone({ name, prompts, files });
+                    if (user) {
+                      handleClone({ name, prompts, files });
+                    } else {
+                      signIn('github', { callbackUrl: `${CALLBACK_URL}${asPath}` });
+                    }
                   }}
                 >
-                  Clone
+                  {user ? 'Clone' : 'Sign Up and Clone'}
                 </Button>
               </div>
             </div>
