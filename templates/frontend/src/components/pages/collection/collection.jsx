@@ -12,6 +12,10 @@ import ReactjsLogo from './images/reactjs.inline.svg';
 
 const cx = classNames.bind(styles);
 
+const images = {
+  reactjs: ReactjsLogo,
+};
+
 const getCuratedTemplateGroup = gql`
   query getCuratedTemplateGroup($slug: String!) {
     curated_template_groups(where: { slug: { _eq: $slug } }) {
@@ -40,10 +44,12 @@ const Collection = ({ collectionSlug }) => {
 
   if (!collection) return null;
 
+  const Image = images[collection.image_name];
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
-        <ReactjsLogo className={cx('image')} />
+        <Image className={cx('image')} />
         <h2 className={cx('title')}>{collection.name}</h2>
       </div>
       <p className={cx('description')}>{collection.description}</p>

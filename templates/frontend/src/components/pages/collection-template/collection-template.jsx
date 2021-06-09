@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import useSWR, { mutate } from 'swr';
 
+
 import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
+import useSession from 'hooks/use-session';
 
 import styles from './collection-template.module.scss';
 import DownloadIcon from './images/download.inline.svg';
@@ -39,6 +41,10 @@ const cloneTemplateQuery = gql`
 `;
 
 const CollectionTemplate = ({ collectionTemplateId }) => {
+  const [session] = useSession();
+
+  const { user } = session;
+
   const router = useRouter();
 
   const gqlClient = useGqlClient();
@@ -46,30 +52,32 @@ const CollectionTemplate = ({ collectionTemplateId }) => {
   const fetcher = () => gqlClient.request(getCuratedTemplate, { id: collectionTemplateId });
   const { data } = useSWR('getCuratedTemplate', fetcher);
 
-  console.log(data);
-
   const collectionTemplate = data?.curated_templates?.[0] || null;
 
   const handleCloneButtonClick = async (event) => {
     event.stopPropagation();
     event.preventDefault();
 
-    const res = await gqlClient.request(cloneTemplateQuery, {
-      name: collectionTemplate.template.name,
-      prompts: collectionTemplate.template.prompts,
-      files: collectionTemplate.template.files,
-    });
+    if (user) {
+      const res = await gqlClient.request(cloneTemplateQuery, {
+        name: collectionTemplate.template.name,
+        prompts: collectionTemplate.template.prompts,
+        files: collectionTemplate.template.files,
+      });
 
-    mutate('getOwnedTemplateGroups');
+      mutate('getOwnedTemplateGroups');
 
-    try {
-      const templateId = res?.insert_template?.id || null;
+      try {
+        const templateId = res?.insert_template?.id || null;
 
-      if (templateId) {
-        router.push(`/template/${templateId}/edit`);
+        if (templateId) {
+          router.push(`/template/${templateId}/edit`);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      router.push('/login');
     }
   };
 
@@ -82,7 +90,7 @@ const CollectionTemplate = ({ collectionTemplateId }) => {
         <p className={cx('description')}>{collectionTemplate.template.description}</p>
         <Button className={cx('clone-button')} onClick={handleCloneButtonClick}>
           <DownloadIcon />
-          <span>Clone</span>
+          <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
         </Button>
       </div>
     </div>
