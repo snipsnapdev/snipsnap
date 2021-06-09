@@ -117,17 +117,6 @@ const ShareModal = (props) => {
           groupId: id,
           shareToUserEmail,
         });
-
-        // share all templates within the group with user
-        const templateIdsInGroup = sharedItem.templates.map((t) => t.id);
-        await Promise.all(
-          templateIdsInGroup.map((id) =>
-            gqlClient.request(shareTemplateMutation, {
-              templateId: id,
-              shareToUserEmail,
-            })
-          )
-        );
       }
 
       if (type === 'template') {

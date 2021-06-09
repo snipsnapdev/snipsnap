@@ -2,30 +2,18 @@ require("dotenv").config();
 
 const { ApolloServer, gql } = require("apollo-server");
 
-const { typeDefs } = require("./types");
+const { typeDefs } = require("./type-defs");
 
 const { encode } = require("./utils/jwt");
 const { gqlClient } = require("./api/client");
 
-const { createTemplate, updateTemplate } = require("./template");
+const {
+  createTemplate,
+  updateTemplate,
+  shareTemplateGroup,
+} = require("./template");
 
-const getUserByEmail = async (email) => {
-  const query = gql`
-    query ($email: String!) {
-      users(where: { email: { _eq: $email } }) {
-        user_id
-      }
-    }
-  `;
-
-  const data = await gqlClient.request(query, { email });
-
-  if (!data?.users?.[0]?.user_id) {
-    throw new Error("Couldn't find user by email");
-  }
-
-  return data?.users?.[0]?.user_id;
-};
+const { getUserByEmail } = require("./utils/helpers");
 
 const resolvers = {
   Mutation: {
@@ -216,75 +204,7 @@ const resolvers = {
 
       return data?.delete_shared_templates?.returning?.[0] || null;
     },
-    share_template_group: async (_, args, { userId }) => {
-      if (!userId) return;
-
-      const shareToUserId = await getUserByEmail(
-        args.object.share_to_user_email
-      );
-
-      // Can't share with yourself
-      if (shareToUserId === userId) return;
-
-      const query = gql`
-        query ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
-          shared_template_groups(
-            where: {
-              _and: [
-                { template_group_id: { _eq: $template_group_id } }
-                { shared_by_user_id: { _eq: $user_by } }
-                { shared_to_user_id: { _eq: $user_to } }
-              ]
-            }
-          ) {
-            id
-            template_group_id
-            shared_by_user_id
-            shared_to_user_id
-            created_at
-            updated_at
-          }
-        }
-      `;
-
-      const { template_group_id } = args.object;
-
-      const queryData = await gqlClient.request(query, {
-        template_group_id: template_group_id,
-        user_by: userId,
-        user_to: shareToUserId,
-      });
-
-      // If template group is already shared then we do not need to share it again
-      if (queryData?.shared_template_groups?.length > 0) return;
-
-      const mutation = gql`
-        mutation ($template_group_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
-          insert_shared_template_groups_one(
-            object: {
-              template_group_id: $template_group_id
-              shared_by_user_id: $user_by
-              shared_to_user_id: $user_to
-            }
-          ) {
-            id
-            template_group_id
-            shared_by_user_id
-            shared_to_user_id
-            created_at
-            updated_at
-          }
-        }
-      `;
-
-      const mutationData = await gqlClient.request(mutation, {
-        template_group_id: template_group_id,
-        user_by: userId,
-        user_to: shareToUserId,
-      });
-
-      return mutationData?.insert_shared_template_groups_one || null;
-    },
+    share_template_group: shareTemplateGroup,
     unshare_template_group: async (_, args, { userId }) => {
       if (!userId) return;
 
