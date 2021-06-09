@@ -3,7 +3,7 @@ const {
   getTemplateGroupByIdQuery,
 } = require("../queries");
 const {
-  shareTemplateMutation,
+  shareTemplateByEmailMutation,
   shareTemplateGroupMutation,
 } = require("../mutations");
 
@@ -64,7 +64,7 @@ const shareTemplateGroup = async (_, args, { userId }) => {
   if (templateIds.length > 0) {
     await Promise.all(
       templateIds.map((templateId) =>
-        gqlClient.request(shareTemplateMutation, {
+        gqlClient.request(shareTemplateByEmailMutation, {
           templateId,
           shareToUserEmail: args.object.share_to_user_email,
           shareByUserId: userId,

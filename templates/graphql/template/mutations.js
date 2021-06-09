@@ -54,7 +54,7 @@ const updateTemplateMutation = gql`
   }
 `;
 
-const shareTemplateMutation = gql`
+const shareTemplateByEmailMutation = gql`
   mutation shareTemplate(
     $templateId: String!
     $shareToUserEmail: String!
@@ -68,6 +68,25 @@ const shareTemplateMutation = gql`
       }
     ) {
       id
+    }
+  }
+`;
+
+const shareTemplateMutation = gql`
+  mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
+    insert_shared_templates_one(
+      object: {
+        template_id: $template_id
+        shared_by_user_id: $user_by
+        shared_to_user_id: $user_to
+      }
+    ) {
+      id
+      template_id
+      shared_by_user_id
+      shared_to_user_id
+      created_at
+      updated_at
     }
   }
 `;
@@ -95,5 +114,6 @@ module.exports = {
   createTemplateMutation,
   updateTemplateMutation,
   shareTemplateMutation,
+  shareTemplateByEmailMutation,
   shareTemplateGroupMutation,
 };

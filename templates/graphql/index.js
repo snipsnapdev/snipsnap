@@ -11,6 +11,7 @@ const {
   createTemplate,
   updateTemplate,
   shareTemplateGroup,
+  shareTemplate,
 } = require("./template");
 
 const { getUserByEmail } = require("./utils/helpers");
@@ -45,81 +46,7 @@ const resolvers = {
     },
     insert_template: createTemplate,
     update_template: updateTemplate,
-    share_template: async (_, args, { userId }) => {
-      const { template_id, share_by_user_id } = args.object;
-
-      if (!userId && !share_by_user_id) return;
-
-      let shareToUserId = null;
-
-      try {
-        shareToUserId = await getUserByEmail(args.object.share_to_user_email);
-      } catch (err) {
-        throw new Error(err.message);
-      }
-
-      // Can't share with yourself
-      if (shareToUserId === userId) {
-        throw new Error("Can't share with yourself");
-      }
-
-      const query = gql`
-        query ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
-          shared_templates(
-            where: {
-              _and: [
-                { template_id: { _eq: $template_id } }
-                { shared_by_user_id: { _eq: $user_by } }
-                { shared_to_user_id: { _eq: $user_to } }
-              ]
-            }
-          ) {
-            id
-            template_id
-            shared_by_user_id
-            shared_to_user_id
-            created_at
-            updated_at
-          }
-        }
-      `;
-
-      const queryData = await gqlClient.request(query, {
-        template_id: template_id,
-        user_by: userId || share_by_user_id,
-        user_to: shareToUserId,
-      });
-
-      // If template is already shared then we do not need to share it again
-      if (queryData?.shared_templates?.length > 0) return;
-
-      const mutation = gql`
-        mutation ($template_id: uuid!, $user_by: uuid!, $user_to: uuid!) {
-          insert_shared_templates_one(
-            object: {
-              template_id: $template_id
-              shared_by_user_id: $user_by
-              shared_to_user_id: $user_to
-            }
-          ) {
-            id
-            template_id
-            shared_by_user_id
-            shared_to_user_id
-            created_at
-            updated_at
-          }
-        }
-      `;
-
-      const mutationData = await gqlClient.request(mutation, {
-        template_id: template_id,
-        user_by: userId || share_by_user_id,
-        user_to: shareToUserId,
-      });
-
-      return mutationData?.insert_shared_templates_one || null;
-    },
+    share_template: shareTemplate,
     unshare_template: async (_, args, { userId }) => {
       const { share_by_user_id } = args.object;
 

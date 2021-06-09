@@ -13,6 +13,27 @@ const getUsersTemplateGroupSharedTo = gql`
   }
 `;
 
+const checkIfTemplateSharedQuery = gql`
+  query ($templateId: uuid!, $byUserId: uuid!, $toUserId: uuid!) {
+    shared_templates(
+      where: {
+        _and: [
+          { template_id: { _eq: $templateId } }
+          { shared_by_user_id: { _eq: $byUserId } }
+          { shared_to_user_id: { _eq: $toUserId } }
+        ]
+      }
+    ) {
+      id
+      template_id
+      shared_by_user_id
+      shared_to_user_id
+      created_at
+      updated_at
+    }
+  }
+`;
+
 const checkIfTemplateGroupSharedQuery = gql`
   query ($templateGroupId: uuid!, $byUserId: uuid!, $toUserId: uuid!) {
     shared_template_groups(
@@ -47,6 +68,7 @@ const getTemplateGroupByIdQuery = gql`
 
 module.exports = {
   getUsersTemplateGroupSharedTo,
+  checkIfTemplateSharedQuery,
   checkIfTemplateGroupSharedQuery,
   getTemplateGroupByIdQuery,
 };
