@@ -87,7 +87,7 @@ export const unshareTemplateGroupMutation = gql`
 `;
 
 export const unshareTemplateMutation = gql`
-  mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
+  mutation unshareTemplate($templateId: String!, $shareToUserEmail: String!) {
     unshare_template(object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }) {
       shared_to_user_id
     }

@@ -110,10 +110,73 @@ const shareTemplateGroupMutation = gql`
   }
 `;
 
+const unshareTemplateMutation = gql`
+  mutation ($template_id: uuid!, $user_by: uuid, $user_to: uuid!) {
+    delete_shared_templates(
+      where: {
+        template_id: { _eq: $template_id }
+        shared_by_user_id: { _eq: $user_by }
+        shared_to_user_id: { _eq: $user_to }
+      }
+    ) {
+      returning {
+        id
+        template_id
+        shared_by_user_id
+        shared_to_user_id
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+
+const unshareTemplateByEmailMutation = gql`
+  mutation shareTemplate(
+    $templateId: String!
+    $shareToUserEmail: String!
+    $shareByUserId: String
+  ) {
+    unshare_template(
+      object: {
+        template_id: $templateId
+        share_to_user_email: $shareToUserEmail
+        share_by_user_id: $shareByUserId
+      }
+    ) {
+      shared_to_user_id
+    }
+  }
+`;
+
+const unshareTemplateGroupMutation = gql`
+  mutation ($template_group_id: uuid!, $user_by: uuid, $user_to: uuid!) {
+    delete_shared_template_groups(
+      where: {
+        template_group_id: { _eq: $template_group_id }
+        shared_by_user_id: { _eq: $user_by }
+        shared_to_user_id: { _eq: $user_to }
+      }
+    ) {
+      returning {
+        id
+        template_group_id
+        shared_by_user_id
+        shared_to_user_id
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+
 module.exports = {
   createTemplateMutation,
   updateTemplateMutation,
   shareTemplateMutation,
   shareTemplateByEmailMutation,
   shareTemplateGroupMutation,
+  unshareTemplateMutation,
+  unshareTemplateByEmailMutation,
+  unshareTemplateGroupMutation,
 };

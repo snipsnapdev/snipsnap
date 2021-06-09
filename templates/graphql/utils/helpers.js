@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server");
 const { gqlClient } = require("../api/client");
 
+const { getTemplateGroupByIdQuery } = require("../template/queries");
+
 const getUserByEmail = async (email) => {
   const query = gql`
     query ($email: String!) {
@@ -19,4 +21,15 @@ const getUserByEmail = async (email) => {
   return data?.users?.[0]?.user_id;
 };
 
-module.exports = { getUserByEmail };
+const getTemplateIdsInGroup = async (templateGroupId) => {
+  const templateGroupData = await gqlClient.request(getTemplateGroupByIdQuery, {
+    templateGroupId,
+  });
+
+  const templateIds =
+    templateGroupData?.template_groups?.[0]?.templates.map((item) => item.id) ||
+    [];
+  return templateIds;
+};
+
+module.exports = { getUserByEmail, getTemplateIdsInGroup };

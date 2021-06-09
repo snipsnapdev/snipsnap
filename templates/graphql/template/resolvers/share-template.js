@@ -43,7 +43,7 @@ const shareTemplate = async (_, args, { userId }) => {
   const isAlreadyShared = await checkIfTemplateAlreadyShared({
     templateId: template_id,
     toUserId: shareToUserId,
-    byUserId: userId,
+    byUserId: userId || share_by_user_id,
   });
 
   // If template is already shared then we do not need to share it again

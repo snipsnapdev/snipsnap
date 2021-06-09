@@ -7,7 +7,10 @@ const {
   shareTemplateGroupMutation,
 } = require("../mutations");
 
-const { getUserByEmail } = require("../../utils/helpers");
+const {
+  getUserByEmail,
+  getTemplateIdsInGroup,
+} = require("../../utils/helpers");
 const { gqlClient } = require("../../api/client");
 
 const checkIfGroupAlreadyShared = async ({
@@ -54,12 +57,7 @@ const shareTemplateGroup = async (_, args, { userId }) => {
   });
 
   // share all templates inside that group
-  const templateData = await gqlClient.request(getTemplateGroupByIdQuery, {
-    templateGroupId: template_group_id,
-  });
-
-  const templateIds =
-    templateData?.template_groups?.[0]?.templates.map((item) => item.id) || [];
+  const templateIds = await getTemplateIdsInGroup(template_group_id);
 
   if (templateIds.length > 0) {
     await Promise.all(
