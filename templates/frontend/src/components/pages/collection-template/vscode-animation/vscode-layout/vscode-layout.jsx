@@ -14,6 +14,7 @@ import FooterLeftIcons from './images/footer-left.inline.svg';
 import FooterRightIcons from './images/footer-right.inline.svg';
 import TopLeftIcons from './images/top-left-icons.inline.svg';
 import styles from './vscode-layout.module.scss';
+import VscodeSidebar from './vscode-sidebar';
 
 const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
@@ -59,7 +60,7 @@ const VscodeLayout = ({ template, showFiles, className }) => {
             <ActivityTopIcons />
             <ActivityBottomIcons />
           </div>
-          <div className={cx('sidebar')}>{showFiles && <FileBrowser readOnly />}</div>
+          <VscodeSidebar showFiles={showFiles} />
           <div className={cx('editor')}>
             {!showFiles && <EmptyEditor />}
             {showFiles && (
