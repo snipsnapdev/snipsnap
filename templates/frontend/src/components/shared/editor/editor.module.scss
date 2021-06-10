@@ -1,27 +1,8 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.file-path {
-  margin-bottom: 5px;
-  font-size: $font-size-xs;
-  line-height: $line-height-xs;
-  color: $color-grey;
-}
-
-.editor-container {
   position: relative;
   display: flex;
   flex: 1;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-bottom: 30px;
-  background-color: $color-primary-black;
-  border: 1px solid $color-middle-grey;
-  border-radius: 2px;
 
   :global {
     .ace-tm .ace_gutter {

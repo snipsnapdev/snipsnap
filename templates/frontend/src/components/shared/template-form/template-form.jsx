@@ -22,7 +22,7 @@ import Files from './files';
 import Prompts from './prompts';
 import styles from './template-form.module.scss';
 
-const Editor = dynamic(import('components/shared/editor'), { ssr: false });
+const Editor = dynamic(import('components/shared/editor-wrapper'), { ssr: false });
 
 const cx = classNames.bind(styles);
 
