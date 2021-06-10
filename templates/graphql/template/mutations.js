@@ -131,6 +131,26 @@ const unshareTemplateMutation = gql`
   }
 `;
 
+const unshareTemplateFromCurrentUserMutation = gql`
+  mutation ($template_id: uuid!, $user_to: uuid!) {
+    delete_shared_templates(
+      where: {
+        template_id: { _eq: $template_id }
+        shared_to_user_id: { _eq: $user_to }
+      }
+    ) {
+      returning {
+        id
+        template_id
+        shared_by_user_id
+        shared_to_user_id
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+
 const unshareTemplateByEmailMutation = gql`
   mutation shareTemplate(
     $templateId: String!
@@ -170,6 +190,26 @@ const unshareTemplateGroupMutation = gql`
   }
 `;
 
+const unshareTemplateGroupFromCurrentUserMutation = gql`
+  mutation ($template_group_id: uuid!, $user_to: uuid!) {
+    delete_shared_template_groups(
+      where: {
+        template_group_id: { _eq: $template_group_id }
+        shared_to_user_id: { _eq: $user_to }
+      }
+    ) {
+      returning {
+        id
+        template_group_id
+        shared_by_user_id
+        shared_to_user_id
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
+
 module.exports = {
   createTemplateMutation,
   updateTemplateMutation,
@@ -177,6 +217,8 @@ module.exports = {
   shareTemplateByEmailMutation,
   shareTemplateGroupMutation,
   unshareTemplateMutation,
+  unshareTemplateFromCurrentUserMutation,
   unshareTemplateByEmailMutation,
   unshareTemplateGroupMutation,
+  unshareTemplateGroupFromCurrentUserMutation,
 };

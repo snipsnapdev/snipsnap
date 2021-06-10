@@ -1,4 +1,4 @@
-const { unshareTemplateMutation } = require("../mutations");
+const { unshareTemplateFromCurrentUserMutation } = require("../mutations");
 
 const { getUserByEmail } = require("../../utils/helpers");
 const { gqlClient } = require("../../api/client");
@@ -15,7 +15,7 @@ const unshareTemplateFromCurrentUser = async (_, args, { userId }) => {
     return;
   }
 
-  const data = await gqlClient.request(unshareTemplateMutation, {
+  const data = await gqlClient.request(unshareTemplateFromCurrentUserMutation, {
     template_id: template_id,
     user_to: userId || shareToUserId,
   });
