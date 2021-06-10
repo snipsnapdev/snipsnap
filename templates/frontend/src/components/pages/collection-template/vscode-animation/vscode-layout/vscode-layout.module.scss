@@ -1,0 +1,59 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 60vh;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  color: #fff;
+  background-color: #3b3b3b;
+
+  & svg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.activity-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48px;
+  background-color: #333;
+}
+
+.sidebar {
+  width: 320px;
+  background-color: #252526;
+}
+
+.editor {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e1e;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  color: #fff;
+  background-color: #007acc;
+}
