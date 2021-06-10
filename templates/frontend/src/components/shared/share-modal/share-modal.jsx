@@ -7,7 +7,19 @@ import ReactTooltip from 'react-tooltip';
 import useSWR, { mutate } from 'swr';
 import * as yup from 'yup';
 
-import { gql, useGqlClient } from 'api/graphql';
+import { useGqlClient } from 'api/graphql';
+import {
+  shareTemplateToAllMutation,
+  shareTemplateGroupMutation,
+  shareTemplateMutation,
+  unshareTemplateMutation,
+  unshareTemplateGroupMutation,
+} from 'api/mutations';
+import {
+  getUsersTemplateGroupSharedTo,
+  getUsersTemplateSharedTo,
+  getTemplatePublicStatusQuery,
+} from 'api/queries';
 import AsyncButton from 'components/shared/async-button';
 import Avatar from 'components/shared/avatar';
 import Input from 'components/shared/input';
@@ -26,89 +38,6 @@ const schema = yup.object().shape({
 
 const cx = classNames.bind(styles);
 
-const getUsersTemplateGroupSharedTo = gql`
-  query MyQuery($groupId: uuid!) {
-    shared_template_groups(where: { template_group_id: { _eq: $groupId } }) {
-      shared_to_user {
-        id
-        name
-        image
-        email
-      }
-    }
-  }
-`;
-
-const getUsersTemplateSharedTo = gql`
-  query MyQuery($templateId: uuid!) {
-    shared_templates(where: { template_id: { _eq: $templateId } }) {
-      shared_to_user_id
-      shared_to_user {
-        id
-        name
-        image
-        email
-      }
-    }
-  }
-`;
-
-const shareTemplateGroupQuery = gql`
-  mutation shareTemplateGroup($groupId: String!, $shareToUserEmail: String!) {
-    share_template_group(
-      object: { template_group_id: $groupId, share_to_user_email: $shareToUserEmail }
-    ) {
-      id
-    }
-  }
-`;
-
-const shareTemplateQuery = gql`
-  mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
-    share_template(object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }) {
-      id
-    }
-  }
-`;
-
-// unsharing
-const unshareTemplateGroupQuery = gql`
-  mutation unshareTemplateGroup($groupId: String!, $shareToUserEmail: String!) {
-    unshare_template_group(
-      object: { template_group_id: $groupId, share_to_user_email: $shareToUserEmail }
-    ) {
-      shared_to_user_id
-    }
-  }
-`;
-
-const unshareTemplateQuery = gql`
-  mutation shareTemplate($templateId: String!, $shareToUserEmail: String!) {
-    unshare_template(object: { template_id: $templateId, share_to_user_email: $shareToUserEmail }) {
-      shared_to_user_id
-    }
-  }
-`;
-
-const shareTemplateToAllQuery = gql`
-  mutation shareTemplate($templateId: uuid!, $isPublic: Boolean!) {
-    update_templates_by_pk(pk_columns: { id: $templateId }, _set: { is_public: $isPublic }) {
-      id
-      is_public
-    }
-  }
-`;
-
-// get public status
-const getTemplatePublicStatusQuery = gql`
-  query MyQuery($templateId: uuid!) {
-    templates(where: { id: { _eq: $templateId } }) {
-      id
-      is_public
-    }
-  }
-`;
-
 const ShareModal = (props) => {
   const { id, type, isOpen, onClose } = props;
 
@@ -120,8 +49,6 @@ const ShareModal = (props) => {
   });
 
   const gqlClient = useGqlClient();
-
-  // const [isPublic, setIsPublic] = useState(false);
 
   // Rebuild ReactTooltip for positioning when a modal has opened
   useEffect(() => {
@@ -186,25 +113,14 @@ const ShareModal = (props) => {
     try {
       if (type === 'group') {
         // share group with user
-        await gqlClient.request(shareTemplateGroupQuery, {
+        await gqlClient.request(shareTemplateGroupMutation, {
           groupId: id,
           shareToUserEmail,
         });
-
-        // share all templates within the group with user
-        const templateIdsInGroup = sharedItem.templates.map((t) => t.id);
-        await Promise.all(
-          templateIdsInGroup.map((id) =>
-            gqlClient.request(shareTemplateQuery, {
-              templateId: id,
-              shareToUserEmail,
-            })
-          )
-        );
       }
 
       if (type === 'template') {
-        await gqlClient.request(shareTemplateQuery, {
+        await gqlClient.request(shareTemplateMutation, {
           templateId: id,
           shareToUserEmail,
         });
@@ -226,12 +142,12 @@ const ShareModal = (props) => {
   const handleUnshare = async (shareToUserEmail) => {
     try {
       if (type === 'group') {
-        await gqlClient.request(unshareTemplateGroupQuery, {
+        await gqlClient.request(unshareTemplateGroupMutation, {
           groupId: id,
           shareToUserEmail,
         });
       } else {
-        await gqlClient.request(unshareTemplateQuery, {
+        await gqlClient.request(unshareTemplateMutation, {
           templateId: id,
           shareToUserEmail,
         });
@@ -243,7 +159,7 @@ const ShareModal = (props) => {
   };
 
   const handlePublicSwitch = async () => {
-    await gqlClient.request(shareTemplateToAllQuery, {
+    await gqlClient.request(shareTemplateToAllMutation, {
       templateId: id,
       isPublic: !isPublic,
     });

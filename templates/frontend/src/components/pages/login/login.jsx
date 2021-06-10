@@ -19,12 +19,6 @@ const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
-  // to make autoplay work on ios
-  const [isVideoPaused, setIsVideoPaused] = useState(true);
-  useEffect(() => {
-    setIsVideoPaused(false);
-  }, []);
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('left')}>
@@ -112,7 +106,6 @@ export default function Login() {
           title="Snipsnap demo"
           className={cx('demo')}
           type="video/mp4"
-          paused={isVideoPaused}
           autoPlay
           loop
           muted
