@@ -20,10 +20,35 @@ const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 
 const cx = classNames.bind(styles);
 
+const getFile = (item) => {
+  console.log('ITEM', item);
+  if (item.type === 'file') {
+    return item;
+  } 
+    for (const ch of item.data.files) {
+      return getFile(ch);
+    }
+  
+};
+
+const findFile = (files) => {
+  const curLevelFiles = files.filter((item) => item.type === 'file');
+  if (curLevelFiles.length > 0) {
+    return curLevelFiles[0];
+  } 
+    for (const folder of files) {
+      return findFile(folder.data.files);
+    }
+  
+};
+
 const VscodeLayout = ({ template, showFiles, className }) => {
+  const templateFiles = JSON.parse(template.files);
+  const fileToOpen = findFile(templateFiles);
+
   const [filesState, dispatch] = useReducer(filesReducer, {
-    files: JSON.parse(template.files),
-    openFileId: null,
+    files: templateFiles,
+    openFileId: fileToOpen ? fileToOpen.id : null,
   });
 
   const [openFile, setOpenFile] = useState(null);
