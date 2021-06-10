@@ -10,7 +10,9 @@ import Button from 'components/shared/button';
 import useSession from 'hooks/use-session';
 
 import styles from './collection-template.module.scss';
+import CursorIcon from './images/cursor.inline.svg';
 import DownloadIcon from './images/download.inline.svg';
+import VscodeScreen from './images/vscode.inline.svg';
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +40,69 @@ const cloneTemplateQuery = gql`
 `;
 
 const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
+
+const EmptyVscode = () => <VscodeScreen className={cx('vscode')} />;
+
+const MenuItem = ({ name, shortcut = null, disabled = false, active = false }) => (
+  <div className={cx('menu-item', disabled && 'disabled', active && 'active')}>
+    <span className={cx('item-name')}>{name}</span>
+    {shortcut && <span className={cx('item-shortcut')}>{shortcut}</span>}
+  </div>
+);
+const Separator = () => <div className={cx('separator')} />;
+
+const FolderMenu = () => (
+  <div className={cx('menu')}>
+    <MenuItem name="New File" />
+    <MenuItem name="New Folder" />
+    <MenuItem name="Reveal in Finder" shortcut="⌥⌘R" />
+    <MenuItem name="Open in Integrated Terminal" />
+    <Separator />
+    <MenuItem name="Create from Template" active />
+    <Separator />
+    <MenuItem name="Add Folder to Workspace..." />
+    <MenuItem name="Open Folder Settings" />
+    <MenuItem name="Remove Folder from Workspace" />
+    <Separator />
+    <MenuItem name="Find in Folder" shortcut="⌥⇧F" />
+    <Separator />
+    <MenuItem name="Paste" shortcut="⌘V" disabled />
+    <Separator />
+    <MenuItem name="Copy Path" shortcut="⌥⌘C" />
+    <MenuItem name="Copy Relative Path" shortcut="⌥⇧⌘C" />
+  </div>
+);
+
+const TEMPLATES = ['Create React Component', 'Dockerfile', 'NodeJS + Express'];
+
+const TemplateSelect = ({ className }) => (
+  <div className={cx('select-wrapper', className)}>
+    <div className={cx('select-input')}>
+      <span className={cx('select-placeholder')}>Please choose a template you want to use</span>
+    </div>
+    <div className={cx('select-options')}>
+      <div className={cx('select-option', 'active')}>DEMO TEMPLATE</div>
+      {TEMPLATES.map((template) => (
+        <div key={template} className={cx('select-option')}>
+          {template}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const PromptInput = ({ className }) => (
+  <div className={cx('select-wrapper', className)}>
+    <div className={cx('select-input')}>
+      <span className={cx('select-text')}>user input</span>
+    </div>
+    <div className={cx('select-options')}>
+      <div className={cx('select-option')}>
+        Please type component name (Press 'Enter' to confirm or 'Escape' to cancel)
+      </div>
+    </div>
+  </div>
+);
 
 const CollectionTemplate = ({ templateId }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +162,12 @@ const CollectionTemplate = ({ templateId }) => {
           <DownloadIcon className={cx('download-icon')} />
           <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
         </Button>
+      </div>
+      <div className={cx('animation')}>
+        <EmptyVscode />
+        <FolderMenu />
+        <TemplateSelect className={cx('template-select')} />
+        <PromptInput className={cx('prompt-input')} />
       </div>
     </div>
   );
