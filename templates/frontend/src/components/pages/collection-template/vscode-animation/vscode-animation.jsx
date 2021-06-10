@@ -100,7 +100,11 @@ const VscodeAnimation = ({ template }) => {
 
   return (
     <div className={cx('animation')}>
-      <VscodeLayout className={cx('vscode')} />
+      <VscodeLayout
+        className={cx('vscode')}
+        template={template}
+        showFiles={animationStep === 'files'}
+      />
       {animationStep === 'menu' && <FolderMenu />}
       {animationStep === 'templates' && <TemplateSelect className={cx('template-select')} />}
       {animationStep === 'prompt' && <PromptInput className={cx('prompt-input')} />}

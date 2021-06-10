@@ -49,6 +49,30 @@
   background-color: #1e1e1e;
 }
 
+.editor-content {
+  width: 100%;
+  background-color: #1e1e1e;
+
+  :global {
+    .ace_editor {
+      background-color: #1e1e1e;
+    }
+
+    .ace-monokai .ace_gutter {
+      background-color: #1e1e1e;
+    }
+
+    .ace-monokai .ace_gutter-active-line {
+      color: #eee;
+      background-color: #1e1e1e;
+    }
+
+    .ace-monokai .ace_selection {
+      background-color: #2f3038;
+    }
+  }
+}
+
 .footer {
   display: flex;
   align-items: center;
