@@ -1,7 +1,7 @@
 import React from 'react';
 
-import File from 'components/shared/template-form/files/file-browser/file';
-import Folder from 'components/shared/template-form/files/file-browser/folder';
+import File from 'components/shared/file-browser/file';
+import Folder from 'components/shared/file-browser/folder';
 
 import styles from './tree-recursive.module.scss';
 

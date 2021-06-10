@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import dynamic from 'next/dynamic';
 import { useReducer, useState, useEffect } from 'react';
 
-import FileBrowser from 'components/shared/template-form/files/file-browser';
+import FileBrowser from 'components/shared/file-browser';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { findFileById } from 'utils/files-provider-helpers';
 import { DEFAULT_LANGUAGE, getLanguageByFilename, getLanguageByLabel } from 'utils/language';
@@ -14,10 +14,6 @@ import FooterLeftIcons from './images/footer-left.inline.svg';
 import FooterRightIcons from './images/footer-right.inline.svg';
 import TopLeftIcons from './images/top-left-icons.inline.svg';
 import styles from './vscode-layout.module.scss';
-
-
-
-
 
 const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 

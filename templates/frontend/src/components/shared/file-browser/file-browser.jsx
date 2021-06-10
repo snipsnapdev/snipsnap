@@ -3,7 +3,7 @@ import { chain, compact, isEmpty, map } from 'lodash';
 import React from 'react';
 
 import Button from 'components/shared/button';
-import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
+import TreeRecursive from 'components/shared/file-browser/tree-recursive';
 import { useFiles } from 'contexts/files-provider';
 import { getLanguageByFilename } from 'utils/language';
 
@@ -12,7 +12,7 @@ import FileSvg from './images/file.inline.svg';
 
 const cx = classNames.bind(styles);
 
-const FileBrowser = ({ readOnly = false, onCreateManually }) => {
+const FileBrowser = ({ readOnly = false, onCreateManually, className }) => {
   const {
     state: { files },
     filesDispatch,
@@ -195,7 +195,7 @@ const FileBrowser = ({ readOnly = false, onCreateManually }) => {
   const noop = () => {};
 
   return (
-    <div className={cx('wrapper', isDragOver && 'wrapper-dragover')} ref={treeRef}>
+    <div className={cx('wrapper', isDragOver && 'wrapper-dragover', className)} ref={treeRef}>
       {files.length ? (
         <TreeRecursive
           data={files}

@@ -2,11 +2,11 @@ import classNames from 'classnames/bind';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
-import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
-import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
-import DeleteFolderModal from 'components/shared/template-form/files/file-browser/delete-folder-modal';
-import RenameFolderModal from 'components/shared/template-form/files/file-browser/rename-folder-modal';
-import TreeRecursive from 'components/shared/template-form/files/file-browser/tree-recursive';
+import AddFileModal from 'components/shared/file-browser/add-file-modal';
+import AddFolderModal from 'components/shared/file-browser/add-folder-modal';
+import DeleteFolderModal from 'components/shared/file-browser/delete-folder-modal';
+import RenameFolderModal from 'components/shared/file-browser/rename-folder-modal';
+import TreeRecursive from 'components/shared/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
 
@@ -168,6 +168,7 @@ const Folder = ({
             parentDragLeaveHandler={handleDragLeave}
             parentId={folder.id}
             level={level + 1}
+            readOnly={readOnly}
             onItemDelete={onDelete}
             onDropFile={onDropFile}
             onAddFile={onAddFile}

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
+import FileBrowser from 'components/shared/file-browser';
+import AddFileModal from 'components/shared/file-browser/add-file-modal';
+import AddFolderModal from 'components/shared/file-browser/add-folder-modal';
 import IconButton from 'components/shared/icon-button';
-import FileBrowser from 'components/shared/template-form/files/file-browser';
-import AddFileModal from 'components/shared/template-form/files/file-browser/add-file-modal';
-import AddFolderModal from 'components/shared/template-form/files/file-browser/add-folder-modal';
 import { useFiles } from 'contexts/files-provider';
 import { getLanguageByFilename } from 'utils/language';
 
@@ -84,7 +84,11 @@ const Files = ({ readOnly = false }) => {
         )}
       </div>
 
-      <FileBrowser readOnly={readOnly} onCreateManually={() => setIsAddFileModalOpen(true)} />
+      <FileBrowser
+        className={cx('file-browser')}
+        readOnly={readOnly}
+        onCreateManually={() => setIsAddFileModalOpen(true)}
+      />
     </>
   );
 };
