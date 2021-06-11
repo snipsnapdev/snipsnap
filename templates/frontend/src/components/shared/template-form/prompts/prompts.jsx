@@ -28,7 +28,6 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove, readOny
       defaultValue={item.message}
       register={ref}
       error={errors?.prompts?.[index]?.message?.message}
-      readOny={readOny}
       onBlur={() => trigger('prompts')}
     />
     <Input
@@ -38,7 +37,6 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove, readOny
       defaultValue={item.variableName}
       register={ref}
       error={errors?.prompts?.[index]?.variableName?.message}
-      readOny={readOny}
       onBlur={() => trigger('prompts')}
     />
 
