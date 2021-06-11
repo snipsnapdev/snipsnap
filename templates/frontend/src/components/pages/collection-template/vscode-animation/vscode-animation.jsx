@@ -27,7 +27,9 @@ Handlebars.registerHelper('toUpperCase', (string) => upperCase(string));
 
 Handlebars.registerHelper('toLowerCase', (string) => lowerCase(string));
 
-Handlebars.registerHelper('toPascalCase', (string) => startCase(camelCase(string)).replace(/ /g, ''));
+Handlebars.registerHelper('toPascalCase', (string) =>
+  startCase(camelCase(string)).replace(/ /g, '')
+);
 
 const MenuItem = ({ name, shortcut = null, disabled = false, active = false }) => (
   <div className={cx('menu-item', disabled && 'disabled', active && 'active')}>
@@ -59,15 +61,15 @@ const FolderMenu = () => (
   </div>
 );
 
-const TEMPLATES = ['Create React Component', 'Dockerfile', 'NodeJS + Express'];
+const TEMPLATES = ['Storybook for React Component', 'Dockerfile', 'NodeJS + Express'];
 
-const TemplateSelect = ({ className }) => (
+const TemplateSelect = ({ templateName, className }) => (
   <div className={cx('select-wrapper', className)}>
     <div className={cx('select-input')}>
       <span className={cx('select-placeholder')}>Please choose a template you want to use</span>
     </div>
     <div className={cx('select-options')}>
-      <div className={cx('select-option', 'active')}>DEMO TEMPLATE</div>
+      <div className={cx('select-option', 'active')}>{templateName}</div>
       {TEMPLATES.map((template) => (
         <div key={template} className={cx('select-option')}>
           {template}
@@ -77,39 +79,54 @@ const TemplateSelect = ({ className }) => (
   </div>
 );
 
-const PromptInput = ({ className }) => (
+const PromptInput = ({ value, message, className }) => (
   <div className={cx('select-wrapper', className)}>
     <div className={cx('select-input')}>
       <span className={cx('select-text')}>
         <Typewriter
           onInit={(typewriter) => {
-            typewriter.pauseFor(500).typeString('example value').start();
+            typewriter.pauseFor(500).typeString(value).start();
           }}
         />
       </span>
     </div>
     <div className={cx('select-options')}>
-      <div className={cx('select-option')}>
-        Please type component name (Press 'Enter' to confirm or 'Escape' to cancel)
-      </div>
+      <div className={cx('select-option')}>{message}</div>
     </div>
   </div>
 );
 
 const sleepMs = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const PROMPTS_VALUES = ['value one', 'value two', 'value three', 'value four'];
+
 const VscodeAnimation = ({ template }) => {
   const [animationCompleted, setAnimationCompleted] = useState(false);
-
   const [animationStep, setAnimationStep] = useState('initial');
+
   const animationSequence = async () => {
+    const prompts = JSON.parse(template.prompts);
+
+    const RESET_TIME_MS = 100;
+
     await sleepMs(1000);
     await setAnimationStep('menu');
     await sleepMs(2500);
+    await setAnimationStep('reset');
+    await sleepMs(RESET_TIME_MS);
     await setAnimationStep('templates');
     await sleepMs(2500);
-    await setAnimationStep('prompt');
-    await sleepMs(3500);
+    await setAnimationStep('reset');
+    await sleepMs(RESET_TIME_MS);
+    if (prompts.length > 0) {
+      for (let i = 0; i < prompts.length; i++) {
+        await setAnimationStep(`prompt-${i}`);
+        await sleepMs(3500);
+        // to reset typewriter value
+        await setAnimationStep('reset');
+        await sleepMs(RESET_TIME_MS);
+      }
+    }
     await setAnimationStep('files');
 
     setAnimationCompleted(true);
@@ -123,7 +140,6 @@ const VscodeAnimation = ({ template }) => {
   const [promptValues, setPromptValues] = useState({});
   const [templateFiles, setTemplateFiles] = useState([]);
   useEffect(() => {
-    const PROMPTS_VALUES = ['example value 1', 'example value 2'];
     const newPromptResults = {};
 
     const prompts = JSON.parse(template.prompts);
@@ -156,8 +172,18 @@ const VscodeAnimation = ({ template }) => {
         templateName={template.name}
       />
       {animationStep === 'menu' && <FolderMenu />}
-      {animationStep === 'templates' && <TemplateSelect className={cx('template-select')} />}
-      {animationStep === 'prompt' && <PromptInput className={cx('prompt-input')} />}
+      {animationStep === 'templates' && (
+        <TemplateSelect templateName={template.name} className={cx('template-select')} />
+      )}
+      {animationStep.startsWith('prompt') && (
+        <PromptInput
+          value={PROMPTS_VALUES[parseInt(animationStep.replace('prompt-', ''))]}
+          className={cx('prompt-input')}
+          message={
+            JSON.parse(template.prompts)[parseInt(animationStep.replace('prompt-', ''))].message
+          }
+        />
+      )}
     </div>
   );
 };

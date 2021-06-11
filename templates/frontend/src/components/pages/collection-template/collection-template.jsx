@@ -2,9 +2,8 @@ import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useSWR, { mutate } from 'swr';
-
 
 import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
@@ -86,20 +85,30 @@ const CollectionTemplate = ({ templateId }) => {
 
   if (!template) return null;
 
+  const DownloadButton = () => (
+    <Button className={cx('clone-button')} isLoading={isLoading} onClick={handleCloneButtonClick}>
+      <DownloadIcon className={cx('download-icon')} />
+      <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
+    </Button>
+  );
+
   return (
     <div className={cx('wrapper')}>
-      <h2 className={cx('title')}>{template.name}</h2>
-      <div className={cx('description-wrapper')}>
-        <p className={cx('description')}>{template.description}</p>
-        <Button
-          className={cx('clone-button')}
-          isLoading={isLoading}
-          onClick={handleCloneButtonClick}
-        >
-          <DownloadIcon className={cx('download-icon')} />
-          <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
-        </Button>
-      </div>
+      {!template.description && (
+        <div className={cx('title-wrapper')}>
+          <h2 className={cx('title')}>{template.name}</h2>
+          <DownloadButton />
+        </div>
+      )}
+      {template.description && (
+        <>
+          <h2 className={cx('title')}>{template.name}</h2>
+          <div className={cx('description-wrapper')}>
+            <p className={cx('description')}>{template.description}</p>
+            <DownloadButton />
+          </div>
+        </>
+      )}
       <VscodeAnimation template={template} />
     </div>
   );

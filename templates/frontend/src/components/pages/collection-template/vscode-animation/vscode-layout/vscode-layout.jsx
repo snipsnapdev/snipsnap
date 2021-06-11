@@ -92,7 +92,7 @@ const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => 
             <ActivityTopIcons />
             <ActivityBottomIcons />
           </div>
-          <VscodeSidebar templateName={templateName} showFiles={showFiles} />
+          <VscodeSidebar showFiles={showFiles} />
           <div className={cx('editor')}>
             {!showFiles && <EmptyEditor />}
             {showFiles && (

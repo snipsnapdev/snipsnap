@@ -9,7 +9,7 @@ import styles from './vscode-sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 
-const VscodeSidebar = ({ templateName, showFiles }) => (
+const VscodeSidebar = ({ showFiles }) => (
   <div className={cx('sidebar')}>
     <div className={cx('top')}>
       EXPLORER
@@ -24,7 +24,7 @@ const VscodeSidebar = ({ templateName, showFiles }) => (
     <div className={cx('section', 'current-files')}>
       <div className={cx('section-title')}>
         <ArrowSvg className={cx('icon-down')} />
-        {templateName}
+        MY EXAMPLE
       </div>
       {showFiles && <FileBrowser className={cx('files')} readOnly />}
     </div>
