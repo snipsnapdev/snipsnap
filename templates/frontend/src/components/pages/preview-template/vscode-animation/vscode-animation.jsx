@@ -24,16 +24,16 @@ Handlebars.registerHelper('toPascalCase', (string) =>
 const sleepMs = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const PROMPTS_VALUES = [
-  'value one',
-  'value two',
-  'value three',
-  'value four',
-  'value five',
-  'value six',
-  'value seven',
-  'value eight',
-  'value nine',
-  'value ten',
+  'value-one',
+  'value-two',
+  'value-three',
+  'value-four',
+  'value-five',
+  'value-six',
+  'value-seven',
+  'value-eight',
+  'value-nine',
+  'value-ten',
 ];
 
 /* set to values <1 to speed up animation during development
