@@ -1,4 +1,14 @@
 import classNames from 'classnames/bind';
+import Handlebars from 'handlebars';
+import {
+  cloneDeep,
+  camelCase,
+  snakeCase,
+  kebabCase,
+  upperCase,
+  lowerCase,
+  startCase,
+} from 'lodash';
 import { useState, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
 
@@ -6,6 +16,18 @@ import styles from './vscode-animation.module.scss';
 import VscodeLayout from './vscode-layout';
 
 const cx = classNames.bind(styles);
+
+Handlebars.registerHelper('toCamelCase', (string) => camelCase(string));
+
+Handlebars.registerHelper('toSnakeCase', (string) => snakeCase(string));
+
+Handlebars.registerHelper('toKebabCase', (string) => kebabCase(string));
+
+Handlebars.registerHelper('toUpperCase', (string) => upperCase(string));
+
+Handlebars.registerHelper('toLowerCase', (string) => lowerCase(string));
+
+Handlebars.registerHelper('toPascalCase', (string) => startCase(camelCase(string)).replace(/ /g, ''));
 
 const MenuItem = ({ name, shortcut = null, disabled = false, active = false }) => (
   <div className={cx('menu-item', disabled && 'disabled', active && 'active')}>
@@ -98,12 +120,40 @@ const VscodeAnimation = ({ template }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [promptValues, setPromptValues] = useState({});
+  const [templateFiles, setTemplateFiles] = useState([]);
+  useEffect(() => {
+    const PROMPTS_VALUES = ['example value 1', 'example value 2'];
+    const newPromptResults = {};
+
+    const prompts = JSON.parse(template.prompts);
+    prompts.forEach((t, index) => {
+      newPromptResults[t.variableName] = PROMPTS_VALUES[index];
+    });
+
+    const files = JSON.parse(template.files);
+    // insert handlebar values
+    const processItem = (item) => {
+      item.data.name = Handlebars.compile(item.data.name)(newPromptResults);
+      if (item.type === 'file') {
+        item.data.content = Handlebars.compile(item.data.content)(newPromptResults);
+      } else {
+        item.data.files = item.data.files.map(processItem);
+      }
+      return item;
+    };
+
+    setTemplateFiles(prompts.length > 0 ? files.map(processItem) : files);
+    setPromptValues(newPromptResults);
+  }, [template.files, template.prompts]);
+
   return (
     <div className={cx('animation')}>
       <VscodeLayout
         className={cx('vscode')}
-        template={template}
+        templateFiles={templateFiles}
         showFiles={animationStep === 'files'}
+        templateName={template.name}
       />
       {animationStep === 'menu' && <FolderMenu />}
       {animationStep === 'templates' && <TemplateSelect className={cx('template-select')} />}

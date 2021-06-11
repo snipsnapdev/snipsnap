@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { template } from 'lodash';
 import dynamic from 'next/dynamic';
 import { useReducer, useState, useEffect } from 'react';
 
@@ -24,32 +25,38 @@ const getFile = (item) => {
   console.log('ITEM', item);
   if (item.type === 'file') {
     return item;
-  } 
-    for (const ch of item.data.files) {
-      return getFile(ch);
-    }
-  
+  }
+  for (const ch of item.data.files) {
+    return getFile(ch);
+  }
 };
 
 const findFile = (files) => {
   const curLevelFiles = files.filter((item) => item.type === 'file');
   if (curLevelFiles.length > 0) {
     return curLevelFiles[0];
-  } 
-    for (const folder of files) {
-      return findFile(folder.data.files);
-    }
-  
+  }
+  for (const folder of files) {
+    return findFile(folder.data.files);
+  }
 };
 
-const VscodeLayout = ({ template, showFiles, className }) => {
-  const templateFiles = JSON.parse(template.files);
-  const fileToOpen = findFile(templateFiles);
-
+const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => {
   const [filesState, dispatch] = useReducer(filesReducer, {
     files: templateFiles,
-    openFileId: fileToOpen ? fileToOpen.id : null,
+    openFileId: null,
   });
+
+  useEffect(() => {
+    const fileToOpen = findFile(templateFiles);
+    dispatch({
+      type: 'reset',
+      data: {
+        files: templateFiles,
+        openFileId: fileToOpen ? fileToOpen.id : null,
+      },
+    });
+  }, [templateFiles]);
 
   const [openFile, setOpenFile] = useState(null);
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
@@ -78,14 +85,14 @@ const VscodeLayout = ({ template, showFiles, className }) => {
       <div className={cx('wrapper', className)}>
         <div className={cx('header')}>
           <TopLeftIcons />
-          <span className={cx('title')}>TEMPLATE NAME</span>
+          <span className={cx('title')}>{templateName}</span>
         </div>
         <div className={cx('content')}>
           <div className={cx('activity-bar')}>
             <ActivityTopIcons />
             <ActivityBottomIcons />
           </div>
-          <VscodeSidebar showFiles={showFiles} />
+          <VscodeSidebar templateName={templateName} showFiles={showFiles} />
           <div className={cx('editor')}>
             {!showFiles && <EmptyEditor />}
             {showFiles && (
