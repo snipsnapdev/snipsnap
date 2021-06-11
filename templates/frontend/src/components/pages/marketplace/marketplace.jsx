@@ -16,7 +16,7 @@ const Marketplace = () => (
         templates with the community.
       </p>
     </div>
-    <CuratedCollections />
+    {/* <CuratedCollections /> */}
     <CommunityTemplates />
     <div className={cx('image-wrapper')}>
       <Image
