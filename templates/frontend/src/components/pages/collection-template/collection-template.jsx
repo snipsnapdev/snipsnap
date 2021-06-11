@@ -51,7 +51,7 @@ const CollectionTemplate = ({ templateId }) => {
   const gqlClient = useGqlClient();
 
   const fetcher = () => gqlClient.request(getTemplate, { id: templateId });
-  const { data } = useSWR('getTemplate', fetcher);
+  const { data } = useSWR(`getTemplate/${templateId}`, fetcher);
 
   const template = data?.templates?.[0] || null;
 
@@ -114,8 +114,8 @@ const CollectionTemplate = ({ templateId }) => {
   );
 };
 
-CollectionTemplate.propTypes = {
-  collectionTemplateId: PropTypes.string.isRequired,
-};
+// CollectionTemplate.propTypes = {
+//   collectionTemplateId: PropTypes.string.isRequired,
+// };
 
 export default CollectionTemplate;

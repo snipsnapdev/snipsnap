@@ -22,7 +22,6 @@ const Editor = dynamic(import('components/shared/editor'), { ssr: false });
 const cx = classNames.bind(styles);
 
 const getFile = (item) => {
-  console.log('ITEM', item);
   if (item.type === 'file') {
     return item;
   }
@@ -47,6 +46,7 @@ const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => 
     openFileId: null,
   });
 
+  // update files in the store (will be called if files were not available on initial render)
   useEffect(() => {
     const fileToOpen = findFile(templateFiles);
     dispatch({
@@ -60,6 +60,8 @@ const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => 
 
   const [openFile, setOpenFile] = useState(null);
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
+
+  // get language for open file to set Ace Editor mode
   useEffect(() => {
     const newOpenFile = findFileById(filesState.files, filesState.openFileId);
     setOpenFile(newOpenFile);
@@ -92,10 +94,10 @@ const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => 
             <ActivityTopIcons />
             <ActivityBottomIcons />
           </div>
-          <VscodeSidebar showFiles={showFiles} />
+          <VscodeSidebar showFiles={showFiles && filesState.files.length > 0} />
           <div className={cx('editor')}>
-            {!showFiles && <EmptyEditor />}
-            {showFiles && (
+            {!(showFiles && filesState.openFileId) && <EmptyEditor />}
+            {showFiles && filesState.openFileId && (
               <Editor
                 className={cx('editor-content')}
                 language={language}

@@ -46,16 +46,17 @@
   flex-grow: 1;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1e;
+  background-color: #1e1e1e !important;
 }
 
 .editor-content {
   width: 100%;
-  background-color: #1e1e1e;
+  height: 100%;
+  background-color: #1e1e1e !important;
 
   :global {
     .ace_editor {
-      background-color: #1e1e1e;
+      background-color: #1e1e1e !important;
     }
 
     .ace-monokai .ace_gutter {

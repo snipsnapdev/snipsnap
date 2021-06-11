@@ -15,7 +15,7 @@ const CollectionTemplatePage = () => {
       <Head>
         <title>{generatePageTitle('View Collection Template')}</title>
       </Head>
-      <CollectionTemplate templateId={templateId} />
+      <CollectionTemplate key={templateId} templateId={templateId} />
     </Layout>
   );
 };
