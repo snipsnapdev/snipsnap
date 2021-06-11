@@ -1,10 +1,15 @@
+.wrapper {
+  display: flex;
+}
+
 .main {
   flex-grow: 1;
   min-height: 100vh;
   // 280px is sidebar's width
   padding-left: 280px;
-}
 
-.wrapper {
-  display: flex;
+  &.unauthorised {
+    // 360px is unauthorised sidebar's width
+    padding-left: 360px;
+  }
 }

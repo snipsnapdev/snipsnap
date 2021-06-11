@@ -19,6 +19,9 @@ const useGqlClient = () => {
   const { token, setToken } = useToken();
 
   const client = getQlClient();
+
+  if (!token) return client;
+
   client.setHeader('Authorization', `Bearer ${token}`);
 
   client.request = async (...args) => {
@@ -33,6 +36,7 @@ const useGqlClient = () => {
     }
     return originalRequest.call(client, ...args);
   };
+
   return client;
 };
 

@@ -22,3 +22,13 @@
 .group-options {
   margin-left: auto;
 }
+
+.file-browser {
+  height: calc(100% - 35px);
+  min-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: $color-primary-black;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+}

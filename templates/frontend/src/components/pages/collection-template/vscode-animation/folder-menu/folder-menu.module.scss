@@ -1,0 +1,73 @@
+.menu {
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: 293px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes highlightActiveItem {
+  0% {
+    color: black;
+    background-color: transparent;
+  }
+
+  85% {
+    color: black;
+    background-color: transparent;
+  }
+
+  100% {
+    color: white;
+    background-color: #35f;
+  }
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  margin-left: 4px;
+  color: black;
+  border-radius: 3px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.disabled {
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  &.active {
+    color: white;
+    background-color: #35f;
+    animation-name: highlightActiveItem;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+  }
+}
+
+.item-shortcut {
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.separator {
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(60, 60, 67, 0.18);
+}

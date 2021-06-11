@@ -26,6 +26,7 @@
     "file-loader": "^6.2.0",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "next": "^10.2.0",
@@ -43,6 +44,7 @@
     "sass": "^1.32.12",
     "svgo-loader": "^3.0.0",
     "swr": "^0.5.5",
+    "typewriter-effect": "^2.17.0",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"

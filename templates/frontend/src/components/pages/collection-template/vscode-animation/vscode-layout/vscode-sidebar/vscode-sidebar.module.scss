@@ -1,0 +1,61 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background-color: #252526;
+}
+
+.top {
+  position: relative;
+  padding: 8px 20px;
+  color: #ccc;
+}
+
+.icon-dots {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  fill: #ccc;
+  transform: rotate(90deg);
+}
+
+.section {
+  position: relative;
+  padding: 5px 23px;
+  color: #ccc;
+
+  & .icon-down {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    width: 10px;
+    height: 6px;
+  }
+}
+
+.section-title {
+  text-transform: uppercase;
+}
+
+.open-editors {
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.outline {
+  margin-top: auto;
+  border-top: 1px solid #3c3c3c;
+
+  & .icon-down {
+    transform: rotate(-90deg);
+  }
+}
+
+.files {
+  flex-grow: 1;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: -10px;
+}

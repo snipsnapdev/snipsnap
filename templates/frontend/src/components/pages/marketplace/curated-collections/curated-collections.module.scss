@@ -1,0 +1,16 @@
+.wrapper {
+  margin-bottom: 60px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+
+  span {
+    margin-left: 5px;
+  }
+}

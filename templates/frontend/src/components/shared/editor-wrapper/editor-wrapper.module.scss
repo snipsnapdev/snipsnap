@@ -1,0 +1,59 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.file-path {
+  margin-bottom: 5px;
+  font-size: $font-size-xs;
+  line-height: $line-height-xs;
+  color: $color-grey;
+}
+
+.editor-container {
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  background-color: $color-primary-black;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 40px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-left: auto;
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  background: $color-dark-grey;
+  border: 1px solid $color-middle-grey;
+  border-radius: 2px;
+
+  & svg {
+    width: 14px;
+    height: 10px;
+  }
+}
+
+.select-menu {
+  width: 100%;
+}
+
+.vertical-line {
+  width: 1px;
+  height: calc(100% - 20px);
+  margin-top: 20px;
+  background-color: $color-dark-grey;
+}
+
+.image-wrapper {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,94 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 70vh;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.showcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  color: #fff;
+  background-color: #3b3b3b;
+
+  & svg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.activity-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48px;
+  background-color: #333;
+}
+
+.sidebar {
+  width: 320px;
+  background-color: #252526;
+}
+
+.editor {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e1e !important;
+}
+
+.editor-content {
+  width: 100%;
+  height: 100%;
+  background-color: #1e1e1e !important;
+
+  :global {
+    .ace_editor {
+      background-color: #1e1e1e !important;
+    }
+
+    .ace-monokai .ace_gutter {
+      background-color: #1e1e1e;
+    }
+
+    .ace-monokai .ace_gutter-active-line {
+      color: #eee;
+      background-color: #1e1e1e;
+    }
+
+    .ace-monokai .ace_selection {
+      background-color: #2f3038;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  padding-right: 10px;
+  padding-left: 10px;
+  color: #fff;
+  background-color: #007acc;
+}

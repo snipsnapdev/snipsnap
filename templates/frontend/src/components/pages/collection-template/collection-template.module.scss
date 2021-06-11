@@ -1,0 +1,47 @@
+.wrapper {
+  padding: 30px;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: $font-weight-xs;
+  line-height: $line-height-even;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & .title {
+    margin-bottom: 0;
+  }
+}
+
+.description-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.description {
+  margin-right: 40px;
+  font-size: 16px;
+  font-weight: $font-weight-xs;
+  line-height: 1.4;
+  color: $color-light-grey;
+}
+
+.clone-button {
+  flex-shrink: 0;
+}
+
+.download-icon {
+  fill: none !important;
+}
+
+.animation {
+  position: relative;
+  width: 100%;
+  margin-top: 40px;
+}
