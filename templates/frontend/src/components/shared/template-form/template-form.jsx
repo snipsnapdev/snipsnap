@@ -115,7 +115,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     const newTemplateId = res?.insert_template?.id || null;
 
     if (newTemplateId) {
-      router.push(`/template/${newTemplateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+      router.push(`/templates/${newTemplateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
     }
   };
 
@@ -128,7 +128,7 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
       ...(templateGroupId ? { templateGroupId } : {}),
     });
 
-    router.push(`/template/${templateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
+    router.push(`/templates/${templateId}/edit${openFileId ? `?openFile=${openFileId}` : ''}`);
   };
 
   const onSubmit = async ({ name, prompts }) => {

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import CollectionTemplate from 'components/pages/collection-template';
+import PreviewTemplate from 'components/pages/preview-template';
 import Layout from 'components/shared/layout';
 import generatePageTitle from 'utils/generate-page-title';
 import withAuth from 'utils/with-auth';
@@ -15,7 +15,7 @@ const CollectionTemplatePage = () => {
       <Head>
         <title>{generatePageTitle('View Collection Template')}</title>
       </Head>
-      <CollectionTemplate key={templateId} templateId={templateId} />
+      <PreviewTemplate key={templateId} templateId={templateId} />
     </Layout>
   );
 };

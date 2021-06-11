@@ -61,7 +61,7 @@ const Items = ({ searchText, items }) => {
       const templateId = res?.insert_template?.id || null;
 
       if (templateId) {
-        push(`/template/${templateId}/edit`);
+        push(`/templates/${templateId}/edit`);
       }
     } catch (error) {
       console.error(error);
@@ -80,7 +80,7 @@ const Items = ({ searchText, items }) => {
               onClick={(event) => {
                 event.stopPropagation();
                 event.preventDefault();
-                push(user ? `/template/${id}` : `/collection-template/${id}`);
+                push(`/templates/${id}/preview`);
               }}
             >
               <h3 className={cx('item-name')}>{name}</h3>

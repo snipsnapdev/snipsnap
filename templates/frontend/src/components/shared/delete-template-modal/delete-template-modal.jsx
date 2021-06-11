@@ -38,7 +38,7 @@ const DeleteTemplateModal = (props) => {
       mutate('getOwnedTemplateGroups');
 
       // if deleted template was open, redirect to home page
-      if (router.asPath === `/template/${id}`) {
+      if (router.asPath.startsWith(`/templates/${id}`)) {
         router.push('/');
       }
     } catch (err) {

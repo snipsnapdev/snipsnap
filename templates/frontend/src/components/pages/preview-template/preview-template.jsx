@@ -9,8 +9,8 @@ import { gql, useGqlClient } from 'api/graphql';
 import Button from 'components/shared/button';
 import useSession from 'hooks/use-session';
 
-import styles from './collection-template.module.scss';
 import DownloadIcon from './images/download.inline.svg';
+import styles from './preview-template.module.scss';
 import VscodeAnimation from './vscode-animation';
 
 const cx = classNames.bind(styles);
@@ -40,7 +40,7 @@ const cloneTemplateQuery = gql`
 
 const CALLBACK_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
-const CollectionTemplate = ({ templateId }) => {
+const PreviewTemplate = ({ templateId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [session = {}] = useSession();
 
@@ -72,7 +72,7 @@ const CollectionTemplate = ({ templateId }) => {
         const templateId = res?.insert_template?.id || null;
 
         if (templateId) {
-          push(`/template/${templateId}/edit`);
+          push(`/templates/${templateId}/edit`);
         }
       } catch (error) {
         console.error(error);
@@ -114,8 +114,4 @@ const CollectionTemplate = ({ templateId }) => {
   );
 };
 
-// CollectionTemplate.propTypes = {
-//   collectionTemplateId: PropTypes.string.isRequired,
-// };
-
-export default CollectionTemplate;
+export default PreviewTemplate;

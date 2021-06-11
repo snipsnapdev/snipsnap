@@ -47,6 +47,9 @@ const Collection = ({ collectionSlug }) => {
 
   const Image = images[collection.image_name];
 
+  const {templates} = collection;
+  templates.sort((t1, t2) => (t1.template.name > t2.template.name ? 1 : -1));
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
@@ -54,14 +57,14 @@ const Collection = ({ collectionSlug }) => {
         <h2 className={cx('title')}>{collection.name}</h2>
       </div>
       <p className={cx('description')}>{collection.description}</p>
-      {collection.templates.map(({ template: { name, id } }) => (
+      {templates.map(({ template: { name, id } }) => (
         <div
           className={cx('item')}
           key={id}
           onClick={(event) => {
             event.stopPropagation();
             event.preventDefault();
-            push(`/collection-template/${id}`);
+            push(`/templates/${id}/preview`);
           }}
         >
           <span className={cx('item-name')}>{name}</span>

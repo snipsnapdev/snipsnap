@@ -36,7 +36,7 @@ const Items = ({ items }) => {
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              router.push(`/collection/${slug}`);
+              router.push(`/marketplace/${slug}`);
             }}
           >
             <div className={cx('item-header')}>

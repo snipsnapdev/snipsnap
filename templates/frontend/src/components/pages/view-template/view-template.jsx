@@ -68,7 +68,7 @@ const ViewTemplate = ({ templateId }) => {
       const templateId = res?.insert_template?.id || null;
 
       if (templateId) {
-        router.push(`/template/${templateId}/edit`);
+        router.push(`/templates/${templateId}/edit`);
       }
     } catch (error) {
       console.error(error);

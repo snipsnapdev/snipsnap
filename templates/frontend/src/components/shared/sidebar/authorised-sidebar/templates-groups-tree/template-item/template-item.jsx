@@ -89,7 +89,7 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
         ]),
   ];
 
-  const hrefPath = `/template/${templateId}/edit`;
+  const hrefPath = `/templates/${templateId}/edit`;
   const isActive = asPath === hrefPath;
 
   return (
