@@ -59,12 +59,11 @@ export default function Login() {
         </h2>
         <ul className={cx('features')}>
           <li className={cx('features-item')}>
-            <span>Reduce number of mistakes during copy-pasting boilerplate code.</span>
+            <span>Reduce number of mistakes when copy-pasting boilerplate code.</span>
           </li>
           <li className={cx('features-item')}>
             <span>
-              Speed up your development by creating highly flexible Handlebars powered code
-              templates
+              Speed up your development with highly flexible Handlebars powered code templates
             </span>
           </li>
         </ul>
