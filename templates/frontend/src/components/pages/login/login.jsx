@@ -97,6 +97,11 @@ export default function Login() {
               Contact Us
             </Button>
           </li>
+          <li>
+            <Button tag="a" themeType="link" size="md" href="/marketplace">
+              Marketplace
+            </Button>
+          </li>
         </ul>
       </div>
 

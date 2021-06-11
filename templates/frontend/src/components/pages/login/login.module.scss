@@ -160,6 +160,20 @@
       margin-right: 0;
     }
   }
+
+  @include sm-down {
+    flex-direction: column;
+    text-align: center;
+
+    li {
+      margin-right: 0;
+      margin-bottom: 30px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .demo {
