@@ -1,10 +1,18 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 70vh;
   overflow: hidden;
   border-radius: 10px;
+}
+
+.showcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .header {

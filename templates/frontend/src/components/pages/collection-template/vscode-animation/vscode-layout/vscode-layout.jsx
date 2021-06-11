@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
-import { template } from 'lodash';
 import dynamic from 'next/dynamic';
 import { useReducer, useState, useEffect } from 'react';
 
-import FileBrowser from 'components/shared/file-browser';
 import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { findFileById } from 'utils/files-provider-helpers';
 import { DEFAULT_LANGUAGE, getLanguageByFilename, getLanguageByLabel } from 'utils/language';
@@ -13,6 +11,7 @@ import ActivityTopIcons from './images/activity-bar-top.inline.svg';
 import EmptyEditor from './images/empty-editor.inline.svg';
 import FooterLeftIcons from './images/footer-left.inline.svg';
 import FooterRightIcons from './images/footer-right.inline.svg';
+import ShowcaseLabel from './images/showcase.inline.svg';
 import TopLeftIcons from './images/top-left-icons.inline.svg';
 import styles from './vscode-layout.module.scss';
 import VscodeSidebar from './vscode-sidebar';
@@ -85,6 +84,7 @@ const VscodeLayout = ({ templateName, templateFiles, showFiles, className }) => 
       }}
     >
       <div className={cx('wrapper', className)}>
+        <ShowcaseLabel className={cx('showcase')} />
         <div className={cx('header')}>
           <TopLeftIcons />
           <span className={cx('title')}>{templateName}</span>
