@@ -41,10 +41,10 @@ WARN: active element highlights and typing effect
 won't work correctly in this case */
 const DEV_SPEED_COEFFICIENT = 1; // default 1
 
-const BEFORE_ANIMATION_START_MS = 1000 * DEV_SPEED_COEFFICIENT;
+const BEFORE_ANIMATION_START_MS = 700 * DEV_SPEED_COEFFICIENT;
 const RESET_TIME_MS = 100;
-const STEP_TIME_MS = 2500 * DEV_SPEED_COEFFICIENT;
-const PROMP_TIME_MS = 3500 * DEV_SPEED_COEFFICIENT;
+const STEP_TIME_MS = 1600 * DEV_SPEED_COEFFICIENT;
+const PROMP_TIME_MS = 2800 * DEV_SPEED_COEFFICIENT;
 
 const VscodeAnimation = ({ template }) => {
   const [animationStep, setAnimationStep] = useState('initial');

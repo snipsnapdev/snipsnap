@@ -11,7 +11,8 @@
   position: absolute;
   top: -4px;
   right: -4px;
-  z-index: 2;
+  // to show it above the editor scrollbar
+  z-index: 7;
 }
 
 .header {
@@ -22,6 +23,8 @@
   height: 28px;
   color: #fff;
   background-color: #3b3b3b;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 
   & svg {
     position: absolute;
@@ -63,6 +66,7 @@
 
   :global {
     .ace_editor {
+      font-size: 13px !important;
       background-color: #1e1e1e !important;
     }
 
@@ -90,4 +94,6 @@
   padding-left: 10px;
   color: #fff;
   background-color: #007acc;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }

@@ -11,11 +11,10 @@
   line-height: $line-height-xs;
   color: $color-white;
   cursor: pointer;
-  transition: all 0.3s;
+  border-radius: 2px;
 
   &:hover {
     background-color: $color-secondary-black;
-    border-radius: 2px;
 
     & .button-delete {
       visibility: visible;
@@ -23,7 +22,16 @@
   }
 
   &-selected {
-    font-weight: $font-weight-md;
+    font-weight: $font-weight-sm;
+    background-color: #062f4a;
+
+    &:hover {
+      background-color: #062f4a;
+
+      & .button-delete {
+        visibility: visible;
+      }
+    }
   }
 }
 

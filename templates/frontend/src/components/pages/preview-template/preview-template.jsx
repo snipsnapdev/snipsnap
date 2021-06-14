@@ -88,7 +88,7 @@ const PreviewTemplate = ({ templateId }) => {
   const DownloadButton = () => (
     <Button className={cx('clone-button')} isLoading={isLoading} onClick={handleCloneButtonClick}>
       <DownloadIcon className={cx('download-icon')} />
-      <span>{user ? 'Clone' : 'Sign Up and Clone'}</span>
+      <span>{user ? 'Clone template' : 'Sign Up and Clone'}</span>
     </Button>
   );
 
