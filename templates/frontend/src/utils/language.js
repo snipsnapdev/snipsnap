@@ -1,5 +1,6 @@
 import PlainTextIcon from 'icons/file-types/default_file.inline.svg';
 import CssIcon from 'icons/file-types/file_type_css.inline.svg';
+import GoIcon from 'icons/file-types/file_type_go.inline.svg';
 import HtmlIcon from 'icons/file-types/file_type_html.inline.svg';
 import JavaIcon from 'icons/file-types/file_type_java.inline.svg';
 import JavascriptIcon from 'icons/file-types/file_type_js.inline.svg';
@@ -88,6 +89,11 @@ export const EXTENSION_LANGUAGE_MAPPING = {
     aceMode: 'Javascript',
     label: 'ReactJS',
     icon: ReactIcon,
+  },
+  go: {
+    aceMode: 'Golang',
+    label: 'Golang',
+    icon: GoIcon,
   },
 };
 
