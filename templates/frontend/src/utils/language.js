@@ -1,5 +1,6 @@
 import PlainTextIcon from 'icons/file-types/default_file.inline.svg';
 import CssIcon from 'icons/file-types/file_type_css.inline.svg';
+import GoIcon from 'icons/file-types/file_type_go.inline.svg';
 import HtmlIcon from 'icons/file-types/file_type_html.inline.svg';
 import JavaIcon from 'icons/file-types/file_type_java.inline.svg';
 import JavascriptIcon from 'icons/file-types/file_type_js.inline.svg';
@@ -7,6 +8,7 @@ import JsonIcon from 'icons/file-types/file_type_json.inline.svg';
 import LessIcon from 'icons/file-types/file_type_less.inline.svg';
 import PythonIcon from 'icons/file-types/file_type_python.inline.svg';
 import ReactIcon from 'icons/file-types/file_type_reactjs.inline.svg';
+import RubyIcon from 'icons/file-types/file_type_ruby.inline.svg';
 import SassIcon from 'icons/file-types/file_type_sass.inline.svg';
 import TypescriptIcon from 'icons/file-types/file_type_typescript.inline.svg';
 import YamlIcon from 'icons/file-types/file_type_yaml.inline.svg';
@@ -88,6 +90,16 @@ export const EXTENSION_LANGUAGE_MAPPING = {
     aceMode: 'Javascript',
     label: 'ReactJS',
     icon: ReactIcon,
+  },
+  go: {
+    aceMode: 'Golang',
+    label: 'Golang',
+    icon: GoIcon,
+  },
+  rb: {
+    aceMode: 'Ruby',
+    label: 'Ruby',
+    icon: RubyIcon,
   },
 };
 
