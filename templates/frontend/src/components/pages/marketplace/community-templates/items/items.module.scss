@@ -1,6 +1,6 @@
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   row-gap: 20px;
   column-gap: 20px;
   height: 100%;
@@ -27,7 +27,7 @@
 
 .item-name {
   margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: $font-weight-sm;
   line-height: 1.4;
 }
@@ -35,17 +35,33 @@
 .item-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font-size: $font-size-md;
   line-height: $line-height-even;
 }
 
 .item-author {
   display: flex;
+  flex: 1 0 50%;
   align-items: center;
-  margin-right: 10px;
+  padding-right: 10px;
+  overflow: hidden;
 }
 
 .item-author-avatar {
+  min-width: 30px;
   margin-right: 10px;
+}
+
+.item-author-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clone {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.no-wrap {
+  white-space: nowrap;
 }

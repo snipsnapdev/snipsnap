@@ -91,9 +91,10 @@ const Items = ({ searchText, items }) => {
                     avatar={owner.image}
                     userName={owner.name}
                   />
-                  <span>{owner.name}</span>
+                  <span className={cx('item-author-name', 'no-wrap')}>{owner.name}</span>
                 </div>
                 <Button
+                  className={cx('clone', 'no-wrap')}
                   themeType="link"
                   size="md"
                   onClick={(evt) => {
