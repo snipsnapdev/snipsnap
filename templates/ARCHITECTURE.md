@@ -36,9 +36,9 @@ This way we continue to keep Hasura as a single point of access for all graphql 
 
 ### TimescaleDB (PostgreSQL)
 
-[TimescaleDB](https://www.timescale.com/) is an amazing extension for PostgreSQL that helps to increase the performance for time-series data. Generally speaking it is still well familiar PostgreSQL with the samy syntax.
+[TimescaleDB](https://www.timescale.com/) is an amazing extension for PostgreSQL that helps to increase the performance for time-series data. Generally speaking it is still well familiar PostgreSQL with the same syntax.
 We decided to use it since we plan to gather stats for marketplace visualisation and measure usage of popular templates.
-Later on we want to add stats for "Clone" action, and visualize it more for public available temapltes in marketplace. 
+Later on we want to add stats for "Clone" action, and visualize it more for public available templates in marketplace. 
 
 ### VS Code extension
 
