@@ -18,6 +18,7 @@ import 'ace-builds/src-noconflict/mode-plain_text';
 import 'ace-builds/src-noconflict/theme-twilight';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/mode-golang';
+import 'ace-builds/src-noconflict/mode-ruby';
 
 import styles from './editor.module.scss';
 
