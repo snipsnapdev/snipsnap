@@ -18,6 +18,8 @@ import { FilesContext, filesReducer } from 'contexts/files-provider';
 import { useTemplateGroups } from 'contexts/template-groups-provider';
 import { useAlertIfUnsavedChanges } from 'hooks/use-alert-if-unsaved-changes';
 
+import CreateTemplateGroupModal from '../sidebar';
+
 import Files from './files';
 import Prompts from './prompts';
 import styles from './template-form.module.scss';
@@ -208,6 +210,9 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
     }
   };
 
+  const [isCreateTemplateGroupModalOpen, setIsCreateTemplateGroupModalOpen] = useState(false);
+  const handleCreateTemplateGroupModalClose = () => setIsCreateTemplateGroupModalOpen(false);
+
   const groupOptions = [
     ...groups.map((item) => ({
       text: item.name,
@@ -217,6 +222,10 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
       text: 'No group',
       theme: 'grey',
       onClick: () => setGroup(null),
+    },
+    {
+      text: 'Create group',
+      onClick: () => setIsCreateTemplateGroupModalOpen(true),
     },
   ];
 
@@ -297,6 +306,10 @@ const TemplateForm = ({ initialValues, isCreatingNewTemplate = false, templateId
           </div>
         </div>
       </div>
+      <CreateTemplateGroupModal
+        isOpen={isCreateTemplateGroupModalOpen}
+        onClose={handleCreateTemplateGroupModalClose}
+      />
     </FilesContext.Provider>
   );
 };
