@@ -1,0 +1,3 @@
+services:
+  graphql-engine:
+    image: fedormelexin/graphql-engine-arm64:v2.0.1
