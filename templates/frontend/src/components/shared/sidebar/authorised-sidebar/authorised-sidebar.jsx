@@ -11,8 +11,9 @@ import useSession from 'hooks/use-session';
 import HomeIcon from 'icons/home.inline.svg';
 import MarketplaceIcon from 'icons/marketplace.inline.svg';
 
+import CreateTemplateGroupModal from '../../create-template-group-modal';
+
 import styles from './authorised-sidebar.module.scss';
-import CreateTemplateGroupModal from './create-template-group-modal';
 import TemplatesGroupsTree from './templates-groups-tree';
 
 const cx = classNames.bind(styles);
