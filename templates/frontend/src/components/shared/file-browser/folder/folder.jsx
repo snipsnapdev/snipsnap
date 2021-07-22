@@ -145,6 +145,7 @@ const Folder = ({
       )}
       {isRenameItemModalOpen && (
         <RenameItemModal
+          label="folder"
           name={folder.data.name}
           isOpen={isRenameItemModalOpen}
           onClose={() => setIsRenameItemModalOpen(false)}

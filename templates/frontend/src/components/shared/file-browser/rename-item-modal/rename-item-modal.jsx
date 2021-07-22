@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 const cx = classNames.bind(styles);
 
 const RenameItemModal = (props) => {
-  const { name, isOpen, onClose, onSave } = props;
+  const { name, isOpen, onClose, onSave, label } = props;
 
   const { register, handleSubmit, clearErrors, errors } = useForm({
     defaultValues: { newName: name },
@@ -40,10 +40,10 @@ const RenameItemModal = (props) => {
 
   return (
     <ModalPortal>
-      <Modal theme="grey" title="Rename folder" isOpen={isOpen} onRequestClose={onClose}>
+      <Modal theme="grey" title={`Rename ${label}`} isOpen={isOpen} onRequestClose={onClose}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            label="New folder name"
+            label={`New ${label} name`}
             name="newName"
             register={register}
             error={errors.newName?.message}

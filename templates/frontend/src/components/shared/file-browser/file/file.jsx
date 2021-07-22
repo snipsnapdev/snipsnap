@@ -97,6 +97,7 @@ const File = ({
       )}
       {isRenameItemModalOpen && (
         <RenameItemModal
+          label="file"
           name={file.data.name}
           isOpen={isRenameItemModalOpen}
           onClose={() => setIsRenameItemModalOpen(false)}
