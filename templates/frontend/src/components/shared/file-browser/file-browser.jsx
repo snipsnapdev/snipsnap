@@ -157,6 +157,13 @@ const FileBrowser = ({ readOnly = false, onCreateManually, className }) => {
     });
   };
 
+  const handleRenameFile = (newName, fileId) => {
+    filesDispatch({
+      type: 'renameFile',
+      fileId,
+      newName,
+    });
+  };
   const handleDeleteItem = (itemId) => {
     filesDispatch({
       type: 'deleteItem',
@@ -208,6 +215,7 @@ const FileBrowser = ({ readOnly = false, onCreateManually, className }) => {
           onAddFolder={!readOnly ? handleAddFolder : noop}
           onDropFile={!readOnly ? handleDropFile : noop}
           onRenameFolder={!readOnly ? handleRenameFolder : noop}
+          onRenameFile={!readOnly ? handleRenameFile : noop}
           onItemDelete={!readOnly ? handleDeleteItem : noop}
           onOpenFile={handleOpenFile}
           onDragStart={!readOnly ? handleDragStart : noop}

@@ -93,6 +93,15 @@ export const renameFolder = ({ files, folderId, newName }) => {
   return { files: newData };
 };
 
+/** Changes file name */
+export const renameFile = ({ files, fileId, newName }) => {
+  let newData = cloneDeep(files);
+  newData = newData.map((item) =>
+    item.id === fileId ? { ...item, data: { ...item.data, name: newName } } : item
+  );
+  return { files: newData };
+};
+
 export const deleteItem = ({ files, itemId, isFileOpen = false }) => {
   let newData = cloneDeep(files);
   const filePath = findFolderPathByKey(newData, itemId);

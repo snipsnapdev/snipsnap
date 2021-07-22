@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 
+import Dropdown from 'components/shared/dropdown';
+import RenameItemModal from 'components/shared/file-browser/rename-item-modal';
 import { useFiles } from 'contexts/files-provider';
-import CloseSvg from 'icons/close.inline.svg';
+import DotsIcon from 'icons/dots.inline.svg';
 import { getIconByFilename } from 'utils/language';
 
 import DeleteFileModal from '../delete-file-modal';
@@ -21,6 +23,7 @@ const File = ({
   onDelete,
   onDragStart,
   onDragEnd,
+  onRenameFile,
   level,
   readOnly,
 }) => {
@@ -31,6 +34,7 @@ const File = ({
   } = useFiles();
 
   const [isDeleteFileModalOpen, setIsDeleteFileModalOpen] = useState(false);
+  const [isRenameItemModalOpen, setIsRenameItemModalOpen] = useState(false);
 
   useEffect(() => {
     const fileElem = fileRef.current;
@@ -54,12 +58,6 @@ const File = ({
     onDelete(file.id);
   };
 
-  const handleDeleteClick = (evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    setIsDeleteFileModalOpen(true);
-  };
-
   const handleDragStart = (evt) => {
     onOpen(null);
     evt.preventDefault();
@@ -68,7 +66,17 @@ const File = ({
   };
 
   const Icon = getIconByFilename(file.data.name);
-
+  const menuItems = [
+    {
+      text: 'Rename',
+      onClick: () => setIsRenameItemModalOpen(true),
+    },
+    {
+      text: 'Delete',
+      onClick: () => setIsDeleteFileModalOpen(true),
+      theme: 'danger',
+    },
+  ];
   return (
     <div
       ref={fileRef}
@@ -87,14 +95,28 @@ const File = ({
           onSave={handleDelete}
         />
       )}
+      {isRenameItemModalOpen && (
+        <RenameItemModal
+          name={file.data.name}
+          isOpen={isRenameItemModalOpen}
+          onClose={() => setIsRenameItemModalOpen(false)}
+          onSave={(newName) => onRenameFile(newName, file.id)}
+        />
+      )}
       <div className={cx('file-icon')} style={{ left: 7 + 25 * level }}>
         <Icon />
       </div>
       {file.data.name}
       {!readOnly && (
-        <button className={cx('button-delete')} onClick={handleDeleteClick}>
-          <CloseSvg className={cx('icon')} />
-        </button>
+        <Dropdown
+          menuItems={menuItems}
+          className={cx('options')}
+          position="top-right"
+          menuClassName={cx('options-menu')}
+          stopPropagation
+        >
+          <DotsIcon className={cx('options-icon')} />
+        </Dropdown>
       )}
     </div>
   );
