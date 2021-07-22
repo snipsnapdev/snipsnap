@@ -10,7 +10,7 @@ import Input from 'components/shared/input';
 import Modal from 'components/shared/modal';
 import ModalPortal from 'components/shared/modal-portal';
 
-import styles from './rename-folder-modal.module.scss';
+import styles from './rename-item-modal.module.scss';
 
 const schema = yup.object().shape({
   newName: yup
@@ -23,7 +23,7 @@ const schema = yup.object().shape({
 
 const cx = classNames.bind(styles);
 
-const RenameFolderModal = (props) => {
+const RenameItemModal = (props) => {
   const { name, isOpen, onClose, onSave } = props;
 
   const { register, handleSubmit, clearErrors, errors } = useForm({
@@ -62,17 +62,17 @@ const RenameFolderModal = (props) => {
   );
 };
 
-RenameFolderModal.propTypes = {
+RenameItemModal.propTypes = {
   name: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   onSave: PropTypes.func,
 };
 
-RenameFolderModal.defaultProps = {
+RenameItemModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
   onSave: () => {},
 };
 
-export default RenameFolderModal;
+export default RenameItemModal;

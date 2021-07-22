@@ -5,7 +5,7 @@ import Dropdown from 'components/shared/dropdown';
 import AddFileModal from 'components/shared/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/file-browser/add-folder-modal';
 import DeleteFolderModal from 'components/shared/file-browser/delete-folder-modal';
-import RenameFolderModal from 'components/shared/file-browser/rename-folder-modal';
+import RenameItemModal from 'components/shared/file-browser/rename-item-modal';
 import TreeRecursive from 'components/shared/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
@@ -73,7 +73,7 @@ const Folder = ({
 
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
   const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
-  const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
+  const [isRenameItemModalOpen, setIsRenameItemModalOpen] = useState(false);
   const [isDeleteFolderModalOpen, setIsDeleteFolderModalOpen] = useState(false);
 
   const menuItems = [
@@ -87,7 +87,7 @@ const Folder = ({
     },
     {
       text: 'Rename',
-      onClick: () => setIsRenameFolderModalOpen(true),
+      onClick: () => setIsRenameItemModalOpen(true),
     },
     {
       text: 'Delete',
@@ -143,11 +143,11 @@ const Folder = ({
           onSave={(folderName) => onAddFolder(folderName, folder.id)}
         />
       )}
-      {isRenameFolderModalOpen && (
-        <RenameFolderModal
+      {isRenameItemModalOpen && (
+        <RenameItemModal
           name={folder.data.name}
-          isOpen={isRenameFolderModalOpen}
-          onClose={() => setIsRenameFolderModalOpen(false)}
+          isOpen={isRenameItemModalOpen}
+          onClose={() => setIsRenameItemModalOpen(false)}
           onSave={(newName) => onRenameFolder(newName, folder.id)}
         />
       )}
