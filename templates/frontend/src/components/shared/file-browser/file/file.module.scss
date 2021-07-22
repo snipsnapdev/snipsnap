@@ -15,9 +15,11 @@
 
   &:hover {
     background-color: $color-secondary-black;
+    border-radius: 2px;
 
-    & .button-delete {
+    .options {
       visibility: visible;
+      opacity: 1;
     }
   }
 
@@ -71,4 +73,39 @@
       }
     }
   }
+}
+
+.options {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 12px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  margin-left: auto;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-50%);
+
+  &:hover {
+    circle {
+      fill: $color-white;
+    }
+  }
+}
+
+.options-icon {
+  height: 15px;
+  fill: $color-grey;
+}
+
+.options-menu {
+  min-width: 100px;
 }

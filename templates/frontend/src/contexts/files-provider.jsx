@@ -4,6 +4,7 @@ import {
   addItem,
   moveItem,
   renameFolder,
+  renameFile,
   deleteItem,
   changeFileContent,
   changeFileLanguage,
@@ -42,6 +43,12 @@ export const filesReducer = (state, action) => {
         ...state,
         hasChangedFiles: true,
         ...renameFolder({ files: state.files, folderId: action.folderId, newName: action.newName }),
+      };
+    case 'renameFile':
+      return {
+        ...state,
+        hasChangedFiles: true,
+        ...renameFile({ files: state.files, fileId: action.fileId, newName: action.newName }),
       };
     case 'deleteItem':
       return {
