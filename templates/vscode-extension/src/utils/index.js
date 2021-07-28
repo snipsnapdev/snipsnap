@@ -77,21 +77,48 @@ const getRemoteDirStructure = async ({
   );
 };
 
-const buildDirStructure = async (structure) => {
-  structure.forEach((entity) => {
-    if (!entity) return;
+const BuildEntity = async (entity) => {
+  if (!entity) return Promise.resolve(true);
 
-    const { fileType, fileName, fileContent, filePath } = entity;
-
-    if (fileType === vscode.FileType.Directory) {
-      buildDirStructure(fileContent);
-    } else {
-      vscode.workspace.fs.writeFile(
-        vscode.Uri.file(`${filePath}/${fileName}`),
+  const { fileType, fileName, fileContent, filePath } = entity;
+  let writeFlag = false;
+  if (fileType === vscode.FileType.Directory) {
+    await buildDirStructure(fileContent);
+  } else {
+    const fullPath = vscode.Uri.file(`${filePath}/${fileName}`)
+    try {
+      await vscode.workspace.fs.readFile(fullPath)
+      const answers = {
+        yes: "Rewrite",
+        no: "Keep it"
+      }
+      const answer = await vscode.window.showInformationMessage(
+        `File ${fullPath} already exists`,
+        ...Object.values(answers)
+      )
+      writeFlag = answer === answers.yes
+    } catch (_err) {
+      // Do we know a better way to ensure file doesn't exist
+      // but raising exception while reading the file?
+      writeFlag  = true 
+    }
+    if(writeFlag) {
+      await vscode.workspace.fs.writeFile(
+        fullPath,
         new TextEncoder().encode(fileContent)
       );
     }
-  });
+    return Promise.resolve(true)
+  }
+}
+
+const buildDirStructure = async (structure) => {
+  let it = 0
+  while(it < structure.length) {
+    await BuildEntity(structure[it])
+    it += 1
+  }
+  return Promise.resolve(true)
 };
 
 module.exports = {
