@@ -31,7 +31,19 @@ const query = gql`
   }
 `;
 
-const TemplateItem = ({ name, templateId, favourite = false, shared = false }) => {
+const cloneTemplateQuery = gql`
+  mutation createTemplate($name: String!, $prompts: String, $files: String!) {
+    insert_template(object: { name: $name, prompts: $prompts, files: $files }) {
+      id
+      name
+      prompts
+      files
+      owner_id
+    }
+  }
+`;
+
+const TemplateItem = ({ name, templateId, prompts, files, favourite = false, shared = false }) => {
   const [session] = useSession();
   const { asPath } = useRouter();
 
@@ -55,6 +67,26 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
     }
   };
 
+  const handleCloneClick = async () => {
+    const res = await gqlClient.request(cloneTemplateQuery, {
+      name,
+      prompts,
+      files,
+    });
+
+    mutate('getOwnedTemplateGroups');
+
+    try {
+      const templateId = res?.insert_template?.id || null;
+
+      if (templateId) {
+        push(`/templates/${templateId}/edit`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const menuItems = [
     ...(shared
       ? []
@@ -67,6 +99,10 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
     {
       text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
       onClick: handleFavouriteClick,
+    },
+    {
+      text: 'Clone',
+      onClick: handleCloneClick,
     },
     ...(shared
       ? []
@@ -144,6 +180,8 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
 TemplateItem.propTypes = {
   name: PropTypes.string.isRequired,
   templateId: PropTypes.string.isRequired,
+  prompts: PropTypes.string.isRequired,
+  files: PropTypes.string.isRequired,
   favourite: PropTypes.bool,
   shared: PropTypes.bool,
 };

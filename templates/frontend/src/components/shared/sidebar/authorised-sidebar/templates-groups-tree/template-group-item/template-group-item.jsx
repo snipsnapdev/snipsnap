@@ -103,6 +103,8 @@ const TemplateGroupItem = ({
                 key={template.id}
                 name={template.name}
                 templateId={template.id}
+                prompts={template.prompts}
+                files={template.files}
                 favourite={template.favourite || false}
                 shared={shared}
               />
@@ -164,6 +166,8 @@ TemplateGroupItem.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
+      prompts: PropTypes.string.isRequired,
+      files: PropTypes.string.isRequired,
       favourite: PropTypes.bool,
       shared: PropTypes.bool,
     })

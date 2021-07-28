@@ -37,6 +37,8 @@ const TemplatesGroupsTree = () => {
               key={template.id}
               name={template.name}
               templateId={template.id}
+              prompts={template.prompts}
+              files={template.files}
               favourite={template.favourite || false}
             />
           ))}
@@ -62,6 +64,8 @@ const TemplatesGroupsTree = () => {
               key={template.id}
               name={template.name}
               templateId={template.id}
+              prompts={template.prompts}
+              files={template.files}
               favourite={template.favourite || false}
               shared
             />
