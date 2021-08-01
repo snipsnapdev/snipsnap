@@ -96,6 +96,22 @@ const Folder = ({
     },
   ];
 
+  const handleCloseRenameItemModalClick = useCallback(() => {
+    setIsRenameItemModalOpen(false);
+  }, []);
+
+  const handleCloseAddFolderModalClick = useCallback(() => {
+    setIsAddFolderModalOpen(false);
+  }, []);
+
+  const handleCloseDeleteFolderModalClick = useCallback(() => {
+    setIsDeleteFolderModalOpen(false);
+  }, []);
+
+  const handleCloseAddFileModalClick = useCallback(() => {
+    setIsAddFileModalOpen(false);
+  }, []);
+
   return (
     <div
       ref={folderRef}
@@ -132,14 +148,14 @@ const Folder = ({
       {isAddFileModalOpen && (
         <AddFileModal
           isOpen={isAddFileModalOpen}
-          onClose={() => setIsAddFileModalOpen(false)}
+          onClose={handleCloseAddFileModalClick}
           onSave={(fileName) => onAddFile(fileName, folder.id)}
         />
       )}
       {isAddFolderModalOpen && (
         <AddFolderModal
           isOpen={isAddFolderModalOpen}
-          onClose={() => setIsAddFolderModalOpen(false)}
+          onClose={handleCloseAddFolderModalClick}
           onSave={(folderName) => onAddFolder(folderName, folder.id)}
         />
       )}
@@ -148,6 +164,7 @@ const Folder = ({
           label="folder"
           name={folder.data.name}
           isOpen={isRenameItemModalOpen}
+          onClose={handleCloseRenameItemModalClick}
           onSave={(newName) => onRenameItem(newName, folder.id)}
         />
       )}
@@ -155,7 +172,7 @@ const Folder = ({
         <DeleteFolderModal
           name={folder.data.name}
           isOpen={isDeleteFolderModalOpen}
-          onClose={() => setIsDeleteFolderModalOpen(false)}
+          onClose={handleCloseDeleteFolderModalClick}
           onSave={() => onDelete(folder.id)}
         />
       )}

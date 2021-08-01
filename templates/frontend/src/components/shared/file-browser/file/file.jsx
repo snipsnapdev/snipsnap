@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 import Dropdown from 'components/shared/dropdown';
 import RenameItemModal from 'components/shared/file-browser/rename-item-modal';
@@ -77,6 +77,10 @@ const File = ({
       theme: 'danger',
     },
   ];
+
+  const handleCloseDeleteFileModalClick = useCallback(() => setIsDeleteFileModalOpen(false), []);
+  const handleCloseRenameFileModalClick = useCallback(() => setIsRenameItemModalOpen(false), []);
+
   return (
     <div
       ref={fileRef}
@@ -91,7 +95,7 @@ const File = ({
         <DeleteFileModal
           name={file.data.name}
           isOpen={isDeleteFileModalOpen}
-          onClose={() => setIsDeleteFileModalOpen(false)}
+          onClose={handleCloseDeleteFileModalClick}
           onSave={handleDelete}
         />
       )}
@@ -100,6 +104,7 @@ const File = ({
           label="file"
           name={file.data.name}
           isOpen={isRenameItemModalOpen}
+          onClose={handleCloseRenameFileModalClick}
           onSave={(newName) => onRenameItem(newName, file.id)}
         />
       )}
