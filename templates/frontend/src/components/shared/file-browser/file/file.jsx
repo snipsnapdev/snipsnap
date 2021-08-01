@@ -23,7 +23,7 @@ const File = ({
   onDelete,
   onDragStart,
   onDragEnd,
-  onRenameFile,
+  onRenameItem,
   level,
   readOnly,
 }) => {
@@ -100,8 +100,7 @@ const File = ({
           label="file"
           name={file.data.name}
           isOpen={isRenameItemModalOpen}
-          onClose={() => setIsRenameItemModalOpen(false)}
-          onSave={(newName) => onRenameFile(newName, file.id)}
+          onSave={(newName) => onRenameItem(newName, file.id)}
         />
       )}
       <div className={cx('file-icon')} style={{ left: 7 + 25 * level }}>

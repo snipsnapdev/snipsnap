@@ -21,7 +21,7 @@ const Folder = ({
   onOpenFile,
   onAddFile,
   onAddFolder,
-  onRenameFolder,
+  onRenameItem,
   onDragStart,
   onDragEnd,
   level,
@@ -148,8 +148,7 @@ const Folder = ({
           label="folder"
           name={folder.data.name}
           isOpen={isRenameItemModalOpen}
-          onClose={() => setIsRenameItemModalOpen(false)}
-          onSave={(newName) => onRenameFolder(newName, folder.id)}
+          onSave={(newName) => onRenameItem(newName, folder.id)}
         />
       )}
       {isDeleteFolderModalOpen && (
@@ -175,7 +174,7 @@ const Folder = ({
             onAddFile={onAddFile}
             onAddFolder={onAddFolder}
             onOpenFile={onOpenFile}
-            onRenameFolder={onRenameFolder}
+            onRenameItem={onRenameItem}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
           />

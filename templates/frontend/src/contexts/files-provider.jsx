@@ -3,8 +3,7 @@ import React, { useContext, useReducer } from 'react';
 import {
   addItem,
   moveItem,
-  renameFolder,
-  renameFile,
+  renameItem,
   deleteItem,
   changeFileContent,
   changeFileLanguage,
@@ -38,17 +37,11 @@ export const filesReducer = (state, action) => {
         hasChangedFiles: true,
         ...moveItem({ files: state.files, item: action.item, newFolderId: action.newFolderId }),
       };
-    case 'renameFolder':
+    case 'renameItem':
       return {
         ...state,
         hasChangedFiles: true,
-        ...renameFolder({ files: state.files, folderId: action.folderId, newName: action.newName }),
-      };
-    case 'renameFile':
-      return {
-        ...state,
-        hasChangedFiles: true,
-        ...renameFile({ files: state.files, fileId: action.fileId, newName: action.newName }),
+        ...renameItem({ files: state.files, itemId: action.itemId, newName: action.newName }),
       };
     case 'deleteItem':
       return {
