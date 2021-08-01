@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
@@ -45,7 +45,7 @@ const cloneTemplateQuery = gql`
 
 const TemplateItem = ({ name, templateId, prompts, files, favourite = false, shared = false }) => {
   const [session] = useSession();
-  const { asPath } = useRouter();
+  const { push, asPath } = useRouter();
 
   const {
     user: { id: currentUserId },
@@ -58,16 +58,16 @@ const TemplateItem = ({ name, templateId, prompts, files, favourite = false, sha
 
   const gqlClient = useGqlClient();
 
-  const handleFavouriteClick = async () => {
+  const handleFavouriteClick = useCallback(async () => {
     try {
       await gqlClient.request(query, { templateId, userId: currentUserId, favourite: !favourite });
       mutate('getOwnedTemplateGroups');
     } catch (error) {
       throw new Error(`Setting favourite failed: ${error}`);
     }
-  };
+  }, [currentUserId, favourite, gqlClient, templateId]);
 
-  const handleCloneClick = async () => {
+  const handleCloneClick = useCallback(async () => {
     const res = await gqlClient.request(cloneTemplateQuery, {
       name,
       prompts,
@@ -85,45 +85,45 @@ const TemplateItem = ({ name, templateId, prompts, files, favourite = false, sha
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [files, gqlClient, name, prompts, push]);
 
-  const menuItems = [
-    ...(shared
-      ? []
-      : [
-          {
-            text: 'Share',
-            onClick: () => setIsShareModalOpen(true),
-          },
-        ]),
-    {
-      text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
-      onClick: handleFavouriteClick,
-    },
-    {
-      text: 'Clone',
-      onClick: handleCloneClick,
-    },
-    ...(shared
-      ? []
-      : [
-          {
-            text: 'Delete',
-            onClick: () => setIsDeleteModalOpen(true),
-            theme: 'danger',
-          },
-        ]),
-    // un-share template shared with the current user
-    ...(!shared
-      ? []
-      : [
-          {
-            text: 'Remove',
-            onClick: () => setIsRemoveModalOpen(true),
-            theme: 'danger',
-          },
-        ]),
-  ];
+  const menuItems = useMemo(() => [
+      ...(shared
+        ? []
+        : [
+            {
+              text: 'Share',
+              onClick: () => setIsShareModalOpen(true),
+            },
+          ]),
+      {
+        text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
+        onClick: handleFavouriteClick,
+      },
+      {
+        text: 'Clone',
+        onClick: handleCloneClick,
+      },
+      ...(shared
+        ? []
+        : [
+            {
+              text: 'Delete',
+              onClick: () => setIsDeleteModalOpen(true),
+              theme: 'danger',
+            },
+          ]),
+      // un-share template shared with the current user
+      ...(!shared
+        ? []
+        : [
+            {
+              text: 'Remove',
+              onClick: () => setIsRemoveModalOpen(true),
+              theme: 'danger',
+            },
+          ]),
+    ], [shared, favourite, handleCloneClick, handleFavouriteClick]);
 
   const hrefPath = `/templates/${templateId}/edit`;
   const isActive = asPath === hrefPath;
