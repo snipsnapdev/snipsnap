@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { mutate } from 'swr';
 
 import { gql, useGqlClient } from 'api/graphql';
@@ -31,9 +31,21 @@ const query = gql`
   }
 `;
 
-const TemplateItem = ({ name, templateId, favourite = false, shared = false }) => {
+const cloneTemplateQuery = gql`
+  mutation createTemplate($name: String!, $prompts: String, $files: String!) {
+    insert_template(object: { name: $name, prompts: $prompts, files: $files }) {
+      id
+      name
+      prompts
+      files
+      owner_id
+    }
+  }
+`;
+
+const TemplateItem = ({ name, templateId, prompts, files, favourite = false, shared = false }) => {
   const [session] = useSession();
-  const { asPath } = useRouter();
+  const { push, asPath } = useRouter();
 
   const {
     user: { id: currentUserId },
@@ -46,48 +58,72 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
 
   const gqlClient = useGqlClient();
 
-  const handleFavouriteClick = async () => {
+  const handleFavouriteClick = useCallback(async () => {
     try {
       await gqlClient.request(query, { templateId, userId: currentUserId, favourite: !favourite });
       mutate('getOwnedTemplateGroups');
     } catch (error) {
       throw new Error(`Setting favourite failed: ${error}`);
     }
-  };
+  }, [currentUserId, favourite, gqlClient, templateId]);
 
-  const menuItems = [
-    ...(shared
-      ? []
-      : [
-          {
-            text: 'Share',
-            onClick: () => setIsShareModalOpen(true),
-          },
-        ]),
-    {
-      text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
-      onClick: handleFavouriteClick,
-    },
-    ...(shared
-      ? []
-      : [
-          {
-            text: 'Delete',
-            onClick: () => setIsDeleteModalOpen(true),
-            theme: 'danger',
-          },
-        ]),
-    // un-share template shared with the current user
-    ...(!shared
-      ? []
-      : [
-          {
-            text: 'Remove',
-            onClick: () => setIsRemoveModalOpen(true),
-            theme: 'danger',
-          },
-        ]),
-  ];
+  const handleCloneClick = useCallback(async () => {
+    const res = await gqlClient.request(cloneTemplateQuery, {
+      name,
+      prompts,
+      files,
+    });
+
+    mutate('getOwnedTemplateGroups');
+
+    try {
+      const templateId = res?.insert_template?.id || null;
+
+      if (templateId) {
+        push(`/templates/${templateId}/edit`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [files, gqlClient, name, prompts, push]);
+
+  const menuItems = useMemo(() => [
+      ...(shared
+        ? []
+        : [
+            {
+              text: 'Share',
+              onClick: () => setIsShareModalOpen(true),
+            },
+          ]),
+      {
+        text: `${favourite ? 'Remove from' : 'Add to'} favourites`,
+        onClick: handleFavouriteClick,
+      },
+      {
+        text: 'Clone',
+        onClick: handleCloneClick,
+      },
+      ...(shared
+        ? []
+        : [
+            {
+              text: 'Delete',
+              onClick: () => setIsDeleteModalOpen(true),
+              theme: 'danger',
+            },
+          ]),
+      // un-share template shared with the current user
+      ...(!shared
+        ? []
+        : [
+            {
+              text: 'Remove',
+              onClick: () => setIsRemoveModalOpen(true),
+              theme: 'danger',
+            },
+          ]),
+    ], [shared, favourite, handleCloneClick, handleFavouriteClick]);
 
   const hrefPath = `/templates/${templateId}/edit`;
   const isActive = asPath === hrefPath;
@@ -144,6 +180,8 @@ const TemplateItem = ({ name, templateId, favourite = false, shared = false }) =
 TemplateItem.propTypes = {
   name: PropTypes.string.isRequired,
   templateId: PropTypes.string.isRequired,
+  prompts: PropTypes.string.isRequired,
+  files: PropTypes.string.isRequired,
   favourite: PropTypes.bool,
   shared: PropTypes.bool,
 };
