@@ -149,10 +149,10 @@ const FileBrowser = ({ readOnly = false, onCreateManually, className }) => {
     });
   };
 
-  const handleRenameFolder = (newName, folderId) => {
+  const handleRenameItem = (newName, itemId) => {
     filesDispatch({
-      type: 'renameFolder',
-      folderId,
+      type: 'renameItem',
+      itemId,
       newName,
     });
   };
@@ -207,7 +207,7 @@ const FileBrowser = ({ readOnly = false, onCreateManually, className }) => {
           onAddFile={!readOnly ? handleAddFile : noop}
           onAddFolder={!readOnly ? handleAddFolder : noop}
           onDropFile={!readOnly ? handleDropFile : noop}
-          onRenameFolder={!readOnly ? handleRenameFolder : noop}
+          onRenameItem={!readOnly ? handleRenameItem : noop}
           onItemDelete={!readOnly ? handleDeleteItem : noop}
           onOpenFile={handleOpenFile}
           onDragStart={!readOnly ? handleDragStart : noop}

@@ -5,7 +5,7 @@ import Dropdown from 'components/shared/dropdown';
 import AddFileModal from 'components/shared/file-browser/add-file-modal';
 import AddFolderModal from 'components/shared/file-browser/add-folder-modal';
 import DeleteFolderModal from 'components/shared/file-browser/delete-folder-modal';
-import RenameFolderModal from 'components/shared/file-browser/rename-folder-modal';
+import RenameItemModal from 'components/shared/file-browser/rename-item-modal';
 import TreeRecursive from 'components/shared/file-browser/tree-recursive';
 import ArrowSvg from 'icons/arrow-down.inline.svg';
 import DotsIcon from 'icons/dots.inline.svg';
@@ -21,7 +21,7 @@ const Folder = ({
   onOpenFile,
   onAddFile,
   onAddFolder,
-  onRenameFolder,
+  onRenameItem,
   onDragStart,
   onDragEnd,
   level,
@@ -73,7 +73,7 @@ const Folder = ({
 
   const [isAddFileModalOpen, setIsAddFileModalOpen] = useState(false);
   const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
-  const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
+  const [isRenameItemModalOpen, setIsRenameItemModalOpen] = useState(false);
   const [isDeleteFolderModalOpen, setIsDeleteFolderModalOpen] = useState(false);
 
   const menuItems = [
@@ -87,7 +87,7 @@ const Folder = ({
     },
     {
       text: 'Rename',
-      onClick: () => setIsRenameFolderModalOpen(true),
+      onClick: () => setIsRenameItemModalOpen(true),
     },
     {
       text: 'Delete',
@@ -95,6 +95,22 @@ const Folder = ({
       theme: 'danger',
     },
   ];
+
+  const handleCloseRenameItemModalClick = useCallback(() => {
+    setIsRenameItemModalOpen(false);
+  }, []);
+
+  const handleCloseAddFolderModalClick = useCallback(() => {
+    setIsAddFolderModalOpen(false);
+  }, []);
+
+  const handleCloseDeleteFolderModalClick = useCallback(() => {
+    setIsDeleteFolderModalOpen(false);
+  }, []);
+
+  const handleCloseAddFileModalClick = useCallback(() => {
+    setIsAddFileModalOpen(false);
+  }, []);
 
   return (
     <div
@@ -132,30 +148,31 @@ const Folder = ({
       {isAddFileModalOpen && (
         <AddFileModal
           isOpen={isAddFileModalOpen}
-          onClose={() => setIsAddFileModalOpen(false)}
+          onClose={handleCloseAddFileModalClick}
           onSave={(fileName) => onAddFile(fileName, folder.id)}
         />
       )}
       {isAddFolderModalOpen && (
         <AddFolderModal
           isOpen={isAddFolderModalOpen}
-          onClose={() => setIsAddFolderModalOpen(false)}
+          onClose={handleCloseAddFolderModalClick}
           onSave={(folderName) => onAddFolder(folderName, folder.id)}
         />
       )}
-      {isRenameFolderModalOpen && (
-        <RenameFolderModal
+      {isRenameItemModalOpen && (
+        <RenameItemModal
+          label="folder"
           name={folder.data.name}
-          isOpen={isRenameFolderModalOpen}
-          onClose={() => setIsRenameFolderModalOpen(false)}
-          onSave={(newName) => onRenameFolder(newName, folder.id)}
+          isOpen={isRenameItemModalOpen}
+          onClose={handleCloseRenameItemModalClick}
+          onSave={(newName) => onRenameItem(newName, folder.id)}
         />
       )}
       {isDeleteFolderModalOpen && (
         <DeleteFolderModal
           name={folder.data.name}
           isOpen={isDeleteFolderModalOpen}
-          onClose={() => setIsDeleteFolderModalOpen(false)}
+          onClose={handleCloseDeleteFolderModalClick}
           onSave={() => onDelete(folder.id)}
         />
       )}
@@ -174,7 +191,7 @@ const Folder = ({
             onAddFile={onAddFile}
             onAddFolder={onAddFolder}
             onOpenFile={onOpenFile}
-            onRenameFolder={onRenameFolder}
+            onRenameItem={onRenameItem}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
           />

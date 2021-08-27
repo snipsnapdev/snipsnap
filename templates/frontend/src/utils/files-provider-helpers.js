@@ -33,7 +33,7 @@ const addFile = (files, fileData, parentFolderId = null) => {
     newFiles.push(file);
     sortFiles(newFiles);
   } else {
-    const folderPath = findFolderPathByKey(newFiles, parentFolderId);
+    const folderPath = findItemPathByKey(newFiles, parentFolderId);
     const lastFolder = folderPath[folderPath.length - 1];
     lastFolder.data.files.push(file);
     sortFiles(lastFolder.data.files);
@@ -55,7 +55,7 @@ const addFolder = (files, folderData, parentFolderId = null) => {
     newFiles.push(folder);
     sortFiles(newFiles);
   } else {
-    const folderPath = findFolderPathByKey(newFiles, parentFolderId);
+    const folderPath = findItemPathByKey(newFiles, parentFolderId);
     const lastFolder = folderPath[folderPath.length - 1];
     lastFolder.data.files.push(folder);
     sortFiles(lastFolder.data.files);
@@ -75,19 +75,19 @@ export const addItem = ({ files, data, parentFolderId = null }) => {
 };
 
 /** Changes folder name */
-export const renameFolder = ({ files, folderId, newName }) => {
+export const renameItem = ({ files, itemId, newName }) => {
   let newData = cloneDeep(files);
-  const filePath = findFolderPathByKey(newData, folderId);
+  const itemPath = findItemPathByKey(newData, itemId);
   // if file/folder in root directory
-  if (filePath.length === 1) {
+  if (itemPath.length === 1) {
     newData = newData.map((item) =>
-      item.id === folderId ? { ...item, data: { ...item.data, name: newName } } : item
+      item.id === itemId ? { ...item, data: { ...item.data, name: newName } } : item
     );
     // if has parent folder
   } else {
-    const parentFolder = filePath[filePath.length - 2];
+    const parentFolder = itemPath[itemPath.length - 2];
     parentFolder.data.files = parentFolder.data.files.map((item) =>
-      item.id === folderId ? { ...item, data: { ...item.data, name: newName } } : item
+      item.id === itemId ? { ...item, data: { ...item.data, name: newName } } : item
     );
   }
   return { files: newData };
@@ -95,7 +95,7 @@ export const renameFolder = ({ files, folderId, newName }) => {
 
 export const deleteItem = ({ files, itemId, isFileOpen = false }) => {
   let newData = cloneDeep(files);
-  const filePath = findFolderPathByKey(newData, itemId);
+  const filePath = findItemPathByKey(newData, itemId);
   // if file/folder in root directory
   if (filePath.length === 1) {
     newData = newData.filter((item) => item.id !== itemId);
@@ -121,7 +121,7 @@ export const moveItem = ({ files, item, newFolderId = null }) => {
     newFiles.push(item);
     sortFiles(newFiles);
   } else {
-    const folderPath = findFolderPathByKey(newFiles, newFolderId);
+    const folderPath = findItemPathByKey(newFiles, newFolderId);
     const lastFolder = folderPath[folderPath.length - 1];
     lastFolder.data.files.push(item);
     sortFiles(lastFolder.data.files);
@@ -152,13 +152,13 @@ export const createFolder = (data) => ({
 });
 
 /** Find path to folder with id=folderId */
-export const findFolderPathByKey = (data, folderId, path = []) => {
+export const findItemPathByKey = (data, folderId, path = []) => {
   for (const item of data) {
     if (item.id === folderId) {
       return [...path, item];
     }
     if (item.data.files) {
-      const result = findFolderPathByKey(item.data.files, folderId, [...path, item]);
+      const result = findItemPathByKey(item.data.files, folderId, [...path, item]);
       if (result) {
         return result;
       }
@@ -203,7 +203,7 @@ export const getFilePath = (files, fileId) => {
     return null;
   }
 
-  const path = findFolderPathByKey(files, fileId);
+  const path = findItemPathByKey(files, fileId);
   return path ? path.map((item) => item.data.name).join('/') : null;
 };
 

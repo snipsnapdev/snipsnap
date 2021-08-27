@@ -15,7 +15,7 @@ const TreeRecursive = ({
   onOpenFile,
   onAddFile,
   onAddFolder,
-  onRenameFolder,
+  onRenameItem,
   onDragStart,
   onDragEnd,
   level,
@@ -37,6 +37,7 @@ const TreeRecursive = ({
             onOpen={onOpenFile}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
+            onRenameItem={onRenameItem}
           />
         );
       }
@@ -51,7 +52,7 @@ const TreeRecursive = ({
           onAddFile={onAddFile}
           onAddFolder={onAddFolder}
           onOpenFile={onOpenFile}
-          onRenameFolder={onRenameFolder}
+          onRenameItem={onRenameItem}
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
         />
