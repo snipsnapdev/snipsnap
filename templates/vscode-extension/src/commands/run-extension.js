@@ -119,6 +119,7 @@ async function runExtension(folderURI) {
         const prompt = prompts[i];
         const promptResult = await vscode.window.showInputBox({
           prompt: prompt.message,
+          value: prompt.defaultValue,
         });
 
         if (promptResult === undefined) {
