@@ -30,32 +30,39 @@ const Prompt = ({ item, index }) => (
       defaultValue={item.variableName}
       readOnly
     />
+    <Input
+      className={cx('item-input')}
+      label="Default value"
+      name={`prompts[${index}].defaultValue`}
+      defaultValue={item.defaultValue}
+      readOnly
+    />
   </li>
 );
 
 const Prompts = ({ prompts }) => (
-    <div className={cx('wrapper')}>
-      <div className={cx('head')}>
-        <h2 className={cx('title')}>Prompts</h2>
-        <Tooltip dataFor="tooltip" />
-        <ReactTooltip className={cx('tooltip')} effect="solid" place="right" id="tooltip" clickable>
-          <p>
-            Prompts represent list of questions that will be asked during template execution from
-            users as a popup.
-          </p>
-          <p>
-            Answers you can use as variables inside templates or filenames by using % myVariable %
-          </p>
-        </ReactTooltip>
-      </div>
-      <div className={cx('items-wrapper')}>
-        <ul>
-          {prompts.map((item, index) => (
-            <Prompt key={index} item={item} index={index} />
-          ))}
-        </ul>
-      </div>
+  <div className={cx('wrapper')}>
+    <div className={cx('head')}>
+      <h2 className={cx('title')}>Prompts</h2>
+      <Tooltip dataFor="tooltip" />
+      <ReactTooltip className={cx('tooltip')} effect="solid" place="right" id="tooltip" clickable>
+        <p>
+          Prompts represent list of questions that will be asked during template execution from
+          users as a popup.
+        </p>
+        <p>
+          Answers you can use as variables inside templates or filenames by using % myVariable %
+        </p>
+      </ReactTooltip>
     </div>
-  );
+    <div className={cx('items-wrapper')}>
+      <ul>
+        {prompts.map((item, index) => (
+          <Prompt key={index} item={item} index={index} />
+        ))}
+      </ul>
+    </div>
+  </div>
+);
 
 export default Prompts;

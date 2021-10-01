@@ -39,6 +39,15 @@ const Prompt = React.forwardRef(({ item, trigger, index, errors, remove, readOny
       error={errors?.prompts?.[index]?.variableName?.message}
       onBlur={() => trigger('prompts')}
     />
+    <Input
+      className={cx('item-input')}
+      label="Default value"
+      name={`prompts[${index}].defaultValue`}
+      defaultValue={item.defaultValue}
+      register={ref}
+      error={errors?.prompts?.[index]?.defaultValue?.message}
+      onBlur={() => trigger('prompts')}
+    />
 
     {!readOny && (
       <span
