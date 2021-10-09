@@ -45,6 +45,7 @@ const BEFORE_ANIMATION_START_MS = 700 * DEV_SPEED_COEFFICIENT;
 const RESET_TIME_MS = 100;
 const STEP_TIME_MS = 1600 * DEV_SPEED_COEFFICIENT;
 const PROMP_TIME_MS = 2800 * DEV_SPEED_COEFFICIENT;
+const DEFAULT_VALUE_TIME_MS = 1500 * DEV_SPEED_COEFFICIENT;
 
 const VscodeAnimation = ({ template }) => {
   const [animationStep, setAnimationStep] = useState('initial');
@@ -68,6 +69,10 @@ const VscodeAnimation = ({ template }) => {
 
       if (prompts.length > 0) {
         for (let i = 0; i < prompts.length; i++) {
+          if (prompts[i].defaultValue) {
+            await setAnimationStep(`default-${i}`);
+            await sleepMs(DEFAULT_VALUE_TIME_MS);
+          }
           await setAnimationStep(`prompt-${i}`);
           await sleepMs(PROMP_TIME_MS);
 
@@ -117,6 +122,18 @@ const VscodeAnimation = ({ template }) => {
       {animationStep === 'menu' && <FolderMenu />}
       {animationStep === 'templates' && (
         <TemplateSelect templateName={template.name} className={cx('template-select')} />
+      )}
+      {animationStep.startsWith('default') && (
+        <PromptInput
+          className={cx('prompt-input')}
+          message={
+            JSON.parse(template.prompts)[parseInt(animationStep.replace('default-', ''))].message
+          }
+          defaultValue={
+            JSON.parse(template.prompts)[parseInt(animationStep.replace('default-', ''))]
+              .defaultValue
+          }
+        />
       )}
       {animationStep.startsWith('prompt') && (
         <PromptInput
