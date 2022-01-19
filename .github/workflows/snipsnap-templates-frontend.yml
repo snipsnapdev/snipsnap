@@ -89,4 +89,4 @@ jobs:
       # in the marketplace that could just redeploy
       - name: Deploy
         run: |
-          docker run --rm -e PLUGIN_URL=$KUBERNETES_URL -e PLUGIN_TOKEN=$KUBERNETES_TOKEN -e PLUGIN_DEPLOYMENT_NAMES=snipsnap-templates-frontend -e PLUGIN_CONTAINER_NAMES=snipsnap-templates-frontend -e PLUGIN_NAMESPACES=snipsnap-templates -e PLUGIN_DOCKER_IMAGE=registry.pixelpoint.io/snipsnap-templates-frontend:latest -e PLUGIN_DATE_LABEL=deployment.github/date-deployed peloton/drone-k8s-deployment
+          docker run --rm -e PLUGIN_URL=$KUBERNETES_URL -e PLUGIN_TOKEN=$KUBERNETES_TOKEN -e PLUGIN_DEPLOYMENT_NAMES=templates-frontend -e PLUGIN_CONTAINER_NAMES=templates-frontend -e PLUGIN_NAMESPACES=snipsnap -e PLUGIN_DOCKER_IMAGE=registry.pixelpoint.io/snipsnap-templates-frontend:latest -e PLUGIN_DATE_LABEL=deployment.github/date-deployed peloton/drone-k8s-deployment
