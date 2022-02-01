@@ -31,6 +31,7 @@ const cx = classNames.bind(styles);
 const promptsSchema = {
   message: yup.string().required('Message is required'),
   variableName: yup.string().required('Variable name is required'),
+  defaultValue: yup.string(),
 };
 
 const schema = yup.object().shape({
