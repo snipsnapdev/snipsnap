@@ -30,7 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "next": "^10.2.0",
-    "next-auth": "^3.19.4",
+    "next-auth": "^3.29.10",
     "next-react-svg": "^1.1.2",
     "pg": "^8.6.0",
     "prop-types": "^15.7.2",
