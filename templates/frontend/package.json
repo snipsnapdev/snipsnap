@@ -27,7 +27,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "handlebars": "^4.7.7",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "next": "^10.2.0",
     "next-auth": "^3.19.4",
