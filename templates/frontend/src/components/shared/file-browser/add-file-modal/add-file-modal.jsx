@@ -16,7 +16,7 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/^[A-Za-z0-9.{}\-_\s]+$/, {
+    .matches(/^[A-Za-z0-9.{}\-_\s\[\]]+$/, {
       message: 'Name is not valid',
     }),
 });
