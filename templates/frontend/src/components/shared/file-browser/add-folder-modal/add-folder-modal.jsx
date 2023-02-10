@@ -16,8 +16,8 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .matches(/^[A-Za-z0-9.{}\-_\s]+$/, {
-      message: 'Name should have only allowed symbols A-Za-z0-9.{}-_ ',
+    .matches(/^[A-Za-z0-9.{}\-_\s\[\]]+$/, {
+      message: 'Name should have only allowed symbols A-Za-z0-9.{}[]-_',
     }),
 });
 const cx = classNames.bind(styles);
